@@ -31,7 +31,6 @@ class _InicioPageState extends State<InicioPage> {
   ScreenshotController screenshotController = ScreenshotController();
   Uint8List? _imageFile;
   bool capturandoScreen = false;
-  bool _isDrawerOpen = false;
 
   @override
   void initState() {
@@ -96,10 +95,16 @@ class _InicioPageState extends State<InicioPage> {
                                       setState(() {
                                         capturandoScreen = true;
                                       });
-                                      _takeScreenshotandShare(avioncitoProvider.avioncito!.frase!, avioncitoProvider.avioncito!.santo!);
+                                      _takeScreenshotandShare(
+                                          avioncitoProvider.avioncito!.frase!,
+                                          avioncitoProvider.avioncito!.santo!);
                                     },
-                                    child:
-                                        Icon(FlutterIcons.share_fea, size: 22, color: capturandoScreen ? Colors.transparent : Theme.of(context).primaryColorDark),
+                                    child: Icon(FlutterIcons.share_fea,
+                                        size: 22,
+                                        color: capturandoScreen
+                                            ? Colors.transparent
+                                            : Theme.of(context)
+                                                .primaryColorDark),
                                   ),
                                 ],
                               ),
@@ -116,7 +121,9 @@ class _InicioPageState extends State<InicioPage> {
                   right: 0,
                   child: Icon(
                     FlutterIcons.chevron_up_fea,
-                    color: reflexionOpen ? Colors.transparent : Theme.of(context).primaryColorDark,
+                    color: reflexionOpen
+                        ? Colors.transparent
+                        : Theme.of(context).primaryColorDark,
                     size: 24,
                   ),
                 ),
@@ -128,9 +135,6 @@ class _InicioPageState extends State<InicioPage> {
                       child: InkWell(
                         onTap: () {
                           widget.openDrawer();
-                          setState(() {
-                            _isDrawerOpen = true;
-                          });
                         },
                         child: Icon(FlutterIcons.menu_fea, size: 24),
                       ),
@@ -200,18 +204,18 @@ class _InicioPageState extends State<InicioPage> {
   Widget avioncitoWidget() {
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
     return avioncitoProvider.avioncitoListo
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 40),
-              Text(
-                avioncitoProvider.avioncito!.frase!,
-                style: Theme.of(context).textTheme.headline1,
-              ),
-              SizedBox(height: 40),
-              Container(
-                alignment: Alignment.centerRight,
-                child: Text(
+      ? Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 40),
+            Text (
+              avioncitoProvider.avioncito!.frase!,
+              style: Theme.of(context).textTheme.headline1,
+            ),
+            SizedBox(height: 40),
+            Container(
+              alignment: Alignment.centerRight,
+              child: Text(
                   avioncitoProvider.avioncito!.santo!,
                   style: Theme.of(context).textTheme.headline4,
                   textAlign: TextAlign.end,
