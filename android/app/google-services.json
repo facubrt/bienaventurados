@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "361395870878",
+    "firebase_url": "https://ser-eucaristia.firebaseio.com",
+    "project_id": "ser-eucaristia",
+    "storage_bucket": "ser-eucaristia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361395870878:android:f08492e82d38a699e52f8f",
+        "android_client_info": {
+          "package_name": "com.sereucaristia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361395870878-n3jbuo4tce32c4d9o03t86tns50thaj3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sereucaristia",
+            "certificate_hash": "5f3b712f393aeefbb4c7c294214df742d984c949"
+          }
+        },
+        {
+          "client_id": "361395870878-77ho4dnl5oo867ekdit8pnlq3prpn9ea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATdY3ZeFL25bf7cdCuM0C_TZZ51lObjxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361395870878-77ho4dnl5oo867ekdit8pnlq3prpn9ea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
