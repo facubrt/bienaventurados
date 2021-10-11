@@ -33,6 +33,7 @@
 *.json
 *.properties
 *.pro
+/key
 
 # Web related
 lib/generated_plugin_registrant.dart
