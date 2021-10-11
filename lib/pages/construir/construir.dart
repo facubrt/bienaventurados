@@ -181,7 +181,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     style: Theme.of(context)
                         .textTheme
                         .headline1!
-                        .copyWith(color: Theme.of(context).accentColor),
+                        .copyWith(color: Theme.of(context).colorScheme.secondary),
                   ),
                 )
                 ),

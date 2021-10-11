@@ -117,7 +117,7 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
                     Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
                     //Navigator.of(context).pushNamedAndRemoveUntil(bienaventuradosPage, (route) => false);
                   },
-                  child: Text('Iniciar sesión', style: Theme.of(context).textTheme.headline1!.copyWith(color: Theme.of(context).accentColor),),
+                  child: Text('Iniciar sesión', style: Theme.of(context).textTheme.headline1!.copyWith(color: Theme.of(context).colorScheme.secondary),),
                 ),
               ],
             ),

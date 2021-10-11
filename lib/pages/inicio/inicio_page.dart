@@ -45,7 +45,6 @@ class _InicioPageState extends State<InicioPage> {
 
   @override
   Widget build(BuildContext context) {
-    final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
     final authProvider = Provider.of<AuthProvider>(context);
     return GestureDetector(
         onVerticalDragUpdate: (details) {
@@ -69,52 +68,9 @@ class _InicioPageState extends State<InicioPage> {
             child: Stack(
               children: [
                 Screenshot(
-                    controller: screenshotController,
-                    child: Container(
-                      color: Theme.of(context).primaryColor,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Spacer(),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                      '${DateTime.now().day} de ${Meses.meses[DateTime.now().month - 1].id}, ${DateTime.now().year}'
-                                          .toUpperCase(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle1),
-                                  Spacer(),
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        capturandoScreen = true;
-                                      });
-                                      _takeScreenshotandShare(
-                                          avioncitoProvider.avioncito!.frase!,
-                                          avioncitoProvider.avioncito!.santo!);
-                                    },
-                                    child: Icon(FlutterIcons.share_fea,
-                                        size: 22,
-                                        color: capturandoScreen
-                                            ? Colors.transparent
-                                            : Theme.of(context)
-                                                .primaryColorDark),
-                                  ),
-                                ],
-                              ),
-                              avioncitoWidget(),
-                              SizedBox(height: 40),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )),
+                    controller: screenshotController, 
+                    child: avioncitoWidget()
+                ),
                 Positioned(
                   bottom: 30,
                   left: 0,
@@ -140,10 +96,9 @@ class _InicioPageState extends State<InicioPage> {
                       ),
                     ),
                     title: Text(
-                      'Bendecido día, ${authProvider.usuario.nombre}',
+                      'Bendecido día, ${authProvider.usuario.nombre == null ? '' : authProvider.usuario.nombre}',
                       style: Theme.of(context).textTheme.headline6,
                     ),
-                    brightness: Theme.of(context).brightness,
                     backgroundColor: Colores.primarioDay.withOpacity(0),
                     elevation: 0.0,
                   ),
@@ -152,20 +107,13 @@ class _InicioPageState extends State<InicioPage> {
                     ? Container(
                         color: Colores.contrasteDay.withOpacity(0.9),
                         child: Center(
-                            child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            //BienaventuradosLoader(scale: 10, color: Colores.primarioDay),
-                            SizedBox(height: 20),
-                            Text(
+                            child: Text(
                               'Preparando tu avioncito...',
                               style: Theme.of(context)
                                   .textTheme
                                   .headline4!
                                   .copyWith(color: Colores.primarioDay),
-                            ),
-                          ],
-                        )),
+                            )),
                       )
                     : Visibility(
                         visible: false,
@@ -180,7 +128,7 @@ class _InicioPageState extends State<InicioPage> {
   void _takeScreenshotandShare(String frase, String santo) async {
     _imageFile = null;
     await screenshotController
-        .capture(delay: Duration(milliseconds: 10), pixelRatio: 6.0)
+        .capture(delay: Duration(milliseconds: 16), pixelRatio: 12.0)
         .then((image) async {
       setState(() {
         _imageFile = image;
@@ -204,53 +152,120 @@ class _InicioPageState extends State<InicioPage> {
   Widget avioncitoWidget() {
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
     return avioncitoProvider.avioncitoListo
-      ? Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 40),
-            Text (
-              avioncitoProvider.avioncito!.frase!,
-              style: Theme.of(context).textTheme.headline1,
-            ),
-            SizedBox(height: 40),
-            Container(
-              alignment: Alignment.centerRight,
-              child: Text(
-                  avioncitoProvider.avioncito!.santo!,
-                  style: Theme.of(context).textTheme.headline4,
-                  textAlign: TextAlign.end,
+        ? Stack(
+            children: [
+              Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  color: Theme.of(context).primaryColor,
+                  // child: Padding(
+                  //   padding: const EdgeInsets.only(left: 20.0, right: 20, top: 120, bottom: 20 ),
+                  //   child: Container(
+                  //     decoration: capturandoScreen 
+                  //     ? BoxDecoration(border: Border.all(width: 4, color: Theme.of(context).primaryColorDark))
+                  //     : BoxDecoration(),
+                  //   ),
+                  // ),
+              ),
+              Positioned(
+                top: 130, 
+                child: Container(
+
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Image.asset(
+                      "assets/images/iso.png",
+                      width: 80,
+                      height: 80,
+                      color: Theme.of(context).primaryColorDark,
+                      isAntiAlias: true,
+                    ),
+                  )
+                )
+              ),
+              Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Spacer(),
+                    Row(
+                      children: [
+                        Text(
+                            '${DateTime.now().day} de ${Meses.meses[DateTime.now().month - 1].id}, ${DateTime.now().year}'
+                                .toUpperCase(),
+                            style: Theme.of(context).textTheme.subtitle1),
+                        Spacer(),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              capturandoScreen = true;
+                            });
+                            _takeScreenshotandShare(
+                                avioncitoProvider.avioncito!.frase!,
+                                avioncitoProvider.avioncito!.santo!);
+                          },
+                          child: Icon(FlutterIcons.share_fea,
+                              size: 22,
+                              color: capturandoScreen
+                                  ? Colors.transparent
+                                  : Theme.of(context).primaryColorDark),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 40),
+                    Text(
+                      avioncitoProvider.avioncito!.frase!,
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                    SizedBox(height: 40),
+                    Container(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        avioncitoProvider.avioncito!.santo!,
+                        style: Theme.of(context).textTheme.headline4,
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                    SizedBox(height: 60),
+                    AnimatedContainer(
+                        duration: Duration(milliseconds: 200),
+                        curve: Curves.easeInOut,
+                        height: reflexionHeight,
+                        child: Column(
+                          children: [
+                            Flexible(
+                              child: Divider(
+                                height: 40,
+                                color: reflexionOpen
+                                    ? Theme.of(context).primaryColorDark
+                                    : Colors.transparent,
+                                thickness: 4,
+                                endIndent:
+                                    MediaQuery.of(context).size.width - 120,
+                              ),
+                            ),
+                            Flexible(
+                                child: avioncitoProvider.avioncitoListo
+                                    ? Text(
+                                        avioncitoProvider.avioncito!.reflexion!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                        textAlign: TextAlign.justify,
+                                      )
+                                    : Text(
+                                        'Cargando...',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                      )),
+                          ],
+                        )),
+                  ],
                 ),
               ),
-              SizedBox(height: 60),
-              AnimatedContainer(
-                  duration: Duration(milliseconds: 200),
-                  curve: Curves.easeInOut,
-                  height: reflexionHeight,
-                  child: Column(
-                    children: [
-                      Flexible(
-                        child: Divider(
-                          height: 40,
-                          color: reflexionOpen
-                              ? Theme.of(context).primaryColorDark
-                              : Colors.transparent,
-                          thickness: 4,
-                          endIndent: MediaQuery.of(context).size.width - 120,
-                        ),
-                      ),
-                      Flexible(
-                          child: avioncitoProvider.avioncitoListo
-                              ? Text(
-                                  avioncitoProvider.avioncito!.reflexion!,
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                  textAlign: TextAlign.justify,
-                                )
-                              : Text(
-                                  'Cargando...',
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                )),
-                    ],
-                  )),
             ],
           )
         : Center(child: CircularProgressIndicator());

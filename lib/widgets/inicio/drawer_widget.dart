@@ -146,7 +146,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         SizedBox(height: 20),
         InkWell(
           onTap: () {
-            print('tap');
+            Navigator.of(context).pushNamed(informacionPage);
           },
           child: Text(
             'Info.',
@@ -166,7 +166,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             style: Theme.of(context)
                 .textTheme
                 .headline1!
-                .copyWith(color: Theme.of(context).accentColor),
+                .copyWith(color: Theme.of(context).colorScheme.secondary),
           ),
         )
       ],

@@ -60,6 +60,7 @@ class AuthProvider with ChangeNotifier{
       final UserCredential authResult = await _auth.signInWithEmailAndPassword(email: email, password: password);
       if (authResult.user != null) {
         auth.User user = authResult.user!;
+        print('USUARIO EXISTENTE');
         _sesionIniciada = true;
         await updateUserData(user);
         return user;
