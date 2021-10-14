@@ -53,7 +53,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     .copyWith(fontSize: 68)),
             SizedBox(height: MediaQuery.of(context).size.height / 8),
             buildDrawerItems(context),
-            
           ],
         ),
       ),
@@ -64,7 +63,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           padding: const EdgeInsets.only(bottom: 40.0),
           child: Text(
             'Pier Giorgio Frassati (beato) versión 1.0.0'.toUpperCase(),
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 12, ),
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  fontSize: 12,
+                ),
             textAlign: TextAlign.center,
           ),
         ),
@@ -89,15 +90,18 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         //   ),
         // ),
         // SizedBox(height: 20),
-        InkWell(
-          onTap: () {
-            Navigator.of(context).pushNamed(construirPage);
-          },
-          child: Text(
-            'Const.',
-            style: Theme.of(context).textTheme.headline1,
-          ),
-        ),
+        (authProvider.usuario.clase == 'editor' ||
+                authProvider.usuario.clase == 'administrador')
+            ? InkWell(
+                onTap: () {
+                  Navigator.of(context).pushNamed(construirPage);
+                },
+                child: Text(
+                  'Const.',
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+              )
+            : SizedBox.shrink(),
         SizedBox(height: 20),
         InkWell(
           onTap: () {
@@ -114,18 +118,15 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             }
             guardarPrefs('activarNotificaciones', _activarNotificaciones);
           },
-          child: _activarNotificaciones 
-          ? Text(
-            'Notif.',
-            style: Theme.of(context).textTheme.headline1
-          )
-          : Text(
-            'Notif.',
-            style: Theme.of(context).textTheme.headline1!.copyWith(
-                decoration: TextDecoration.lineThrough,
-                decorationThickness: 4,
-                decorationColor: Theme.of(context).primaryColorDark),
-          ),
+          child: _activarNotificaciones
+              ? Text('Notif.', style: Theme.of(context).textTheme.headline1)
+              : Text(
+                  'Notif.',
+                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                      decoration: TextDecoration.lineThrough,
+                      decorationThickness: 4,
+                      decorationColor: Theme.of(context).primaryColorDark),
+                ),
         ),
         SizedBox(height: 20),
         InkWell(
@@ -153,13 +154,71 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             style: Theme.of(context).textTheme.headline1,
           ),
         ),
+        SizedBox(height: 20),
+        // InkWell(
+        //   onTap: () {
+        //     Navigator.of(context).pushNamed(informacionPage);
+        //   },
+        //   child: Text(
+        //     'Comp.',
+        //     style: Theme.of(context).textTheme.headline1,
+        //   ),
+        // ),
+        
         SizedBox(height: 40),
         InkWell(
           onTap: () {
-            authProvider.signOut();
-            SharedPrefs.limpiarPrefs();
-            //SharedPrefs.guardarPrefs('sesionIniciada', false);
-            Navigator.of(context).pushNamedAndRemoveUntil(comenzarPage, (route) => false);
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                        width: 2,
+                        color: Theme.of(context).primaryColorDark,
+                      )),
+                      title: Text('Todo camino merece un descanso'),
+                      content: Text(
+                        '¡Bienaventurado seas! Esperamos verte pronto. Sabemos que este camino todavía tiene muchas sorpresas para vos.',
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ),
+                      actions: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 20.0, horizontal: 10),
+                            child: Text(
+                              'Cancelar',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .copyWith(
+                                      color:
+                                          Theme.of(context).primaryColorDark),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            authProvider.signOut();
+                            SharedPrefs.limpiarPrefs();
+                            //SharedPrefs.guardarPrefs('sesionIniciada', false);
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                comenzarPage, (route) => false);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 20.0, horizontal: 10),
+                            child: Text(
+                              'Confirmar',
+                              style: Theme.of(context).textTheme.subtitle1,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ));
           },
           child: Text(
             'Salir',
@@ -168,7 +227,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 .headline1!
                 .copyWith(color: Theme.of(context).colorScheme.secondary),
           ),
-        )
+        ),
       ],
     );
   }

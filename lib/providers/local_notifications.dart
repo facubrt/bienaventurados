@@ -9,6 +9,7 @@ class LocalNotifications {
   
 
   void init() async {
+    // HACER CONDICIONAL SEGÚN LOS SHAREDPREFERENCES. SI LAS NOTIFICACIONES ESTAN ACTIVIDAS O NO
     tz.initializeTimeZones();
     final String currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
     print('time zone es :$currentTimeZone');
@@ -29,7 +30,7 @@ class LocalNotifications {
       channelDescription: 'channelDescription',
       priority: Priority.max,
       importance: Importance.max,
-      largeIcon: DrawableResourceAndroidBitmap('large_icon'),
+      //largeIcon: DrawableResourceAndroidBitmap('large_icon'),
       color: Colores.acento,
     );
     // IOS NO IMPLEMENTADO
@@ -105,7 +106,6 @@ class LocalNotifications {
               channelDescription: 'Pequeños detalles de amor',
               priority: Priority.max,
               importance: Importance.max,
-              largeIcon: DrawableResourceAndroidBitmap('notification_icon'),
               color: Colores.acento,
           ),
         ),
@@ -117,7 +117,6 @@ class LocalNotifications {
 
   tz.TZDateTime _nextInstanceOf9AM() {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    // para prueba se pone 14 pero seria 9am
     tz.TZDateTime scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, 9);
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));

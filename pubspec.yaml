@@ -10,6 +10,7 @@ dependencies:
   cloud_firestore: ^2.5.3
   firebase_auth: ^3.1.3
   firebase_core: ^1.7.0
+  firebase_crashlytics: ^2.2.3
   flutter:
     sdk: flutter
   flutter_icons:
@@ -39,16 +40,14 @@ flutter_native_splash:
   android: true
   # ios: true
   # web: true
-
   color: "#F9FAFE"
   image: "assets/splash.png"
 
   android_gravity: center
   # ios_content_mode: center
   # web_image_mode: center
-
-  #color_dark: "#232733"
-  #image_dark: "assets/images/dark_splash.png"
+  color_dark: "#232733"
+  image_dark: "assets/images/splash-dark.png"
   fullscreen: true
 
 flutter_icons:

@@ -18,7 +18,7 @@ class ThemeProvider extends ChangeNotifier{
       headline6: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
       
       bodyText1: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, fontFamily: 'Gotham',fontStyle: FontStyle.normal, color: Colores.primarioNight),
-      // bodyText2: TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.italic, color: Colores.primarioNight),
+      bodyText2: TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight.withOpacity(0.8)),
       subtitle1: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
       // subtitle2: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
       // caption: TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
@@ -57,7 +57,6 @@ class ThemeProvider extends ChangeNotifier{
     primaryColor: Colores.primarioDay,
     // disabledColor: Colores.secundarioDay,
     // cardColor: Colores.secundarioDay,
-    // brightness: Brightness.light,
     // dividerColor: Colores.contrasteDay,
     hoverColor: Colores.contrasteDay, // color de contraste
     highlightColor: Colors.transparent, // resaltados y tabs
@@ -78,7 +77,7 @@ class ThemeProvider extends ChangeNotifier{
       headline6: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
       
       bodyText1: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, fontFamily: 'Gotham',fontStyle: FontStyle.normal, color: Colores.primarioDay),
-      // bodyText2: TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.italic, color: Colores.primarioNight),
+      bodyText2: TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay.withOpacity(0.8)),
       subtitle1: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
       // subtitle2: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
       // caption: TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
@@ -115,7 +114,6 @@ class ThemeProvider extends ChangeNotifier{
     primaryColor: Colores.primarioNight,
     //disabledColor: Colores.secundarioNight,
     //cardColor: Colores.secundarioNight,
-    //brightness: Brightness.dark,
     //dividerColor: Colores.contrasteNight,
     hoverColor: Colores.contrasteNight,
     //hintColor: Colores.contrasteNight,

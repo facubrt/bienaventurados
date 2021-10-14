@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'package:bienaventurados/data/local/meses.dart';
 import 'package:bienaventurados/providers/auth_provider.dart';
 import 'package:bienaventurados/providers/avioncito_provider.dart';
-import 'package:bienaventurados/providers/local_notifications.dart';
+//import 'package:bienaventurados/providers/local_notifications.dart';
 import 'package:bienaventurados/theme/colores.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -27,7 +27,7 @@ class InicioPage extends StatefulWidget {
 class _InicioPageState extends State<InicioPage> {
   late double? reflexionHeight;
   late bool reflexionOpen;
-  final LocalNotifications noti = LocalNotifications();
+  
   ScreenshotController screenshotController = ScreenshotController();
   Uint8List? _imageFile;
   bool capturandoScreen = false;
@@ -40,7 +40,7 @@ class _InicioPageState extends State<InicioPage> {
     final avioncitoProvider =
         Provider.of<AvioncitoProvider>(context, listen: false);
     avioncitoProvider.configuracionInicial();
-    noti.init();
+    
   }
 
   @override
@@ -51,7 +51,7 @@ class _InicioPageState extends State<InicioPage> {
           print(details.primaryDelta!);
           if (details.primaryDelta! < -7) {
             setState(() {
-              reflexionHeight = MediaQuery.of(context).size.height / 4;
+              reflexionHeight = MediaQuery.of(context).size.height / 5;
               reflexionOpen = true;
             });
           } else if (details.primaryDelta! > 7) {
@@ -68,9 +68,7 @@ class _InicioPageState extends State<InicioPage> {
             child: Stack(
               children: [
                 Screenshot(
-                    controller: screenshotController, 
-                    child: avioncitoWidget()
-                ),
+                    controller: screenshotController, child: avioncitoWidget()),
                 Positioned(
                   bottom: 30,
                   left: 0,
@@ -108,12 +106,12 @@ class _InicioPageState extends State<InicioPage> {
                         color: Colores.contrasteDay.withOpacity(0.9),
                         child: Center(
                             child: Text(
-                              'Preparando tu avioncito...',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4!
-                                  .copyWith(color: Colores.primarioDay),
-                            )),
+                          'Preparando tu avioncito...',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4!
+                              .copyWith(color: Colores.primarioDay),
+                        )),
                       )
                     : Visibility(
                         visible: false,
@@ -155,23 +153,22 @@ class _InicioPageState extends State<InicioPage> {
         ? Stack(
             children: [
               Container(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  color: Theme.of(context).primaryColor,
-                  // child: Padding(
-                  //   padding: const EdgeInsets.only(left: 20.0, right: 20, top: 120, bottom: 20 ),
-                  //   child: Container(
-                  //     decoration: capturandoScreen 
-                  //     ? BoxDecoration(border: Border.all(width: 4, color: Theme.of(context).primaryColorDark))
-                  //     : BoxDecoration(),
-                  //   ),
-                  // ),
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                color: Theme.of(context).primaryColor,
+                // child: Padding(
+                //   padding: const EdgeInsets.only(left: 20.0, right: 20, top: 120, bottom: 20 ),
+                //   child: Container(
+                //     decoration: capturandoScreen
+                //     ? BoxDecoration(border: Border.all(width: 4, color: Theme.of(context).primaryColorDark))
+                //     : BoxDecoration(),
+                //   ),
+                // ),
               ),
               Positioned(
-                top: 130, 
-                child: Container(
-
-                  child: Padding(
+                  top: 130,
+                  child: Container(
+                      child: Padding(
                     padding: const EdgeInsets.only(left: 30.0),
                     child: Image.asset(
                       "assets/images/iso.png",
@@ -180,9 +177,7 @@ class _InicioPageState extends State<InicioPage> {
                       color: Theme.of(context).primaryColorDark,
                       isAntiAlias: true,
                     ),
-                  )
-                )
-              ),
+                  ))),
               Padding(
                 padding: const EdgeInsets.all(40.0),
                 child: Column(
@@ -228,15 +223,8 @@ class _InicioPageState extends State<InicioPage> {
                         textAlign: TextAlign.end,
                       ),
                     ),
-                    SizedBox(height: 60),
-                    AnimatedContainer(
-                        duration: Duration(milliseconds: 200),
-                        curve: Curves.easeInOut,
-                        height: reflexionHeight,
-                        child: Column(
-                          children: [
-                            Flexible(
-                              child: Divider(
+                    SizedBox(height: 40),
+                    Divider(
                                 height: 40,
                                 color: reflexionOpen
                                     ? Theme.of(context).primaryColorDark
@@ -245,24 +233,22 @@ class _InicioPageState extends State<InicioPage> {
                                 endIndent:
                                     MediaQuery.of(context).size.width - 120,
                               ),
-                            ),
-                            Flexible(
-                                child: avioncitoProvider.avioncitoListo
-                                    ? Text(
-                                        avioncitoProvider.avioncito!.reflexion!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                        textAlign: TextAlign.justify,
-                                      )
-                                    : Text(
-                                        'Cargando...',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                      )),
-                          ],
-                        )),
+                    AnimatedContainer(
+                        duration: Duration(milliseconds: 200),
+                        curve: Curves.easeInOut,
+                        height: reflexionHeight,
+                        child: avioncitoProvider.avioncitoListo
+                            ? Text(
+                              avioncitoProvider.avioncito!.reflexion!,
+                              style:
+                                  Theme.of(context).textTheme.bodyText1,
+                              textAlign: TextAlign.justify,
+                            )
+                            : Text(
+                                'Cargando...',
+                                style:
+                                    Theme.of(context).textTheme.bodyText1,
+                              )),
                   ],
                 ),
               ),

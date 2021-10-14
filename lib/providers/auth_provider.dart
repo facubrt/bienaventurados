@@ -104,6 +104,7 @@ class AuthProvider with ChangeNotifier{
     await userRef.set({
       'uid': user.uid,
       'correo': user.email,
+      'clase': 'bienaventurado',
       'ultimaConexion': DateTime.now(),
       'primeraConexion': DateTime.now(),
       'nombre': _displayName,

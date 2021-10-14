@@ -15,20 +15,28 @@ class ComenzarPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('B', style: TextStyle(fontSize: 68, fontFamily: 'Montserrat', fontStyle: FontStyle.normal, fontWeight: FontWeight.w900)),
+            Image.asset(
+              "assets/images/iso.png",
+              width: 80,
+              height: 80,
+              color: Theme.of(context).primaryColorDark,
+              isAntiAlias: true,
+            ),
             Spacer(),
             InkWell(
               onTap: () {
                 Navigator.of(context).pushNamed(iniciarSesionPage);
               },
-              child: Text('Iniciar sesión', style: Theme.of(context).textTheme.headline1),
+              child: Text('Iniciar sesión',
+                  style: Theme.of(context).textTheme.headline1),
             ),
             SizedBox(height: 20),
             InkWell(
               onTap: () {
                 Navigator.of(context).pushNamed(registrarsePage);
               },
-              child: Text('Registrarse', style: Theme.of(context).textTheme.headline1),
+              child: Text('Registrarse',
+                  style: Theme.of(context).textTheme.headline1),
             )
           ],
         ),

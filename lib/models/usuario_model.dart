@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 
 class Usuario with ChangeNotifier {
   String? uid;
-  String? ultimaConexion;
+  Timestamp? ultimaConexion;
   String? nombre;
   String? correo;
+  String? clase;
 
   Usuario({
     this.uid,
     this.ultimaConexion,
     this.nombre,
     this.correo,
+    this.clase,
   });
 
   factory Usuario.fromFirestore(DocumentSnapshot usuarioDoc) {
@@ -19,8 +21,9 @@ class Usuario with ChangeNotifier {
     return Usuario(
       uid: usuarioDoc.id,
       nombre: usuarioData['nombre'],
-      //ultimaConexion: usuarioData['ultimaConexion'],
+      ultimaConexion: usuarioData['ultimaConexion'],
       correo: usuarioData['correo'],
+      clase: usuarioData['clase']
     );
   }
 
@@ -29,7 +32,8 @@ class Usuario with ChangeNotifier {
     uid = usuarioDoc.id;
     nombre = usuarioData['nombre'];
     correo = usuarioData['correo'];
-    //ultimaConexion = usuarioData['ultimaConexion'];
+    ultimaConexion = usuarioData['ultimaConexion'];
+    clase = usuarioData['clase'];
     notifyListeners();
   }
 

@@ -1,6 +1,8 @@
 import 'package:bienaventurados/pages/inicio/inicio_page.dart';
+import 'package:bienaventurados/providers/local_notifications.dart';
 import 'package:bienaventurados/widgets/inicio/drawer_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -16,11 +18,28 @@ class _DashboardPageState extends State<DashboardPage> {
   late double scaleFactor;
   bool isDragging = false;
   late bool isDrawerOpen;
+  final LocalNotifications noti = LocalNotifications();
+  late SharedPreferences prefs;
+  bool _activarNotificaciones = true;
+  late bool _paginasCargadas;
 
   @override
   void initState() {
     super.initState();
+    _paginasCargadas=false;
     closeDrawer();
+    noti.init();
+    if(_activarNotificaciones) {
+      print('notificaciones activadas');
+      noti.scheduleDaily9AMNotification();
+    } else {
+      print('notificaciones desactivadas');
+    }
+  }
+
+  void obtenerPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+    _activarNotificaciones = prefs.getBool('activarNotificaciones') ?? true;
   }
 
   void openDrawer() => setState(() {
@@ -42,16 +61,20 @@ class _DashboardPageState extends State<DashboardPage> {
     return Scaffold(
       body: Stack(
         children: [
-          buildDrawer(), 
+          _paginasCargadas ? buildDrawer() : CircularProgressIndicator(), 
           buildPage()
         ]
       ),
+      
     );
   }
 
   Widget buildDrawer() => SafeArea(child: DrawerWidget());
 
   Widget buildPage(){
+    setState(() {
+      _paginasCargadas=true;
+    });
     return WillPopScope(
       onWillPop: () async {
         if(!isDrawerOpen) {
@@ -86,7 +109,7 @@ class _DashboardPageState extends State<DashboardPage> {
       child: AbsorbPointer(
         absorbing: isDrawerOpen,
         child: Container(
-          child: InicioPage(openDrawer: openDrawer)
+          child: InicioPage(openDrawer: openDrawer),
         )
       ),
       ),),
