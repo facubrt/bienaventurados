@@ -17,6 +17,8 @@ class Avioncito extends HiveObject with ChangeNotifier {
   @HiveField(4)
   String? tag;
   @HiveField(5)
+  String? usuario;
+  @HiveField(6)
   bool? visto = false;
 
   Avioncito(
@@ -26,6 +28,7 @@ class Avioncito extends HiveObject with ChangeNotifier {
       this.santo,
       this.reflexion,
       this.tag,
+      this.usuario,
       this.visto});
 
   factory Avioncito.fromFirestore(DocumentSnapshot avioncitoDoc) {
@@ -35,6 +38,7 @@ class Avioncito extends HiveObject with ChangeNotifier {
       santo: avioncitoData['santo'],
       reflexion: avioncitoData['reflexion'],
       tag: avioncitoData['tag'],
+      usuario: avioncitoData['usuario'],
       id: avioncitoDoc.id,
     );
   }
@@ -45,6 +49,7 @@ class Avioncito extends HiveObject with ChangeNotifier {
     santo = avioncitoData['santo'];
     reflexion = avioncitoData['reflexion'];
     tag = avioncitoData['tag'];
+    usuario = avioncitoData['usuario'];
     id = avioncitoDoc.id;
 
     notifyListeners(); 
@@ -55,6 +60,7 @@ class Avioncito extends HiveObject with ChangeNotifier {
     santo = map['santo'];
     reflexion = map['reflexion'];
     tag = map['tag'];
+    usuario = map['usuario'];
     id = map['id'];
     visto = map['visto'];
 
@@ -67,6 +73,7 @@ class Avioncito extends HiveObject with ChangeNotifier {
       'santo': santo,
       'reflexion': reflexion,
       'tag': tag,
+      'usuario': usuario,
       'id': id,
       'visto': visto,
     };

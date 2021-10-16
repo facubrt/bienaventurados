@@ -35,6 +35,19 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     
+    final snackbar = SnackBar(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      content: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text(
+          '¡Oh, oh! Parece que los datos ingresados no son correctos. Intentalo de nuevo o registrate para comenzar una nueva aventura.',
+          style: Theme.of(context).textTheme.bodyText2!.copyWith(
+            color: Theme.of(context).primaryColor,
+          )
+        ),
+      ),
+    );
+    
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -112,9 +125,15 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
                 SizedBox(height: MediaQuery.of(context).size.height / 4),
                 InkWell(
                   onTap: () async {
-                    await authProvider.signInWithEmailAndPassword(emailController.text, passwordController.text);
-                    SharedPrefs.guardarPrefs('sesionIniciada', true);
-                    Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
+                    authProvider.signInWithEmailAndPassword(emailController.text, passwordController.text).then((resultado) {
+                      if (resultado != null) {
+                      SharedPrefs.guardarPrefs('sesionIniciada', true);
+                      Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                      }
+                    
+                    });
                     //Navigator.of(context).pushNamedAndRemoveUntil(bienaventuradosPage, (route) => false);
                   },
                   child: Text('Iniciar sesión', style: Theme.of(context).textTheme.headline1!.copyWith(color: Theme.of(context).colorScheme.secondary),),

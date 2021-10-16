@@ -93,6 +93,20 @@ class AvioncitoProvider with ChangeNotifier {
     return retVal;
   }
 
+  // Future<bool> getAvioncitosUsuariosFromFirestore() async {
+  //   bool retVal = false;
+  //   await _fireDB.collection('datosUsuarios').get().then((QuerySnapshot snapshot) async {
+  //     for (var i= 0; i < snapshot.docs.length; i++) {
+  //       _avioncito = Avioncito.fromFirestore(snapshot.docs[n]);
+  //     }
+  //     print('AVIONCITOS LISTOS');
+  //     retVal = true;
+  //     _avioncitoListo = true;
+  //     notifyListeners();
+  //   });
+  //   return retVal;
+  // }
+
   Future<bool> getAvioncitoHoy() async {
     _avioncito = await _localDB.getAvioncitos()!.get(0);
     //_localDB.deleteAvioncito(1);

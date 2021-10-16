@@ -22,14 +22,15 @@ class AvioncitoAdapter extends TypeAdapter<Avioncito> {
       santo: fields[2] as String?,
       reflexion: fields[3] as String?,
       tag: fields[4] as String?,
-      visto: fields[5] as bool?,
+      usuario: fields[5] as String?,
+      visto: fields[6] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Avioncito obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,6 +42,8 @@ class AvioncitoAdapter extends TypeAdapter<Avioncito> {
       ..writeByte(4)
       ..write(obj.tag)
       ..writeByte(5)
+      ..write(obj.usuario)
+      ..writeByte(6)
       ..write(obj.visto);
   }
 

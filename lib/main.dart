@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 
 late bool _sesionIniciada;
 Future<void> main() async {
@@ -19,6 +21,8 @@ Future<void> main() async {
   ]); // orientacion vertical
   //await SystemChrome.setEnabledSystemUIOverlays([]); // fullscreen
   await Firebase.initializeApp();
+
+  //FirebaseCrashlytics.instance.crash(); // simula una falla para Crashlytics
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   _sesionIniciada = prefs.getBool('sesionIniciada') ?? false;
@@ -40,6 +44,23 @@ class Bienaventurados extends StatefulWidget {
 
 class _BienaventuradosState extends State<Bienaventurados> {
 
+
+  void _firebaseCrash() async {
+
+    if (kDebugMode) {
+      await FirebaseCrashlytics.instance
+          .setCrashlyticsCollectionEnabled(false);
+    } else {
+      await FirebaseCrashlytics.instance
+          .setCrashlyticsCollectionEnabled(true);
+    }
+  }
+
+  @override
+  void initState() {
+    _firebaseCrash();
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {

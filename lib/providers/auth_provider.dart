@@ -65,9 +65,16 @@ class AuthProvider with ChangeNotifier{
         await updateUserData(user);
         return user;
       }
-    } catch (e) {
-      print(e);
-      return null;
+    } on FirebaseAuthException catch(e) {
+      print(e.code);
+      if (e.code == 'user-not-found') {
+        return null;
+      } else if (e.code == 'wrong-password') {
+        return null;
+      } else {
+        return null;
+      }
+
     }
     notifyListeners();
   }

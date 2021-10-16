@@ -1,11 +1,15 @@
 import 'package:bienaventurados/theme/colores.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeProvider extends ChangeNotifier{
   ThemeData? _selectedTheme;
 
   ThemeData day = ThemeData(
+    appBarTheme: AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
+    ),
     textTheme: TextTheme(
       // ESTILO DE FUENTE PARA FRASE
       headline1: TextStyle(fontSize: 38, fontWeight: FontWeight.w900, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
@@ -17,7 +21,7 @@ class ThemeProvider extends ChangeNotifier{
       // // utilizado para la firma Bienanventurados en HoyPage
       headline6: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
       
-      bodyText1: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, fontFamily: 'Gotham',fontStyle: FontStyle.normal, color: Colores.primarioNight),
+      bodyText1: TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham',fontStyle: FontStyle.normal, color: Colores.primarioNight.withOpacity(0.8)),
       bodyText2: TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight.withOpacity(0.8)),
       subtitle1: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
       // subtitle2: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
@@ -65,6 +69,9 @@ class ThemeProvider extends ChangeNotifier{
   );
 
   ThemeData night = ThemeData(
+    appBarTheme: AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle.light,
+    ),
     textTheme: TextTheme(
       // ESTILO DE FUENTE PARA FRASE
       headline1: TextStyle(fontSize: 38, fontWeight: FontWeight.w900, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
@@ -76,7 +83,7 @@ class ThemeProvider extends ChangeNotifier{
       // // utilizado para la firma Bienanventurados en HoyPage
       headline6: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
       
-      bodyText1: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, fontFamily: 'Gotham',fontStyle: FontStyle.normal, color: Colores.primarioDay),
+      bodyText1: TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham',fontStyle: FontStyle.normal, color: Colores.primarioDay.withOpacity(0.8)),
       bodyText2: TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay.withOpacity(0.8)),
       subtitle1: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
       // subtitle2: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
