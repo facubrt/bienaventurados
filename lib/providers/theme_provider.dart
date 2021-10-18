@@ -16,7 +16,7 @@ class ThemeProvider extends ChangeNotifier{
       // ESTILO DE FUENTE PARA SANTOS Y ENCABEZADOS
       headline2: TextStyle(fontSize: 32, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
       // utilizados en appbar y encabezados pequeños
-      headline4: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
+      headline4: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
       // headline5: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight.withOpacity(0.6)),
       // // utilizado para la firma Bienanventurados en HoyPage
       headline6: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
@@ -83,7 +83,7 @@ class ThemeProvider extends ChangeNotifier{
       // // utilizado para la firma Bienanventurados en HoyPage
       headline6: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
       
-      bodyText1: TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham',fontStyle: FontStyle.normal, color: Colores.primarioDay.withOpacity(0.8)),
+      bodyText1: TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham',fontStyle: FontStyle.normal, color: Colores.primarioDay.withOpacity(0.8),),
       bodyText2: TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay.withOpacity(0.8)),
       subtitle1: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
       // subtitle2: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),

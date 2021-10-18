@@ -3,9 +3,11 @@ import 'package:bienaventurados/models/drawer_item_model.dart';
 import 'package:bienaventurados/pages/configuraciones/configuraciones_page.dart';
 import 'package:bienaventurados/pages/inicio/inicio_page.dart';
 import 'package:bienaventurados/pages/perfil/perfil_page.dart';
+import 'package:bienaventurados/providers/avioncito_provider.dart';
 import 'package:bienaventurados/providers/local_notifications.dart';
 import 'package:bienaventurados/widgets/inicio/drawer_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -39,6 +41,9 @@ class _DashboardPageState extends State<DashboardPage> {
     } else {
       print('notificaciones desactivadas');
     }
+    final avioncitoProvider =
+        Provider.of<AvioncitoProvider>(context, listen: false);
+    avioncitoProvider.configuracionInicial();
   }
 
   void obtenerPrefs() async {
@@ -117,9 +122,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 duration: Duration(milliseconds: 200),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: isDrawerOpen
-                      ? Theme.of(context).primaryColorDark.withOpacity(0.05)
-                      : Theme.of(context).primaryColor,
+                  color: Theme.of(context).primaryColor,
                   border: isDrawerOpen
                       ? Border.all(
                           width: 4, color: Theme.of(context).primaryColorDark)

@@ -1,8 +1,6 @@
-import 'package:bienaventurados/providers/auth_provider.dart';
+
 import 'package:bienaventurados/providers/local_notifications.dart';
 import 'package:bienaventurados/providers/theme_provider.dart';
-import 'package:bienaventurados/repositories/shared_prefs.dart';
-import 'package:bienaventurados/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
@@ -43,34 +41,28 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
     final LocalNotifications noti = LocalNotifications();
 
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text(
-          'Configuraciones',
-          style: Theme.of(context).textTheme.headline2,
-        ),
         elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 30.0, bottom: 4.0),
-          child: InkWell(
-            onTap: () {
+          padding: const EdgeInsets.only(left: 30.0),
+          child: IconButton(
+            onPressed: () {
               widget.openDrawer();
             },
-            child: Icon(FlutterIcons.menu_fea, size: 24),
+            icon: Icon(FlutterIcons.menu_fea, size: 22),
           ),
         ),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(40.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             InkWell(
               onTap: () {
                 setState(() {
@@ -87,7 +79,8 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                 guardarPrefs('activarNotificaciones', _activarNotificaciones);
               },
               child: _activarNotificaciones
-                  ? Text('Notificaciones', style: Theme.of(context).textTheme.headline1)
+                  ? Text('Notificaciones',
+                      style: Theme.of(context).textTheme.headline1)
                   : Text(
                       'Notificaciones',
                       style: Theme.of(context).textTheme.headline1!.copyWith(
@@ -98,105 +91,40 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
             ),
             SizedBox(height: 40),
             InkWell(
-            onTap: () {
-              ThemeProvider themeProvider = Provider.of<ThemeProvider>(
-                context,
-                listen: false,
-              );
-              themeProvider.swapTheme();
-              _activarModoNoche = !_activarModoNoche;
-              guardarPrefs('activarModoNoche', _activarModoNoche);
-            },
-            child: Text(
-              'Cambiar tema',
-              style: Theme.of(context).textTheme.headline1,
+              onTap: () {
+                ThemeProvider themeProvider = Provider.of<ThemeProvider>(
+                  context,
+                  listen: false,
+                );
+                themeProvider.swapTheme();
+                _activarModoNoche = !_activarModoNoche;
+                guardarPrefs('activarModoNoche', _activarModoNoche);
+              },
+              child: Text(
+                'Cambiar tema',
+                style: Theme.of(context).textTheme.headline1,
+              ),
             ),
-          ),
-          SizedBox(height: 40),
-          InkWell(
-            onTap: () {
-              //Navigator.of(context).pushNamed(informacionPage);
-            },
-            child: Text(
-              'Acerca de',
-              style: Theme.of(context).textTheme.headline1,
+            SizedBox(height: 40),
+            InkWell(
+              onTap: () {
+                //Navigator.of(context).pushNamed(informacionPage);
+              },
+              child: Text(
+                'Acerca de',
+                style: Theme.of(context).textTheme.headline1,
+              ),
             ),
-          ),
-          SizedBox(height: 40),
-          // InkWell(
-          //   onTap: () {
-          //     Navigator.of(context).pushNamed(informacionPage);
-          //   },
-          //   child: Text(
-          //     'Comp.',
-          //     style: Theme.of(context).textTheme.headline1,
-          //   ),
-          // ),
-          
-          SizedBox(height: 80),
-          InkWell(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                          width: 2,
-                          color: Theme.of(context).primaryColorDark,
-                        )),
-                        title: Text('Todo camino merece un descanso'),
-                        content: Text(
-                          '¡Bienaventurado seas! Esperamos verte pronto. Sabemos que este camino todavía tiene muchas sorpresas para vos.',
-                          style: Theme.of(context).textTheme.bodyText2,
-                        ),
-                        actions: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 20.0, horizontal: 10),
-                              child: Text(
-                                'Cancelar',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1!
-                                    .copyWith(
-                                        color:
-                                            Theme.of(context).primaryColorDark),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              authProvider.signOut();
-                              SharedPrefs.limpiarPrefs();
-                              //SharedPrefs.guardarPrefs('sesionIniciada', false);
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                  comenzarPage, (route) => false);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 20.0, horizontal: 10),
-                              child: Text(
-                                'Confirmar',
-                                style: Theme.of(context).textTheme.subtitle1,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ));
-            },
-            child: Text(
-              'Salir',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(color: Theme.of(context).colorScheme.secondary),
-            ),
-          ),
-
+            SizedBox(height: 40),
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.of(context).pushNamed(informacionPage);
+            //   },
+            //   child: Text(
+            //     'Comp.',
+            //     style: Theme.of(context).textTheme.headline1,
+            //   ),
+            // ),
           ]),
         ),
       ),

@@ -29,18 +29,14 @@ class _ConstruirPageState extends State<ConstruirPage> {
     final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Taller de avioncitos',
-            style: Theme.of(context).textTheme.headline6),
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(40.0),
-              child: Text('Avioncito en construcción...',
-                  style: Theme.of(context).textTheme.headline1),
-            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 6,),
             Padding(
               padding:
                   const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),

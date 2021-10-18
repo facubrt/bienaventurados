@@ -1,8 +1,13 @@
 import 'package:bienaventurados/providers/auth_provider.dart';
+import 'package:bienaventurados/providers/avioncito_provider.dart';
+import 'package:bienaventurados/repositories/shared_prefs.dart';
 import 'package:bienaventurados/utils/routes.dart';
+import 'package:bienaventurados/widgets/floating_modal.dart';
+import 'package:bienaventurados/widgets/perfil/comparte_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class PerfilPage extends StatelessWidget {
   final VoidCallback openDrawer;
@@ -11,21 +16,32 @@ class PerfilPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final snackbar = SnackBar(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      content: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text(
+            '¡Oh, oh! Parece que todavía no puedes acceder a esta parte. ¡Regresa pronto!',
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  color: Theme.of(context).primaryColor,
+                )),
+      ),
+    );
+
     final authProvider = Provider.of<AuthProvider>(context);
+    final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
-        title: Text(
-          'Perfil',
-          style: Theme.of(context).textTheme.headline2,
-        ),
+        backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 30.0, bottom: 4.0),
-          child: InkWell(
-            onTap: () {
+          padding: const EdgeInsets.only(left: 30.0),
+          child: IconButton(
+            onPressed: () {
               openDrawer();
             },
-            child: Icon(FlutterIcons.menu_fea, size: 24),
+            icon: Icon(FlutterIcons.menu_fea, size: 22),
           ),
         ),
       ),
@@ -35,7 +51,8 @@ class PerfilPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 20),
+              ComparteWidget(),
+              SizedBox(height: 40),
               (authProvider.usuario.clase == 'administrador')
                   ? InkWell(
                       onTap: () {
@@ -48,19 +65,114 @@ class PerfilPage extends StatelessWidget {
                     )
                   : SizedBox.shrink(),
               SizedBox(height: 40),
-              (authProvider.usuario.clase == 'editor' ||
-                      authProvider.usuario.clase == 'administrador')
-                  ? InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(construirPage);
-                      },
-                      child: Text(
-                        'Construir',
-                        style: Theme.of(context).textTheme.headline1,
-                      ),
-                    )
-                  : SizedBox.shrink(),
+              InkWell(
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                },
+                child: Text(
+                  'Logros',
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+              ),
               SizedBox(height: 40),
+              InkWell(
+                onTap: () {
+                  //ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                  Navigator.of(context).pushNamed(guardadosPage);
+                },
+                child: Text(
+                  'Guardados',
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+              ),
+              SizedBox(height: 40),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pushNamed(construirPage);
+                },
+                child: Text(
+                  'Construir',
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+              ),
+              SizedBox(height: 80),
+              InkWell(
+                onTap: () {
+                  showFloatingModalBottomSheet(
+                    
+                    backgroundColor: Theme.of(context).primaryColor,
+                    context: context,
+                    builder: (context) {
+                      return Container(
+                        color: Theme.of(context).primaryColor,
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text('Todo camino merece un descanso', style: Theme.of(context).textTheme.headline6),
+                              SizedBox(height: 20),
+                              Text(
+                                'Toda aventura tiene también un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón. Descuida, Dios seguirá esperándote siempre con los brazos abiertos.\n\n¿Deseas salir?',
+                                style: Theme.of(context).textTheme.bodyText2,
+                              ),
+                              SizedBox(height:40),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      child: Text(
+                                        'Cancelar',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle1!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                    .primaryColorDark),
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                onTap: () {
+                                  avioncitoProvider.eliminarDB();
+                                  authProvider.signOut();
+                                  SharedPrefs.limpiarPrefs();
+                                  //SharedPrefs.guardarPrefs('sesionIniciada', false);
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      comenzarPage, (route) => false);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  child: Text(
+                                    'Confirmar',
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1,
+                                  ),
+                                ),
+                              ),
+                                ],
+                              ),
+                              
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                child: Text(
+                  'Salir',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(color: Theme.of(context).colorScheme.secondary),
+                ),
+              ),
             ],
           ),
         ),

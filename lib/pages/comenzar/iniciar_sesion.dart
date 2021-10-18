@@ -132,11 +132,15 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(snackbar);
                       }
-                    
                     });
-                    //Navigator.of(context).pushNamedAndRemoveUntil(bienaventuradosPage, (route) => false);
                   },
-                  child: Text('Iniciar sesión', style: Theme.of(context).textTheme.headline1!.copyWith(color: Theme.of(context).colorScheme.secondary),),
+                  child: Text(
+                    'Iniciar sesión', 
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                      color: Theme.of(context).colorScheme.secondary
+                    ),
+                  ),
+                  splashColor: Colors.transparent,
                 ),
               ],
             ),

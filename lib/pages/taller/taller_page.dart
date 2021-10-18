@@ -18,7 +18,6 @@ class _TallerPageState extends State<TallerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Taller de avioncitos'),
         elevation: 0,
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -28,10 +27,12 @@ class _TallerPageState extends State<TallerPage> {
             return Text('¡Oh, oh! Algo ha salido mal. Intentalo de nuevo más tarde');
           } 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text('Cargando avioncitos...');
+            return Center(child: Text('Cargando avioncitos...'));
           }
           final data = snapshot.requireData;
-
+          if (data.size == 0) {
+            return Center(child: Text('Aún no hay avioncitos para hacer volar.'),);
+          }
           return Padding(
             padding: const EdgeInsets.all(40.0),
             child: ListView.separated(

@@ -29,14 +29,16 @@ class ComenzarPage extends StatelessWidget {
               },
               child: Text('Iniciar sesión',
                   style: Theme.of(context).textTheme.headline1),
+              splashColor: Colors.transparent,
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 40),
             InkWell(
               onTap: () {
                 Navigator.of(context).pushNamed(registrarsePage);
               },
               child: Text('Registrarse',
                   style: Theme.of(context).textTheme.headline1),
+              splashColor: Colors.transparent,
             )
           ],
         ),

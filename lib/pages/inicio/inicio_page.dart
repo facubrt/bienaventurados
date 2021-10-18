@@ -1,10 +1,8 @@
 import 'dart:typed_data';
 import 'package:bienaventurados/data/local/meses.dart';
-import 'package:bienaventurados/providers/auth_provider.dart';
 import 'package:bienaventurados/providers/avioncito_provider.dart';
 //import 'package:bienaventurados/providers/local_notifications.dart';
 import 'package:bienaventurados/theme/colores.dart';
-import 'package:bienaventurados/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:path_provider/path_provider.dart';
@@ -38,22 +36,17 @@ class _InicioPageState extends State<InicioPage> {
     super.initState();
     reflexionHeight = 0;
     reflexionOpen = false;
-    final avioncitoProvider =
-        Provider.of<AvioncitoProvider>(context, listen: false);
-    avioncitoProvider.configuracionInicial();
   }
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: GestureDetector(
           onVerticalDragUpdate: (details) {
-            print(details.primaryDelta!);
             if (details.primaryDelta! < -7) {
               setState(() {
-                reflexionHeight = MediaQuery.of(context).size.height / 6;
+                reflexionHeight = MediaQuery.of(context).size.height / 4;
                 reflexionOpen = true;
               });
             } else if (details.primaryDelta! > 7) {
@@ -70,7 +63,8 @@ class _InicioPageState extends State<InicioPage> {
               child: Stack(
                 children: [
                   Screenshot(
-                      controller: screenshotController, child: avioncitoWidget()),
+                      controller: screenshotController,
+                      child: avioncitoWidget()),
                   Positioned(
                     bottom: 30,
                     left: 0,
@@ -86,20 +80,16 @@ class _InicioPageState extends State<InicioPage> {
                   Container(
                     height: 100,
                     child: AppBar(
+                      backgroundColor: Colors.transparent,
                       leading: Padding(
-                        padding: const EdgeInsets.only(left: 30.0, bottom: 4.0),
-                        child: InkWell(
-                          onTap: () {
+                        padding: const EdgeInsets.only(left: 30.0),
+                        child: IconButton(
+                          onPressed: () {
                             widget.openDrawer();
                           },
-                          child: Icon(FlutterIcons.menu_fea, size: 24),
+                          icon: Icon(FlutterIcons.menu_fea, size: 22),
                         ),
                       ),
-                      title: Text(
-                        'Bendecido día',
-                        style: Theme.of(context).textTheme.headline2,
-                      ),
-                      backgroundColor: Colores.primarioDay.withOpacity(0),
                       elevation: 0.0,
                     ),
                   ),
@@ -155,10 +145,12 @@ class _InicioPageState extends State<InicioPage> {
               Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                color: Theme.of(context).primaryColor,
+                color: capturandoScreen
+                    ? Theme.of(context).primaryColor
+                    : Colors.transparent,
               ),
               Positioned(
-                  top: 130,
+                  top: 80,
                   child: AnimatedContainer(
                       duration: Duration(milliseconds: 200),
                       curve: Curves.easeInOut,
@@ -186,46 +178,76 @@ class _InicioPageState extends State<InicioPage> {
                                 .toUpperCase(),
                             style: Theme.of(context).textTheme.subtitle1),
                         Spacer(),
-                        InkWell(
-                          onTap: () {
-                            print('Guardar avioncito');
+                        
+                        IconButton(
+                          onPressed: () {
+                            if (!avioncitoProvider.avioncito!.guardado!) {
+                              avioncitoProvider.guardarAvioncito();
+                            } else{
+                              avioncitoProvider.noGuardarAvioncito();
+                            }
+                              
+                            //avioncitoProvider.guardarAvioncito();
                           },
-                          child: Icon(FlutterIcons.bookmark_fea,
+                          icon: avioncitoProvider.avioncito!.guardado!
+                            ? Icon(FlutterIcons.bookmark_mco,
+                              size: 22,
+                              
+                              color: capturandoScreen
+                                  ? Colors.transparent
+                                  : Theme.of(context).primaryColorDark)
+                            : Icon(FlutterIcons.bookmark_outline_mco,
                               size: 22,
                               color: capturandoScreen
                                   ? Colors.transparent
                                   : Theme.of(context).primaryColorDark),
+                          padding: EdgeInsets.all(0),
                         ),
-                        SizedBox(width: 10),
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(compartirPage);
-                          //   setState(() {
-                          //     capturandoScreen = true;
-                          //   });
-                          //   _takeScreenshotandShare(
-                          //       avioncitoProvider.avioncito!.frase!,
-                          //       avioncitoProvider.avioncito!.santo!);
+                        IconButton(
+                          onPressed: () {
+                            //Navigator.of(context).pushNamed(compartirPage);
+                            setState(() {
+                              capturandoScreen = true;
+                            });
+                            _takeScreenshotandShare(
+                                avioncitoProvider.avioncito!.frase!,
+                                avioncitoProvider.avioncito!.santo!);
                           },
-                          child: Icon(FlutterIcons.share_fea,
+                          icon: Icon(FlutterIcons.share_fea,
                               size: 22,
                               color: capturandoScreen
                                   ? Colors.transparent
                                   : Theme.of(context).primaryColorDark),
+                                  padding: EdgeInsets.all(0),
                         ),
+                        
                       ],
                     ),
-                    Chip(
-                      label: Text(avioncitoProvider.avioncito!.usuario!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).primaryColor)),
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                    Row(
+                      children: [
+                        Chip(
+                          visualDensity: VisualDensity.comfortable,
+                          label: Text(avioncitoProvider.avioncito!.tag!.toUpperCase(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context).primaryColor)),
+                          backgroundColor: Theme.of(context).colorScheme.secondary,
+                        ),
+                        
+                      ],
                     ),
+                    // Text('Subido por ${avioncitoProvider.avioncito!.usuario}  ·  ${avioncitoProvider.avioncito!.tag}',
+                    //       style: Theme.of(context)
+                    //           .textTheme
+                    //           .bodyText2!
+                    //           .copyWith(
+                    //               fontSize: 12,
+                    //               fontWeight: FontWeight.bold,
+                    //               color: Theme.of(context).primaryColorDark.withOpacity(0.2))),
                     SizedBox(height: 40),
                     Text(
                       avioncitoProvider.avioncito!.frase!,
@@ -242,24 +264,38 @@ class _InicioPageState extends State<InicioPage> {
                     ),
                     SizedBox(height: 40),
                     AnimatedContainer(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10), 
-                        color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),),
                         duration: Duration(milliseconds: 200),
                         curve: Curves.easeInOut,
-                        height: reflexionHeight,
-                        child: avioncitoProvider.avioncitoListo
-                            ? Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Text(
+                        height: reflexionOpen ? Align().heightFactor : 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Theme.of(context)
+                                .primaryColorDark
+                                .withOpacity(0.05),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
                                   avioncitoProvider.avioncito!.reflexion!,
                                   style: Theme.of(context).textTheme.bodyText1,
                                 ),
-                            )
-                            : Text(
-                                'Cargando...',
-                                style: Theme.of(context).textTheme.bodyText1,
-                              )),
+                                Divider(height: 40,),
+                                Text('Construido por ${avioncitoProvider.avioncito!.usuario}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2!
+                                      .copyWith(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context).primaryColorDark.withOpacity(0.2))),
+                              ],
+                            ),
+                          ),
+                        )),
                   ],
                 ),
               ),

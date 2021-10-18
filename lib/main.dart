@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:bienaventurados/providers/auth_provider.dart';
 import 'package:bienaventurados/providers/avioncito_provider.dart';
 import 'package:bienaventurados/providers/theme_provider.dart';
+import 'package:bienaventurados/services/messaging_service.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -59,7 +63,24 @@ class _BienaventuradosState extends State<Bienaventurados> {
   @override
   void initState() {
     _firebaseCrash();
+    MessagingService.initialize(onSelectNotification).then(
+      (value) => firebaseCloudMessagingListeners(),
+    );
     super.initState();
+  }
+
+  void firebaseCloudMessagingListeners() async {
+    MessagingService.onMessage.listen(MessagingService.invokeLocalNotification);
+    MessagingService.onMessageOpenedApp.listen(_pageOpenForOnLaunch);
+  }
+
+  _pageOpenForOnLaunch(RemoteMessage remoteMessage) {
+    final Map<String, dynamic> message = remoteMessage.data;
+    onSelectNotification(jsonEncode(message));
+  }
+
+  Future onSelectNotification(String? payload) async {
+    print(payload);
   }
   
   @override

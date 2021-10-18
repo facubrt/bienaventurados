@@ -34,7 +34,7 @@ class DrawerWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(bottom: 40.0),
           child: Text(
-            'Carlo Acutis (beato) versión 1.1.0'.toUpperCase(),
+            'Bienaventurados \u00a9 ${DateTime.now().year} Ser Eucaristía'.toUpperCase(),
             style: Theme.of(context).textTheme.bodyText1!.copyWith(
                   fontSize: 12,
                 ),

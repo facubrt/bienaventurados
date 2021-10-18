@@ -1,6 +1,7 @@
 import 'package:bienaventurados/providers/auth_provider.dart';
 import 'package:bienaventurados/repositories/shared_prefs.dart';
 import 'package:bienaventurados/utils/routes.dart';
+import 'package:firebase_in_app_messaging/firebase_in_app_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
@@ -160,6 +161,7 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                     if(formKey.currentState!.validate()) {
                         await authProvider.createUserWithEmailAndPassword(nameController.text, emailController.text, passwordController.text);
                         SharedPrefs.guardarPrefs('sesionIniciada', true);
+                        FirebaseInAppMessaging.instance.triggerEvent('primera_sesion_iniciada');
                         Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
                     }},
                   child: Text(
@@ -169,6 +171,7 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                         .headline1!
                         .copyWith(color: Theme.of(context).colorScheme.secondary),
                   ),
+                  splashColor: Colors.transparent,
                 ),
               ],
             ),

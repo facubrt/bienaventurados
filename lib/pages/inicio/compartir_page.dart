@@ -17,7 +17,9 @@ class _CompartirPageState extends State<CompartirPage> {
       children: [
           AnimatedContainer(
             duration: Duration(milliseconds: 200),
-            decoration: BoxDecoration(border: Border.all(width: 4, color: Theme.of(context).primaryColorDark)),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(width: 4, color: Theme.of(context).primaryColorDark)),
             height: MediaQuery.of(context).size.height /1.4,
             width: MediaQuery.of(context).size.width /1.2,
           ),
@@ -27,7 +29,7 @@ class _CompartirPageState extends State<CompartirPage> {
               InkWell(
                 onTap: () {},
                 child:
-                    Text('Compartir', style: Theme.of(context).textTheme.headline2),
+                    Text('Hacer volar', style: Theme.of(context).textTheme.headline2),
               ),
               Spacer(),
               InkWell(
