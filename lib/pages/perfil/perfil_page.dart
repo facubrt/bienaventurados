@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:styled_widget/styled_widget.dart';
 
 class PerfilPage extends StatelessWidget {
   final VoidCallback openDrawer;
@@ -46,135 +47,133 @@ class PerfilPage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(40.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ComparteWidget(),
-              SizedBox(height: 40),
-              (authProvider.usuario.clase == 'administrador')
-                  ? InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(tallerPage);
-                      },
-                      child: Text(
-                        'Taller',
-                        style: Theme.of(context).textTheme.headline1,
-                      ),
-                    )
-                  : SizedBox.shrink(),
-              SizedBox(height: 40),
-              InkWell(
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                },
-                child: Text(
-                  'Logros',
-                  style: Theme.of(context).textTheme.headline1,
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ComparteWidget().padding(all: 20),
+            SizedBox(height: 40),
+            (authProvider.usuario.clase == 'administrador')
+                ? InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(tallerPage);
+                    },
+                    child: Text(
+                      'Taller',
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                  ).padding(horizontal: 40)
+                : SizedBox.shrink(),
+            SizedBox(height: 40),
+            InkWell(
+              onTap: () {
+                ScaffoldMessenger.of(context).showSnackBar(snackbar);
+              },
+              child: Text(
+                'Logros',
+                style: Theme.of(context).textTheme.headline1,
               ),
-              SizedBox(height: 40),
-              InkWell(
-                onTap: () {
-                  //ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                  Navigator.of(context).pushNamed(guardadosPage);
-                },
-                child: Text(
-                  'Guardados',
-                  style: Theme.of(context).textTheme.headline1,
-                ),
+            ).padding(horizontal: 40),
+            SizedBox(height: 40),
+            InkWell(
+              onTap: () {
+                //ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                Navigator.of(context).pushNamed(guardadosPage, arguments: openDrawer);
+              },
+              child: Text(
+                'Guardados',
+                style: Theme.of(context).textTheme.headline1,
               ),
-              SizedBox(height: 40),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(construirPage);
-                },
-                child: Text(
-                  'Construir',
-                  style: Theme.of(context).textTheme.headline1,
-                ),
+            ).padding(horizontal: 40),
+            SizedBox(height: 40),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed(construirPage);
+              },
+              child: Text(
+                'Construir',
+                style: Theme.of(context).textTheme.headline1,
               ),
-              SizedBox(height: 80),
-              InkWell(
-                onTap: () {
-                  showFloatingModalBottomSheet(
-                    
-                    backgroundColor: Theme.of(context).primaryColor,
-                    context: context,
-                    builder: (context) {
-                      return Container(
-                        color: Theme.of(context).primaryColor,
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text('Todo camino merece un descanso', style: Theme.of(context).textTheme.headline6),
-                              SizedBox(height: 20),
-                              Text(
-                                'Toda aventura tiene también un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón. Descuida, Dios seguirá esperándote siempre con los brazos abiertos.\n\n¿Deseas salir?',
-                                style: Theme.of(context).textTheme.bodyText2,
-                              ),
-                              SizedBox(height:40),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                                      child: Text(
-                                        'Cancelar',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle1!
-                                            .copyWith(
-                                                color: Theme.of(context)
-                                                    .primaryColorDark),
-                                      ),
+            ).padding(horizontal: 40),
+            SizedBox(height: 80),
+            InkWell(
+              onTap: () {
+                showFloatingModalBottomSheet(
+                  
+                  backgroundColor: Theme.of(context).primaryColor,
+                  context: context,
+                  builder: (context) {
+                    return Container(
+                      color: Theme.of(context).primaryColor,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Todo camino merece un descanso', style: Theme.of(context).textTheme.headline6),
+                            SizedBox(height: 20),
+                            Text(
+                              'Toda aventura tiene también un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón. Descuida, Dios seguirá esperándote siempre con los brazos abiertos.\n\n¿Deseas salir?',
+                              style: Theme.of(context).textTheme.bodyText2,
+                            ),
+                            SizedBox(height:40),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    child: Text(
+                                      'Cancelar',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .primaryColorDark),
                                     ),
                                   ),
-                                  InkWell(
-                                onTap: () {
-                                  avioncitoProvider.eliminarDB();
-                                  authProvider.signOut();
-                                  SharedPrefs.limpiarPrefs();
-                                  //SharedPrefs.guardarPrefs('sesionIniciada', false);
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
-                                      comenzarPage, (route) => false);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                                  child: Text(
-                                    'Confirmar',
-                                    style:
-                                        Theme.of(context).textTheme.subtitle1,
-                                  ),
+                                ),
+                                InkWell(
+                              onTap: () {
+                                avioncitoProvider.eliminarDB();
+                                authProvider.signOut();
+                                SharedPrefs.limpiarPrefs();
+                                //SharedPrefs.guardarPrefs('sesionIniciada', false);
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    comenzarPage, (route) => false);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(
+                                  'Confirmar',
+                                  style:
+                                      Theme.of(context).textTheme.subtitle1,
                                 ),
                               ),
-                                ],
-                              ),
-                              
-                            ],
-                          ),
+                            ),
+                              ],
+                            ),
+                            
+                          ],
                         ),
-                      );
-                    },
-                  );
-                },
-                child: Text(
-                  'Salir',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline1!
-                      .copyWith(color: Theme.of(context).colorScheme.secondary),
-                ),
+                      ),
+                    );
+                  },
+                );
+              },
+              child: Text(
+                'Salir',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1!
+                    .copyWith(color: Theme.of(context).colorScheme.secondary),
               ),
-            ],
-          ),
+            ).padding(horizontal: 40),
+          ],
         ),
       ),
     );

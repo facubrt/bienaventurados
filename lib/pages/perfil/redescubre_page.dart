@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:bienaventurados/data/local/meses.dart';
+import 'package:bienaventurados/models/guardados_model.dart';
 import 'package:bienaventurados/providers/avioncito_provider.dart';
 //import 'package:bienaventurados/providers/local_notifications.dart';
 import 'package:bienaventurados/theme/colores.dart';
@@ -13,19 +14,20 @@ import 'dart:io';
 
 import 'package:styled_widget/styled_widget.dart';
 
-class InicioPage extends StatefulWidget {
-  final VoidCallback openDrawer;
+class RedescubrePage extends StatefulWidget {
+  
+  final Guardados avioncitoGuardado;
 
-  const InicioPage({
+  const RedescubrePage({
     Key? key,
-    required this.openDrawer,
+    required this.avioncitoGuardado,
   }) : super(key: key);
 
   @override
-  _InicioPageState createState() => _InicioPageState();
+  _RedescubrePageState createState() => _RedescubrePageState();
 }
 
-class _InicioPageState extends State<InicioPage> {
+class _RedescubrePageState extends State<RedescubrePage> {
   late double? reflexionHeight;
   late bool reflexionOpen;
 
@@ -43,7 +45,6 @@ class _InicioPageState extends State<InicioPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
       body: GestureDetector(
           onVerticalDragUpdate: (details) {
             if (details.primaryDelta! < -7) {
@@ -82,16 +83,6 @@ class _InicioPageState extends State<InicioPage> {
                   Container(
                     height: 100,
                     child: AppBar(
-                      backgroundColor: Colors.transparent,
-                      leading: Padding(
-                        padding: const EdgeInsets.only(left: 30.0),
-                        child: IconButton(
-                          onPressed: () {
-                            widget.openDrawer();
-                          },
-                          icon: Icon(FlutterIcons.menu_fea, size: 22),
-                        ),
-                      ),
                       elevation: 0.0,
                     ),
                   ),
@@ -140,9 +131,8 @@ class _InicioPageState extends State<InicioPage> {
   }
 
   Widget avioncitoWidget() {
-    final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
-    return avioncitoProvider.avioncitoListo
-        ? Stack(
+    //final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
+    return Stack(
             children: [
               Container(
                 height: MediaQuery.of(context).size.height,
@@ -178,29 +168,7 @@ class _InicioPageState extends State<InicioPage> {
                               .toUpperCase(),
                           style: Theme.of(context).textTheme.subtitle1),
                       Spacer(),
-                      IconButton(
-                        onPressed: () {
-                          if (!avioncitoProvider.avioncito!.guardado!) {
-                            avioncitoProvider.guardarAvioncito();
-                          } else {
-                            avioncitoProvider.noGuardarAvioncito();
-                          }
-
-                          //avioncitoProvider.guardarAvioncito();
-                        },
-                        icon: avioncitoProvider.avioncito!.guardado!
-                            ? Icon(FlutterIcons.bookmark_mco,
-                                size: 22,
-                                color: capturandoScreen
-                                    ? Colors.transparent
-                                    : Theme.of(context).primaryColorDark)
-                            : Icon(FlutterIcons.bookmark_outline_mco,
-                                size: 22,
-                                color: capturandoScreen
-                                    ? Colors.transparent
-                                    : Theme.of(context).primaryColorDark),
-                        padding: EdgeInsets.all(0),
-                      ),
+                      
                       IconButton(
                         onPressed: () {
                           //Navigator.of(context).pushNamed(compartirPage);
@@ -208,8 +176,9 @@ class _InicioPageState extends State<InicioPage> {
                             capturandoScreen = true;
                           });
                           _takeScreenshotandShare(
-                              avioncitoProvider.avioncito!.frase!,
-                              avioncitoProvider.avioncito!.santo!);
+                              widget.avioncitoGuardado.frase!,
+                              widget.avioncitoGuardado.santo!
+                          );
                         },
                         icon: Icon(FlutterIcons.share_fea,
                             size: 22,
@@ -225,7 +194,7 @@ class _InicioPageState extends State<InicioPage> {
                       Chip(
                         visualDensity: VisualDensity.comfortable,
                         label: Text(
-                            avioncitoProvider.avioncito!.tag!.toUpperCase(),
+                            widget.avioncitoGuardado.tag!.toUpperCase(),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2!
@@ -240,14 +209,14 @@ class _InicioPageState extends State<InicioPage> {
                   ).padding(horizontal: 40),
                   SizedBox(height: 40),
                   Text(
-                    avioncitoProvider.avioncito!.frase!,
+                    widget.avioncitoGuardado.frase!,
                     style: Theme.of(context).textTheme.headline1,
                   ).padding(horizontal: 40),
                   SizedBox(height: 40),
                   Container(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      avioncitoProvider.avioncito!.santo!,
+                      widget.avioncitoGuardado.santo!,
                       style: Theme.of(context).textTheme.headline4,
                       textAlign: TextAlign.end,
                     ).padding(left: 40, right: 40),
@@ -272,23 +241,23 @@ class _InicioPageState extends State<InicioPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  avioncitoProvider.avioncito!.reflexion!,
+                                  widget.avioncitoGuardado.reflexion!,
                                   style: Theme.of(context).textTheme.bodyText1,
                                 ),
                                 Divider(
                                   height: 40,
                                 ),
-                                Text(
-                                    'Construido por ${avioncitoProvider.avioncito!.usuario}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText2!
-                                        .copyWith(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: Theme.of(context)
-                                                .primaryColorDark
-                                                .withOpacity(0.2))),
+                                // Text(
+                                //     'Construido por ${widget.avioncitoGuardado.usuario}',
+                                //     style: Theme.of(context)
+                                //         .textTheme
+                                //         .bodyText2!
+                                //         .copyWith(
+                                //             fontSize: 12,
+                                //             fontWeight: FontWeight.bold,
+                                //             color: Theme.of(context)
+                                //                 .primaryColorDark
+                                //                 .withOpacity(0.2))),
                               ],
                             ),
                           ),
@@ -297,7 +266,6 @@ class _InicioPageState extends State<InicioPage> {
                 ],
               ),
             ],
-          )
-        : Center(child: CircularProgressIndicator());
+          );
   }
 }

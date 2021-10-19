@@ -3,6 +3,7 @@ import 'package:bienaventurados/models/guardados_model.dart';
 import 'package:bienaventurados/providers/avioncito_provider.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -41,8 +42,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
                 Guardados? guardado = box.getAt(index);
                 return InkWell(
                   onTap: () {
-                    print('abrir');
-                    Navigator.of(context).pushNamed(compartirPage);
+                    Navigator.of(context).pushNamed(redescubrePage, arguments: guardado);
                   },
                   child: avioncitoCarta(
                     context,
@@ -62,6 +62,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
   }
 
   Widget avioncitoCarta(BuildContext context, String? frase, String? santo, String? reflexion, String? tag, DateTime? fecha) {
+    final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10),
       child: Column(
@@ -83,7 +84,15 @@ class _GuardadosPageState extends State<GuardadosPage> {
             children: [
               Text('${fecha!.day} de ${Meses.meses[fecha.month-1].id}, ${fecha.year}'.toUpperCase(), style:Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 12,),),
               Spacer(),
-              Text('Eliminar'.toUpperCase(), style:Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 12,),)
+              IconButton(
+                onPressed: () {
+                  avioncitoProvider.noGuardarAvioncito();
+                },
+                icon: Icon(
+                  FlutterIcons.bookmark_mco,
+                  size: 22,
+                  color: Theme.of(context).primaryColorDark),
+              ),
             ],
           ),
         ],
