@@ -37,7 +37,7 @@ class _DashboardPageState extends State<DashboardPage> {
     noti.init();
     if (_activarNotificaciones) {
       print('notificaciones activadas');
-      noti.scheduleDaily9AMNotification();
+      noti.scheduleDaily9AMNotification(9);
     } else {
       print('notificaciones desactivadas');
     }

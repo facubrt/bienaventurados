@@ -2,6 +2,7 @@ import 'package:bienaventurados/models/avioncito_model.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class TallerPage extends StatefulWidget {
   const TallerPage({Key? key}) : super(key: key);
@@ -41,7 +42,7 @@ class _TallerPageState extends State<TallerPage> {
               },
               itemCount: data.size,
               itemBuilder: (context, index) {
-                return avioncitoCarta(data.docs[index]['frase'], data.docs[index]['santo'], data.docs[index]['reflexion'], data.docs[index]['usuario'], data.docs[index]['tag']);
+                return avioncitoCarta(data.docs[index].id, data.docs[index]['frase'], data.docs[index]['santo'], data.docs[index]['reflexion'], data.docs[index]['usuario'], data.docs[index]['tag']);
               }
             ),
           );
@@ -50,8 +51,8 @@ class _TallerPageState extends State<TallerPage> {
     );
   }
 
-  Widget avioncitoCarta(String frase, String santo, String reflexion, String usuario, String tag) {
-    Avioncito avioncito = Avioncito(frase: frase, santo: santo, reflexion: reflexion, tag: tag);
+  Widget avioncitoCarta(String id, String frase, String santo, String reflexion, String usuario, String tag) {
+    Avioncito avioncito = Avioncito(id: id, frase: frase, santo: santo, reflexion: reflexion, tag: tag, usuario: usuario);
     return Container(
       child: Container(
         child: Column(
@@ -59,7 +60,7 @@ class _TallerPageState extends State<TallerPage> {
           children: [
             Text(
                 frase,
-                style: Theme.of(context).textTheme.headline2),
+                style: Theme.of(context).textTheme.headline4),
             SizedBox(
               height: 10,
             ),
@@ -67,39 +68,55 @@ class _TallerPageState extends State<TallerPage> {
               alignment: Alignment.centerRight,
               child: Text(
                 santo,
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Theme.of(context).primaryColorDark),
                 textAlign: TextAlign.end,
               ),
             ),
             SizedBox(
-              height: 40,
+              height: 20,
             ),
             Text(
               reflexion,
-              style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
-              textAlign: TextAlign.justify,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
             SizedBox(height: 20,),
             Row(
               children: [
                 Text(usuario, style:Theme.of(context).textTheme.subtitle1),
                 Spacer(),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(editarPage, arguments: avioncito);
-                  },
-                  child: Text('Aceptar', style:Theme.of(context).textTheme.subtitle1),
-                ),
+                IconButton(
+                onPressed: () {
+                  // _deleteAvioncitoUsuario(avioncito.id);
+                  Navigator.of(context).pushNamed(editarPage, arguments: avioncito);
+                },
+                icon: Icon(
+                  FlutterIcons.check_fea,
+                  size: 22,
+                  color: Theme.of(context).colorScheme.secondary),
+              ),
+                
                 SizedBox(width: 10,),
-                InkWell(
-                  onTap: () {},
-                  child: Text('Rechazar', style:Theme.of(context).textTheme.subtitle1),
-                ),
+                IconButton(
+                onPressed: () {
+                  _deleteAvioncitoUsuario(avioncito.id);
+                },
+                icon: Icon(
+                  FlutterIcons.x_fea,
+                  size: 22,
+                  color: Theme.of(context).primaryColorDark),
+              ),
               ],
             )
           ],
         ),
       ),
     );
+  }
+
+  void _deleteAvioncitoUsuario(String? id) {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    DocumentReference avioncitoRef = _db.collection('datosUsuarios').doc(id);
+    print('avioncito ${avioncitoRef.id} eliminado de datosUsuarios');
+    avioncitoRef.delete();
   }
 }

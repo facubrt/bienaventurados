@@ -7,8 +7,9 @@ class EditarPage extends StatefulWidget {
   final String? reflexion;
   final String? tag;
   final String? usuario;
+  final String? id;
 
-  const EditarPage({ Key? key, required this.frase, required this.santo, required this.reflexion, required this.tag, required this.usuario }) : super(key: key);
+  const EditarPage({ Key? key, required this.frase, required this.santo, required this.reflexion, required this.tag, required this.usuario, required this.id }) : super(key: key);
 
   @override
   _EditarPageState createState() => _EditarPageState();
@@ -219,12 +220,15 @@ class _EditarPageState extends State<EditarPage> {
               child: InkWell(
                   onTap: () async {
                     setState(() {
+                          // _deleteAvioncitoUsuario(widget.id);
+                          _deleteAvioncitoUsuario(widget.id);
                           _construirNuevoAvioncito();
                           _fraseController.clear();
                           _santoController.clear();
                           _reflexionController.clear();
                           _tagController.clear();
                           _usuarioController.clear();
+                          Navigator.of(context).pop();
                         });
                   },
                   child: Text(
@@ -254,5 +258,12 @@ class _EditarPageState extends State<EditarPage> {
       'tag': _tagController.text,
       'usuario': _usuarioController.text,
     });
+  }
+
+  void _deleteAvioncitoUsuario(String? id) {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    DocumentReference avioncitoRef = _db.collection('datosUsuarios').doc(id);
+    print('avioncito ${avioncitoRef.id} eliminado de datosUsuarios');
+    avioncitoRef.delete();
   }
 }

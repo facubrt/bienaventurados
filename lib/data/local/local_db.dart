@@ -1,5 +1,4 @@
 import 'package:bienaventurados/models/avioncito_model.dart';
-import 'package:bienaventurados/models/guardados_model.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -16,16 +15,16 @@ class LocalData {
       if (!Hive.isAdapterRegistered(0)) {
         Hive.registerAdapter(AvioncitoAdapter());
       }
-      if (!Hive.isAdapterRegistered(1)) {
-        Hive.registerAdapter(GuardadosAdapter());
-      }
+      // if (!Hive.isAdapterRegistered(1)) {
+      //   Hive.registerAdapter(GuardadosAdapter());
+      // }
       
       initialized = true;
       //Hive.registerAdapter(DiaAdapter());
     }
     
-    avioncitosBox = await Hive.openBox('avioncitos');
-    guardadosBox = await Hive.openBox('guardados');
+    avioncitosBox = await Hive.openBox<Avioncito>('avioncitos');
+    guardadosBox = await Hive.openBox<Avioncito>('guardados');
     //diasBox = await Hive.openBox('dias');
     return true;
   }
@@ -56,7 +55,7 @@ class LocalData {
     return guardadosBox;
   }
 
-  void setGuardados(String? id, Guardados avioncitoGuardado) {
+  void setGuardados(String? id, Avioncito avioncitoGuardado) {
     //guardadosBox!.putAt(index, avioncitoGuardado);
     guardadosBox!.put(id, avioncitoGuardado);
   }

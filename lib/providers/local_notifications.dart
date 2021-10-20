@@ -93,12 +93,12 @@ class LocalNotifications {
 
   }
 
-  Future<void> scheduleDaily9AMNotification() async {
+  Future<void> scheduleDaily9AMNotification(int hora) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
         0,
         'Bendecido dia!',
         'Un mensaje de amor está esperándote, ve a descubrirlo!',
-        _nextInstanceOf9AM(),
+        _nextInstanceOf9AM(hora),
         const NotificationDetails(
           android: AndroidNotificationDetails(
               'Daily',
@@ -115,9 +115,9 @@ class LocalNotifications {
         matchDateTimeComponents: DateTimeComponents.time);
   }
 
-  tz.TZDateTime _nextInstanceOf9AM() {
+  tz.TZDateTime _nextInstanceOf9AM(int hora) {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, 9);
+    tz.TZDateTime scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, hora);
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }

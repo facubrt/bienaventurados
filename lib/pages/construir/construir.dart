@@ -79,7 +79,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                 cursorColor: Theme.of(context).primaryColorDark,
                 cursorWidth: 4,
                 decoration: InputDecoration(
-                  hintText: 'Santo',
+                  hintText: 'Santo, versículo, ...',
                   hintStyle: Theme.of(context).textTheme.headline1!.copyWith(
                       color:
                           Theme.of(context).primaryColorDark.withOpacity(0.2)),
@@ -112,7 +112,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                 cursorWidth: 4,
                 minLines: 4,
                 maxLines: 8,
-                maxLength: 200,
+                maxLength: 280,
                 decoration: InputDecoration(
                   hintText: 'Reflexión',
                   hintStyle: Theme.of(context).textTheme.headline1!.copyWith(

@@ -174,7 +174,7 @@ class _InicioPageState extends State<InicioPage> {
                   Row(
                     children: [
                       Text(
-                          '${DateTime.now().day} de ${Meses.meses[DateTime.now().month - 1].id}, ${DateTime.now().year}'
+                          '${avioncitoProvider.avioncito!.fecha!.day} de ${Meses.meses[avioncitoProvider.avioncito!.fecha!.month - 1].id}, ${avioncitoProvider.avioncito!.fecha!.year}'
                               .toUpperCase(),
                           style: Theme.of(context).textTheme.subtitle1),
                       Spacer(),
@@ -183,7 +183,7 @@ class _InicioPageState extends State<InicioPage> {
                           if (!avioncitoProvider.avioncito!.guardado!) {
                             avioncitoProvider.guardarAvioncito();
                           } else {
-                            avioncitoProvider.noGuardarAvioncito();
+                            avioncitoProvider.noGuardarAvioncito(avioncitoProvider.avioncito!.id!);
                           }
 
                           //avioncitoProvider.guardarAvioncito();

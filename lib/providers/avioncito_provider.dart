@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:bienaventurados/data/local/local_db.dart';
 import 'package:bienaventurados/models/avioncito_model.dart';
-import 'package:bienaventurados/models/guardados_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:bienaventurados/repositories/shared_prefs.dart';
@@ -9,8 +8,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class AvioncitoProvider with ChangeNotifier {
   late Avioncito _avioncito;
-  late Guardados _avioncitoGuardado;
-  List<Guardados> _avioncitosGuardados = [];
+  late Avioncito _avioncitoGuardado;
+  List<Avioncito> _avioncitosGuardados = [];
   late int _dia;
   bool _avioncitoListo = false;
   bool _nuevoDia = false;
@@ -80,6 +79,7 @@ class AvioncitoProvider with ChangeNotifier {
       int n = Random().nextInt(snapshot.docs.length);
       for (var i= 0; i < snapshot.docs.length; i++) {
         _avioncito = Avioncito.fromFirestore(snapshot.docs[n]);
+        _avioncito.fecha = DateTime.now();
       }
       print('AVIONCITOS LISTOS');
       retVal = true;
@@ -132,7 +132,7 @@ class AvioncitoProvider with ChangeNotifier {
 
   Future<bool> guardarAvioncito() async {
     _localDB.guardarAvioncito(true);
-    _avioncitoGuardado = Guardados(frase: _avioncito.frase, santo: _avioncito.santo, reflexion: _avioncito.reflexion, tag: _avioncito.tag, fecha: DateTime.now());
+    _avioncitoGuardado = Avioncito(id: _avioncito.id, fecha: _avioncito.fecha, frase: _avioncito.frase, santo: _avioncito.santo, reflexion: _avioncito.reflexion, tag: _avioncito.tag, guardado: true, visto: true);
     print('Guardado el avioncito ${_avioncito.id}');
     _localDB.setGuardados(_avioncito.id, _avioncitoGuardado);
     print(_localDB.guardadosBox!.length);
@@ -140,10 +140,10 @@ class AvioncitoProvider with ChangeNotifier {
     return true;
   }
 
-  Future<bool> noGuardarAvioncito() async {
+  Future<bool> noGuardarAvioncito(String id) async {
     _localDB.guardarAvioncito(false);
-    _localDB.deleteGuardado(_avioncito.id);
-    print('Borrado el avioncito ${_avioncito.id}');
+    _localDB.deleteGuardado(id);
+    print('Borrado el avioncito $id');
     print(_localDB.guardadosBox!.length);
     notifyListeners();
     return true;
@@ -156,7 +156,7 @@ class AvioncitoProvider with ChangeNotifier {
   }
 
   Avioncito? get avioncito => _avioncito;
-  List<Guardados> get avioncitosGuardados => _avioncitosGuardados;
+  List<Avioncito> get avioncitosGuardados => _avioncitosGuardados;
   bool get avioncitoListo => _avioncitoListo;
   bool get nuevoDia => _nuevoDia;
   set setNuevoDia(bool estado) {

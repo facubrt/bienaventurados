@@ -1,5 +1,4 @@
 import 'package:bienaventurados/models/avioncito_model.dart';
-import 'package:bienaventurados/models/guardados_model.dart';
 import 'package:bienaventurados/pages/comenzar/comenzar_page.dart';
 import 'package:bienaventurados/pages/comenzar/iniciar_sesion.dart';
 import 'package:bienaventurados/pages/comenzar/registrarse.dart';
@@ -40,7 +39,7 @@ class Routes {
       case (editarPage):
         final args = settings.arguments;
         Avioncito avioncito = args as Avioncito;
-        return FadeTransitionRoute(widget: EditarPage(frase: avioncito.frase, santo: avioncito.santo, reflexion: avioncito.reflexion, tag: avioncito.tag, usuario: 'Ruben'));
+        return FadeTransitionRoute(widget: EditarPage(id: avioncito.id, frase: avioncito.frase, santo: avioncito.santo, reflexion: avioncito.reflexion, tag: avioncito.tag, usuario: avioncito.usuario,));
       case (informacionPage):
         return FadeTransitionRoute(widget: InformacionPage());
       case (comenzarPage):
@@ -52,7 +51,7 @@ class Routes {
       case (construirPage):
         return FadeTransitionRoute(widget: ConstruirPage());
       case (redescubrePage):
-        final args = settings.arguments as Guardados;
+        final args = settings.arguments as Avioncito;
         return FadeTransitionRoute(widget: RedescubrePage(avioncitoGuardado: args));
       // case (configuracionesPage):
       //   return FadeTransitionRoute(widget: ConfiguracionesPage());

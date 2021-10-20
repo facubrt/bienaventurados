@@ -9,23 +9,26 @@ class Avioncito extends HiveObject with ChangeNotifier {
   @HiveField(0)
   String? id;
   @HiveField(1)
-  String? frase;
+  DateTime? fecha;
   @HiveField(2)
-  String? santo;
+  String? frase;
   @HiveField(3)
-  String? reflexion;
+  String? santo;
   @HiveField(4)
-  String? tag;
+  String? reflexion;
   @HiveField(5)
-  String? usuario;
+  String? tag;
   @HiveField(6)
-  bool? guardado;
+  String? usuario;
   @HiveField(7)
+  bool? guardado;
+  @HiveField(8)
   bool? visto = false;
 
   Avioncito(
     {
       this.id,
+      this.fecha,
       this.frase,
       this.santo,
       this.reflexion,
@@ -37,24 +40,26 @@ class Avioncito extends HiveObject with ChangeNotifier {
   factory Avioncito.fromFirestore(DocumentSnapshot avioncitoDoc) {
     Map avioncitoData = avioncitoDoc.data()! as Map;
     return Avioncito(
+      id: avioncitoDoc.id,
+      fecha: DateTime.now(),
       frase: avioncitoData['frase'],
       santo: avioncitoData['santo'],
       reflexion: avioncitoData['reflexion'],
       tag: avioncitoData['tag'],
       usuario: avioncitoData['usuario'],
-      id: avioncitoDoc.id,
       guardado: false,
     );
   }
 
     void setFromFirestore (DocumentSnapshot avioncitoDoc) {
     Map avioncitoData = avioncitoDoc.data()! as Map;
+    id = avioncitoDoc.id;
+    fecha = DateTime.now();
     frase = avioncitoData['frase'];
     santo = avioncitoData['santo'];
     reflexion = avioncitoData['reflexion'];
     tag = avioncitoData['tag'];
     usuario = avioncitoData['usuario'];
-    id = avioncitoDoc.id;
     guardado = false;
 
     notifyListeners(); 
@@ -67,6 +72,7 @@ class Avioncito extends HiveObject with ChangeNotifier {
     tag = map['tag'];
     usuario = map['usuario'];
     id = map['id'];
+    fecha = map['fecha'];
     visto = map['visto'];
     guardado = map['guardado'];
 
@@ -81,6 +87,7 @@ class Avioncito extends HiveObject with ChangeNotifier {
       'tag': tag,
       'usuario': usuario,
       'id': id,
+      'fecha': fecha,
       'visto': visto,
       'guardado': guardado
     };

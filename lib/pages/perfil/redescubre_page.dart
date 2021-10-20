@@ -1,13 +1,11 @@
 import 'dart:typed_data';
 import 'package:bienaventurados/data/local/meses.dart';
-import 'package:bienaventurados/models/guardados_model.dart';
-import 'package:bienaventurados/providers/avioncito_provider.dart';
+import 'package:bienaventurados/models/avioncito_model.dart';
 //import 'package:bienaventurados/providers/local_notifications.dart';
 import 'package:bienaventurados/theme/colores.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 import 'dart:io';
@@ -16,7 +14,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 class RedescubrePage extends StatefulWidget {
   
-  final Guardados avioncitoGuardado;
+  final Avioncito avioncitoGuardado;
 
   const RedescubrePage({
     Key? key,

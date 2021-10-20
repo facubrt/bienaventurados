@@ -7,7 +7,6 @@ import 'package:bienaventurados/widgets/perfil/comparte_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 class PerfilPage extends StatelessWidget {
@@ -113,7 +112,7 @@ class PerfilPage extends StatelessWidget {
                             Text('Todo camino merece un descanso', style: Theme.of(context).textTheme.headline6),
                             SizedBox(height: 20),
                             Text(
-                              'Toda aventura tiene también un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón. Descuida, Dios seguirá esperándote siempre con los brazos abiertos.\n\n¿Deseas salir?',
+                              'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. Descuida, Dios seguirá esperándote siempre con los brazos abiertos.\n\n¿Deseas descansar de esta aventura?',
                               style: Theme.of(context).textTheme.bodyText2,
                             ),
                             SizedBox(height:40),
@@ -149,7 +148,7 @@ class PerfilPage extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 10),
                                 child: Text(
-                                  'Confirmar',
+                                  'Salir',
                                   style:
                                       Theme.of(context).textTheme.subtitle1,
                                 ),
