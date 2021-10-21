@@ -702,6 +702,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  social_share:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "81235965406d0ceea9fd4dbb673e8b0d6f15edf7"
+      url: "https://github.com/mikaelim-id/social_share"
+    source: git
+    version: "2.1.1"
   source_gen:
     dependency: transitive
     description:

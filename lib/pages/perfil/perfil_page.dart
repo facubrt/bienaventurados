@@ -49,8 +49,9 @@ class PerfilPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text('Hola, ${authProvider.usuario.nombre}', style:
+                    Theme.of(context).textTheme.headline1,).padding(horizontal: 40, vertical: 40),
             ComparteWidget().padding(all: 20),
-            SizedBox(height: 40),
             (authProvider.usuario.clase == 'administrador')
                 ? InkWell(
                     onTap: () {
@@ -63,16 +64,16 @@ class PerfilPage extends StatelessWidget {
                   ).padding(horizontal: 40)
                 : SizedBox.shrink(),
             SizedBox(height: 40),
-            InkWell(
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(snackbar);
-              },
-              child: Text(
-                'Logros',
-                style: Theme.of(context).textTheme.headline1,
-              ),
-            ).padding(horizontal: 40),
-            SizedBox(height: 40),
+            // InkWell(
+            //   onTap: () {
+            //     ScaffoldMessenger.of(context).showSnackBar(snackbar);
+            //   },
+            //   child: Text(
+            //     'Logros',
+            //     style: Theme.of(context).textTheme.headline1,
+            //   ),
+            // ).padding(horizontal: 40),
+            // SizedBox(height: 40),
             InkWell(
               onTap: () {
                 //ScaffoldMessenger.of(context).showSnackBar(snackbar);
@@ -172,6 +173,7 @@ class PerfilPage extends StatelessWidget {
                     .copyWith(color: Theme.of(context).colorScheme.secondary),
               ),
             ).padding(horizontal: 40),
+            SizedBox(height: 60),
           ],
         ),
       ),

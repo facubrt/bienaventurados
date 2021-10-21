@@ -41,9 +41,9 @@ class _DashboardPageState extends State<DashboardPage> {
     } else {
       print('notificaciones desactivadas');
     }
-    final avioncitoProvider =
-        Provider.of<AvioncitoProvider>(context, listen: false);
-    avioncitoProvider.configuracionInicial();
+    // final avioncitoProvider =
+    //     Provider.of<AvioncitoProvider>(context, listen: false);
+    // avioncitoProvider.configuracionInicial();
   }
 
   void obtenerPrefs() async {
