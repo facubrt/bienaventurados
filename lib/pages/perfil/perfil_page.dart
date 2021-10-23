@@ -16,17 +16,17 @@ class PerfilPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final snackbar = SnackBar(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      content: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Text(
-            '¡Oh, oh! Parece que todavía no puedes acceder a esta parte. ¡Regresa pronto!',
-            style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                  color: Theme.of(context).primaryColor,
-                )),
-      ),
-    );
+    // final snackbar = SnackBar(
+    //   backgroundColor: Theme.of(context).colorScheme.secondary,
+    //   content: Padding(
+    //     padding: const EdgeInsets.all(10.0),
+    //     child: Text(
+    //         '¡Oh, oh! Parece que todavía no puedes acceder a esta parte. ¡Regresa pronto!',
+    //         style: Theme.of(context).textTheme.bodyText2!.copyWith(
+    //               color: Theme.of(context).primaryColor,
+    //             )),
+    //   ),
+    // );
 
     final authProvider = Provider.of<AuthProvider>(context);
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
@@ -52,18 +52,7 @@ class PerfilPage extends StatelessWidget {
             Text('Hola, ${authProvider.usuario.nombre}', style:
                     Theme.of(context).textTheme.headline1,).padding(horizontal: 40, vertical: 40),
             ComparteWidget().padding(all: 20),
-            (authProvider.usuario.clase == 'administrador')
-                ? InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(tallerPage);
-                    },
-                    child: Text(
-                      'Taller',
-                      style: Theme.of(context).textTheme.headline1,
-                    ),
-                  ).padding(horizontal: 40)
-                : SizedBox.shrink(),
-            SizedBox(height: 40),
+            
             // InkWell(
             //   onTap: () {
             //     ScaffoldMessenger.of(context).showSnackBar(snackbar);
@@ -74,6 +63,7 @@ class PerfilPage extends StatelessWidget {
             //   ),
             // ).padding(horizontal: 40),
             // SizedBox(height: 40),
+            SizedBox(height: 20,),
             InkWell(
               onTap: () {
                 //ScaffoldMessenger.of(context).showSnackBar(snackbar);
@@ -94,6 +84,22 @@ class PerfilPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline1,
               ),
             ).padding(horizontal: 40),
+            (authProvider.usuario.clase == 'administrador')
+                ? Column(
+                  children: [
+                    SizedBox(height: 40,),
+                    InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(tallerPage);
+                        },
+                        child: Text(
+                          'Taller',
+                          style: Theme.of(context).textTheme.headline1,
+                        ),
+                      ).padding(horizontal: 40),
+                  ],
+                )
+                : SizedBox.shrink(),
             SizedBox(height: 80),
             InkWell(
               onTap: () {

@@ -34,7 +34,7 @@ class AvioncitoProvider with ChangeNotifier {
     _ultimaConexion = await (SharedPrefs.obtenerPrefs('ultimaConexion'));
     print('ultima conexion el dia $_ultimaConexion');
     if (_ultimaConexion != null) {
-      if (_actualConexion != _ultimaConexion) {
+      if (_actualConexion == _ultimaConexion) {
         print('REUTILIZANDO AVIONCITO DE HOY');
         //getAvioncitosFromLocal();
         
@@ -162,5 +162,4 @@ class AvioncitoProvider with ChangeNotifier {
   set setNuevoDia(bool estado) {
     _nuevoDia = estado;
   }
-
 }

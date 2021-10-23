@@ -3,11 +3,9 @@ import 'package:bienaventurados/models/drawer_item_model.dart';
 import 'package:bienaventurados/pages/configuraciones/configuraciones_page.dart';
 import 'package:bienaventurados/pages/inicio/inicio_page.dart';
 import 'package:bienaventurados/pages/perfil/perfil_page.dart';
-import 'package:bienaventurados/providers/avioncito_provider.dart';
 import 'package:bienaventurados/providers/local_notifications.dart';
 import 'package:bienaventurados/widgets/inicio/drawer_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardPage extends StatefulWidget {

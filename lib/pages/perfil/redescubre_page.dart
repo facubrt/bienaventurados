@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 import 'package:bienaventurados/data/local/meses.dart';
 import 'package:bienaventurados/models/avioncito_model.dart';
-//import 'package:bienaventurados/providers/local_notifications.dart';
 import 'package:bienaventurados/theme/colores.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -13,7 +12,6 @@ import 'dart:io';
 import 'package:styled_widget/styled_widget.dart';
 
 class RedescubrePage extends StatefulWidget {
-  
   final Avioncito avioncitoGuardado;
 
   const RedescubrePage({
@@ -81,7 +79,19 @@ class _RedescubrePageState extends State<RedescubrePage> {
                   Container(
                     height: 100,
                     child: AppBar(
+                      automaticallyImplyLeading: false,
                       elevation: 0.0,
+                      actions: [
+                        IconButton(
+                          icon: Icon(
+                            FlutterIcons.x_fea,
+                            size: 22,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
                     ),
                   ),
                   capturandoScreen
@@ -129,141 +139,133 @@ class _RedescubrePageState extends State<RedescubrePage> {
   }
 
   Widget avioncitoWidget() {
-    //final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
+    // final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
     return Stack(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                color: capturandoScreen
-                    ? Theme.of(context).primaryColor
-                    : Colors.transparent,
-              ),
-              Positioned(
-                  top: 80,
-                  child: AnimatedContainer(
-                      duration: Duration(milliseconds: 200),
-                      curve: Curves.easeInOut,
-                      height: reflexionOpen ? 100 : 120,
-                      width: reflexionOpen ? 100 : 120,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 30.0),
-                        child: Image.asset(
-                          "assets/images/iso.png",
-                          color: Theme.of(context).primaryColorDark,
-                          isAntiAlias: true,
-                        ),
-                      ))),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Spacer(),
-                  Row(
-                    children: [
-                      Text(
-                          '${DateTime.now().day} de ${Meses.meses[DateTime.now().month - 1].id}, ${DateTime.now().year}'
-                              .toUpperCase(),
-                          style: Theme.of(context).textTheme.subtitle1),
-                      Spacer(),
-                      
-                      IconButton(
-                        onPressed: () {
-                          //Navigator.of(context).pushNamed(compartirPage);
-                          setState(() {
-                            capturandoScreen = true;
-                          });
-                          _takeScreenshotandShare(
-                              widget.avioncitoGuardado.frase!,
-                              widget.avioncitoGuardado.santo!
-                          );
-                        },
-                        icon: Icon(FlutterIcons.share_fea,
-                            size: 22,
-                            color: capturandoScreen
-                                ? Colors.transparent
-                                : Theme.of(context).primaryColorDark),
-                        padding: EdgeInsets.all(0),
-                      ),
-                    ],
-                  ).padding(horizontal: 40),
-                  Row(
-                    children: [
-                      Chip(
-                        visualDensity: VisualDensity.comfortable,
-                        label: Text(
-                            widget.avioncitoGuardado.tag!.toUpperCase(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).primaryColor)),
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                      ),
-                    ],
-                  ).padding(horizontal: 40),
-                  SizedBox(height: 40),
-                  Text(
-                    widget.avioncitoGuardado.frase!,
-                    style: Theme.of(context).textTheme.headline1,
-                  ).padding(horizontal: 40),
-                  SizedBox(height: 40),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      widget.avioncitoGuardado.santo!,
-                      style: Theme.of(context).textTheme.headline4,
-                      textAlign: TextAlign.end,
-                    ).padding(left: 40, right: 40),
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          color: capturandoScreen
+              ? Theme.of(context).primaryColor
+              : Colors.transparent,
+        ),
+        Positioned(
+            top: 80,
+            child: AnimatedContainer(
+                duration: Duration(milliseconds: 200),
+                curve: Curves.easeInOut,
+                height: reflexionOpen ? 100 : 120,
+                width: reflexionOpen ? 100 : 120,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: Image.asset(
+                    "assets/images/iso.png",
+                    color: Theme.of(context).primaryColorDark,
+                    isAntiAlias: true,
                   ),
-                  SizedBox(height: 60),
-                  AnimatedContainer(
-                      duration: Duration(milliseconds: 200),
-                      curve: Curves.easeInOut,
-                      height: reflexionOpen ? Align().heightFactor : 0,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Theme.of(context)
-                                .primaryColorDark
-                                .withOpacity(0.05),
+                ))),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Spacer(),
+            Row(
+              children: [
+                Text(
+                    '${widget.avioncitoGuardado.fecha!.day} de ${Meses.meses[widget.avioncitoGuardado.fecha!.month - 1].id}, ${widget.avioncitoGuardado.fecha!.year}'
+                        .toUpperCase(),
+                    style: Theme.of(context).textTheme.subtitle1),
+                Spacer(),
+                IconButton(
+                  onPressed: () {
+                    //Navigator.of(context).pushNamed(compartirPage);
+                    setState(() {
+                      capturandoScreen = true;
+                    });
+                    _takeScreenshotandShare(widget.avioncitoGuardado.frase!,
+                        widget.avioncitoGuardado.santo!);
+                  },
+                  icon: Icon(FlutterIcons.share_fea,
+                      size: 22,
+                      color: capturandoScreen
+                          ? Colors.transparent
+                          : Theme.of(context).primaryColorDark),
+                  padding: EdgeInsets.all(0),
+                ),
+              ],
+            ).padding(horizontal: 40),
+            Row(
+              children: [
+                Chip(
+                  visualDensity: VisualDensity.comfortable,
+                  label: Text(widget.avioncitoGuardado.tag!.toUpperCase(),
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor)),
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                ),
+              ],
+            ).padding(horizontal: 40),
+            SizedBox(height: 40),
+            Text(
+              widget.avioncitoGuardado.frase!,
+              style: Theme.of(context).textTheme.headline1,
+            ).padding(horizontal: 40),
+            SizedBox(height: 40),
+            Container(
+              alignment: Alignment.centerRight,
+              child: Text(
+                widget.avioncitoGuardado.santo!,
+                style: Theme.of(context).textTheme.headline4,
+                textAlign: TextAlign.end,
+              ).padding(left: 40, right: 40),
+            ),
+            SizedBox(height: 60),
+            AnimatedContainer(
+                duration: Duration(milliseconds: 200),
+                curve: Curves.easeInOut,
+                height: reflexionOpen ? Align().heightFactor : 0,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 20.0, right: 20.0, bottom: 20.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color:
+                          Theme.of(context).primaryColorDark.withOpacity(0.05),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.avioncitoGuardado.reflexion!,
+                            style: Theme.of(context).textTheme.bodyText1,
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.avioncitoGuardado.reflexion!,
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                ),
-                                Divider(
-                                  height: 40,
-                                ),
-                                // Text(
-                                //     'Construido por ${widget.avioncitoGuardado.usuario}',
-                                //     style: Theme.of(context)
-                                //         .textTheme
-                                //         .bodyText2!
-                                //         .copyWith(
-                                //             fontSize: 12,
-                                //             fontWeight: FontWeight.bold,
-                                //             color: Theme.of(context)
-                                //                 .primaryColorDark
-                                //                 .withOpacity(0.2))),
-                              ],
-                            ),
+                          Divider(
+                            height: 40,
                           ),
-                        ),
-                      )),
-                ],
-              ),
-            ],
-          );
+                          // Text(
+                          //     'Construido por ${widget.avioncitoGuardado.usuario}',
+                          //     style: Theme.of(context)
+                          //         .textTheme
+                          //         .bodyText2!
+                          //         .copyWith(
+                          //             fontSize: 12,
+                          //             fontWeight: FontWeight.bold,
+                          //             color: Theme.of(context)
+                          //                 .primaryColorDark
+                          //                 .withOpacity(0.2))),
+                        ],
+                      ),
+                    ),
+                  ),
+                )),
+          ],
+        ),
+      ],
+    );
   }
 }

@@ -99,7 +99,9 @@ class ThemeProvider extends ChangeNotifier{
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.all<Color>(Colores.primarioDay),
-        shape: MaterialStateProperty.all<OutlinedBorder>(CircleBorder()),
+        shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder()),
+        backgroundColor: MaterialStateProperty.all<Color>(Colores.acento),
+        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(horizontal: 20)),
       )
     ),
     colorScheme: ColorScheme(

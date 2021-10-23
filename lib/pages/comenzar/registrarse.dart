@@ -1,5 +1,5 @@
 import 'package:bienaventurados/providers/auth_provider.dart';
-import 'package:bienaventurados/repositories/shared_prefs.dart';
+import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:firebase_in_app_messaging/firebase_in_app_messaging.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +37,7 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
+    final prefs = PreferenciasUsuario();
     
     return Scaffold(
       appBar: AppBar(
@@ -160,7 +161,7 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                   onTap: () async {
                     if(formKey.currentState!.validate()) {
                         await authProvider.createUserWithEmailAndPassword(nameController.text, emailController.text, passwordController.text);
-                        SharedPrefs.guardarPrefs('sesionIniciada', true);
+                        prefs.sesionIniciada = true;
                         FirebaseInAppMessaging.instance.triggerEvent('primera_sesion_iniciada');
                         Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
                     }},

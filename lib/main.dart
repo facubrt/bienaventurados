@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bienaventurados/providers/auth_provider.dart';
 import 'package:bienaventurados/providers/avioncito_provider.dart';
 import 'package:bienaventurados/providers/theme_provider.dart';
+import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/services/messaging_service.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,31 +11,28 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 
 late bool _sesionIniciada;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-  // statusbar transparente
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]); // orientacion vertical
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent)); // statusbar transparente
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,]); // orientacion vertical
   //await SystemChrome.setEnabledSystemUIOverlays([]); // fullscreen
+  
   await Firebase.initializeApp();
-
   //FirebaseCrashlytics.instance.crash(); // simula una falla para Crashlytics
 
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  _sesionIniciada = prefs.getBool('sesionIniciada') ?? false;
+  final prefs = new PreferenciasUsuario();
+  await prefs.initPrefs();
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  _sesionIniciada = prefs.sesionIniciada;
 
   return runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (BuildContext context) => AuthProvider.instance(),),
-      ChangeNotifierProvider(create: (BuildContext context) => ThemeProvider(activarModoNoche: prefs.getBool('activarModoNoche') ?? false)),
+      ChangeNotifierProvider(create: (BuildContext context) => ThemeProvider(activarModoNoche: prefs.modoNoche)),
       ChangeNotifierProvider(create: (BuildContext context) => AvioncitoProvider()),
     ],
     child: Bienaventurados(),

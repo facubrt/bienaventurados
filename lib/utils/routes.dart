@@ -2,6 +2,8 @@ import 'package:bienaventurados/models/avioncito_model.dart';
 import 'package:bienaventurados/pages/comenzar/comenzar_page.dart';
 import 'package:bienaventurados/pages/comenzar/iniciar_sesion.dart';
 import 'package:bienaventurados/pages/comenzar/registrarse.dart';
+import 'package:bienaventurados/pages/configuraciones/notificaciones_configuracion_page.dart';
+import 'package:bienaventurados/pages/configuraciones/tema_configuracion_page.dart';
 import 'package:bienaventurados/pages/construir/construir.dart';
 import 'package:bienaventurados/pages/construir/editar.dart';
 import 'package:bienaventurados/pages/informacion/informacion_page.dart';
@@ -10,6 +12,7 @@ import 'package:bienaventurados/pages/perfil/guardados_page.dart';
 import 'package:bienaventurados/pages/perfil/redescubre_page.dart';
 import 'package:bienaventurados/pages/taller/taller_page.dart';
 import 'package:bienaventurados/utils/fade_transition_route.dart';
+import 'package:bienaventurados/utils/slide_transition_route.dart';
 import 'package:flutter/material.dart';
 
 const String dashboardPage = 'dashboardPage';
@@ -25,6 +28,8 @@ const String configuracionesPage = 'configuracionesPage';
 const String perfilPage = 'perfilPage';
 const String redescubrePage = 'redescubrePage';
 const String guardadosPage = 'guardadosPage';
+const String temaConfiguracionPage = 'temaConfiguracionPage';
+const String notificacionesConfiguracionPage = 'notificacionesConfiguracionPage';
 
 class Routes {
   static Route<dynamic> generateRoute (RouteSettings settings) {
@@ -33,9 +38,9 @@ class Routes {
       case (dashboardPage):
         return FadeTransitionRoute(widget: DashboardPage());
       case (tallerPage):
-        return FadeTransitionRoute(widget: TallerPage());
+        return SlideLeftTransitionRoute(widget: TallerPage());
       case (guardadosPage):
-        return FadeTransitionRoute(widget: GuardadosPage());
+        return SlideLeftTransitionRoute(widget: GuardadosPage());
       case (editarPage):
         final args = settings.arguments;
         Avioncito avioncito = args as Avioncito;
@@ -45,14 +50,18 @@ class Routes {
       case (comenzarPage):
         return FadeTransitionRoute(widget: ComenzarPage());
       case (iniciarSesionPage):
-        return FadeTransitionRoute(widget: IniciarSesionPage());
+        return SlideLeftTransitionRoute(widget: IniciarSesionPage());
       case (registrarsePage):
-        return FadeTransitionRoute(widget: RegistrarsePage());
+        return SlideLeftTransitionRoute(widget: RegistrarsePage());
       case (construirPage):
         return FadeTransitionRoute(widget: ConstruirPage());
+      case (temaConfiguracionPage):
+        return SlideLeftTransitionRoute(widget: TemaConfiguracionPage());
+      case (notificacionesConfiguracionPage):
+        return SlideLeftTransitionRoute(widget: NotificacionesConfiguracionPage());
       case (redescubrePage):
         final args = settings.arguments as Avioncito;
-        return FadeTransitionRoute(widget: RedescubrePage(avioncitoGuardado: args));
+        return SlideUpTransitionRoute(widget: RedescubrePage(avioncitoGuardado: args));
       // case (configuracionesPage):
       //   return FadeTransitionRoute(widget: ConfiguracionesPage());
       // case (perfilPage):

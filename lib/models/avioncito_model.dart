@@ -18,6 +18,10 @@ class Avioncito extends HiveObject with ChangeNotifier {
   String? reflexion;
   @HiveField(5)
   String? tag;
+  @HiveField(5)
+  String? pregunta;
+  @HiveField(5)
+  String? mision;
   @HiveField(6)
   String? usuario;
   @HiveField(7)
@@ -33,6 +37,8 @@ class Avioncito extends HiveObject with ChangeNotifier {
       this.santo,
       this.reflexion,
       this.tag,
+      this.pregunta,
+      this.mision,
       this.usuario,
       this.guardado,
       this.visto});
@@ -46,6 +52,8 @@ class Avioncito extends HiveObject with ChangeNotifier {
       santo: avioncitoData['santo'],
       reflexion: avioncitoData['reflexion'],
       tag: avioncitoData['tag'],
+      pregunta: avioncitoData['pregunta'],
+      mision: avioncitoData['mision'],
       usuario: avioncitoData['usuario'],
       guardado: false,
     );
@@ -59,6 +67,8 @@ class Avioncito extends HiveObject with ChangeNotifier {
     santo = avioncitoData['santo'];
     reflexion = avioncitoData['reflexion'];
     tag = avioncitoData['tag'];
+    pregunta = avioncitoData['pregunta'];
+    mision = avioncitoData['mision'];
     usuario = avioncitoData['usuario'];
     guardado = false;
 
@@ -70,6 +80,8 @@ class Avioncito extends HiveObject with ChangeNotifier {
     santo = map['santo'];
     reflexion = map['reflexion'];
     tag = map['tag'];
+    mision = map['mision'];
+    pregunta = map['pregunta'];
     usuario = map['usuario'];
     id = map['id'];
     fecha = map['fecha'];
@@ -85,6 +97,8 @@ class Avioncito extends HiveObject with ChangeNotifier {
       'santo': santo,
       'reflexion': reflexion,
       'tag': tag,
+      'pregunta': pregunta,
+      'mision': mision,
       'usuario': usuario,
       'id': id,
       'fecha': fecha,

@@ -31,7 +31,24 @@ class _GuardadosPageState extends State<GuardadosPage> {
         valueListenable: avioncitoProvider.getGuardadosFromLocal().listenable(),
         builder: (BuildContext context, Box box, _) {
           if(box.values.isEmpty) {
-            return Center(child: Text('Aún no has capturado ningún avioncito.'));
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).primaryColorDark.withOpacity(0.1),),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Icon(FlutterIcons.bookmark_fea, color: Theme.of(context).primaryColorDark),
+                    ),
+                  ),
+                  SizedBox(height: 40),
+                  Text('Aún no has capturado ningún avioncito. Colecciona tus mensajes favoritos y visitalos más tarde para redescubrir su mensaje con un corazón renovado.', style: Theme.of(context).textTheme.bodyText1),
+                ],
+            ),
+              ));
           }
           return ListView.separated(
               separatorBuilder: (context, index) {

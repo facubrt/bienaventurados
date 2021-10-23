@@ -1,5 +1,5 @@
 import 'package:bienaventurados/providers/auth_provider.dart';
-import 'package:bienaventurados/repositories/shared_prefs.dart';
+import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -34,6 +34,7 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
+    final prefs = PreferenciasUsuario();
     
     final snackbar = SnackBar(
       backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -127,7 +128,7 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
                   onTap: () async {
                     authProvider.signInWithEmailAndPassword(emailController.text, passwordController.text).then((resultado) {
                       if (resultado != null) {
-                      SharedPrefs.guardarPrefs('sesionIniciada', true);
+                      prefs.sesionIniciada = true;
                       Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(snackbar);

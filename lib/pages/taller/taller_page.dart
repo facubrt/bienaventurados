@@ -32,7 +32,24 @@ class _TallerPageState extends State<TallerPage> {
           }
           final data = snapshot.requireData;
           if (data.size == 0) {
-            return Center(child: Text('Aún no hay avioncitos para hacer volar.'),);
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).primaryColorDark.withOpacity(0.1),),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Icon(FlutterIcons.inbox_fea, color: Theme.of(context).primaryColorDark),
+                    ),
+                  ),
+                  SizedBox(height: 40),
+                  Text('Aún no hay avioncitos para hacer volar. Los avioncitos que se construyan llegarán hasta acá para tomar vuelo y comenzar su aventura.', style: Theme.of(context).textTheme.bodyText1),
+                ],
+            ),
+              ));
           }
           return Padding(
             padding: const EdgeInsets.all(40.0),
