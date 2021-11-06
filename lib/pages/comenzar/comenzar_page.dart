@@ -16,7 +16,7 @@ class ComenzarPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset(
-              "assets/images/iso.png",
+              "assets/images/isotipo.png",
               width: 80,
               height: 80,
               color: Theme.of(context).primaryColorDark,
@@ -33,6 +33,7 @@ class ComenzarPage extends StatelessWidget {
             ),
             SizedBox(height: 40),
             InkWell(
+              
               onTap: () {
                 Navigator.of(context).pushNamed(registrarsePage);
               },

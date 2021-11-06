@@ -56,12 +56,12 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                   controller: nameController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.headline2,
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Nombre',
-                    hintStyle: Theme.of(context).textTheme.headline1!.copyWith(
+                    hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
@@ -83,12 +83,12 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                   controller: emailController,
                   autofocus: false,
                   keyboardType: TextInputType.emailAddress,
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.headline2,
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Correo',
-                    hintStyle: Theme.of(context).textTheme.headline1!.copyWith(
+                    hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
@@ -110,7 +110,7 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                   controller: passwordController,
                   autofocus: false,
                   keyboardType: TextInputType.emailAddress,
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.headline2,
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   obscureText: ocultarPassword,
@@ -126,20 +126,20 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                         child: ocultarPassword
                             ? Icon(
                                 FlutterIcons.eye_off_fea,
-                                size: 28,
+                                size: 22,
                                 color: Theme.of(context)
                                     .primaryColorDark
                                     .withOpacity(0.2),
                               )
                             : Icon(
                                 FlutterIcons.eye_fea,
-                                size: 28,
+                                size: 22,
                                 color: Theme.of(context)
                                     .primaryColorDark
                                     .withOpacity(0.2),
                               )),
                     hintText: 'Contraseña',
-                    hintStyle: Theme.of(context).textTheme.headline1!.copyWith(
+                    hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,

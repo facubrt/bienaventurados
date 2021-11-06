@@ -67,12 +67,12 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
                   controller: emailController,
                   autofocus: false,
                   keyboardType: TextInputType.emailAddress,
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.headline2,
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Correo',
-                    hintStyle: Theme.of(context).textTheme.headline1!.copyWith(
+                    hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
@@ -87,7 +87,7 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
                   controller: passwordController,
                   autofocus: false,
                   keyboardType: TextInputType.emailAddress,
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.headline2,
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   obscureText: ocultarPassword,
@@ -103,7 +103,7 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
                         child: ocultarPassword 
                         ? Icon(
                             FlutterIcons.eye_off_fea,
-                            size: 28,
+                            size: 22,
                             color: Theme.of(context).primaryColorDark.withOpacity(0.2),
                           )
                         : Icon(
@@ -113,7 +113,7 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
                           )
                     ),
                     hintText: 'Contraseña',
-                    hintStyle: Theme.of(context).textTheme.headline1!.copyWith(
+                    hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
@@ -127,10 +127,12 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
                 InkWell(
                   onTap: () async {
                     authProvider.signInWithEmailAndPassword(emailController.text, passwordController.text).then((resultado) {
+                      
                       if (resultado != null) {
                       prefs.sesionIniciada = true;
                       Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
                       } else {
+                        //ACA SE PUEDE REDIRECCIONAR A REGISTRAR PARA HACERLO SI NO ESTÁ REGISTRADO.
                         ScaffoldMessenger.of(context).showSnackBar(snackbar);
                       }
                     });
@@ -150,4 +152,5 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
       ),
     );
   }
+
 }

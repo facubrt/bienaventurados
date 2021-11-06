@@ -46,7 +46,9 @@ class _TallerPageState extends State<TallerPage> {
                     ),
                   ),
                   SizedBox(height: 40),
-                  Text('Aún no hay avioncitos para hacer volar. Los avioncitos que se construyan llegarán hasta acá para tomar vuelo y comenzar su aventura.', style: Theme.of(context).textTheme.bodyText1),
+                  Text('Tus avioncitos por construir', style: Theme.of(context).textTheme.headline6, textAlign: TextAlign.center,),
+                  SizedBox(height: 20),
+                  Text('Aún no hay avioncitos para hacer volar. Los avioncitos que se construyan llegarán hasta acá para tomar vuelo y comenzar su aventura.', style: Theme.of(context).textTheme.bodyText2, textAlign: TextAlign.center),
                 ],
             ),
               ));

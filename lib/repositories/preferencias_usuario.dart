@@ -28,7 +28,7 @@ class PreferenciasUsuario {
 
   // GET y SET del momento de las notificaciones
   int get momentoNotificaciones {
-    return _prefs.getInt('momentoNotificaciones') ?? 1;
+    return _prefs.getInt('momentoNotificaciones') ?? 9;
   }
 
   set momentoNotificaciones( int momento ) {

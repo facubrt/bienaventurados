@@ -2,11 +2,11 @@ import 'package:bienaventurados/models/avioncito_model.dart';
 import 'package:bienaventurados/pages/comenzar/comenzar_page.dart';
 import 'package:bienaventurados/pages/comenzar/iniciar_sesion.dart';
 import 'package:bienaventurados/pages/comenzar/registrarse.dart';
+import 'package:bienaventurados/pages/configuraciones/informacion_page.dart';
 import 'package:bienaventurados/pages/configuraciones/notificaciones_configuracion_page.dart';
 import 'package:bienaventurados/pages/configuraciones/tema_configuracion_page.dart';
 import 'package:bienaventurados/pages/construir/construir.dart';
 import 'package:bienaventurados/pages/construir/editar.dart';
-import 'package:bienaventurados/pages/informacion/informacion_page.dart';
 import 'package:bienaventurados/pages/inicio/dashboard.dart';
 import 'package:bienaventurados/pages/perfil/guardados_page.dart';
 import 'package:bienaventurados/pages/perfil/redescubre_page.dart';
@@ -46,7 +46,7 @@ class Routes {
         Avioncito avioncito = args as Avioncito;
         return FadeTransitionRoute(widget: EditarPage(id: avioncito.id, frase: avioncito.frase, santo: avioncito.santo, reflexion: avioncito.reflexion, tag: avioncito.tag, usuario: avioncito.usuario,));
       case (informacionPage):
-        return FadeTransitionRoute(widget: InformacionPage());
+        return SlideLeftTransitionRoute(widget: InformacionPage());
       case (comenzarPage):
         return FadeTransitionRoute(widget: ComenzarPage());
       case (iniciarSesionPage):
@@ -54,7 +54,7 @@ class Routes {
       case (registrarsePage):
         return SlideLeftTransitionRoute(widget: RegistrarsePage());
       case (construirPage):
-        return FadeTransitionRoute(widget: ConstruirPage());
+        return SlideLeftTransitionRoute(widget: ConstruirPage());
       case (temaConfiguracionPage):
         return SlideLeftTransitionRoute(widget: TemaConfiguracionPage());
       case (notificacionesConfiguracionPage):

@@ -4,6 +4,7 @@ import 'package:bienaventurados/pages/configuraciones/configuraciones_page.dart'
 import 'package:bienaventurados/pages/inicio/inicio_page.dart';
 import 'package:bienaventurados/pages/perfil/perfil_page.dart';
 import 'package:bienaventurados/providers/local_notifications.dart';
+import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/widgets/inicio/drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,8 +23,7 @@ class _DashboardPageState extends State<DashboardPage> {
   bool isDragging = false;
   late bool isDrawerOpen;
   final LocalNotifications noti = LocalNotifications();
-  late SharedPreferences prefs;
-  bool _activarNotificaciones = true;
+  final prefs = PreferenciasUsuario();
   DrawerItemModel pagina = DrawerItems.inicio;
   late bool _paginasCargadas;
 
@@ -33,20 +33,16 @@ class _DashboardPageState extends State<DashboardPage> {
     _paginasCargadas = false;
     closeDrawer();
     noti.init();
-    if (_activarNotificaciones) {
-      print('notificaciones activadas');
-      noti.scheduleDaily9AMNotification(9);
+    if (prefs.momentoNotificaciones != 0) {
+      print('notificaciones activadas a las ${prefs.momentoNotificaciones}');
+      noti.scheduleDaily9AMNotification(prefs.momentoNotificaciones);
     } else {
       print('notificaciones desactivadas');
+      noti.cancelAllNotification();
     }
     // final avioncitoProvider =
     //     Provider.of<AvioncitoProvider>(context, listen: false);
     // avioncitoProvider.configuracionInicial();
-  }
-
-  void obtenerPrefs() async {
-    prefs = await SharedPreferences.getInstance();
-    _activarNotificaciones = prefs.getBool('activarNotificaciones') ?? true;
   }
 
   void openDrawer() => setState(() {

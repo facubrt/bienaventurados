@@ -45,7 +45,9 @@ class _GuardadosPageState extends State<GuardadosPage> {
                     ),
                   ),
                   SizedBox(height: 40),
-                  Text('Aún no has capturado ningún avioncito. Colecciona tus mensajes favoritos y visitalos más tarde para redescubrir su mensaje con un corazón renovado.', style: Theme.of(context).textTheme.bodyText1),
+                  Text('Tus avioncitos guardados', style: Theme.of(context).textTheme.headline6, textAlign: TextAlign.center,),
+                  SizedBox(height: 20),
+                  Text('Aún no has guardado ningún avioncito. Colecciona tus favoritos y visitalos más tarde para redescubrir su mensaje con un corazón renovado.', style: Theme.of(context).textTheme.bodyText2, textAlign: TextAlign.center,),
                 ],
             ),
               ));

@@ -12,10 +12,9 @@ class LocalNotifications {
     // HACER CONDICIONAL SEGÚN LOS SHAREDPREFERENCES. SI LAS NOTIFICACIONES ESTAN ACTIVIDAS O NO
     tz.initializeTimeZones();
     final String currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
-    print('time zone es :$currentTimeZone');
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
 
-    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('notification_icon');
+    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('notificacion_icono');
     final InitializationSettings initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid
       // IOS NO IMPLEMENTADO
@@ -30,7 +29,7 @@ class LocalNotifications {
       channelDescription: 'channelDescription',
       priority: Priority.max,
       importance: Importance.max,
-      //largeIcon: DrawableResourceAndroidBitmap('large_icon'),
+      // largeIcon: DrawableResourceAndroidBitmap('notificacion_icono'),
       color: Colores.acento,
     );
     // IOS NO IMPLEMENTADO
@@ -97,7 +96,7 @@ class LocalNotifications {
     await flutterLocalNotificationsPlugin.zonedSchedule(
         0,
         'Bendecido dia!',
-        'Un mensaje de amor está esperándote, ve a descubrirlo!',
+        'Un mensaje de amor está esperándote, ¡ve a descubrirlo!',
         _nextInstanceOf9AM(hora),
         const NotificationDetails(
           android: AndroidNotificationDetails(

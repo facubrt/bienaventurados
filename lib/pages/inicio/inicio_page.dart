@@ -159,12 +159,12 @@ class _InicioPageState extends State<InicioPage> {
                   child: AnimatedContainer(
                       duration: Duration(milliseconds: 200),
                       curve: Curves.easeInOut,
-                      height: reflexionOpen ? 100 : 120,
-                      width: reflexionOpen ? 100 : 120,
+                      height: reflexionOpen ? 90 : 110,
+                      width: reflexionOpen ? 90 : 110,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 30.0),
                         child: Image.asset(
-                          "assets/images/iso.png",
+                          "assets/images/isotipo.png",
                           color: Theme.of(context).primaryColorDark,
                           isAntiAlias: true,
                         ),
