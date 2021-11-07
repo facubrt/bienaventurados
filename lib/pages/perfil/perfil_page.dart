@@ -51,7 +51,9 @@ class PerfilPage extends StatelessWidget {
           children: [
             Text(
               'Hola, ${authProvider.usuario.nombre}',
-              style: Theme.of(context).textTheme.headline1,
+              style: Theme.of(context).textTheme.headline1!.copyWith(
+                fontSize: MediaQuery.of(context).size.width * 0.08,
+              ),
             ).padding(horizontal: 40, vertical: 40),
             ComparteWidget().padding(all: 20),
 
@@ -76,7 +78,9 @@ class PerfilPage extends StatelessWidget {
               },
               child: Text(
                 'Guardados',
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.headline1!.copyWith(
+                fontSize: MediaQuery.of(context).size.width * 0.06,
+              ),
               ),
             ).padding(horizontal: 40),
             SizedBox(height: 40),
@@ -86,7 +90,9 @@ class PerfilPage extends StatelessWidget {
               },
               child: Text(
                 'Construir',
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.headline1!.copyWith(
+                fontSize: MediaQuery.of(context).size.width * 0.06,
+              ),
               ),
             ).padding(horizontal: 40),
             (authProvider.usuario.clase == 'administrador')
@@ -101,13 +107,15 @@ class PerfilPage extends StatelessWidget {
                         },
                         child: Text(
                           'Taller',
-                          style: Theme.of(context).textTheme.headline1,
+                          style: Theme.of(context).textTheme.headline1!.copyWith(
+                fontSize: MediaQuery.of(context).size.width * 0.06,
+              ),
                         ),
                       ).padding(horizontal: 40),
                     ],
                   )
                 : SizedBox.shrink(),
-            SizedBox(height: 80),
+            SizedBox(height: MediaQuery.of(context).size.width * 0.16),
             InkWell(
               onTap: () {
                 showFloatingModalBottomSheet(
@@ -123,13 +131,15 @@ class PerfilPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('Todo camino merece un descanso',
-                                style: Theme.of(context).textTheme.headline6),
-                            SizedBox(height: 20),
+                                style: Theme.of(context).textTheme.headline6!.copyWith(
+                                  fontSize: MediaQuery.of(context).size.width * 0.04
+                                )),
+                            SizedBox(height: MediaQuery.of(context).size.width * 0.06),
                             Text(
-                              'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. Descuida, Dios seguirá esperándote siempre con los brazos abiertos.\n\n¿Deseas descansar de esta aventura?',
-                              style: Theme.of(context).textTheme.bodyText2,
+                              'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. \n\n¿Deseas descansar de esta aventura?',
+                              style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.04),
                             ),
-                            SizedBox(height: 40),
+                            SizedBox(height: MediaQuery.of(context).size.width * 0.08,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
@@ -146,7 +156,8 @@ class PerfilPage extends StatelessWidget {
                                           .textTheme
                                           .subtitle1!
                                           .copyWith(
-                                              color: Theme.of(context)
+                                            fontSize: MediaQuery.of(context).size.width * 0.04,
+                                            color: Theme.of(context)
                                                   .primaryColorDark),
                                     ),
                                   ),
@@ -167,7 +178,9 @@ class PerfilPage extends StatelessWidget {
                                     child: Text(
                                       'Salir',
                                       style:
-                                          Theme.of(context).textTheme.subtitle1,
+                                          Theme.of(context).textTheme.subtitle1!.copyWith(
+                                            fontSize: MediaQuery.of(context).size.width * 0.04,
+                                          ),
                                     ),
                                   ),
                                 ),
@@ -201,13 +214,13 @@ class PerfilPage extends StatelessWidget {
               },
               child: Text(
                 'Salir',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(color: Theme.of(context).colorScheme.secondary),
+                style: Theme.of(context).textTheme.headline1!.copyWith(
+                  fontSize: MediaQuery.of(context).size.width * 0.06,
+                  color: Theme.of(context).colorScheme.secondary
+                ),
               ),
             ).padding(horizontal: 40),
-            SizedBox(height: 60),
+            SizedBox(height: MediaQuery.of(context).size.width * 0.06),
           ],
         ),
       ),

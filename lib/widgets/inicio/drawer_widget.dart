@@ -22,8 +22,8 @@ class DrawerWidget extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headline1!
-                    .copyWith(fontSize: 68)),
-            SizedBox(height: MediaQuery.of(context).size.height / 6),
+                    .copyWith(fontSize: MediaQuery.of(context).size.width * 0.16,)),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.16),
             buildDrawerItems(context),
           ],
         ),
@@ -34,9 +34,9 @@ class DrawerWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(bottom: 40.0),
           child: Text(
-            'Bienaventurados \u00a9 ${DateTime.now().year} Ser Eucaristía'.toUpperCase(),
+            '\u00a9 ${DateTime.now().year} Ser Eucaristía'.toUpperCase(),
             style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                  fontSize: 12,
+                  fontSize: MediaQuery.of(context).size.width * 0.024,
                 ),
             textAlign: TextAlign.center,
           ),
@@ -57,10 +57,12 @@ class DrawerWidget extends StatelessWidget {
               onTap: () => onSelectedItem(pagina),
               child: Text(
                 pagina.titulo,
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.headline1!.copyWith(
+                  fontSize: MediaQuery.of(context).size.width * 0.08,
+                ),
               ),
             ),
-            SizedBox(height:40),
+            SizedBox(height: MediaQuery.of(context).size.width * 0.08,),
           ],
         ),).toList(),
     );

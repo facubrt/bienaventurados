@@ -76,7 +76,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   controller: _fraseController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline2!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.06,),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   minLines: 1,
@@ -84,6 +84,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   decoration: InputDecoration(
                     hintText: 'Frase',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),
@@ -110,12 +111,15 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   controller: _santoController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
+                  ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Santo, versículo, ...',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),
@@ -155,7 +159,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   style: Theme.of(context)
                       .textTheme
                       .headline4!
-                      .copyWith(color: Theme.of(context).primaryColor)),
+                      .copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.04,
+                        color: Theme.of(context).primaryColor)
+              ),
             ),
           ),
         ),
@@ -177,7 +184,9 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   controller: _reflexionController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
+                  ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   minLines: 4,
@@ -186,6 +195,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   decoration: InputDecoration(
                     hintText: 'Reflexión',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),
@@ -212,12 +222,15 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   controller: _tagController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
+                  ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Tag',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),
@@ -257,7 +270,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   style: Theme.of(context)
                       .textTheme
                       .headline4!
-                      .copyWith(color: Theme.of(context).primaryColor)),
+                      .copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.04,
+                        color: Theme.of(context).primaryColor
+                      )),
             ),
           ),
         ),
@@ -280,12 +296,15 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   controller: _preguntaController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
+                  ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Pregunta (opcional)',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),
@@ -305,12 +324,15 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   controller: _misionController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
+                  ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Misión (opcional)',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),
@@ -352,7 +374,9 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   style: Theme.of(context)
                       .textTheme
                       .headline4!
-                      .copyWith(color: Theme.of(context).primaryColor)),
+                      .copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.04,
+                        color: Theme.of(context).primaryColor)),
             ),
           ),
         ),
@@ -368,14 +392,18 @@ class _ConstruirPageState extends State<ConstruirPage> {
           padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
           child: Text(
             '¡Todo listo!',
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context).textTheme.headline2!.copyWith(
+              fontSize: MediaQuery.of(context).size.width * 0.08,
+            ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
           child: Text(
               'Tu avioncito está terminado y pronto empezará a volar por los corazones de todos en Bienaventurados.\n\n¡Muchas gracias por construir!',
-              style: Theme.of(context).textTheme.bodyText1),
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+              )),
         )
       ])),
       bottomNavigationBar: Padding(
@@ -391,7 +419,9 @@ class _ConstruirPageState extends State<ConstruirPage> {
                 style: Theme.of(context)
                     .textTheme
                     .headline4!
-                    .copyWith(color: Theme.of(context).primaryColor)),
+                    .copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Theme.of(context).primaryColor)),
           ),
         ),
       ),

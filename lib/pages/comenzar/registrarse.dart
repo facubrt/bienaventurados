@@ -56,12 +56,15 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                   controller: nameController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
+                  ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Nombre',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
@@ -83,12 +86,15 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                   controller: emailController,
                   autofocus: false,
                   keyboardType: TextInputType.emailAddress,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
+                  ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Correo',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
@@ -110,7 +116,9 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                   controller: passwordController,
                   autofocus: false,
                   keyboardType: TextInputType.emailAddress,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
+                  ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   obscureText: ocultarPassword,
@@ -126,7 +134,7 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                         child: ocultarPassword
                             ? Icon(
                                 FlutterIcons.eye_off_fea,
-                                size: 22,
+                                size: MediaQuery.of(context).size.width * 0.06,
                                 color: Theme.of(context)
                                     .primaryColorDark
                                     .withOpacity(0.2),
@@ -140,6 +148,7 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                               )),
                     hintText: 'Contraseña',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
@@ -170,7 +179,9 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                     style: Theme.of(context)
                         .textTheme
                         .headline1!
-                        .copyWith(color: Theme.of(context).colorScheme.secondary),
+                        .copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          color: Theme.of(context).colorScheme.secondary),
                   ),
                   splashColor: Colors.transparent,
                 ),

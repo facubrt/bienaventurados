@@ -43,6 +43,7 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
         child: Text(
           '¡Oh, oh! Parece que los datos ingresados no son correctos. Intentalo de nuevo o registrate para comenzar una nueva aventura.',
           style: Theme.of(context).textTheme.bodyText2!.copyWith(
+            fontSize: MediaQuery.of(context).size.width * 0.04,
             color: Theme.of(context).primaryColor,
           )
         ),
@@ -67,12 +68,15 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
                   controller: emailController,
                   autofocus: false,
                   keyboardType: TextInputType.emailAddress,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
+                  ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Correo',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
@@ -87,7 +91,9 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
                   controller: passwordController,
                   autofocus: false,
                   keyboardType: TextInputType.emailAddress,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
+                  ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   obscureText: ocultarPassword,
@@ -103,7 +109,7 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
                         child: ocultarPassword 
                         ? Icon(
                             FlutterIcons.eye_off_fea,
-                            size: 22,
+                            size: MediaQuery.of(context).size.width * 0.06,
                             color: Theme.of(context).primaryColorDark.withOpacity(0.2),
                           )
                         : Icon(
@@ -114,6 +120,7 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
                     ),
                     hintText: 'Contraseña',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
@@ -140,6 +147,7 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
                   child: Text(
                     'Iniciar sesión', 
                     style: Theme.of(context).textTheme.headline1!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
                       color: Theme.of(context).colorScheme.secondary
                     ),
                   ),

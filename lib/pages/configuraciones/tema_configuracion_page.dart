@@ -45,21 +45,27 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
           Padding(
             padding: const EdgeInsets.all(40.0),
             child: Text('Elige el tema que más te guste',
-                style: Theme.of(context).textTheme.headline1),
+                style: Theme.of(context).textTheme.headline1!.copyWith(
+                  fontSize: MediaQuery.of(context).size.width * 0.08,
+                )),
           ),
           ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
             dense: true,
             isThreeLine: true,
             leading: Icon(FlutterIcons.sun_fea,
-                size: 22, color: Theme.of(context).primaryColorDark),
+                size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
             title: Text(
               'Claro',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.headline6!.copyWith(
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+              ),
             ),
             subtitle: Text(
               'Ilumina otros corazones con tu luz.',
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+              ),
             ),
             trailing: Radio(
                 activeColor: Theme.of(context).colorScheme.secondary,
@@ -82,14 +88,18 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
             dense: true,
             isThreeLine: true,
             leading: Icon(FlutterIcons.moon_fea,
-                size: 22, color: Theme.of(context).primaryColorDark),
+                size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
             title: Text(
               'Oscuro',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.headline6!.copyWith(
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+              ),
             ),
             subtitle: Text(
               'Aventurate en el silencio de la noche.',
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+              ),
             ),
             trailing: Radio(
                 activeColor: Theme.of(context).colorScheme.secondary,

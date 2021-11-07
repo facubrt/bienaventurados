@@ -73,7 +73,7 @@ class _RedescubrePageState extends State<RedescubrePage> {
                       color: reflexionOpen
                           ? Colors.transparent
                           : Theme.of(context).primaryColorDark,
-                      size: 24,
+                      size: MediaQuery.of(context).size.width * 0.06,
                     ),
                   ),
                   Container(
@@ -85,7 +85,7 @@ class _RedescubrePageState extends State<RedescubrePage> {
                         IconButton(
                           icon: Icon(
                             FlutterIcons.x_fea,
-                            size: 22,
+                            size: MediaQuery.of(context).size.width * 0.06,
                           ),
                           onPressed: () {
                             Navigator.of(context).pop();
@@ -154,12 +154,12 @@ class _RedescubrePageState extends State<RedescubrePage> {
             child: AnimatedContainer(
                 duration: Duration(milliseconds: 200),
                 curve: Curves.easeInOut,
-                height: reflexionOpen ? 100 : 120,
-                width: reflexionOpen ? 100 : 120,
+                height: reflexionOpen ? MediaQuery.of(context).size.width * 0.2 : MediaQuery.of(context).size.width * 0.26,
+                width: reflexionOpen ? MediaQuery.of(context).size.width * 0.2 : MediaQuery.of(context).size.width * 0.26,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 30.0),
                   child: Image.asset(
-                    "assets/images/iso.png",
+                    "assets/images/isotipo.png",
                     color: Theme.of(context).primaryColorDark,
                     isAntiAlias: true,
                   ),
@@ -174,7 +174,10 @@ class _RedescubrePageState extends State<RedescubrePage> {
                 Text(
                     '${widget.avioncitoGuardado.fecha!.day} de ${Meses.meses[widget.avioncitoGuardado.fecha!.month - 1].id}, ${widget.avioncitoGuardado.fecha!.year}'
                         .toUpperCase(),
-                    style: Theme.of(context).textTheme.subtitle1),
+                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                            fontSize: MediaQuery.of(context).size.width * 0.035,
+                          )
+                ),
                 Spacer(),
                 IconButton(
                   onPressed: () {
@@ -186,7 +189,7 @@ class _RedescubrePageState extends State<RedescubrePage> {
                         widget.avioncitoGuardado.santo!);
                   },
                   icon: Icon(FlutterIcons.share_fea,
-                      size: 22,
+                      size: MediaQuery.of(context).size.width * 0.06,
                       color: capturandoScreen
                           ? Colors.transparent
                           : Theme.of(context).primaryColorDark),
@@ -200,7 +203,7 @@ class _RedescubrePageState extends State<RedescubrePage> {
                   visualDensity: VisualDensity.comfortable,
                   label: Text(widget.avioncitoGuardado.tag!.toUpperCase(),
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          fontSize: 10,
+                          fontSize: MediaQuery.of(context).size.width * 0.025,
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).primaryColor)),
                   backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -210,14 +213,18 @@ class _RedescubrePageState extends State<RedescubrePage> {
             SizedBox(height: 40),
             Text(
               widget.avioncitoGuardado.frase!,
-              style: Theme.of(context).textTheme.headline1,
+              style: Theme.of(context).textTheme.headline1!.copyWith(
+                fontSize: MediaQuery.of(context).size.width * 0.1,
+              ),
             ).padding(horizontal: 40),
             SizedBox(height: 40),
             Container(
               alignment: Alignment.centerRight,
               child: Text(
                 widget.avioncitoGuardado.santo!,
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.headline4!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.045,
+                      ),
                 textAlign: TextAlign.end,
               ).padding(left: 40, right: 40),
             ),
@@ -242,7 +249,9 @@ class _RedescubrePageState extends State<RedescubrePage> {
                         children: [
                           Text(
                             widget.avioncitoGuardado.reflexion!,
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                                  ),
                           ),
                           Divider(
                             height: 40,

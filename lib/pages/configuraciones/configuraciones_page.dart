@@ -42,7 +42,7 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
             onPressed: () {
               widget.openDrawer();
             },
-            icon: Icon(FlutterIcons.menu_fea, size: 22),
+            icon: Icon(FlutterIcons.menu_fea, size: MediaQuery.of(context).size.width * 0.06),
           ),
         ),
       ),
@@ -57,8 +57,10 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                   
                 },
                 child: Text('Notificaciones',
-                    style: Theme.of(context).textTheme.headline1)),
-            SizedBox(height: 40),
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                    ))),
+            SizedBox(height: MediaQuery.of(context).size.width * 0.06,),
             InkWell(
               onTap: () {
                 
@@ -66,17 +68,21 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
               },
               child: Text(
                 'Cambiar tema',
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.headline1!.copyWith(
+                  fontSize: MediaQuery.of(context).size.width * 0.06,
+                ),
               ),
             ),
-            SizedBox(height: 40),
+            SizedBox(height: MediaQuery.of(context).size.width * 0.06,),
             InkWell(
               onTap: () {
                 Navigator.of(context).pushNamed(informacionPage);
               },
               child: Text(
                 'Acerca de',
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.headline1!.copyWith(
+                  fontSize: MediaQuery.of(context).size.width * 0.06,
+                ),
               ),
             ),
           ]),
@@ -88,9 +94,9 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
         child: Padding(
           padding: const EdgeInsets.only(bottom: 40.0),
           child: Text(
-            'Carlo Acutis (beato) versión 1.2.0'.toUpperCase(),
+            'Carlo Acutis (beato) ver 1.3.0'.toUpperCase(),
             style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                  fontSize: 12,
+                  fontSize: MediaQuery.of(context).size.width * 0.024,
                 ),
             textAlign: TextAlign.center,
           ),

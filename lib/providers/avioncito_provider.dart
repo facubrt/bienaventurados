@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:bienaventurados/data/local/local_db.dart';
 import 'package:bienaventurados/models/avioncito_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,7 +11,7 @@ class AvioncitoProvider with ChangeNotifier {
   late Avioncito _avioncitoHoy;
   List<Avioncito> _avioncitosGuardados = [];
   List<Avioncito> _avioncitos = [];
-  late int _dia;
+  // late int _dia;
   bool _avioncitoListo = false;
   bool _nuevoDia = false;
   String? _actualConexion;
@@ -42,7 +41,7 @@ class AvioncitoProvider with ChangeNotifier {
     _actualConexion = DateTime.now().day.toString();
     _ultimaConexion = await (SharedPrefs.obtenerPrefs('ultimaConexion'));
     if (_ultimaConexion != null) {
-      if (_actualConexion != _ultimaConexion) {
+      if (_actualConexion == _ultimaConexion) {
         print('REUTILIZANDO AVIONCITO');
         await getAvioncitoHoy().then((listo) {
           if (listo) {
@@ -189,6 +188,7 @@ class AvioncitoProvider with ChangeNotifier {
   Future<bool> getAvioncitoHoy() async {
     print('OBTENIENDO AVIONCITO DE HOY');
     _avioncito = await _localDB.getHoy()!.get(0);
+    print('EL AVIONCITO DE HOY LO CONSTRUYO ${_avioncito.usuario}');
     return true;
   }
 
@@ -205,6 +205,7 @@ class AvioncitoProvider with ChangeNotifier {
 
   Future<bool> guardarAvioncito() async {
     _localDB.guardarAvioncito(true);
+    _avioncito.guardado = true;
     _avioncitoGuardado = Avioncito(
         id: _avioncito.id,
         fecha: _avioncito.fecha,
@@ -212,10 +213,10 @@ class AvioncitoProvider with ChangeNotifier {
         santo: _avioncito.santo,
         reflexion: _avioncito.reflexion,
         tag: _avioncito.tag,
-        guardado: true,
+        guardado: _avioncito.guardado,
         visto: true);
-    print('Guardado el avioncito ${_avioncito.id}');
-    _localDB.setGuardados(_avioncito.id, _avioncitoGuardado);
+    print('Guardado el avioncito ${_avioncitoGuardado.id}');
+    _localDB.setGuardados(_avioncitoGuardado.id, _avioncitoGuardado);
     print(_localDB.guardadosBox!.length);
     notifyListeners();
     return true;
@@ -224,6 +225,7 @@ class AvioncitoProvider with ChangeNotifier {
   Future<bool> noGuardarAvioncito(String id) async {
     _localDB.guardarAvioncito(false);
     _localDB.deleteGuardado(id);
+    _avioncito.guardado = false;
     print('Borrado el avioncito $id');
     print(_localDB.guardadosBox!.length);
     notifyListeners();

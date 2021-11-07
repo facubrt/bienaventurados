@@ -7,7 +7,6 @@ import 'package:bienaventurados/providers/local_notifications.dart';
 import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/widgets/inicio/drawer_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);

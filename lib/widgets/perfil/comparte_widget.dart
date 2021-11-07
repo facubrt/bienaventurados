@@ -22,7 +22,7 @@ class ComparteWidget extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
                   'Toda aventura es más divertida con amigos. ¡Sé luz!',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.04,),
                 ),
               ),
               SizedBox(
@@ -31,7 +31,7 @@ class ComparteWidget extends StatelessWidget {
               SizedBox(height: 20),
               InkWell(
                 child: Text('Comparte'.toUpperCase(),
-                    style: Theme.of(context).textTheme.subtitle1),
+                    style: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.035,)),
                 onTap: () async {
                    await Share.share('https://bienaventurados.web.app/comparte' );
                 },

@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:bienaventurados/data/local/local_db.dart';
 import 'package:bienaventurados/providers/auth_provider.dart';
 import 'package:bienaventurados/providers/avioncito_provider.dart';
 import 'package:bienaventurados/providers/theme_provider.dart';

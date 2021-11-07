@@ -78,7 +78,7 @@ class _InicioPageState extends State<InicioPage> {
                       color: reflexionOpen
                           ? Colors.transparent
                           : Theme.of(context).primaryColorDark,
-                      size: 24,
+                      size: MediaQuery.of(context).size.width * 0.06,
                     ),
                   ),
                   Container(
@@ -91,7 +91,7 @@ class _InicioPageState extends State<InicioPage> {
                           onPressed: () {
                             widget.openDrawer();
                           },
-                          icon: Icon(FlutterIcons.menu_fea, size: 22),
+                          icon: Icon(FlutterIcons.menu_fea, size: MediaQuery.of(context).size.width * 0.06,),
                         ),
                       ),
                       elevation: 0.0,
@@ -106,7 +106,10 @@ class _InicioPageState extends State<InicioPage> {
                             style: Theme.of(context)
                                 .textTheme
                                 .headline4!
-                                .copyWith(color: Colores.primarioDay),
+                                .copyWith(
+                                  fontSize: MediaQuery.of(context).size.width * 0.05,
+                                  color: Colores.primarioDay
+                                ),
                           )),
                         )
                       : SizedBox.shrink(),
@@ -158,8 +161,8 @@ class _InicioPageState extends State<InicioPage> {
                   child: AnimatedContainer(
                       duration: Duration(milliseconds: 200),
                       curve: Curves.easeInOut,
-                      height: reflexionOpen ? 90 : 110,
-                      width: reflexionOpen ? 90 : 110,
+                      height: reflexionOpen ? MediaQuery.of(context).size.width * 0.2 : MediaQuery.of(context).size.width * 0.26,
+                      width: reflexionOpen ? MediaQuery.of(context).size.width * 0.2 : MediaQuery.of(context).size.width * 0.26,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 30.0),
                         child: Image.asset(
@@ -178,7 +181,10 @@ class _InicioPageState extends State<InicioPage> {
                       Text(
                           '${avioncitoProvider.avioncito!.fecha!.day} de ${Meses.meses[avioncitoProvider.avioncito!.fecha!.month - 1].id}, ${avioncitoProvider.avioncito!.fecha!.year}'
                               .toUpperCase(),
-                          style: Theme.of(context).textTheme.subtitle1),
+                          style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                            fontSize: MediaQuery.of(context).size.width * 0.035,
+                          )
+                      ),
                       Spacer(),
                       IconButton(
                         onPressed: () {
@@ -192,12 +198,12 @@ class _InicioPageState extends State<InicioPage> {
                         },
                         icon: avioncitoProvider.avioncito!.guardado!
                             ? Icon(FlutterIcons.bookmark_mco,
-                                size: 22,
+                                size: MediaQuery.of(context).size.width * 0.06,
                                 color: capturandoScreen
                                     ? Colors.transparent
                                     : Theme.of(context).primaryColorDark)
                             : Icon(FlutterIcons.bookmark_outline_mco,
-                                size: 22,
+                                size: MediaQuery.of(context).size.width * 0.06,
                                 color: capturandoScreen
                                     ? Colors.transparent
                                     : Theme.of(context).primaryColorDark),
@@ -214,7 +220,7 @@ class _InicioPageState extends State<InicioPage> {
                               avioncitoProvider.avioncito!.santo!);
                         },
                         icon: Icon(FlutterIcons.share_fea,
-                            size: 22,
+                            size: MediaQuery.of(context).size.width * 0.06,
                             color: capturandoScreen
                                 ? Colors.transparent
                                 : Theme.of(context).primaryColorDark),
@@ -232,7 +238,7 @@ class _InicioPageState extends State<InicioPage> {
                                 .textTheme
                                 .bodyText2!
                                 .copyWith(
-                                    fontSize: 10,
+                                    fontSize: MediaQuery.of(context).size.width * 0.025,
                                     fontWeight: FontWeight.bold,
                                     color: Theme.of(context).primaryColor)),
                         backgroundColor:
@@ -243,14 +249,18 @@ class _InicioPageState extends State<InicioPage> {
                   SizedBox(height: 40),
                   Text(
                     avioncitoProvider.avioncito!.frase!,
-                    style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.1,
+                    ),
                   ).padding(horizontal: 40),
                   SizedBox(height: 40),
                   Container(
                     alignment: Alignment.centerRight,
                     child: Text(
                       avioncitoProvider.avioncito!.santo!,
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.045,
+                      ),
                       textAlign: TextAlign.end,
                     ).padding(left: 40, right: 40),
                   ),
@@ -275,7 +285,9 @@ class _InicioPageState extends State<InicioPage> {
                               children: [
                                 Text(
                                   avioncitoProvider.avioncito!.reflexion!,
-                                  style: Theme.of(context).textTheme.bodyText1,
+                                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                                  ),
                                 ),
                                 Divider(
                                   height: 40,
@@ -286,7 +298,7 @@ class _InicioPageState extends State<InicioPage> {
                                         .textTheme
                                         .bodyText2!
                                         .copyWith(
-                                            fontSize: 12,
+                                            fontSize: MediaQuery.of(context).size.width * 0.03,
                                             fontWeight: FontWeight.bold,
                                             color: Theme.of(context)
                                                 .primaryColorDark

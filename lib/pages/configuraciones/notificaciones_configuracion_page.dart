@@ -37,20 +37,26 @@ class _NotificacionesConfiguracionPageState extends State<NotificacionesConfigur
                 padding: const EdgeInsets.all(40.0),
                 child: Text(
                     '¿Cuándo te gustaría recibir un recordatorio de tu avioncito diario?',
-                    style: Theme.of(context).textTheme.headline1),
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.08,
+                    )),
               ),
               ListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
                 dense: true,
                 leading: Icon(FlutterIcons.sunrise_fea,
-                    size: 22, color: Theme.of(context).primaryColorDark),
+                    size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
                 title: Text(
                   'Tercia',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                  ),
                 ),
                 subtitle: Text(
                   '9:00 hs.',
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                  ),
                 ),
                 trailing: Radio(
                     activeColor: Theme.of(context).colorScheme.secondary,
@@ -71,14 +77,18 @@ class _NotificacionesConfiguracionPageState extends State<NotificacionesConfigur
                 contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
                 dense: true,
                 leading: Icon(FlutterIcons.sun_fea,
-                    size: 22, color: Theme.of(context).primaryColorDark),
+                    size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
                 title: Text(
                   'Sexta',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                  ),
                 ),
                 subtitle: Text(
                   '12:00 hs.',
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                  ),
                 ),
                 trailing: Radio(
                     activeColor: Theme.of(context).colorScheme.secondary,
@@ -99,14 +109,18 @@ class _NotificacionesConfiguracionPageState extends State<NotificacionesConfigur
                 contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
                 dense: true,
                 leading: Icon(FlutterIcons.sunset_fea,
-                    size: 22, color: Theme.of(context).primaryColorDark),
+                    size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
                 title: Text(
                   'Completas',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                  ),
                 ),
                 subtitle: Text(
                   '21:00 hs.',
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                  ),
                 ),
                 trailing: Radio(
                     activeColor: Theme.of(context).colorScheme.secondary,
@@ -126,10 +140,12 @@ class _NotificacionesConfiguracionPageState extends State<NotificacionesConfigur
               ListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
                 leading: Icon(FlutterIcons.slash_fea,
-                    size: 22, color: Theme.of(context).primaryColorDark),
+                    size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
                 title: Text(
                   'Deshabilitar',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                  ),
                 ),
                 trailing: Radio(
                     activeColor: Theme.of(context).colorScheme.secondary,

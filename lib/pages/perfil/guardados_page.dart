@@ -41,13 +41,17 @@ class _GuardadosPageState extends State<GuardadosPage> {
                     decoration: BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).primaryColorDark.withOpacity(0.1),),
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
-                      child: Icon(FlutterIcons.bookmark_fea, color: Theme.of(context).primaryColorDark),
+                      child: Icon(FlutterIcons.bookmark_fea, color: Theme.of(context).primaryColorDark, size: MediaQuery.of(context).size.width * 0.06,),
                     ),
                   ),
-                  SizedBox(height: 40),
-                  Text('Tus avioncitos guardados', style: Theme.of(context).textTheme.headline6, textAlign: TextAlign.center,),
-                  SizedBox(height: 20),
-                  Text('Aún no has guardado ningún avioncito. Colecciona tus favoritos y visitalos más tarde para redescubrir su mensaje con un corazón renovado.', style: Theme.of(context).textTheme.bodyText2, textAlign: TextAlign.center,),
+                  SizedBox(height: MediaQuery.of(context).size.width * 0.08),
+                  Text('Tus avioncitos guardados', style: Theme.of(context).textTheme.headline6!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.052,
+                  ), textAlign: TextAlign.center,),
+                  SizedBox(height: MediaQuery.of(context).size.width * 0.06,),
+                  Text('Aún no has guardado ningún avioncito. Colecciona tus favoritos y visitalos más tarde para redescubrir su mensaje con un corazón renovado.', style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                  ), textAlign: TextAlign.center,),
                 ],
             ),
               ));
@@ -85,19 +89,23 @@ class _GuardadosPageState extends State<GuardadosPage> {
         children: [
           Text(
               avioncitoGuardado.frase!,
-              style: Theme.of(context).textTheme.headline6),
+              style: Theme.of(context).textTheme.headline6!.copyWith(
+                fontSize: MediaQuery.of(context).size.width * 0.048,
+              )),
           SizedBox(
             height: 10,
           ),
           Text(
             avioncitoGuardado.santo!,
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+              fontSize: MediaQuery.of(context).size.width * 0.04,
+            ),
             textAlign: TextAlign.end,
           ),
           SizedBox(height: 20,),
           Row(
             children: [
-              Text('${avioncitoGuardado.fecha!.day} de ${Meses.meses[avioncitoGuardado.fecha!.month-1].id}, ${avioncitoGuardado.fecha!.year}'.toUpperCase(), style:Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 12,),),
+              Text('${avioncitoGuardado.fecha!.day} de ${Meses.meses[avioncitoGuardado.fecha!.month-1].id}, ${avioncitoGuardado.fecha!.year}'.toUpperCase(), style:Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.028,),),
               Spacer(),
               IconButton(
                 onPressed: () {
@@ -105,7 +113,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
                 },
                 icon: Icon(
                   FlutterIcons.bookmark_mco,
-                  size: 22,
+                  size: MediaQuery.of(context).size.width * 0.052,
                   color: Theme.of(context).primaryColorDark),
               ),
             ],

@@ -17,8 +17,8 @@ class ComenzarPage extends StatelessWidget {
           children: [
             Image.asset(
               "assets/images/isotipo.png",
-              width: 80,
-              height: 80,
+              width: MediaQuery.of(context).size.width * 0.16,
+              height: MediaQuery.of(context).size.width * 0.16,
               color: Theme.of(context).primaryColorDark,
               isAntiAlias: true,
             ),
@@ -28,7 +28,9 @@ class ComenzarPage extends StatelessWidget {
                 Navigator.of(context).pushNamed(iniciarSesionPage);
               },
               child: Text('Iniciar sesión',
-                  style: Theme.of(context).textTheme.headline1),
+                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
+                  )),
               splashColor: Colors.transparent,
             ),
             SizedBox(height: 40),
@@ -38,7 +40,9 @@ class ComenzarPage extends StatelessWidget {
                 Navigator.of(context).pushNamed(registrarsePage);
               },
               child: Text('Registrarse',
-                  style: Theme.of(context).textTheme.headline1),
+                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
+                  )),
               splashColor: Colors.transparent,
             )
           ],
