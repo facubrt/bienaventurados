@@ -1,7 +1,8 @@
 import 'package:bienaventurados/models/avioncito_model.dart';
+import 'package:bienaventurados/pages/comenzar/bienaventurados_page.dart';
 import 'package:bienaventurados/pages/comenzar/comenzar_page.dart';
-import 'package:bienaventurados/pages/comenzar/iniciar_sesion.dart';
-import 'package:bienaventurados/pages/comenzar/registrarse.dart';
+import 'package:bienaventurados/pages/comenzar/iniciar_sesion_page.dart';
+import 'package:bienaventurados/pages/comenzar/registrarse_page.dart';
 import 'package:bienaventurados/pages/configuraciones/informacion_page.dart';
 import 'package:bienaventurados/pages/configuraciones/notificaciones_configuracion_page.dart';
 import 'package:bienaventurados/pages/configuraciones/tema_configuracion_page.dart';
@@ -18,6 +19,7 @@ import 'package:flutter/material.dart';
 const String dashboardPage = 'dashboardPage';
 const String inicioPage = 'inicioPage';
 const String comenzarPage = 'comenzarPage';
+const String bienaventuradosPage = 'bienaventuradosPage';
 const String iniciarSesionPage = 'iniciarSesionPage';
 const String registrarsePage = 'registrarsePage';
 const String construirPage = 'construirPage';
@@ -48,7 +50,7 @@ class Routes {
       case (informacionPage):
         return SlideLeftTransitionRoute(widget: InformacionPage());
       case (comenzarPage):
-        return FadeTransitionRoute(widget: ComenzarPage());
+        return SlideLeftTransitionRoute(widget: ComenzarPage());
       case (iniciarSesionPage):
         return SlideLeftTransitionRoute(widget: IniciarSesionPage());
       case (registrarsePage):
@@ -59,6 +61,8 @@ class Routes {
         return SlideLeftTransitionRoute(widget: TemaConfiguracionPage());
       case (notificacionesConfiguracionPage):
         return SlideLeftTransitionRoute(widget: NotificacionesConfiguracionPage());
+      case (bienaventuradosPage):
+        return SlideLeftTransitionRoute(widget: BienaventuradosPage());
       case (redescubrePage):
         final args = settings.arguments as Avioncito;
         return SlideUpTransitionRoute(widget: RedescubrePage(avioncitoGuardado: args));

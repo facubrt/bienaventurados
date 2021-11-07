@@ -4,28 +4,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthProvider with ChangeNotifier{
 
   final FirebaseAuth _auth;
-  //GoogleSignInAccount? _googleUser;
+  GoogleSignInAccount? _googleUser;
   Usuario _user = Usuario();
   late final _displayName;
 
-  //final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   bool? _sesionIniciada;
-
-  // Usuario? _userFromFirebase(auth.User? user) {
-  //   if (user == null) {
-  //     return null;
-  //   }
-  //   return Usuario(uid: user.uid, correo: user.email, nombre: user.displayName);
-  // }
-
-  // Stream<Usuario?>? get user{
-  //   return _firebaseAuth.authStateChanges().map(_userFromFirebase);
-  // }
 
   AuthProvider.instance({bool? sesionIniciada}) : _auth = FirebaseAuth.instance {
     _auth.authStateChanges().listen(_onAuthStateChanged);
@@ -46,14 +36,6 @@ class AuthProvider with ChangeNotifier{
     }
 
   }
-
-  // Future<User?> signInWithEmailAndPassword(String email, String password) async {
-  //   final credential = await _firebaseAuth.signInWithEmailAndPassword(
-  //     email: email,
-  //     password: password,
-  //   );
-  //   return _userFromFirebase(credential.user);
-  // }
 
   Future<auth.User?> signInWithEmailAndPassword(String email, String password) async {
     try {
@@ -79,6 +61,15 @@ class AuthProvider with ChangeNotifier{
     notifyListeners();
   }
 
+  // Future<bool> validarCorreo(String correo)  async {
+  //   await _db.collection('usuarios').where('correo', isEqualTo: correo).get().then((snapshot) {
+  //     if (snapshot.docs.isNotEmpty) {
+  //       return true;
+  //     } 
+  //   });
+  //   return false;
+  // }
+
   Future<auth.User?> createUserWithEmailAndPassword(String nombre, String email, String password) async {
     try {
       final UserCredential authResult = await _auth.createUserWithEmailAndPassword(email: email, password: password);
@@ -89,18 +80,55 @@ class AuthProvider with ChangeNotifier{
         await createUserData(user);
         return user;
       }
-    } catch (e) {
-      print(e);
-      return null;
+    } on FirebaseAuthException catch(e) {
+      print(e.code);
+      if (e.code == 'email-already-in-use') {
+        return null;
+      }
     }
     notifyListeners();
   }
-  // Future<auth.User?> createUserWithEmailAndPassword(String email, String password) async {
-  //   final credential = await _firebaseAuth.createUserWithEmailAndPassword(
-  //     email: email, 
-  //     password: password
-  //   );
-  //   return _userFromFirebase(credential.user);
+  
+  //   Future<auth.User?> googleSignIn() async {
+  //   try {
+  //     GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+  //     GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+  //     _googleUser = googleUser;
+
+  //     final AuthCredential credential = GoogleAuthProvider
+  //       .credential(
+  //         idToken: googleAuth.idToken,
+  //         accessToken: googleAuth.accessToken,
+  //       );
+  //     UserCredential authResult = await _auth.signInWithCredential(credential);
+  //     auth.User user = authResult.user!;
+  //     _sesionIniciada = true;
+  
+  //     await updateUserData(user);
+  //     return user;
+  //   } catch (e) {
+  //     print('error $e');
+  //     return null;
+  //   }
+  // }
+
+  // Future<auth.User?> googleSignUp() async {
+  //   try {
+  //     GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+  //     GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+  //     _googleUser = googleUser;
+
+  //     final AuthCredential credential = GoogleAuthProvider.credential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+  //     UserCredential authResult = await _auth.signInWithCredential(credential);
+  //     auth.User user = authResult.user!;
+  //     _sesionIniciada = true;
+  //     _displayName = user.displayName;
+  //     await createUserData(user);
+  //     return user;
+  //   } catch (e) {
+  //     print('error catch');
+  //     return null;
+  //   }
   // }
 
   Future<DocumentSnapshot> createUserData(auth.User user) async {

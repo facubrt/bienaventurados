@@ -1,6 +1,6 @@
 name: bienaventurados
 description: Aplicación católica de Ser Eucaristía.
-publish_to: 'none'
+publish_to: "none"
 version: 1.2.0
 
 environment:
@@ -13,11 +13,6 @@ dependencies:
   firebase_crashlytics: ^2.2.3
   firebase_in_app_messaging: ^0.5.0+10
   firebase_messaging: ^10.0.8
-  modal_bottom_sheet: ^2.0.0
-  social_share: 
-    git: 
-      url: https://github.com/mikaelim-id/social_share
-  styled_widget: ^0.4.0+3
   flutter:
     sdk: flutter
   flutter_icons:
@@ -25,14 +20,20 @@ dependencies:
       url: https://github.com/adarsh-technocrat/flutter-icons
   flutter_local_notifications: ^9.0.0
   flutter_native_timezone: ^2.0.0
+  google_sign_in: ^5.2.1
   hive: ^2.0.4
   hive_flutter: ^1.1.0
+  modal_bottom_sheet: ^2.0.0
   path_provider: ^2.0.2
   provider: ^5.0.0
   screenshot: ^1.2.3
   share: ^2.0.4
   shared_preferences: ^2.0.6
+  social_share:
+    git:
+      url: https://github.com/mikaelim-id/social_share
   sqflite: ^2.0.0+4
+  styled_widget: ^0.4.0+3
   timezone: ^0.8.0
 
 dev_dependencies:

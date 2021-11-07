@@ -170,7 +170,7 @@ class PerfilPage extends StatelessWidget {
                                     //SharedPrefs.guardarPrefs('sesionIniciada', false);
                                     Navigator.of(context)
                                         .pushNamedAndRemoveUntil(
-                                            comenzarPage, (route) => false);
+                                            bienaventuradosPage, (route) => false);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
