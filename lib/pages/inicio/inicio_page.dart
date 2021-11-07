@@ -38,8 +38,7 @@ class _InicioPageState extends State<InicioPage> {
     super.initState();
     reflexionHeight = 0;
     reflexionOpen = false;
-    final avioncitoProvider =
-      Provider.of<AvioncitoProvider>(context, listen: false);
+    final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
     avioncitoProvider.configuracionInicial();
   }
 

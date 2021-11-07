@@ -49,10 +49,12 @@ class PerfilPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Hola, ${authProvider.usuario.nombre}', style:
-                    Theme.of(context).textTheme.headline1,).padding(horizontal: 40, vertical: 40),
+            Text(
+              'Hola, ${authProvider.usuario.nombre}',
+              style: Theme.of(context).textTheme.headline1,
+            ).padding(horizontal: 40, vertical: 40),
             ComparteWidget().padding(all: 20),
-            
+
             // InkWell(
             //   onTap: () {
             //     ScaffoldMessenger.of(context).showSnackBar(snackbar);
@@ -63,11 +65,14 @@ class PerfilPage extends StatelessWidget {
             //   ),
             // ).padding(horizontal: 40),
             // SizedBox(height: 40),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             InkWell(
               onTap: () {
                 //ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                Navigator.of(context).pushNamed(guardadosPage, arguments: openDrawer);
+                Navigator.of(context)
+                    .pushNamed(guardadosPage, arguments: openDrawer);
               },
               child: Text(
                 'Guardados',
@@ -86,9 +91,11 @@ class PerfilPage extends StatelessWidget {
             ).padding(horizontal: 40),
             (authProvider.usuario.clase == 'administrador')
                 ? Column(
-                  children: [
-                    SizedBox(height: 40,),
-                    InkWell(
+                    children: [
+                      SizedBox(
+                        height: 40,
+                      ),
+                      InkWell(
                         onTap: () {
                           Navigator.of(context).pushNamed(tallerPage);
                         },
@@ -97,14 +104,13 @@ class PerfilPage extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline1,
                         ),
                       ).padding(horizontal: 40),
-                  ],
-                )
+                    ],
+                  )
                 : SizedBox.shrink(),
             SizedBox(height: 80),
             InkWell(
               onTap: () {
                 showFloatingModalBottomSheet(
-                  
                   backgroundColor: Theme.of(context).primaryColor,
                   context: context,
                   builder: (context) {
@@ -116,13 +122,14 @@ class PerfilPage extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Todo camino merece un descanso', style: Theme.of(context).textTheme.headline6),
+                            Text('Todo camino merece un descanso',
+                                style: Theme.of(context).textTheme.headline6),
                             SizedBox(height: 20),
                             Text(
                               'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. Descuida, Dios seguirá esperándote siempre con los brazos abiertos.\n\n¿Deseas descansar de esta aventura?',
                               style: Theme.of(context).textTheme.bodyText2,
                             ),
-                            SizedBox(height:40),
+                            SizedBox(height: 40),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
@@ -131,7 +138,8 @@ class PerfilPage extends StatelessWidget {
                                     Navigator.of(context).pop();
                                   },
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
                                     child: Text(
                                       'Cancelar',
                                       style: Theme.of(context)
@@ -144,26 +152,46 @@ class PerfilPage extends StatelessWidget {
                                   ),
                                 ),
                                 InkWell(
-                              onTap: () {
-                                avioncitoProvider.eliminarDB();
-                                authProvider.signOut();
-                                SharedPrefs.limpiarPrefs();
-                                //SharedPrefs.guardarPrefs('sesionIniciada', false);
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                    comenzarPage, (route) => false);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(
-                                  'Salir',
-                                  style:
-                                      Theme.of(context).textTheme.subtitle1,
+                                  onTap: () {
+                                    avioncitoProvider.eliminarDB();
+                                    authProvider.signOut();
+                                    SharedPrefs.limpiarPrefs();
+                                    //SharedPrefs.guardarPrefs('sesionIniciada', false);
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                            comenzarPage, (route) => false);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Text(
+                                      'Salir',
+                                      style:
+                                          Theme.of(context).textTheme.subtitle1,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
+                                // InkWell(
+                                //   onTap: () {
+                                //     avioncitoProvider.eliminarDB();
+                                //     SharedPrefs.limpiarPrefs();
+                                //     authProvider.signOut();
+                                //     Navigator.of(context)
+                                //         .pushNamedAndRemoveUntil(
+                                //             comenzarPage, (route) => false);
+                                //   },
+                                //   child: Padding(
+                                //     padding: const EdgeInsets.symmetric(
+                                //         horizontal: 10),
+                                //     child: Text(
+                                //       'Eliminar cuenta',
+                                //       style:
+                                //           Theme.of(context).textTheme.subtitle1,
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
-                            
                           ],
                         ),
                       ),

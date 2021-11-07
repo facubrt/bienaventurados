@@ -6,6 +6,7 @@ class LocalData {
   var initialized = false;
   Box? avioncitosBox;
   Box? guardadosBox;
+  Box? hoyBox;
 
   Future<bool> initLocalData() async {
     
@@ -15,22 +16,34 @@ class LocalData {
       if (!Hive.isAdapterRegistered(0)) {
         Hive.registerAdapter(AvioncitoAdapter());
       }
-      // if (!Hive.isAdapterRegistered(1)) {
-      //   Hive.registerAdapter(GuardadosAdapter());
-      // }
-      
       initialized = true;
-      //Hive.registerAdapter(DiaAdapter());
     }
     
     avioncitosBox = await Hive.openBox<Avioncito>('avioncitos');
     guardadosBox = await Hive.openBox<Avioncito>('guardados');
+    hoyBox = await Hive.openBox<Avioncito>('hoy');
     //diasBox = await Hive.openBox('dias');
     return true;
   }
 
   Box? getAvioncitos() {
     return avioncitosBox;
+  }
+
+  Avioncito getAvioncitoHoy() {
+    return avioncitosBox!.getAt(avioncitosBox!.length - 1);
+  }
+
+  void deleteAvioncitoHoy() {
+    avioncitosBox!.deleteAt(avioncitosBox!.length - 1);
+  }
+
+  Box? getHoy() {
+    return hoyBox;
+  }
+
+  void setHoy(Avioncito avioncito) {
+    hoyBox!.put(0, avioncito);
   }
 
   void actualizarAvioncito(int index, Avioncito avioncito) {
@@ -65,6 +78,10 @@ class LocalData {
     //guardadosBox!.deleteAt(index);
   }
 
+  void deleteAvioncitoLocal(int index) {
+    avioncitosBox!.delete(index);
+  }
+
   // void actualizarDia(String key, Dia? dia) {
   //   diasBox!.put(key, dia);
   // }
@@ -73,9 +90,10 @@ class LocalData {
   //   return diasBox;
   // }
 
-  // void setAvioncitos(List<Avioncito?> avioncitos) {
-  //   avioncitosBox!.addAll(avioncitos);
-  // }
+  void setAvioncitos(List<Avioncito> avioncitos) {
+    Iterable<Avioncito> _avioncitos = avioncitos;
+    avioncitosBox!.addAll(_avioncitos);
+  }
 
   // void setDia(String key, Dia? dia) {
   //   diasBox!.put(key, dia);
@@ -95,6 +113,7 @@ class LocalData {
     // guardadosBox!.clear();
     Hive.deleteBoxFromDisk('avioncitosBox');
     Hive.deleteBoxFromDisk('guardadosBox');
+    Hive.deleteBoxFromDisk('hoyBox');
     Hive.deleteFromDisk();
     initialized = false;
   }
