@@ -2,6 +2,7 @@ import 'package:bienaventurados/providers/auth_provider.dart';
 import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 
 class IniciarSesionPage extends StatefulWidget {
@@ -168,9 +169,31 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
                 style: Theme.of(context).textTheme.headline2!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.06,),
                 cursorColor: Theme.of(context).primaryColorDark,
                 cursorWidth: 4,
-                minLines: 1,
-                maxLines: 6,
+                obscureText: ocultarPassword,
                 decoration: InputDecoration(
+                  suffixIcon: InkWell(
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      setState(() {
+                        ocultarPassword = !ocultarPassword;
+                      });
+                    },
+                    child: ocultarPassword
+                        ? Icon(
+                            FlutterIcons.eye_off_fea,
+                            size: MediaQuery.of(context).size.width * 0.06,
+                            color: Theme.of(context)
+                                .primaryColorDark
+                                .withOpacity(0.2),
+                          )
+                        : Icon(
+                            FlutterIcons.eye_fea,
+                            size: MediaQuery.of(context).size.width * 0.06,
+                            color: Theme.of(context)
+                                .primaryColorDark
+                                .withOpacity(0.2),
+                          )),
                   hintText: 'contraseña',
                   hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.06,
