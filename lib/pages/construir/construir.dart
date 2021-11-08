@@ -71,7 +71,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
+                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
                 child: TextFormField(
                   controller: _fraseController,
                   autofocus: false,
@@ -143,11 +143,15 @@ class _ConstruirPageState extends State<ConstruirPage> {
           ),
         ),
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(40.0),
+          padding: const EdgeInsets.all(30.0),
           child: Container(
             width: double.infinity,
             height: 50,
             child: TextButton(
+              style: OutlinedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColorDark,
+                  
+                ),
               onPressed: () {
                 if (fraseFormKey.currentState!.validate()) {
                   _pageController.nextPage(
@@ -179,7 +183,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
+                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
                 child: TextFormField(
                   controller: _reflexionController,
                   autofocus: false,
@@ -217,7 +221,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
+                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
                 child: TextFormField(
                   controller: _tagController,
                   autofocus: false,
@@ -254,11 +258,15 @@ class _ConstruirPageState extends State<ConstruirPage> {
           ),
         ),
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(40.0),
+          padding: const EdgeInsets.all(30.0),
           child: Container(
             width: double.infinity,
             height: 50,
             child: TextButton(
+              style: OutlinedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColorDark,
+                  
+                ),
               onPressed: () {
                 if (reflexionFormKey.currentState!.validate()) {
                   _pageController.nextPage(
@@ -291,7 +299,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
+                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
                 child: TextFormField(
                   controller: _preguntaController,
                   autofocus: false,
@@ -319,7 +327,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
+                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
                 child: TextFormField(
                   controller: _misionController,
                   autofocus: false,
@@ -354,6 +362,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
             width: double.infinity,
             height: 50,
             child: TextButton(
+              style: OutlinedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColorDark,
+                  
+                ),
               onPressed: () {
                 if (preguntaFormKey.currentState!.validate()) {
                   setState(() {
@@ -389,7 +401,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
       body: SingleChildScrollView(
           child: Column(children: [
         Padding(
-          padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
+          padding: const EdgeInsets.only(left: 430.0, right: 30.0, top: 30.0),
           child: Text(
             '¡Todo listo!',
             style: Theme.of(context).textTheme.headline2!.copyWith(
@@ -407,7 +419,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
         )
       ])),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(40.0),
+        padding: const EdgeInsets.all(30.0),
         child: Container(
           width: double.infinity,
           height: 50,
