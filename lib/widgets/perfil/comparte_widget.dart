@@ -33,7 +33,7 @@ class ComparteWidget extends StatelessWidget {
                 child: Text('Comparte'.toUpperCase(),
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.035,)),
                 onTap: () async {
-                   await Share.share('https://bienaventurados.web.app/comparte' );
+                   await Share.share('https://play.google.com/store/apps/details?id=com.sereucaristia' );
                 },
               )
             ],

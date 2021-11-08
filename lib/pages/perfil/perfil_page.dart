@@ -1,5 +1,6 @@
 import 'package:bienaventurados/providers/auth_provider.dart';
 import 'package:bienaventurados/providers/avioncito_provider.dart';
+import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/repositories/shared_prefs.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:bienaventurados/widgets/floating_modal.dart';
@@ -30,6 +31,7 @@ class PerfilPage extends StatelessWidget {
 
     final authProvider = Provider.of<AuthProvider>(context);
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
+    final prefs = PreferenciasUsuario();
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -50,7 +52,7 @@ class PerfilPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Hola, ${authProvider.usuario.nombre}',
+              'Hola, ${authProvider.usuario.nombre ?? ''}',
               style: Theme.of(context).textTheme.headline1!.copyWith(
                 fontSize: MediaQuery.of(context).size.width * 0.08,
               ),
@@ -79,7 +81,7 @@ class PerfilPage extends StatelessWidget {
               child: Text(
                 'Guardados',
                 style: Theme.of(context).textTheme.headline1!.copyWith(
-                fontSize: MediaQuery.of(context).size.width * 0.06,
+                fontSize: MediaQuery.of(context).size.width * 0.08,
               ),
               ),
             ).padding(horizontal: 40),
@@ -91,7 +93,7 @@ class PerfilPage extends StatelessWidget {
               child: Text(
                 'Construir',
                 style: Theme.of(context).textTheme.headline1!.copyWith(
-                fontSize: MediaQuery.of(context).size.width * 0.06,
+                fontSize: MediaQuery.of(context).size.width * 0.08,
               ),
               ),
             ).padding(horizontal: 40),
@@ -108,7 +110,7 @@ class PerfilPage extends StatelessWidget {
                         child: Text(
                           'Taller',
                           style: Theme.of(context).textTheme.headline1!.copyWith(
-                fontSize: MediaQuery.of(context).size.width * 0.06,
+                fontSize: MediaQuery.of(context).size.width * 0.08,
               ),
                         ),
                       ).padding(horizontal: 40),
@@ -167,7 +169,7 @@ class PerfilPage extends StatelessWidget {
                                     avioncitoProvider.eliminarDB();
                                     authProvider.signOut();
                                     SharedPrefs.limpiarPrefs();
-                                    //SharedPrefs.guardarPrefs('sesionIniciada', false);
+                                    prefs.modoNoche = false;
                                     Navigator.of(context)
                                         .pushNamedAndRemoveUntil(
                                             bienaventuradosPage, (route) => false);
@@ -215,7 +217,7 @@ class PerfilPage extends StatelessWidget {
               child: Text(
                 'Salir',
                 style: Theme.of(context).textTheme.headline1!.copyWith(
-                  fontSize: MediaQuery.of(context).size.width * 0.06,
+                  fontSize: MediaQuery.of(context).size.width * 0.08,
                   color: Theme.of(context).colorScheme.secondary
                 ),
               ),

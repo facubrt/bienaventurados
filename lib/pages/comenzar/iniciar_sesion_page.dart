@@ -58,7 +58,7 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
       child: Scaffold(
         body: Padding(
           padding:
-              const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
+              const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -101,7 +101,7 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
           ),
         ),
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(40.0),
+          padding: const EdgeInsets.all(30.0),
           child: Container(
             width: double.infinity,
             height: 50,
@@ -154,7 +154,7 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
       child: Scaffold(
         body: Padding(
           padding:
-              const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
+              const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -219,7 +219,7 @@ class _IniciarSesionPageState extends State<IniciarSesionPage> {
           ),
         ),
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(40.0),
+          padding: const EdgeInsets.all(30.0),
           child: Container(
             width: double.infinity,
             height: 50,

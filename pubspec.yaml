@@ -23,18 +23,18 @@ dependencies:
   google_sign_in: ^5.2.1
   hive: ^2.0.4
   hive_flutter: ^1.1.0
+  image_gallery_saver: ^1.7.1
   modal_bottom_sheet: ^2.0.0
   path_provider: ^2.0.2
   provider: ^5.0.0
   screenshot: ^1.2.3
   share: ^2.0.4
   shared_preferences: ^2.0.6
-  social_share:
-    git:
-      url: https://github.com/mikaelim-id/social_share
+  # social_share: ^2.1.1
   sqflite: ^2.0.0+4
   styled_widget: ^0.4.0+3
   timezone: ^0.8.0
+  url_launcher: ^6.0.12
 
 dev_dependencies:
   build_runner: null

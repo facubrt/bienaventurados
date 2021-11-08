@@ -1,14 +1,11 @@
-import 'package:bienaventurados/providers/auth_provider.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class BienaventuradosPage extends StatelessWidget {
   const BienaventuradosPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -16,15 +13,30 @@ class BienaventuradosPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.only(left: 30.0, right: 30, bottom: 30),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              "assets/images/isotipo.png",
-              width: MediaQuery.of(context).size.width * 0.16,
-              height: MediaQuery.of(context).size.width * 0.16,
-              color: Theme.of(context).primaryColorDark,
-              isAntiAlias: true,
+            Container(
+              alignment: Alignment.topCenter,
+              width: MediaQuery.of(context).size.width,
+              child: Text('Bienaventurados', style: Theme.of(context).textTheme.headline1!.copyWith(
+                fontSize: MediaQuery.of(context).size.width * 0.06,
+              ),),
             ),
+            SizedBox(height: MediaQuery.of(context).size.width * 0.04,),
+            Container(
+              alignment: Alignment.topCenter,
+              width: MediaQuery.of(context).size.width,
+              child: Text('Ser Eucaristía', style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                fontSize: MediaQuery.of(context).size.width * 0.04,
+              ),),
+            ),
+            // Image.asset(
+            //   "assets/images/isotipo.png",
+            //   width: MediaQuery.of(context).size.width * 0.16,
+            //   height: MediaQuery.of(context).size.width * 0.16,
+            //   color: Theme.of(context).primaryColorDark,
+            //   isAntiAlias: true,
+            // ),
             // Spacer(),
             // InkWell(
             //   onTap: () {
@@ -52,7 +64,7 @@ class BienaventuradosPage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(40.0),
+        padding: const EdgeInsets.all(30.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

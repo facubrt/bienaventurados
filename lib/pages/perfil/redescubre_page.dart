@@ -154,8 +154,12 @@ class _RedescubrePageState extends State<RedescubrePage> {
             child: AnimatedContainer(
                 duration: Duration(milliseconds: 200),
                 curve: Curves.easeInOut,
-                height: reflexionOpen ? MediaQuery.of(context).size.width * 0.2 : MediaQuery.of(context).size.width * 0.26,
-                width: reflexionOpen ? MediaQuery.of(context).size.width * 0.2 : MediaQuery.of(context).size.width * 0.26,
+                height: reflexionOpen
+                    ? MediaQuery.of(context).size.width * 0.2
+                    : MediaQuery.of(context).size.width * 0.26,
+                width: reflexionOpen
+                    ? MediaQuery.of(context).size.width * 0.2
+                    : MediaQuery.of(context).size.width * 0.26,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 30.0),
                   child: Image.asset(
@@ -175,9 +179,8 @@ class _RedescubrePageState extends State<RedescubrePage> {
                     '${widget.avioncitoGuardado.fecha!.day} de ${Meses.meses[widget.avioncitoGuardado.fecha!.month - 1].id}, ${widget.avioncitoGuardado.fecha!.year}'
                         .toUpperCase(),
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                            fontSize: MediaQuery.of(context).size.width * 0.035,
-                          )
-                ),
+                          fontSize: MediaQuery.of(context).size.width * 0.035,
+                        )),
                 Spacer(),
                 IconButton(
                   onPressed: () {
@@ -214,8 +217,8 @@ class _RedescubrePageState extends State<RedescubrePage> {
             Text(
               widget.avioncitoGuardado.frase!,
               style: Theme.of(context).textTheme.headline1!.copyWith(
-                fontSize: MediaQuery.of(context).size.width * 0.1,
-              ),
+                    fontSize: MediaQuery.of(context).size.width * 0.1,
+                  ),
             ).padding(horizontal: 40),
             SizedBox(height: 40),
             Container(
@@ -223,8 +226,8 @@ class _RedescubrePageState extends State<RedescubrePage> {
               child: Text(
                 widget.avioncitoGuardado.santo!,
                 style: Theme.of(context).textTheme.headline4!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.045,
-                      ),
+                      fontSize: MediaQuery.of(context).size.width * 0.045,
+                    ),
                 textAlign: TextAlign.end,
               ).padding(left: 40, right: 40),
             ),
@@ -249,24 +252,28 @@ class _RedescubrePageState extends State<RedescubrePage> {
                         children: [
                           Text(
                             widget.avioncitoGuardado.reflexion!,
-                            style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    fontSize: MediaQuery.of(context).size.width * 0.04,
-                                  ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.04,
+                                ),
                           ),
                           Divider(
                             height: 40,
                           ),
-                          // Text(
-                          //     'Construido por ${widget.avioncitoGuardado.usuario}',
-                          //     style: Theme.of(context)
-                          //         .textTheme
-                          //         .bodyText2!
-                          //         .copyWith(
-                          //             fontSize: 12,
-                          //             fontWeight: FontWeight.bold,
-                          //             color: Theme.of(context)
-                          //                 .primaryColorDark
-                          //                 .withOpacity(0.2))),
+                          Text(
+                              'Construido por ${widget.avioncitoGuardado.usuario}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context)
+                                          .primaryColorDark
+                                          .withOpacity(0.2))),
                         ],
                       ),
                     ),

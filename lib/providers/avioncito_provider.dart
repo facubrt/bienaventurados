@@ -105,6 +105,7 @@ class AvioncitoProvider with ChangeNotifier {
               frase: _avioncito.frase,
               santo: _avioncito.santo,
               reflexion: _avioncito.reflexion,
+              usuario: _avioncito.usuario,
               tag: _avioncito.tag,
               guardado: false,
               visto: true);
@@ -132,6 +133,9 @@ class AvioncitoProvider with ChangeNotifier {
           santo: _avioncito.santo,
           reflexion: _avioncito.reflexion,
           tag: _avioncito.tag,
+          usuario: _avioncito.usuario,
+          mision: _avioncito.mision,
+          pregunta: _avioncito.pregunta,
           guardado: false,
           visto: true);
       _localDB.setHoy(_avioncitoHoy);
@@ -175,9 +179,9 @@ class AvioncitoProvider with ChangeNotifier {
         Avioncito av = Avioncito.fromFirestore(snapshot.docs[i]);
         _avioncitos.add(av);
       }
-      print('MEZCLANDO AVIONCITOS, PRIMER AVIONCITO ${_avioncitos[0].frase}');
+      print('MEZCLANDO AVIONCITOS, PRIMER AVIONCITO ${_avioncitos[0].usuario}');
       _avioncitos.shuffle();
-      print('PRIMER AVIONCITO RANDOM ${_avioncitos[0].frase}');
+      print('PRIMER AVIONCITO RANDOM ${_avioncitos[0].usuario}');
       _localDB.setAvioncitos(_avioncitos);
       print('AVIONCITOS AGREGADOS A LOCAL');
       retVal = true;
@@ -214,6 +218,7 @@ class AvioncitoProvider with ChangeNotifier {
         reflexion: _avioncito.reflexion,
         tag: _avioncito.tag,
         guardado: _avioncito.guardado,
+        usuario: _avioncito.usuario,
         visto: true);
     print('Guardado el avioncito ${_avioncitoGuardado.id}');
     _localDB.setGuardados(_avioncitoGuardado.id, _avioncitoGuardado);

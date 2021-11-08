@@ -9,11 +9,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthProvider with ChangeNotifier{
 
   final FirebaseAuth _auth;
-  GoogleSignInAccount? _googleUser;
+  // GoogleSignInAccount? _googleUser;
   Usuario _user = Usuario();
   late final _displayName;
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  // final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   bool? _sesionIniciada;
 

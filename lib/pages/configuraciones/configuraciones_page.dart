@@ -15,8 +15,12 @@ class ConfiguracionesPage extends StatefulWidget {
 
 class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
   late SharedPreferences prefs;
-  // late bool _activarModoNoche;
-  // int _value = 1;
+  
+  final _listaOpciones = [
+    'Notificaciones',
+    'Cambiar tema',
+    'Acerca de',
+  ];
 
   @override
   void initState() {
@@ -42,52 +46,80 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
             onPressed: () {
               widget.openDrawer();
             },
-            icon: Icon(FlutterIcons.menu_fea, size: MediaQuery.of(context).size.width * 0.06),
+            icon: Icon(FlutterIcons.menu_fea,
+                size: MediaQuery.of(context).size.width * 0.06),
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(40.0),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            InkWell(
+      body: ListView.separated(
+        itemCount: _listaOpciones.length,
+        itemBuilder: (context, index){
+              return ListTile(
+                contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
                 onTap: () {
-                  Navigator.of(context).pushNamed(notificacionesConfiguracionPage);
-                  
+                  navegarHacia(index);
                 },
-                child: Text('Notificaciones',
-                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                title: Text(_listaOpciones[index], style: Theme.of(context).textTheme.headline1!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.06,
-                    ))),
-            SizedBox(height: MediaQuery.of(context).size.width * 0.06,),
-            InkWell(
-              onTap: () {
-                
-                Navigator.of(context).pushNamed(temaConfiguracionPage);
-              },
-              child: Text(
-                'Cambiar tema',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                  fontSize: MediaQuery.of(context).size.width * 0.06,
-                ),
-              ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.width * 0.06,),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).pushNamed(informacionPage);
-              },
-              child: Text(
-                'Acerca de',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                  fontSize: MediaQuery.of(context).size.width * 0.06,
-                ),
-              ),
-            ),
-          ]),
-        ),
+                    )),
+              );
+        }, 
+        separatorBuilder: (context, index){ 
+          return Divider(
+            height: 0, 
+            indent: MediaQuery.of(context).size.width * 0.08, 
+            endIndent: MediaQuery.of(context).size.width * 0.08);
+        }
       ),
+      // body: SingleChildScrollView(
+      //   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          // InkWell(
+          //     onTap: () {
+          //       Navigator.of(context).pushNamed(notificacionesConfiguracionPage);
+
+          //     },
+          //     child: Text('Notificaciones',
+          //         style: Theme.of(context).textTheme.headline1!.copyWith(
+          //           fontSize: MediaQuery.of(context).size.width * 0.08,
+          //         ))),
+          // ListTile(
+          //   onTap: () {
+          //     Navigator.of(context).pushNamed(notificacionesConfiguracionPage);
+          //   },
+          //   title: Text('Notificaciones',
+          //       style: Theme.of(context).textTheme.headline1!.copyWith(
+          //             fontSize: MediaQuery.of(context).size.width * 0.08,
+          //           )),
+          // ),
+          // SizedBox(
+          //   height: MediaQuery.of(context).size.width * 0.06,
+          // ),
+          // InkWell(
+          //   onTap: () {
+          //     Navigator.of(context).pushNamed(temaConfiguracionPage);
+          //   },
+          //   child: Text(
+          //     'Cambiar tema',
+          //     style: Theme.of(context).textTheme.headline1!.copyWith(
+          //           fontSize: MediaQuery.of(context).size.width * 0.08,
+          //         ),
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: MediaQuery.of(context).size.width * 0.06,
+          // ),
+          // InkWell(
+          //   onTap: () {
+          //     Navigator.of(context).pushNamed(informacionPage);
+          //   },
+          //   child: Text(
+          //     'Acerca de',
+          //     style: Theme.of(context).textTheme.headline1!.copyWith(
+          //           fontSize: MediaQuery.of(context).size.width * 0.08,
+          //         ),
+          //   ),
+          // ),
+        //]),
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
         color: Colors.transparent,
@@ -103,5 +135,21 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
         ),
       ),
     );
+  }
+
+  void navegarHacia(int pagina) {
+    switch (pagina) {
+      case 0:
+        Navigator.of(context).pushNamed(notificacionesConfiguracionPage);
+        break;
+      case 1:
+        Navigator.of(context).pushNamed(temaConfiguracionPage);
+        break;
+      case 2:
+        Navigator.of(context).pushNamed(informacionPage);
+        break;
+      default:
+        break;
+    }
   }
 }

@@ -1,9 +1,5 @@
-import 'package:bienaventurados/providers/auth_provider.dart';
-import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:provider/provider.dart';
 
 class ComenzarPage extends StatefulWidget {
   const ComenzarPage({Key? key}) : super(key: key);
@@ -30,7 +26,6 @@ class _ComenzarPageState extends State<ComenzarPage> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
     
     return Scaffold(
       appBar: AppBar(

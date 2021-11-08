@@ -38,8 +38,6 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
-    final prefs = PreferenciasUsuario();
     
     return Scaffold(
       appBar: AppBar(
@@ -63,7 +61,7 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
       child: Scaffold(
         body: Padding(
           padding:
-              const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
+              const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -107,7 +105,7 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
           ),
         ),
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(40.0),
+          padding: const EdgeInsets.all(30.0),
           child: Container(
             width: double.infinity,
             height: 50,
@@ -144,7 +142,7 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
       child: Scaffold(
         body: Padding(
           padding:
-              const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
+              const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -187,7 +185,7 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
           ),
         ),
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(40.0),
+          padding: const EdgeInsets.all(30.0),
           child: Container(
             width: double.infinity,
             height: 50,
@@ -241,7 +239,7 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
       child: Scaffold(
         body: Padding(
           padding:
-              const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
+              const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -306,7 +304,7 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
           ),
         ),
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(40.0),
+          padding: const EdgeInsets.all(30.0),
           child: Container(
             width: double.infinity,
             height: 50,
