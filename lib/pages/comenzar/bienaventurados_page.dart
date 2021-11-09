@@ -79,7 +79,7 @@ class BienaventuradosPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pushNamed(iniciarSesionPage);
                 },
-                child: Text('Iniciar Sesión',
+                child: Text('Continuar con Correo',
                     style: Theme.of(context)
                         .textTheme
                         .headline4!
@@ -88,28 +88,27 @@ class BienaventuradosPage extends StatelessWidget {
                           color: Theme.of(context).primaryColor)),
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.width * 0.04),
-            Container(
-              width: double.infinity,
-              height: 50,
-              child: TextButton(
-                style: OutlinedButton.styleFrom(
-                  side: BorderSide(width: 2, color: Theme.of(context).primaryColorDark),
-                  backgroundColor: Theme.of(context).primaryColor,
+            // Container(
+            //   width: double.infinity,
+            //   height: 50,
+            //   child: TextButton(
+            //     style: OutlinedButton.styleFrom(
+            //       side: BorderSide(width: 2, color: Theme.of(context).primaryColorDark),
+            //       backgroundColor: Theme.of(context).primaryColor,
                   
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed(registrarsePage);
-                },
-                child: Text('Registrarse',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.04,
-                          color: Theme.of(context).primaryColorDark)),
-              ),
-            ),
+            //     ),
+            //     onPressed: () {
+            //       Navigator.of(context).pushNamed(registrarsePage);
+            //     },
+            //     child: Text('Registrarse',
+            //         style: Theme.of(context)
+            //             .textTheme
+            //             .headline4!
+            //             .copyWith(
+            //               fontSize: MediaQuery.of(context).size.width * 0.04,
+            //               color: Theme.of(context).primaryColorDark)),
+            //   ),
+            // ),
           ],
         ),
       ),

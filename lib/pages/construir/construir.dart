@@ -382,7 +382,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                       curve: Curves.fastLinearToSlowEaseIn);
                 }
               },
-              child: Text('Finalizar',
+              child: Text('Continuar',
                   style: Theme.of(context)
                       .textTheme
                       .headline4!
@@ -405,6 +405,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
           child: Text(
             '¡Todo listo!',
             style: Theme.of(context).textTheme.headline2!.copyWith(
+              color: Theme.of(context).primaryColorDark,
               fontSize: MediaQuery.of(context).size.width * 0.08,
             ),
           ),
@@ -424,10 +425,14 @@ class _ConstruirPageState extends State<ConstruirPage> {
           width: double.infinity,
           height: 50,
           child: TextButton(
+            style: OutlinedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColorDark,
+                  
+                ),
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text('Salir',
+            child: Text('Finalizar',
                 style: Theme.of(context)
                     .textTheme
                     .headline4!

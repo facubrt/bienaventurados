@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:bienaventurados/providers/auth_provider.dart';
 import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 class RegistrarsePage extends StatefulWidget {
@@ -12,16 +15,19 @@ class RegistrarsePage extends StatefulWidget {
   _RegistrarsePageState createState() => _RegistrarsePageState();
 }
 
-class _RegistrarsePageState extends State<RegistrarsePage> {
+class _RegistrarsePageState extends State<RegistrarsePage>
+    with TickerProviderStateMixin {
   late bool ocultarPassword;
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   final passwordFormKey = GlobalKey<FormState>();
   final emailFormKey = GlobalKey<FormState>();
   final nameFormKey = GlobalKey<FormState>();
+  // Boton de carga
+  int _state = 0;
 
-  final PageController _pageController = PageController(initialPage: 0);
+  PageController _pageController = PageController(initialPage: 0);
 
   @override
   void initState() {
@@ -31,14 +37,16 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
 
   @override
   void dispose() {
-    passwordController.dispose();
+    this.dispose();
     _pageController.dispose();
+    passwordController.dispose();
+    nameController.dispose();
+    emailController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -60,21 +68,25 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
       key: nameFormKey,
       child: Scaffold(
         body: Padding(
-          padding:
-              const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
+          padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('¿Cuál es tu nombre?', style: Theme.of(context).textTheme.headline2!.copyWith(
-                fontSize: MediaQuery.of(context).size.width * 0.06,)
+              Text('¿Cuál es tu nombre?',
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                      )),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.04,
               ),
-              SizedBox(height: MediaQuery.of(context).size.width * 0.04,),
               TextFormField(
                 controller: nameController,
                 autofocus: false,
                 textCapitalization: TextCapitalization.sentences,
                 keyboardType: TextInputType.text,
-                style: Theme.of(context).textTheme.headline2!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.06,),
+                style: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                    ),
                 cursorColor: Theme.of(context).primaryColorDark,
                 cursorWidth: 4,
                 minLines: 1,
@@ -82,10 +94,9 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                 decoration: InputDecoration(
                   hintText: 'nombre',
                   hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.06,
-                      color: Theme.of(context)
-                          .primaryColorDark
-                          .withOpacity(0.2)),
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                      color:
+                          Theme.of(context).primaryColorDark.withOpacity(0.2)),
                   focusedBorder: InputBorder.none,
                   border: InputBorder.none,
                   errorBorder: InputBorder.none,
@@ -111,9 +122,8 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
             height: 50,
             child: TextButton(
               style: OutlinedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColorDark,
-                  
-                ),
+                backgroundColor: Theme.of(context).primaryColorDark,
+              ),
               onPressed: () {
                 if (nameFormKey.currentState!.validate()) {
                   _pageController.nextPage(
@@ -122,13 +132,9 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                 }
               },
               child: Text('Continuar',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.04,
-                        color: Theme.of(context).primaryColor)
-              ),
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Theme.of(context).primaryColor)),
             ),
           ),
         ),
@@ -141,20 +147,24 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
       key: emailFormKey,
       child: Scaffold(
         body: Padding(
-          padding:
-              const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
+          padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Ingresa un correo para comenzar', style: Theme.of(context).textTheme.headline2!.copyWith(
-                fontSize: MediaQuery.of(context).size.width * 0.06,)
+              Text('Ingresa un correo para comenzar',
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                      )),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.04,
               ),
-              SizedBox(height: MediaQuery.of(context).size.width * 0.04,),
               TextFormField(
                 controller: emailController,
                 autofocus: false,
                 keyboardType: TextInputType.text,
-                style: Theme.of(context).textTheme.headline2!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.06,),
+                style: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                    ),
                 cursorColor: Theme.of(context).primaryColorDark,
                 cursorWidth: 4,
                 minLines: 1,
@@ -162,10 +172,9 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                 decoration: InputDecoration(
                   hintText: 'correo',
                   hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.06,
-                      color: Theme.of(context)
-                          .primaryColorDark
-                          .withOpacity(0.2)),
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                      color:
+                          Theme.of(context).primaryColorDark.withOpacity(0.2)),
                   focusedBorder: InputBorder.none,
                   border: InputBorder.none,
                   errorBorder: InputBorder.none,
@@ -174,7 +183,7 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                   focusedErrorBorder: InputBorder.none,
                 ),
                 validator: (value) {
-                  if(!value!.contains('@')) {
+                  if (!value!.contains('@')) {
                     return 'Debes ingresar un correo para continuar';
                   } else {
                     return null;
@@ -191,9 +200,8 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
             height: 50,
             child: TextButton(
               style: OutlinedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColorDark,
-                  
-                ),
+                backgroundColor: Theme.of(context).primaryColorDark,
+              ),
               onPressed: () {
                 if (emailFormKey.currentState!.validate()) {
                   _pageController.nextPage(
@@ -202,13 +210,9 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                 }
               },
               child: Text('Continuar',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.04,
-                        color: Theme.of(context).primaryColor)
-              ),
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Theme.of(context).primaryColor)),
             ),
           ),
         ),
@@ -217,74 +221,74 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
   }
 
   Widget passwordPage() {
-
-    final authProvider = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final prefs = PreferenciasUsuario();
-
     final snackbar = SnackBar(
       backgroundColor: Theme.of(context).colorScheme.secondary,
       content: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Text(
-            '¡Oh, oh! Parece que algo no salió bien. Intentalo de nuevo.',
-            style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                  fontSize: MediaQuery.of(context).size.width * 0.04,
-                  color: Theme.of(context).primaryColor,
-                )),
+        child:
+            Text('¡Oh, oh! Parece que algo no salió bien. Intentalo de nuevo.',
+                style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Theme.of(context).primaryColor,
+                    )),
       ),
     );
-
     return Form(
       key: passwordFormKey,
       child: Scaffold(
         body: Padding(
-          padding:
-              const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
+          padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Ingresa una contraseña para comenzar una nueva aventura', style: Theme.of(context).textTheme.headline2!.copyWith(
-                fontSize: MediaQuery.of(context).size.width * 0.06,)
+              Text('Ingresa una contraseña para comenzar una nueva aventura',
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                      )),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.04,
               ),
-              SizedBox(height: MediaQuery.of(context).size.width * 0.04,),
               TextFormField(
                 controller: passwordController,
                 autofocus: false,
                 keyboardType: TextInputType.text,
-                style: Theme.of(context).textTheme.headline2!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.06,),
+                style: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                    ),
                 cursorColor: Theme.of(context).primaryColorDark,
                 cursorWidth: 4,
                 obscureText: ocultarPassword,
                 decoration: InputDecoration(
                   suffixIcon: InkWell(
-                    hoverColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    onTap: () {
-                      setState(() {
-                        ocultarPassword = !ocultarPassword;
-                      });
-                    },
-                    child: ocultarPassword
-                        ? Icon(
-                            FlutterIcons.eye_off_fea,
-                            size: MediaQuery.of(context).size.width * 0.06,
-                            color: Theme.of(context)
-                                .primaryColorDark
-                                .withOpacity(0.2),
-                          )
-                        : Icon(
-                            FlutterIcons.eye_fea,
-                            size: MediaQuery.of(context).size.width * 0.06,
-                            color: Theme.of(context)
-                                .primaryColorDark
-                                .withOpacity(0.2),
-                          )),
+                      hoverColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      onTap: () {
+                        setState(() {
+                          ocultarPassword = !ocultarPassword;
+                        });
+                      },
+                      child: ocultarPassword
+                          ? Icon(
+                              FlutterIcons.eye_off_fea,
+                              size: MediaQuery.of(context).size.width * 0.06,
+                              color: Theme.of(context)
+                                  .primaryColorDark
+                                  .withOpacity(0.2),
+                            )
+                          : Icon(
+                              FlutterIcons.eye_fea,
+                              size: MediaQuery.of(context).size.width * 0.06,
+                              color: Theme.of(context)
+                                  .primaryColorDark
+                                  .withOpacity(0.2),
+                            )),
                   hintText: 'contraseña',
                   hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.06,
-                      color: Theme.of(context)
-                          .primaryColorDark
-                          .withOpacity(0.2)),
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                      color:
+                          Theme.of(context).primaryColorDark.withOpacity(0.2)),
                   focusedBorder: InputBorder.none,
                   border: InputBorder.none,
                   errorBorder: InputBorder.none,
@@ -293,7 +297,7 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
                   focusedErrorBorder: InputBorder.none,
                 ),
                 validator: (value) {
-                  if(value!.length < 8)  {
+                  if (value!.length < 8) {
                     return 'Debes ingresar una contraseña para continuar';
                   } else {
                     return null;
@@ -308,37 +312,127 @@ class _RegistrarsePageState extends State<RegistrarsePage> {
           child: Container(
             width: double.infinity,
             height: 50,
-            child: TextButton(
-              style: OutlinedButton.styleFrom(
+            child: 
+            TextButton(
+                style: OutlinedButton.styleFrom(
                   backgroundColor: Theme.of(context).primaryColorDark,
-                  
                 ),
-              onPressed: () {
-                if (passwordFormKey.currentState!.validate()) {
-                  authProvider.createUserWithEmailAndPassword(nameController.text, emailController.text, passwordController.text).then((resultado) {
-                    if(resultado != null) {
-                      prefs.sesionIniciada = true;
-                      Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                    }
-                  });
-                  
-                }
-              },
-              child: Text('Continuar',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.04,
-                        color: Theme.of(context).primaryColor)
-              ),
-            ),
+                child: setUpButtonChild(),
+                onPressed: () {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
+                  if (passwordFormKey.currentState!.validate()) {
+                    setState(() {
+                      if (_state == 0) {
+                        animateButton();
+                      }
+                    });
+                  }
+                }),
+            // TextButton(
+            //   style: OutlinedButton.styleFrom(
+            //       backgroundColor: Theme.of(context).primaryColorDark,
+
+            //     ),
+            //   onPressed: () {
+            //     FocusScopeNode currentFocus = FocusScope.of(context);
+
+            //       if (!currentFocus.hasPrimaryFocus) {
+            //         currentFocus.unfocus();
+            //       }
+            //     if (passwordFormKey.currentState!.validate()) {
+
+            //       authProvider.createUserWithEmailAndPassword(nameController.text, emailController.text, passwordController.text).then((resultado) {
+            //         if(resultado != null) {
+            //           prefs.sesionIniciada = true;
+            //           Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
+            //         } else {
+            //           ScaffoldMessenger.of(context).showSnackBar(snackbar);
+            //         }
+            //       });
+
+            //     }
+            //   },
+            //   child: Text('Continuar',
+            //       style: Theme.of(context)
+            //           .textTheme
+            //           .headline4!
+            //           .copyWith(
+            //             fontSize: MediaQuery.of(context).size.width * 0.04,
+            //             color: Theme.of(context).primaryColor)
+            //   ),
+            // ),
           ),
         ),
       ),
     );
   }
 
+  // BOTON DE CARGA
+  Widget setUpButtonChild() {
+    if (_state == 0) {
+      return new Text(
+        "Continuar",
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      );
+    } else if (_state == 1) {
+      return SpinKitThreeBounce(
+        color: Colors.white,
+        size: 20.0,
+        controller: AnimationController(
+            vsync: this, duration: const Duration(milliseconds: 1200)),
+      );
+    } else {
+      return Icon(Icons.check, color: Colors.white);
+    }
+  }
+
+  void animateButton() {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final prefs = PreferenciasUsuario();
+
+    final snackbar = SnackBar(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      content: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child:
+            Text('¡Oh, oh! Parece que algo no salió bien. Intentalo de nuevo.',
+                style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Theme.of(context).primaryColor,
+                    )),
+      ),
+    );
+
+    setState(() {
+      _state = 1;
+    });
+
+    // Timer(Duration(milliseconds: 3300), () {
+    //   setState(() {
+    //     _state = 2;
+    //   });
+    // });
+    authProvider
+        .createUserWithEmailAndPassword(
+            nameController.text, emailController.text, passwordController.text)
+        .then((resultado) {
+      if (resultado != null) {
+        prefs.sesionIniciada = true;
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil(dashboardPage, (route) => false);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        setState(() {
+          _state = 0;
+        });
+      }
+    });
+  }
 }
