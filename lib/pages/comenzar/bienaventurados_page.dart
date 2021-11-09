@@ -1,9 +1,24 @@
+import 'package:bienaventurados/providers/theme_provider.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class BienaventuradosPage extends StatelessWidget {
+class BienaventuradosPage extends StatefulWidget {
   const BienaventuradosPage({Key? key}) : super(key: key);
 
+  @override
+  State<BienaventuradosPage> createState() => _BienaventuradosPageState();
+}
+
+class _BienaventuradosPageState extends State<BienaventuradosPage> {
+  
+  @override
+  void initState() {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context,listen: false,);
+    themeProvider.activarModoNoche(false);
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

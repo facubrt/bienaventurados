@@ -7,8 +7,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class AvioncitoProvider with ChangeNotifier {
   late Avioncito _avioncito;
-  late Avioncito _avioncitoGuardado;
-  late Avioncito _avioncitoHoy;
   List<Avioncito> _avioncitosGuardados = [];
   List<Avioncito> _avioncitos = [];
   // late int _dia;
@@ -98,18 +96,7 @@ class AvioncitoProvider with ChangeNotifier {
           _avioncito = _localDB.getAvioncitoHoy();
           _avioncito.fecha = DateTime.now();
           print('LA FRASE DE HOY ES ${_avioncito.frase}');
-
-          _avioncitoHoy = Avioncito(
-              id: _avioncito.id,
-              fecha: _avioncito.fecha,
-              frase: _avioncito.frase,
-              santo: _avioncito.santo,
-              reflexion: _avioncito.reflexion,
-              usuario: _avioncito.usuario,
-              tag: _avioncito.tag,
-              guardado: false,
-              visto: true);
-          _localDB.setHoy(_avioncitoHoy);
+          _localDB.setHoy(_avioncito);
           // _localDB.deleteAvioncitoLocal(nAvioncito);
           _localDB.deleteAvioncitoHoy();
           print('SE ELIMINA AVIONCITO ${_avioncito.id}');
@@ -119,49 +106,18 @@ class AvioncitoProvider with ChangeNotifier {
       });
     } else {
       print('LOCAL NO ESTÁ VACÍO');
-      // nAvioncito = Random().nextInt(avioncitosBox!.length);
-      // print('SE ABRIRA EL AVIONCITO $nAvioncito');
-      // _avioncito = _localDB.getAvioncitos()!.getAt(nAvioncito);
       _avioncito = _localDB.getAvioncitoHoy();
       _avioncito.fecha = DateTime.now();
+      _avioncito.visto = true;
       print('LA FRASE DE HOY ES ${_avioncito.frase}');
       
-      _avioncitoHoy = Avioncito(
-          id: _avioncito.id,
-          fecha: _avioncito.fecha,
-          frase: _avioncito.frase,
-          santo: _avioncito.santo,
-          reflexion: _avioncito.reflexion,
-          tag: _avioncito.tag,
-          usuario: _avioncito.usuario,
-          mision: _avioncito.mision,
-          pregunta: _avioncito.pregunta,
-          guardado: false,
-          visto: true);
-      _localDB.setHoy(_avioncitoHoy);
-      // _localDB.deleteAvioncitoLocal(nAvioncito);
+      _localDB.setHoy(_avioncito);
       _localDB.deleteAvioncitoHoy();
       print('SE ELIMINA AVIONCITO ${_avioncito.id}');
       print('AVIONCITOS RESTANTES ${_localDB.getAvioncitos()!.length}');
     }
     return true;  
   }
-
-  // Future<bool> getAvioncitosFromFirestore() async {
-  //   bool retVal = false;
-  //   await _fireDB.collection('datosApp').get().then((QuerySnapshot snapshot) async {
-  //     int n = Random().nextInt(snapshot.docs.length);
-  //     for (var i= 0; i < snapshot.docs.length; i++) {
-  //       _avioncito = Avioncito.fromFirestore(snapshot.docs[n]);
-  //       _avioncito.fecha = DateTime.now();
-  //     }
-  //     print('AVIONCITOS LISTOS');
-  //     retVal = true;
-  //     _avioncitoListo = true;
-  //     notifyListeners();
-  //   });
-  //   return retVal;
-  // }
 
   Future<bool> getAvioncitosFromFirestore() async {
     print('CARGANDO AVIONCITOS DE FIRESTORE');
@@ -196,13 +152,6 @@ class AvioncitoProvider with ChangeNotifier {
     return true;
   }
 
-  // Future<bool> getGuardadosFromLocal() async {
-  //   for (var i= 0; i < _localDB.guardadosBox!.length; i++) {
-  //     Guardados av = _localDB.guardadosBox!.getAt(i);
-  //     _avioncitosGuardados.add(av);
-  //   }
-  //   return true;
-  // }
   Box getGuardadosFromLocal() {
     return _localDB.guardadosBox!;
   }
@@ -210,27 +159,19 @@ class AvioncitoProvider with ChangeNotifier {
   Future<bool> guardarAvioncito() async {
     _localDB.guardarAvioncito(true);
     _avioncito.guardado = true;
-    _avioncitoGuardado = Avioncito(
-        id: _avioncito.id,
-        fecha: _avioncito.fecha,
-        frase: _avioncito.frase,
-        santo: _avioncito.santo,
-        reflexion: _avioncito.reflexion,
-        tag: _avioncito.tag,
-        guardado: _avioncito.guardado,
-        usuario: _avioncito.usuario,
-        visto: true);
-    print('Guardado el avioncito ${_avioncitoGuardado.id}');
-    _localDB.setGuardados(_avioncitoGuardado.id, _avioncitoGuardado);
+    print('Guardado el avioncito ${_avioncito.id}');
+    _localDB.setGuardados(_avioncito.id, _avioncito);
     print(_localDB.guardadosBox!.length);
     notifyListeners();
     return true;
   }
 
   Future<bool> noGuardarAvioncito(String id) async {
-    _localDB.guardarAvioncito(false);
+    if (id == _avioncito.id) {
+      _avioncito.guardado = false;
+      _localDB.guardarAvioncito(false);
+    }
     _localDB.deleteGuardado(id);
-    _avioncito.guardado = false;
     print('Borrado el avioncito $id');
     print(_localDB.guardadosBox!.length);
     notifyListeners();

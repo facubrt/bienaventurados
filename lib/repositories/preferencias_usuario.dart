@@ -55,4 +55,8 @@ class PreferenciasUsuario {
     _prefs.setBool('sesionIniciada', sesionIniciada);
   }
 
+  Future<bool> limpiarPrefs() async {
+    return _prefs.clear();
+  }
+
 }

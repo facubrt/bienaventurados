@@ -168,7 +168,7 @@ class PerfilPage extends StatelessWidget {
                                   onTap: () {
                                     avioncitoProvider.eliminarDB();
                                     authProvider.signOut();
-                                    SharedPrefs.limpiarPrefs();
+                                    prefs.limpiarPrefs();
                                     prefs.modoNoche = false;
                                     Navigator.of(context)
                                         .pushNamedAndRemoveUntil(
