@@ -1,8 +1,6 @@
 import 'package:bienaventurados/models/avioncito_model.dart';
 import 'package:bienaventurados/pages/comenzar/bienaventurados_page.dart';
-import 'package:bienaventurados/pages/comenzar/comenzar_page.dart';
-import 'package:bienaventurados/pages/comenzar/iniciar_sesion_page.dart';
-import 'package:bienaventurados/pages/comenzar/registrarse_page.dart';
+import 'package:bienaventurados/pages/comenzar/iniciar_aventura_page.dart';
 import 'package:bienaventurados/pages/configuraciones/informacion_page.dart';
 import 'package:bienaventurados/pages/configuraciones/notificaciones_configuracion_page.dart';
 import 'package:bienaventurados/pages/configuraciones/tema_configuracion_page.dart';
@@ -20,8 +18,7 @@ const String dashboardPage = 'dashboardPage';
 const String inicioPage = 'inicioPage';
 const String comenzarPage = 'comenzarPage';
 const String bienaventuradosPage = 'bienaventuradosPage';
-const String iniciarSesionPage = 'iniciarSesionPage';
-const String registrarsePage = 'registrarsePage';
+const String iniciarAventuraPage = 'iniciarAventuraPage';
 const String construirPage = 'construirPage';
 const String informacionPage = 'informacionPage';
 const String tallerPage = 'tallerPage';
@@ -49,12 +46,8 @@ class Routes {
         return FadeTransitionRoute(widget: EditarPage(id: avioncito.id, frase: avioncito.frase, santo: avioncito.santo, reflexion: avioncito.reflexion, tag: avioncito.tag, usuario: avioncito.usuario,));
       case (informacionPage):
         return SlideLeftTransitionRoute(widget: InformacionPage());
-      case (comenzarPage):
-        return SlideLeftTransitionRoute(widget: ComenzarPage());
-      case (iniciarSesionPage):
-        return SlideLeftTransitionRoute(widget: IniciarSesionPage());
-      case (registrarsePage):
-        return SlideLeftTransitionRoute(widget: RegistrarsePage());
+      case (iniciarAventuraPage):
+        return SlideLeftTransitionRoute(widget: IniciarAventuraPage());
       case (construirPage):
         return SlideLeftTransitionRoute(widget: ConstruirPage());
       case (temaConfiguracionPage):

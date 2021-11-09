@@ -77,7 +77,7 @@ class BienaventuradosPage extends StatelessWidget {
                   
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed(iniciarSesionPage);
+                  Navigator.of(context).pushNamed(iniciarAventuraPage);
                 },
                 child: Text('Continuar con Correo',
                     style: Theme.of(context)

@@ -28,7 +28,6 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   void initState() {
-    super.initState();
     _paginasCargadas = false;
     closeDrawer();
     noti.init();
@@ -39,9 +38,7 @@ class _DashboardPageState extends State<DashboardPage> {
       print('notificaciones desactivadas');
       noti.cancelAllNotification();
     }
-    // final avioncitoProvider =
-    //     Provider.of<AvioncitoProvider>(context, listen: false);
-    // avioncitoProvider.configuracionInicial();
+    super.initState();
   }
 
   void openDrawer() => setState(() {
