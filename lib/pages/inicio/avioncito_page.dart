@@ -249,7 +249,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
               ],
             ),
           ),
-          SizedBox(height: 40),
+          SizedBox(height: MediaQuery.of(context).size.width * 0.06),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: Text(
@@ -259,7 +259,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                   ),
             ),
           ),
-          SizedBox(height: 40),
+          SizedBox(height: MediaQuery.of(context).size.width * 0.06),
           Container(
               alignment: Alignment.centerRight,
               child: Padding(
