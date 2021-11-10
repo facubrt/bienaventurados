@@ -12,6 +12,7 @@ import 'package:bienaventurados/pages/perfil/redescubre_page.dart';
 import 'package:bienaventurados/pages/taller/taller_page.dart';
 import 'package:bienaventurados/utils/fade_transition_route.dart';
 import 'package:bienaventurados/utils/slide_transition_route.dart';
+import 'package:bienaventurados/pages/inicio/avioncito_page.dart';
 import 'package:flutter/material.dart';
 
 const String dashboardPage = 'dashboardPage';
@@ -26,6 +27,7 @@ const String editarPage = 'editarPage';
 const String configuracionesPage = 'configuracionesPage';
 const String perfilPage = 'perfilPage';
 const String redescubrePage = 'redescubrePage';
+const String avioncitoPage = 'avioncitoPage';
 const String guardadosPage = 'guardadosPage';
 const String temaConfiguracionPage = 'temaConfiguracionPage';
 const String notificacionesConfiguracionPage = 'notificacionesConfiguracionPage';
@@ -38,6 +40,10 @@ class Routes {
         return FadeTransitionRoute(widget: DashboardPage());
       case (tallerPage):
         return SlideLeftTransitionRoute(widget: TallerPage());
+      case (avioncitoPage):
+        final args = settings.arguments;
+        Avioncito avioncito = args as Avioncito;
+        return SlideUpTransitionRoute(widget: AvioncitoPage(avioncito: avioncito));
       case (guardadosPage):
         return SlideLeftTransitionRoute(widget: GuardadosPage());
       case (editarPage):

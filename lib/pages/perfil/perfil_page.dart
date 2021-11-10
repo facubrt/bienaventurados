@@ -1,7 +1,6 @@
 import 'package:bienaventurados/providers/auth_provider.dart';
 import 'package:bienaventurados/providers/avioncito_provider.dart';
 import 'package:bienaventurados/repositories/preferencias_usuario.dart';
-import 'package:bienaventurados/repositories/shared_prefs.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:bienaventurados/widgets/floating_modal.dart';
 import 'package:bienaventurados/widgets/perfil/comparte_widget.dart';

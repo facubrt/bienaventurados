@@ -140,22 +140,6 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage>
   }
 
   Widget passwordPage() {
-    final snackbar = SnackBar(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      content: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Text(
-            '¡Oh, oh! Parece que los datos ingresados no son correctos. Intentalo de nuevo o registrate para comenzar una nueva aventura.',
-            style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                  fontSize: MediaQuery.of(context).size.width * 0.04,
-                  color: Theme.of(context).primaryColor,
-                )),
-      ),
-    );
-
-    final authProvider = Provider.of<AuthProvider>(context);
-    final prefs = PreferenciasUsuario();
-
     return Form(
       key: passwordFormKey,
       child: Scaffold(
