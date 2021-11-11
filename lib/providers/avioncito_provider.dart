@@ -156,23 +156,26 @@ class AvioncitoProvider with ChangeNotifier {
     return _localDB.guardadosBox!;
   }
 
-  Future<bool> guardarAvioncito() async {
-    _localDB.guardarAvioncito(true);
-    _avioncito.guardado = true;
-    print('Guardado el avioncito ${_avioncito.id}');
-    _localDB.setGuardados(_avioncito.id, _avioncito);
+  Future<bool> guardarAvioncito(Avioncito avioncitoGuardado) async {
+    if (avioncitoGuardado.id == _avioncito.id) {
+      _localDB.guardarAvioncito(true);
+    }
+    avioncitoGuardado.guardado = true;
+    print('Guardado el avioncito ${avioncitoGuardado.id}');
+    _localDB.setGuardados(avioncitoGuardado.id, avioncitoGuardado);
     print(_localDB.guardadosBox!.length);
     notifyListeners();
     return true;
   }
 
-  Future<bool> noGuardarAvioncito(String id) async {
-    if (id == _avioncito.id) {
+  Future<bool> noGuardarAvioncito(Avioncito avioncitoGuardado) async {
+    if (avioncitoGuardado.id == _avioncito.id) {
       _avioncito.guardado = false;
       _localDB.guardarAvioncito(false);
     }
-    _localDB.deleteGuardado(id);
-    print('Borrado el avioncito $id');
+    avioncitoGuardado.guardado = false;
+    _localDB.deleteGuardado(avioncitoGuardado.id);
+    print('Borrado el avioncito ${avioncitoGuardado.id}');
     print(_localDB.guardadosBox!.length);
     notifyListeners();
     return true;

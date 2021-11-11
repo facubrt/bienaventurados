@@ -63,8 +63,10 @@ class _GuardadosPageState extends State<GuardadosPage> {
               itemCount: box.values.length,
               itemBuilder: (context, index) {
                 Avioncito avioncitoGuardado = box.getAt(index);
+                
                 return InkWell(
                   onTap: () {
+                    print(avioncitoGuardado.frase);
                     Navigator.of(context).pushNamed(redescubrePage, arguments: avioncitoGuardado);
                     
                   },
@@ -110,7 +112,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
               Spacer(),
               IconButton(
                 onPressed: () {
-                  avioncitoProvider.noGuardarAvioncito(avioncitoGuardado.id!);
+                  avioncitoProvider.noGuardarAvioncito(avioncitoGuardado);
                 },
                 icon: Icon(
                   FlutterIcons.bookmark_mco,

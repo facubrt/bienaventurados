@@ -129,13 +129,14 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                 IconButton(
                   onPressed: () {
                     if (!widget.avioncito.guardado!) {
-                      avioncitoProvider.guardarAvioncito();
+                      
+                      avioncitoProvider.guardarAvioncito(widget.avioncito);
                     } else {
                       avioncitoProvider
-                          .noGuardarAvioncito(widget.avioncito.id!);
+                          .noGuardarAvioncito(widget.avioncito);
                     }
                   },
-                  icon: avioncitoProvider.avioncito!.guardado!
+                  icon: widget.avioncito.guardado!
                       ? Icon(FlutterIcons.bookmark_mco,
                           size: MediaQuery.of(context).size.width * 0.06,
                           color: Theme.of(context).primaryColorDark)
@@ -151,8 +152,8 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                 //       capturandoScreen = true;
                 //     });
                 //     _takeScreenshotandShare(
-                //       avioncitoProvider.avioncito!.frase!,
-                //       avioncitoProvider.avioncito!.santo!,
+                //       widget.avioncito.frase!,
+                //       widget.avioncito.santo!,
                 //     );
                 //   },
                 //   icon: Icon(FlutterIcons.share_fea,
@@ -186,8 +187,8 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                             capturandoScreen = true;
                           });
                           _takeScreenshotandShare(
-                            avioncitoProvider.avioncito!.frase!,
-                            avioncitoProvider.avioncito!.santo!,
+                            widget.avioncito.frase!,
+                            widget.avioncito.santo!,
                           );
                         },
                         leading: Icon(FlutterIcons.share_fea,
@@ -239,7 +240,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
               children: [
                 Chip(
                   visualDensity: VisualDensity.comfortable,
-                  label: Text(avioncitoProvider.avioncito!.tag!.toUpperCase(),
+                  label: Text(widget.avioncito.tag!.toUpperCase(),
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.025,
                           fontWeight: FontWeight.bold,
@@ -253,7 +254,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: Text(
-              avioncitoProvider.avioncito!.frase!,
+              widget.avioncito.frase!,
               style: Theme.of(context).textTheme.headline1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.08,
                   ),
@@ -265,7 +266,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Text(
-                  avioncitoProvider.avioncito!.santo!,
+                  widget.avioncito.santo!,
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.04,
                       ),
@@ -303,7 +304,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          avioncitoProvider.avioncito!.reflexion!,
+                          widget.avioncito.reflexion!,
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
@@ -316,7 +317,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                           height: 40,
                         ),
                         Text(
-                            'Construido por ${avioncitoProvider.avioncito!.usuario}',
+                            'Construido por ${widget.avioncito.usuario}',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2!
