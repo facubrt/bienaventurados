@@ -110,13 +110,15 @@ class _DashboardPageState extends State<DashboardPage> {
               child: AnimatedContainer(
                 curve: Curves.easeInOut,
                 duration: Duration(milliseconds: 200),
-                decoration: BoxDecoration(
+                decoration: isDrawerOpen
+                  ? BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: Theme.of(context).primaryColor,
-                  border: isDrawerOpen
-                      ? Border.all(
-                          width: 4, color: Theme.of(context).primaryColorDark)
-                      : Border.all(width: 0),
+                  border:  Border.all(width: 4, color: Theme.of(context).primaryColorDark))
+                  : BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Theme.of(context).primaryColor,
+                  border:  Border.all(width: 0, color: Theme.of(context).primaryColor)
                 ),
                 child: getDrawerPage(),
               )),

@@ -36,14 +36,11 @@ class PerfilPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 30.0),
-          child: IconButton(
-            onPressed: () {
-              openDrawer();
-            },
-            icon: Icon(FlutterIcons.menu_fea, size: 22),
-          ),
+        leading: IconButton(
+          onPressed: () {
+            openDrawer();
+          },
+          icon: Icon(FlutterIcons.menu_fea, size: 22),
         ),
       ),
       body: SingleChildScrollView(

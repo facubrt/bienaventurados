@@ -1,7 +1,6 @@
 import 'package:bienaventurados/models/avioncito_model.dart';
 import 'package:bienaventurados/pages/inicio/avioncito_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 
 
 class RedescubrePage extends StatefulWidget {
@@ -24,22 +23,6 @@ class _RedescubrePageState extends State<RedescubrePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          elevation: 0.0,
-          actions: [
-            IconButton(
-              icon: Icon(
-                FlutterIcons.x_fea,
-                size: MediaQuery.of(context).size.width * 0.06,
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        ),
-        body: AvioncitoPage(avioncito: widget.avioncitoGuardado));
+    return AvioncitoPage(avioncito: widget.avioncitoGuardado);
   }
 }

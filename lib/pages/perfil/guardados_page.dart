@@ -67,7 +67,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
                 return InkWell(
                   onTap: () {
                     print(avioncitoGuardado.frase);
-                    Navigator.of(context).pushNamed(redescubrePage, arguments: avioncitoGuardado);
+                    Navigator.of(context).pushNamed(avioncitoPage, arguments: avioncitoGuardado);
                     
                   },
                   child: avioncitoCarta(

@@ -66,13 +66,20 @@ class _ConstruirPageState extends State<ConstruirPage> {
       key: fraseFormKey,
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-                child: TextFormField(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('¿Construimos un avioncito juntos?',
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                        )),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.04,
+                ),
+                TextFormField(
                   controller: _fraseController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
@@ -105,11 +112,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     }
                   },
                 ),
+                SizedBox(
+                height: MediaQuery.of(context).size.width * 0.04,
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
-                child: TextFormField(
+                TextFormField(
                   controller: _santoController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
@@ -140,8 +146,8 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     }
                   },
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: Padding(
@@ -176,12 +182,18 @@ class _ConstruirPageState extends State<ConstruirPage> {
       key: reflexionFormKey,
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-                child: TextFormField(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              children: [
+                Text('¿Qué reflexión te gustaría hacer sobre estas palabras?',
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                        )),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.04,
+                ),
+                TextFormField(
                   controller: _reflexionController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
@@ -190,7 +202,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                       ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
-                  minLines: 4,
+                  minLines: 1,
                   maxLines: 8,
                   maxLength: 280,
                   decoration: InputDecoration(
@@ -215,11 +227,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     }
                   },
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-                child: TextFormField(
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.04,
+                ),
+                TextFormField(
                   controller: _tagController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
@@ -250,8 +261,8 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     }
                   },
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: Padding(
@@ -287,12 +298,18 @@ class _ConstruirPageState extends State<ConstruirPage> {
       key: preguntaFormKey,
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-                child: TextFormField(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              children: [
+                Text('Un último paso antes de hacer volar tu avioncito',
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                        )),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.04,
+                ),
+                TextFormField(
                   controller: _preguntaController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
@@ -316,11 +333,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     focusedErrorBorder: InputBorder.none,
                   ),
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-                child: TextFormField(
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.04,
+                ),
+                TextFormField(
                   controller: _misionController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
@@ -344,8 +360,8 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     focusedErrorBorder: InputBorder.none,
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: Padding(
@@ -391,27 +407,25 @@ class _ConstruirPageState extends State<ConstruirPage> {
 
   Widget avioncitoListoWidget() {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-            child: Text(
-              '¡Todo listo!',
-              style: Theme.of(context).textTheme.headline2!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.08,
-                  ),
-            ),
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
+          child: Text(
+            '¡Todo listo!',
+            style: Theme.of(context).textTheme.headline2!.copyWith(
+                  fontSize: MediaQuery.of(context).size.width * 0.08,
+                ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
-            child: Text(
-                'Tu avioncito está terminado y pronto empezará a volar por los corazones de todos en Bienaventurados.\n\n¡Muchas gracias por construir!',
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.04,
-                    )),
-          )
-        ]),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
+          child: Text(
+              'Tu avioncito está terminado y pronto empezará a volar por los corazones de todos en Bienaventurados.\n\n¡Muchas gracias por construir!',
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                  )),
+        )
+      ]),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Container(
