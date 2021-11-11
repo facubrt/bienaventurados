@@ -37,24 +37,23 @@ class AuthProvider with ChangeNotifier{
 
   }
 
-  Future<auth.User?> signInWithEmailAndPassword(String email, String password) async {
+  Future<String?> signInWithEmailAndPassword(String email, String password) async {
     try {
       final UserCredential authResult = await _auth.signInWithEmailAndPassword(email: email, password: password);
       if (authResult.user != null) {
         auth.User user = authResult.user!;
-        print('USUARIO EXISTENTE');
         _sesionIniciada = true;
         await updateUserData(user);
-        return user;
+        return 'user-found';
       }
     } on FirebaseAuthException catch(e) {
       print(e.code);
       if (e.code == 'user-not-found') {
-        return null;
+        return e.code;
       } else if (e.code == 'wrong-password') {
-        return null;
+        return e.code;
       } else {
-        return null;
+        return 'error';
       }
 
     }

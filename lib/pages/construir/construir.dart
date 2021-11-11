@@ -66,17 +66,26 @@ class _ConstruirPageState extends State<ConstruirPage> {
       key: fraseFormKey,
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-                child: TextFormField(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('¿Construimos un avioncito juntos?',
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                        )),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.04,
+                ),
+                TextFormField(
                   controller: _fraseController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
-                  style: Theme.of(context).textTheme.headline2!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.06,),
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                      ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   minLines: 1,
@@ -84,7 +93,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   decoration: InputDecoration(
                     hintText: 'Frase',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),
@@ -103,23 +112,22 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     }
                   },
                 ),
+                SizedBox(
+                height: MediaQuery.of(context).size.width * 0.04,
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
-                child: TextFormField(
+                TextFormField(
                   controller: _santoController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.06,
-                  ),
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                      ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Santo, versículo, ...',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),
@@ -138,8 +146,8 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     }
                   },
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: Padding(
@@ -149,9 +157,8 @@ class _ConstruirPageState extends State<ConstruirPage> {
             height: 50,
             child: TextButton(
               style: OutlinedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColorDark,
-                  
-                ),
+                backgroundColor: Theme.of(context).primaryColorDark,
+              ),
               onPressed: () {
                 if (fraseFormKey.currentState!.validate()) {
                   _pageController.nextPage(
@@ -160,13 +167,9 @@ class _ConstruirPageState extends State<ConstruirPage> {
                 }
               },
               child: Text('Siguiente',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.04,
-                        color: Theme.of(context).primaryColor)
-              ),
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Theme.of(context).primaryColor)),
             ),
           ),
         ),
@@ -179,27 +182,33 @@ class _ConstruirPageState extends State<ConstruirPage> {
       key: reflexionFormKey,
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-                child: TextFormField(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              children: [
+                Text('¿Qué reflexión te gustaría hacer sobre estas palabras?',
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                        )),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.04,
+                ),
+                TextFormField(
                   controller: _reflexionController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.06,
-                  ),
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                      ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
-                  minLines: 4,
+                  minLines: 1,
                   maxLines: 8,
                   maxLength: 280,
                   decoration: InputDecoration(
                     hintText: 'Reflexión',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),
@@ -218,23 +227,22 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     }
                   },
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-                child: TextFormField(
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.04,
+                ),
+                TextFormField(
                   controller: _tagController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.06,
-                  ),
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                      ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Tag',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),
@@ -253,8 +261,8 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     }
                   },
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: Padding(
@@ -264,9 +272,8 @@ class _ConstruirPageState extends State<ConstruirPage> {
             height: 50,
             child: TextButton(
               style: OutlinedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColorDark,
-                  
-                ),
+                backgroundColor: Theme.of(context).primaryColorDark,
+              ),
               onPressed: () {
                 if (reflexionFormKey.currentState!.validate()) {
                   _pageController.nextPage(
@@ -275,13 +282,9 @@ class _ConstruirPageState extends State<ConstruirPage> {
                 }
               },
               child: Text('Siguiente',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.04,
-                        color: Theme.of(context).primaryColor
-                      )),
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Theme.of(context).primaryColor)),
             ),
           ),
         ),
@@ -295,24 +298,30 @@ class _ConstruirPageState extends State<ConstruirPage> {
       key: preguntaFormKey,
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-                child: TextFormField(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              children: [
+                Text('Un último paso antes de hacer volar tu avioncito',
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                        )),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.04,
+                ),
+                TextFormField(
                   controller: _preguntaController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.06,
-                  ),
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                      ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Pregunta (opcional)',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),
@@ -324,23 +333,22 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     focusedErrorBorder: InputBorder.none,
                   ),
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-                child: TextFormField(
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.04,
+                ),
+                TextFormField(
                   controller: _misionController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.06,
-                  ),
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                      ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Misión (opcional)',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),
@@ -352,8 +360,8 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     focusedErrorBorder: InputBorder.none,
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: Padding(
@@ -363,11 +371,15 @@ class _ConstruirPageState extends State<ConstruirPage> {
             height: 50,
             child: TextButton(
               style: OutlinedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColorDark,
-                  
-                ),
+                backgroundColor: Theme.of(context).primaryColorDark,
+              ),
               onPressed: () {
                 if (preguntaFormKey.currentState!.validate()) {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
                   setState(() {
                     _construirNuevoAvioncito(authProvider.usuario.nombre);
                     _fraseController.clear();
@@ -382,13 +394,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
                       curve: Curves.fastLinearToSlowEaseIn);
                 }
               },
-              child: Text('Finalizar',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.04,
-                        color: Theme.of(context).primaryColor)),
+              child: Text('Continuar',
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Theme.of(context).primaryColor)),
             ),
           ),
         ),
@@ -398,15 +407,14 @@ class _ConstruirPageState extends State<ConstruirPage> {
 
   Widget avioncitoListoWidget() {
     return Scaffold(
-      body: SingleChildScrollView(
-          child: Column(children: [
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Padding(
-          padding: const EdgeInsets.only(left: 430.0, right: 30.0, top: 30.0),
+          padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
           child: Text(
             '¡Todo listo!',
             style: Theme.of(context).textTheme.headline2!.copyWith(
-              fontSize: MediaQuery.of(context).size.width * 0.08,
-            ),
+                  fontSize: MediaQuery.of(context).size.width * 0.08,
+                ),
           ),
         ),
         Padding(
@@ -414,26 +422,26 @@ class _ConstruirPageState extends State<ConstruirPage> {
           child: Text(
               'Tu avioncito está terminado y pronto empezará a volar por los corazones de todos en Bienaventurados.\n\n¡Muchas gracias por construir!',
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                fontSize: MediaQuery.of(context).size.width * 0.04,
-              )),
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                  )),
         )
-      ])),
+      ]),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Container(
           width: double.infinity,
           height: 50,
           child: TextButton(
+            style: OutlinedButton.styleFrom(
+              backgroundColor: Theme.of(context).primaryColorDark,
+            ),
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text('Salir',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline4!
-                    .copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.04,
-                      color: Theme.of(context).primaryColor)),
+            child: Text('Finalizar',
+                style: Theme.of(context).textTheme.headline4!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                    color: Theme.of(context).primaryColor)),
           ),
         ),
       ),

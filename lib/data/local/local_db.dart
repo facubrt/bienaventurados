@@ -43,7 +43,20 @@ class LocalData {
   }
 
   void setHoy(Avioncito avioncito) {
-    hoyBox!.put(0, avioncito);
+    Avioncito _avioncito = Avioncito(
+      id: avioncito.id,
+      fecha: avioncito.fecha,
+      frase: avioncito.frase,
+      santo: avioncito.santo,
+      reflexion: avioncito.reflexion,
+      tag: avioncito.tag,
+      pregunta: avioncito.pregunta,
+      mision: avioncito.mision,
+      usuario: avioncito.usuario,
+      guardado: avioncito.guardado,
+      visto: avioncito.visto,
+    );
+    hoyBox!.put(0, _avioncito);
   }
 
   void actualizarAvioncito(int index, Avioncito avioncito) {
@@ -51,9 +64,9 @@ class LocalData {
   }
 
   void guardarAvioncito(bool guardado) {
-    Avioncito av = avioncitosBox!.get(0);
+    Avioncito av = hoyBox!.get(0);
     av.guardado = guardado;
-    avioncitosBox!.putAt(0, av);
+    hoyBox!.putAt(0, av);
   }
 
   void setAvioncito(Avioncito avioncito) {
@@ -68,9 +81,22 @@ class LocalData {
     return guardadosBox;
   }
 
-  void setGuardados(String? id, Avioncito avioncitoGuardado) {
+  void setGuardados(String? id, Avioncito avioncito) {
     //guardadosBox!.putAt(index, avioncitoGuardado);
-    guardadosBox!.put(id, avioncitoGuardado);
+    Avioncito _avioncito = Avioncito(
+      id: avioncito.id,
+      fecha: avioncito.fecha,
+      frase: avioncito.frase,
+      santo: avioncito.santo,
+      reflexion: avioncito.reflexion,
+      tag: avioncito.tag,
+      pregunta: avioncito.pregunta,
+      mision: avioncito.mision,
+      usuario: avioncito.usuario,
+      guardado: avioncito.guardado,
+      visto: avioncito.visto,
+    );
+    guardadosBox!.put(id, _avioncito);
   }
 
   void deleteGuardado(String? id) {

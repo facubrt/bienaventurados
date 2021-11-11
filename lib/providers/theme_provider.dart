@@ -140,10 +140,22 @@ class ThemeProvider extends ChangeNotifier{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (_selectedTheme == night){
       _selectedTheme = day;
-      await prefs.setBool('activarModoNoche', false);
+      await prefs.setBool('modoNoche', false);
     } else {
       _selectedTheme = night;
-      await prefs.setBool('activarModoNoche', true);
+      await prefs.setBool('modoNoche', true);
+    }
+    notifyListeners();
+  }
+
+  Future<void> activarModoNoche(bool modoNoche) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (modoNoche){
+      _selectedTheme = night;
+      await prefs.setBool('modoNoche', true);
+    } else {
+      _selectedTheme = day;
+      await prefs.setBool('modoNoche', false);
     }
     notifyListeners();
   }

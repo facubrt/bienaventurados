@@ -1,9 +1,24 @@
+import 'package:bienaventurados/providers/theme_provider.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class BienaventuradosPage extends StatelessWidget {
+class BienaventuradosPage extends StatefulWidget {
   const BienaventuradosPage({Key? key}) : super(key: key);
 
+  @override
+  State<BienaventuradosPage> createState() => _BienaventuradosPageState();
+}
+
+class _BienaventuradosPageState extends State<BienaventuradosPage> {
+  
+  @override
+  void initState() {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context,listen: false,);
+    themeProvider.activarModoNoche(false);
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,9 +92,9 @@ class BienaventuradosPage extends StatelessWidget {
                   
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed(iniciarSesionPage);
+                  Navigator.of(context).pushNamed(iniciarAventuraPage);
                 },
-                child: Text('Iniciar Sesión',
+                child: Text('Continuar con Correo',
                     style: Theme.of(context)
                         .textTheme
                         .headline4!
@@ -88,28 +103,27 @@ class BienaventuradosPage extends StatelessWidget {
                           color: Theme.of(context).primaryColor)),
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.width * 0.04),
-            Container(
-              width: double.infinity,
-              height: 50,
-              child: TextButton(
-                style: OutlinedButton.styleFrom(
-                  side: BorderSide(width: 2, color: Theme.of(context).primaryColorDark),
-                  backgroundColor: Theme.of(context).primaryColor,
+            // Container(
+            //   width: double.infinity,
+            //   height: 50,
+            //   child: TextButton(
+            //     style: OutlinedButton.styleFrom(
+            //       side: BorderSide(width: 2, color: Theme.of(context).primaryColorDark),
+            //       backgroundColor: Theme.of(context).primaryColor,
                   
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed(registrarsePage);
-                },
-                child: Text('Registrarse',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.04,
-                          color: Theme.of(context).primaryColorDark)),
-              ),
-            ),
+            //     ),
+            //     onPressed: () {
+            //       Navigator.of(context).pushNamed(registrarsePage);
+            //     },
+            //     child: Text('Registrarse',
+            //         style: Theme.of(context)
+            //             .textTheme
+            //             .headline4!
+            //             .copyWith(
+            //               fontSize: MediaQuery.of(context).size.width * 0.04,
+            //               color: Theme.of(context).primaryColorDark)),
+            //   ),
+            // ),
           ],
         ),
       ),
