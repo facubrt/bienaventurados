@@ -1,19 +1,18 @@
-
 import 'package:bienaventurados/models/usuario_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthProvider with ChangeNotifier{
 
   final FirebaseAuth _auth;
-  // GoogleSignInAccount? _googleUser;
+  GoogleSignInAccount? _googleUser;
   Usuario _user = Usuario();
   late final _displayName;
 
-  // final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   bool? _sesionIniciada;
 
@@ -60,15 +59,6 @@ class AuthProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  // Future<bool> validarCorreo(String correo)  async {
-  //   await _db.collection('usuarios').where('correo', isEqualTo: correo).get().then((snapshot) {
-  //     if (snapshot.docs.isNotEmpty) {
-  //       return true;
-  //     } 
-  //   });
-  //   return false;
-  // }
-
   Future<auth.User?> createUserWithEmailAndPassword(String nombre, String email, String password) async {
     try {
       final UserCredential authResult = await _auth.createUserWithEmailAndPassword(email: email, password: password);
@@ -88,47 +78,29 @@ class AuthProvider with ChangeNotifier{
     notifyListeners();
   }
   
-  //   Future<auth.User?> googleSignIn() async {
-  //   try {
-  //     GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-  //     GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
-  //     _googleUser = googleUser;
+    Future<auth.User?> googleSignIn() async {
+    try {
+      GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+      _googleUser = googleUser;
 
-  //     final AuthCredential credential = GoogleAuthProvider
-  //       .credential(
-  //         idToken: googleAuth.idToken,
-  //         accessToken: googleAuth.accessToken,
-  //       );
-  //     UserCredential authResult = await _auth.signInWithCredential(credential);
-  //     auth.User user = authResult.user!;
-  //     _sesionIniciada = true;
+      final AuthCredential credential = GoogleAuthProvider
+        .credential(
+          idToken: googleAuth.idToken,
+          accessToken: googleAuth.accessToken,
+        );
+      UserCredential authResult = await _auth.signInWithCredential(credential);
+      auth.User user = authResult.user!;
+      _sesionIniciada = true;
+      _displayName = user.displayName!.split(' ')[0].toString();
   
-  //     await updateUserData(user);
-  //     return user;
-  //   } catch (e) {
-  //     print('error $e');
-  //     return null;
-  //   }
-  // }
-
-  // Future<auth.User?> googleSignUp() async {
-  //   try {
-  //     GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-  //     GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
-  //     _googleUser = googleUser;
-
-  //     final AuthCredential credential = GoogleAuthProvider.credential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
-  //     UserCredential authResult = await _auth.signInWithCredential(credential);
-  //     auth.User user = authResult.user!;
-  //     _sesionIniciada = true;
-  //     _displayName = user.displayName;
-  //     await createUserData(user);
-  //     return user;
-  //   } catch (e) {
-  //     print('error catch');
-  //     return null;
-  //   }
-  // }
+      await createUserData(user);
+      return user;
+    } catch (e) {
+      print('error $e');
+      return null;
+    }
+  }
 
   Future<DocumentSnapshot> createUserData(auth.User user) async {
     DocumentReference userRef = _db
@@ -170,5 +142,5 @@ class AuthProvider with ChangeNotifier{
 
   bool? get sesionIniciada => _sesionIniciada;
   Usuario get usuario => _user;
-  //GoogleSignInAccount? get googleUser => _googleUser;
+  GoogleSignInAccount? get googleUser => _googleUser;
 }

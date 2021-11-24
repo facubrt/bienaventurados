@@ -232,41 +232,12 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage>
                   if (passwordFormKey.currentState!.validate()) {
                     setState(() {
                       if (_state == 0) {
-                        setState(() {
                           _state = 1;
-                        });
                         iniciarCuenta();
                       }
                     });
                   }
                 }),
-            //TextButton(
-            //   style: OutlinedButton.styleFrom(
-            //       backgroundColor: Theme.of(context).primaryColorDark,
-
-            //     ),
-            //   onPressed: () {
-            //     if (passwordFormKey.currentState!.validate()) {
-            //       authProvider.signInWithEmailAndPassword(emailController.text, passwordController.text).then((resultado) {
-            //         if (resultado != null) {
-            //         prefs.sesionIniciada = true;
-            //         Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
-            //         } else {
-            //           //ACA SE PUEDE REDIRECCIONAR A REGISTRAR PARA HACERLO SI NO ESTÁ REGISTRADO.
-            //           ScaffoldMessenger.of(context).showSnackBar(snackbar);
-            //         }
-            //       });
-            //     }
-            //   },
-            //   child: Text('Continuar',
-            //       style: Theme.of(context)
-            //           .textTheme
-            //           .headline4!
-            //           .copyWith(
-            //             fontSize: MediaQuery.of(context).size.width * 0.04,
-            //             color: Theme.of(context).primaryColor)
-            //   ),
-            // ),
           ),
         ),
       ),
@@ -344,9 +315,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage>
                   if (nameFormKey.currentState!.validate()) {
                     setState(() {
                       if (_state == 0) {
-                        setState(() {
                           _state = 1;
-                        });
                         registrarCuenta();
                       }
                     });
