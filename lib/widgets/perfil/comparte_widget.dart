@@ -10,11 +10,11 @@ class ComparteWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColorDark.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(10),
+        //borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 60.0, horizontal: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

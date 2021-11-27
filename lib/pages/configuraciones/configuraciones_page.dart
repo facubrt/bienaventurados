@@ -2,6 +2,7 @@ import 'package:bienaventurados/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 class ConfiguracionesPage extends StatefulWidget {
   final VoidCallback openDrawer;
@@ -15,10 +16,13 @@ class ConfiguracionesPage extends StatefulWidget {
 
 class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
   late SharedPreferences prefs;
+  final InAppReview inAppReview = InAppReview.instance;
   
   final _listaOpciones = [
     'Notificaciones',
     'Cambiar tema',
+    'Calificanos',
+    //'Reporta un error',
     'Acerca de',
   ];
 
@@ -29,12 +33,6 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final LocalNotifications noti = LocalNotifications();
-    // ThemeProvider themeProvider = Provider.of<ThemeProvider>(
-    //   context,
-    //   listen: false,
-    // );
-
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -68,62 +66,13 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
             endIndent: MediaQuery.of(context).size.width * 0.08);
         }
       ),
-      // body: SingleChildScrollView(
-      //   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          // InkWell(
-          //     onTap: () {
-          //       Navigator.of(context).pushNamed(notificacionesConfiguracionPage);
-
-          //     },
-          //     child: Text('Notificaciones',
-          //         style: Theme.of(context).textTheme.headline1!.copyWith(
-          //           fontSize: MediaQuery.of(context).size.width * 0.08,
-          //         ))),
-          // ListTile(
-          //   onTap: () {
-          //     Navigator.of(context).pushNamed(notificacionesConfiguracionPage);
-          //   },
-          //   title: Text('Notificaciones',
-          //       style: Theme.of(context).textTheme.headline1!.copyWith(
-          //             fontSize: MediaQuery.of(context).size.width * 0.08,
-          //           )),
-          // ),
-          // SizedBox(
-          //   height: MediaQuery.of(context).size.width * 0.06,
-          // ),
-          // InkWell(
-          //   onTap: () {
-          //     Navigator.of(context).pushNamed(temaConfiguracionPage);
-          //   },
-          //   child: Text(
-          //     'Cambiar tema',
-          //     style: Theme.of(context).textTheme.headline1!.copyWith(
-          //           fontSize: MediaQuery.of(context).size.width * 0.08,
-          //         ),
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: MediaQuery.of(context).size.width * 0.06,
-          // ),
-          // InkWell(
-          //   onTap: () {
-          //     Navigator.of(context).pushNamed(informacionPage);
-          //   },
-          //   child: Text(
-          //     'Acerca de',
-          //     style: Theme.of(context).textTheme.headline1!.copyWith(
-          //           fontSize: MediaQuery.of(context).size.width * 0.08,
-          //         ),
-          //   ),
-          // ),
-        //]),
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
         color: Colors.transparent,
         child: Padding(
           padding: const EdgeInsets.only(bottom: 40.0),
           child: Text(
-            'Carlo Acutis (beato) ver 1.3.0'.toUpperCase(),
+            'Carlo Acutis (beato) ver 1.3.1'.toUpperCase(),
             style: Theme.of(context).textTheme.bodyText1!.copyWith(
                   fontSize: MediaQuery.of(context).size.width * 0.024,
                 ),
@@ -134,7 +83,7 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
     );
   }
 
-  void navegarHacia(int pagina) {
+  Future<void> navegarHacia(int pagina) async {
     switch (pagina) {
       case 0:
         Navigator.of(context).pushNamed(notificacionesConfiguracionPage);
@@ -143,6 +92,13 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
         Navigator.of(context).pushNamed(temaConfiguracionPage);
         break;
       case 2:
+      
+        if (await inAppReview.isAvailable()) {
+          print('CALIFICAR');
+          inAppReview.requestReview();
+        }
+        break;
+      case 3:
         Navigator.of(context).pushNamed(informacionPage);
         break;
       default:

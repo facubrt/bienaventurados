@@ -41,7 +41,6 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('LA FUNCION ES ${widget.openDrawer}');
     return GestureDetector(
       onVerticalDragUpdate: (details) {
         if (details.primaryDelta! < -7) {
@@ -314,7 +313,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
           reflexionOpen
               ? SizedBox.shrink()
               : Padding(
-                  padding: const EdgeInsets.only(top: 30.0),
+                  padding: const EdgeInsets.only(top: 30.0, bottom: 30),
                   child: Icon(
                     FlutterIcons.chevron_up_fea,
                     color: (reflexionOpen || capturandoScreen)
@@ -405,7 +404,6 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
     int _dia = DateTime.now()
         .difference(DateTime(DateTime.now().year, 1, 1, 0, 0))
         .inDays;
-
     final snackbar = SnackBar(
       backgroundColor: Theme.of(context).colorScheme.secondary,
       content: Padding(
@@ -417,7 +415,6 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                 )),
       ),
     );
-
     await screenshotController
         .capture(delay: Duration(milliseconds: 20), pixelRatio: 10.0)
         .then((image) async {

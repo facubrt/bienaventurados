@@ -4,7 +4,7 @@ import 'package:bienaventurados/pages/comenzar/iniciar_aventura_page.dart';
 import 'package:bienaventurados/pages/configuraciones/informacion_page.dart';
 import 'package:bienaventurados/pages/configuraciones/notificaciones_configuracion_page.dart';
 import 'package:bienaventurados/pages/configuraciones/tema_configuracion_page.dart';
-import 'package:bienaventurados/pages/construir/construir.dart';
+import 'package:bienaventurados/pages/construir/construir_page.dart';
 import 'package:bienaventurados/pages/construir/editar.dart';
 import 'package:bienaventurados/pages/inicio/dashboard.dart';
 import 'package:bienaventurados/pages/perfil/guardados_page.dart';
@@ -44,8 +44,8 @@ class Routes {
         final args = settings.arguments;
         Avioncito avioncito = args as Avioncito;
         return SlideUpTransitionRoute(widget: AvioncitoPage(avioncito: avioncito));
-      case (guardadosPage):
-        return SlideLeftTransitionRoute(widget: GuardadosPage());
+      // case (guardadosPage):
+      //   return SlideLeftTransitionRoute(widget: GuardadosPage());
       case (editarPage):
         final args = settings.arguments;
         Avioncito avioncito = args as Avioncito;
@@ -54,8 +54,8 @@ class Routes {
         return SlideLeftTransitionRoute(widget: InformacionPage());
       case (iniciarAventuraPage):
         return SlideLeftTransitionRoute(widget: IniciarAventuraPage());
-      case (construirPage):
-        return SlideLeftTransitionRoute(widget: ConstruirPage());
+      // case (construirPage):
+      //   return SlideLeftTransitionRoute(widget: ConstruirPage());
       case (temaConfiguracionPage):
         return SlideLeftTransitionRoute(widget: TemaConfiguracionPage());
       case (notificacionesConfiguracionPage):

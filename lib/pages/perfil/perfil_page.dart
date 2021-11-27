@@ -4,6 +4,7 @@ import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:bienaventurados/widgets/floating_modal.dart';
 import 'package:bienaventurados/widgets/perfil/comparte_widget.dart';
+import 'package:bienaventurados/widgets/perfil/logros_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +43,14 @@ class PerfilPage extends StatelessWidget {
           },
           icon: Icon(FlutterIcons.menu_fea, size: 22),
         ),
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       openDrawer();
+        //     },
+        //     icon: Icon(FlutterIcons.settings_fea, size: 22),
+        //   ),
+        // ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -53,7 +62,11 @@ class PerfilPage extends StatelessWidget {
                 fontSize: MediaQuery.of(context).size.width * 0.08,
               ),
             ).padding(horizontal: 40, vertical: 40),
-            ComparteWidget().padding(all: 20),
+            //ComparteWidget().padding(all: 20),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: LogrosWidget(),
+            ),
 
             // InkWell(
             //   onTap: () {
@@ -113,7 +126,8 @@ class PerfilPage extends StatelessWidget {
                     ],
                   )
                 : SizedBox.shrink(),
-            SizedBox(height: MediaQuery.of(context).size.width * 0.16),
+            SizedBox(height: MediaQuery.of(context).size.width * 0.08),
+            
             InkWell(
               onTap: () {
                 showFloatingModalBottomSheet(
@@ -219,6 +233,7 @@ class PerfilPage extends StatelessWidget {
               ),
             ).padding(horizontal: 40),
             SizedBox(height: MediaQuery.of(context).size.width * 0.06),
+            ComparteWidget(),
           ],
         ),
       ),

@@ -1,7 +1,9 @@
 import 'package:bienaventurados/data/local/drawer_items.dart';
 import 'package:bienaventurados/models/drawer_item_model.dart';
 import 'package:bienaventurados/pages/configuraciones/configuraciones_page.dart';
+import 'package:bienaventurados/pages/construir/construir_page.dart';
 import 'package:bienaventurados/pages/inicio/inicio_page.dart';
+import 'package:bienaventurados/pages/perfil/guardados_page.dart';
 import 'package:bienaventurados/pages/perfil/perfil_page.dart';
 import 'package:bienaventurados/providers/local_notifications.dart';
 import 'package:bienaventurados/repositories/preferencias_usuario.dart';
@@ -116,9 +118,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   color: Theme.of(context).primaryColor,
                   border:  Border.all(width: 4, color: Theme.of(context).primaryColorDark))
                   : BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
                   color: Theme.of(context).primaryColor,
-                  border:  Border.all(width: 0, color: Theme.of(context).primaryColor)
                 ),
                 child: getDrawerPage(),
               )),
@@ -131,6 +131,10 @@ class _DashboardPageState extends State<DashboardPage> {
     switch (pagina) {
       case DrawerItems.inicio:
         return InicioPage(openDrawer: openDrawer);
+      case DrawerItems.guardados:
+        return GuardadosPage(openDrawer: openDrawer);
+      case DrawerItems.construir:
+        return ConstruirPage(openDrawer: openDrawer);
       case DrawerItems.perfil:
         return PerfilPage(openDrawer: openDrawer);
       case DrawerItems.configuraciones:

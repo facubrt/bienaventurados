@@ -8,7 +8,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 class GuardadosPage extends StatefulWidget {
-  const GuardadosPage({ Key? key }) : super(key: key);
+  final VoidCallback openDrawer;
+
+  const GuardadosPage(
+    { Key? key,
+      required this.openDrawer,
+    }) : super(key: key);
 
   @override
   State<GuardadosPage> createState() => _GuardadosPageState();
@@ -24,8 +29,16 @@ class _GuardadosPageState extends State<GuardadosPage> {
   Widget build(BuildContext context) {
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            widget.openDrawer();
+          },
+          icon: Icon(FlutterIcons.menu_fea, size: 22),
+        ),
       ),
       body: ValueListenableBuilder(
         valueListenable: avioncitoProvider.getGuardadosFromLocal().listenable(),

@@ -1,9 +1,14 @@
 import 'package:bienaventurados/providers/auth_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 
 class ConstruirPage extends StatefulWidget {
+  final VoidCallback openDrawer;
+
+  const ConstruirPage({Key? key, required this.openDrawer}) : super(key: key);
+
   @override
   _ConstruirPageState createState() => _ConstruirPageState();
 }
@@ -30,8 +35,16 @@ class _ConstruirPageState extends State<ConstruirPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         elevation: 0.0,
+        leading: IconButton(
+          onPressed: () {
+            widget.openDrawer();
+          },
+          icon: Icon(FlutterIcons.menu_fea, size: 22),
+        ),
       ),
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
@@ -65,6 +78,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
     return Form(
       key: fraseFormKey,
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(30.0),
