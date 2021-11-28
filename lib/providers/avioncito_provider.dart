@@ -1,8 +1,8 @@
 import 'package:bienaventurados/data/local/local_db.dart';
 import 'package:bienaventurados/models/avioncito_model.dart';
+import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:bienaventurados/repositories/shared_prefs.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class AvioncitoProvider with ChangeNotifier {
@@ -36,8 +36,9 @@ class AvioncitoProvider with ChangeNotifier {
   }
 
   Future<void> comprobacionDia() async {
+    final prefs = PreferenciasUsuario();
     _actualConexion = DateTime.now().day.toString();
-    _ultimaConexion = await (SharedPrefs.obtenerPrefs('ultimaConexion'));
+    _ultimaConexion = prefs.ultimaConexion;
     if (_ultimaConexion != null) {
       if (_actualConexion == _ultimaConexion) {
         print('REUTILIZANDO AVIONCITO');
@@ -49,7 +50,7 @@ class AvioncitoProvider with ChangeNotifier {
         });
       } else {
         print('NUEVO DIA, NUEVO AVIONCITO!');
-        SharedPrefs.guardarPrefs('ultimaConexion', _actualConexion);
+        prefs.ultimaConexion = _actualConexion;
         await getAvioncitoFromLocal().then((avioncitosListos) async {
           if (avioncitosListos) {
             print('AVIONCITOS LISTOS PARA NUEVO DIA');
@@ -65,7 +66,7 @@ class AvioncitoProvider with ChangeNotifier {
       }
     } else {
       print('PRIMERA VEZ QUE SE INICIA LA APP');
-      SharedPrefs.guardarPrefs('ultimaConexion', _actualConexion);
+      prefs.ultimaConexion = _actualConexion;
       await getAvioncitoFromLocal().then((avioncitosListos) async {
         if (avioncitosListos) {
           print('PRIMEROS AVIONCITOS LISTOS');

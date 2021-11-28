@@ -16,7 +16,6 @@ class _NotificacionesConfiguracionPageState extends State<NotificacionesConfigur
   @override
   void initState() {
     super.initState();
-    //noti.init();
   }
 
   @override
