@@ -9,7 +9,7 @@ import 'package:bienaventurados/pages/configuraciones/general/informacion_page.d
 import 'package:bienaventurados/pages/configuraciones/general/notificaciones_configuracion_page.dart';
 import 'package:bienaventurados/pages/configuraciones/general/tema_configuracion_page.dart';
 import 'package:bienaventurados/pages/configuraciones/legal/legal_configuraciones_page.dart';
-import 'package:bienaventurados/pages/construir/editar.dart';
+import 'package:bienaventurados/pages/construir/editar_page.dart';
 import 'package:bienaventurados/pages/inicio/dashboard.dart';
 import 'package:bienaventurados/pages/perfil/redescubre_page.dart';
 import 'package:bienaventurados/pages/taller/taller_page.dart';
