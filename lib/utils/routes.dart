@@ -9,6 +9,7 @@ import 'package:bienaventurados/pages/configuraciones/general/informacion_page.d
 import 'package:bienaventurados/pages/configuraciones/general/notificaciones_configuracion_page.dart';
 import 'package:bienaventurados/pages/configuraciones/general/tema_configuracion_page.dart';
 import 'package:bienaventurados/pages/configuraciones/legal/legal_configuraciones_page.dart';
+import 'package:bienaventurados/pages/construir/construir_page.dart';
 import 'package:bienaventurados/pages/construir/editar_page.dart';
 import 'package:bienaventurados/pages/inicio/dashboard.dart';
 import 'package:bienaventurados/pages/perfil/redescubre_page.dart';
@@ -62,8 +63,10 @@ class Routes {
         return SlideLeftTransitionRoute(widget: InformacionPage());
       case (iniciarAventuraPage):
         return SlideLeftTransitionRoute(widget: IniciarAventuraPage());
-      // case (construirPage):
-      //   return SlideLeftTransitionRoute(widget: ConstruirPage());
+      case (construirPage):
+        final args = settings.arguments;
+        VoidCallback openDrawer = args as VoidCallback;
+        return SlideLeftTransitionRoute(widget: ConstruirPage(openDrawer: openDrawer));
       case (temaConfiguracionPage):
         return SlideLeftTransitionRoute(widget: TemaConfiguracionPage());
       case (notificacionesConfiguracionPage):
