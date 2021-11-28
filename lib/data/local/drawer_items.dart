@@ -1,5 +1,4 @@
 import 'package:bienaventurados/models/drawer_item_model.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 class DrawerItems {

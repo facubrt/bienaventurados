@@ -17,21 +17,8 @@ class PerfilPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final snackbar = SnackBar(
-    //   backgroundColor: Theme.of(context).colorScheme.secondary,
-    //   content: Padding(
-    //     padding: const EdgeInsets.all(10.0),
-    //     child: Text(
-    //         '¡Oh, oh! Parece que todavía no puedes acceder a esta parte. ¡Regresa pronto!',
-    //         style: Theme.of(context).textTheme.bodyText2!.copyWith(
-    //               color: Theme.of(context).primaryColor,
-    //             )),
-    //   ),
-    // );
 
     final authProvider = Provider.of<AuthProvider>(context);
-    final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
-    final prefs = PreferenciasUsuario();
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -43,14 +30,6 @@ class PerfilPage extends StatelessWidget {
           },
           icon: Icon(FlutterIcons.menu_fea, size: 22),
         ),
-        // actions: [
-        //   IconButton(
-        //     onPressed: () {
-        //       openDrawer();
-        //     },
-        //     icon: Icon(FlutterIcons.settings_fea, size: 22),
-        //   ),
-        // ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -78,34 +57,34 @@ class PerfilPage extends StatelessWidget {
             //   ),
             // ).padding(horizontal: 40),
             // SizedBox(height: 40),
-            SizedBox(
-              height: 20,
-            ),
-            InkWell(
-              onTap: () {
-                //ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                Navigator.of(context)
-                    .pushNamed(guardadosPage, arguments: openDrawer);
-              },
-              child: Text(
-                'Guardados',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                fontSize: MediaQuery.of(context).size.width * 0.08,
-              ),
-              ),
-            ).padding(horizontal: 40),
-            SizedBox(height: 40),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).pushNamed(construirPage);
-              },
-              child: Text(
-                'Construir',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                fontSize: MediaQuery.of(context).size.width * 0.08,
-              ),
-              ),
-            ).padding(horizontal: 40),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // InkWell(
+            //   onTap: () {
+            //     //ScaffoldMessenger.of(context).showSnackBar(snackbar);
+            //     Navigator.of(context)
+            //         .pushNamed(guardadosPage, arguments: openDrawer);
+            //   },
+            //   child: Text(
+            //     'Guardados',
+            //     style: Theme.of(context).textTheme.headline1!.copyWith(
+            //     fontSize: MediaQuery.of(context).size.width * 0.08,
+            //   ),
+            //   ),
+            // ).padding(horizontal: 40),
+            // SizedBox(height: 40),
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.of(context).pushNamed(construirPage);
+            //   },
+            //   child: Text(
+            //     'Construir',
+            //     style: Theme.of(context).textTheme.headline1!.copyWith(
+            //     fontSize: MediaQuery.of(context).size.width * 0.08,
+            //   ),
+            //   ),
+            // ).padding(horizontal: 40),
             (authProvider.usuario.clase == 'administrador')
                 ? Column(
                     children: [
@@ -127,112 +106,6 @@ class PerfilPage extends StatelessWidget {
                   )
                 : SizedBox.shrink(),
             SizedBox(height: MediaQuery.of(context).size.width * 0.08),
-            
-            InkWell(
-              onTap: () {
-                showFloatingModalBottomSheet(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  context: context,
-                  builder: (context) {
-                    return Container(
-                      color: Theme.of(context).primaryColor,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Todo camino merece un descanso',
-                                style: Theme.of(context).textTheme.headline6!.copyWith(
-                                  fontSize: MediaQuery.of(context).size.width * 0.04
-                                )),
-                            SizedBox(height: MediaQuery.of(context).size.width * 0.06),
-                            Text(
-                              'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. \n\n¿Deseas descansar de esta aventura?',
-                              style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.04),
-                            ),
-                            SizedBox(height: MediaQuery.of(context).size.width * 0.08,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Text(
-                                      'Cancelar',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle1!
-                                          .copyWith(
-                                            fontSize: MediaQuery.of(context).size.width * 0.04,
-                                            color: Theme.of(context)
-                                                  .primaryColorDark),
-                                    ),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    avioncitoProvider.eliminarDB();
-                                    authProvider.signOut();
-                                    prefs.limpiarPrefs();
-                                    prefs.modoNoche = false;
-                                    Navigator.of(context)
-                                        .pushNamedAndRemoveUntil(
-                                            bienaventuradosPage, (route) => false);
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Text(
-                                      'Salir',
-                                      style:
-                                          Theme.of(context).textTheme.subtitle1!.copyWith(
-                                            fontSize: MediaQuery.of(context).size.width * 0.04,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                                // InkWell(
-                                //   onTap: () {
-                                //     avioncitoProvider.eliminarDB();
-                                //     SharedPrefs.limpiarPrefs();
-                                //     authProvider.signOut();
-                                //     Navigator.of(context)
-                                //         .pushNamedAndRemoveUntil(
-                                //             comenzarPage, (route) => false);
-                                //   },
-                                //   child: Padding(
-                                //     padding: const EdgeInsets.symmetric(
-                                //         horizontal: 10),
-                                //     child: Text(
-                                //       'Eliminar cuenta',
-                                //       style:
-                                //           Theme.of(context).textTheme.subtitle1,
-                                //     ),
-                                //   ),
-                                // ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-              child: Text(
-                'Salir',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                  fontSize: MediaQuery.of(context).size.width * 0.08,
-                  color: Theme.of(context).colorScheme.secondary
-                ),
-              ),
-            ).padding(horizontal: 40),
-            SizedBox(height: MediaQuery.of(context).size.width * 0.06),
             ComparteWidget(),
           ],
         ),

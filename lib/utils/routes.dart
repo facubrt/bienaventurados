@@ -1,13 +1,16 @@
 import 'package:bienaventurados/models/avioncito_model.dart';
 import 'package:bienaventurados/pages/comenzar/bienaventurados_page.dart';
 import 'package:bienaventurados/pages/comenzar/iniciar_aventura_page.dart';
-import 'package:bienaventurados/pages/configuraciones/informacion_page.dart';
-import 'package:bienaventurados/pages/configuraciones/notificaciones_configuracion_page.dart';
-import 'package:bienaventurados/pages/configuraciones/tema_configuracion_page.dart';
-import 'package:bienaventurados/pages/construir/construir_page.dart';
+import 'package:bienaventurados/pages/configuraciones/cuenta/actualizar_correo_page.dart';
+import 'package:bienaventurados/pages/configuraciones/cuenta/actualizar_nombre_page.dart';
+import 'package:bienaventurados/pages/configuraciones/cuenta/cuenta_configuraciones_page.dart';
+import 'package:bienaventurados/pages/configuraciones/general/general_configuraciones_page.dart';
+import 'package:bienaventurados/pages/configuraciones/general/informacion_page.dart';
+import 'package:bienaventurados/pages/configuraciones/general/notificaciones_configuracion_page.dart';
+import 'package:bienaventurados/pages/configuraciones/general/tema_configuracion_page.dart';
+import 'package:bienaventurados/pages/configuraciones/legal/legal_configuraciones_page.dart';
 import 'package:bienaventurados/pages/construir/editar.dart';
 import 'package:bienaventurados/pages/inicio/dashboard.dart';
-import 'package:bienaventurados/pages/perfil/guardados_page.dart';
 import 'package:bienaventurados/pages/perfil/redescubre_page.dart';
 import 'package:bienaventurados/pages/taller/taller_page.dart';
 import 'package:bienaventurados/utils/fade_transition_route.dart';
@@ -31,6 +34,11 @@ const String avioncitoPage = 'avioncitoPage';
 const String guardadosPage = 'guardadosPage';
 const String temaConfiguracionPage = 'temaConfiguracionPage';
 const String notificacionesConfiguracionPage = 'notificacionesConfiguracionPage';
+const String generalConfiguracionPage = 'generalConfiguracionPage';
+const String cuentaConfiguracionPage = 'cuentaConfiguracionPage';
+const String legalConfiguracionPage = 'legalConfiguracionPage';
+const String actualizarNombrePage = 'actualizarNombrePage';
+const String actualizarCorreoPage = 'actualizarCorreoPage';
 
 class Routes {
   static Route<dynamic> generateRoute (RouteSettings settings) {
@@ -69,6 +77,16 @@ class Routes {
       //   return FadeTransitionRoute(widget: ConfiguracionesPage());
       // case (perfilPage):
       //   return FadeTransitionRoute(widget: PerfilPage());
+      case (generalConfiguracionPage):
+        return SlideLeftTransitionRoute(widget: GeneralConfiguracionesPage());
+      case (cuentaConfiguracionPage):
+        return SlideLeftTransitionRoute(widget: CuentaConfiguracionesPage());
+      case (actualizarCorreoPage):
+        return SlideLeftTransitionRoute(widget: ActualizarCorreoPage());
+      case (actualizarNombrePage):
+        return SlideLeftTransitionRoute(widget: ActualizarNombrePage());
+      case (legalConfiguracionPage):
+        return SlideLeftTransitionRoute(widget: LegalConfiguracionesPage());
       default:
         return FadeTransitionRoute(widget: DashboardPage());
     }

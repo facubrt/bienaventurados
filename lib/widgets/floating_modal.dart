@@ -31,12 +31,14 @@ Future<T> showFloatingModalBottomSheet<T>({
   Color? backgroundColor,
 }) async {
   final result = await showCustomModalBottomSheet(
-      context: context,
-      builder: builder,
-      containerWidget: (_, animation, child) => FloatingModal(
-            child: child,
-          ),
-      expand: false);
+    animationCurve: Curves.fastLinearToSlowEaseIn,
+    duration: Duration(milliseconds: 300),
+    context: context,
+    builder: builder,
+    containerWidget: (_, animation, child) => FloatingModal(
+      child: child,
+    ),
+    expand: false);
 
   return result;
 }

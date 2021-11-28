@@ -4,116 +4,70 @@ import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:bienaventurados/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:package_info/package_info.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:in_app_review/in_app_review.dart';
 
-class ConfiguracionesPage extends StatefulWidget {
-  final VoidCallback openDrawer;
-
-  const ConfiguracionesPage({Key? key, required this.openDrawer})
-      : super(key: key);
+class CuentaConfiguracionesPage extends StatefulWidget {
+  const CuentaConfiguracionesPage({ Key? key }) : super(key: key);
 
   @override
-  State<ConfiguracionesPage> createState() => _ConfiguracionesPageState();
+  _CuentaConfiguracionesPageState createState() => _CuentaConfiguracionesPageState();
 }
 
-class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
+class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
+  
   late SharedPreferences prefs;
   final InAppReview inAppReview = InAppReview.instance;
-  late PackageInfo packageInfo;
-  String appName = '';
-  String packageName = '';
-  String version = '';
-  String buildNumber = '';
-
+  
   final _listaOpciones = [
-    'General',
-    'Cuenta',
-    //'Legal',
-    'Salir',
+    'Actualizar Nombre',
+    //'Actualizar Correo',
+    // 'Actualizar Contraseña'
+    //'Eliminar cuenta',
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    getPackageInfo();
-  }
-
-  void getPackageInfo() async {
-    packageInfo = await PackageInfo.fromPlatform();
-    setState(() {
-      appName = packageInfo.appName;
-      version = packageInfo.version;
-      buildNumber = packageInfo.buildNumber;
-    });
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            widget.openDrawer();
-          },
-          icon: Icon(FlutterIcons.menu_fea,
-              size: MediaQuery.of(context).size.width * 0.06),
-        ),
       ),
       body: ListView.separated(
-          itemCount: _listaOpciones.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              contentPadding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.08,
-                  vertical: MediaQuery.of(context).size.width * 0.04),
-              onTap: () {
-                navegarHacia(index);
-              },
-              title: Text(_listaOpciones[index],
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                      )),
-            );
-          },
-          separatorBuilder: (context, index) {
-            return Divider(
-                height: 0,
-                indent: MediaQuery.of(context).size.width * 0.08,
-                endIndent: MediaQuery.of(context).size.width * 0.08);
-          }),
-      bottomNavigationBar: BottomAppBar(
-        elevation: 0,
-        color: Colors.transparent,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 40.0),
-          child: versionInfoWidget(),
-        ),
+        itemCount: _listaOpciones.length,
+        itemBuilder: (context, index){
+              return ListTile(
+                contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
+                onTap: () {
+                  navegarHacia(index);
+                },
+                title: Text(_listaOpciones[index], style: Theme.of(context).textTheme.headline1!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                    )),
+              );
+        }, 
+        separatorBuilder: (context, index){ 
+          return Divider(
+            height: 0, 
+            indent: MediaQuery.of(context).size.width * 0.08, 
+            endIndent: MediaQuery.of(context).size.width * 0.08);
+        }
       ),
     );
   }
 
   Future<void> navegarHacia(int pagina) async {
-    final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
     final prefs = PreferenciasUsuario();
     switch (pagina) {
       case 0:
-        Navigator.of(context).pushNamed(generalConfiguracionPage);
+        Navigator.of(context).pushNamed(actualizarNombrePage);
         break;
-      case 1:
-        Navigator.of(context).pushNamed(cuentaConfiguracionPage);
-        break;
-      // case 2:
-      //   Navigator.of(context).pushNamed(legalConfiguracionPage);
+      // case 1:
+      //   Navigator.of(context).pushNamed(actualizarCorreoPage);
       //   break;
-      case 2:
+      case 1:
         showFloatingModalBottomSheet(
           backgroundColor: Theme.of(context).primaryColor,
           context: context,
@@ -126,13 +80,13 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('¿Deseas descansar de esta aventura?',
+                    Text('¿Es este el final de nuestra aventura?',
                         style: Theme.of(context).textTheme.headline6!.copyWith(
                             fontSize:
                                 MediaQuery.of(context).size.width * 0.04)),
                     SizedBox(height: MediaQuery.of(context).size.width * 0.06),
                     Text(
-                      'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. \n\n¡Paz y Bien!',
+                      'En Bienaventurados estamos muy agradecidos por haber compartido este camino juntos.\n\n¡Paz y Bien!',
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.04),
                     ),
@@ -168,13 +122,14 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                             authProvider.signOut();
                             prefs.limpiarPrefs();
                             prefs.modoNoche = false;
+                            authProvider.deleteUser();
                             Navigator.of(context).pushNamedAndRemoveUntil(
                                 bienaventuradosPage, (route) => false);
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Text(
-                              'Salir',
+                              'Eliminar cuenta',
                               style: Theme.of(context)
                                   .textTheme
                                   .subtitle1!
@@ -186,6 +141,25 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                             ),
                           ),
                         ),
+                        // InkWell(
+                        //   onTap: () {
+                        //     avioncitoProvider.eliminarDB();
+                        //     SharedPrefs.limpiarPrefs();
+                        //     authProvider.signOut();
+                        //     Navigator.of(context)
+                        //         .pushNamedAndRemoveUntil(
+                        //             comenzarPage, (route) => false);
+                        //   },
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.symmetric(
+                        //         horizontal: 10),
+                        //     child: Text(
+                        //       'Eliminar cuenta',
+                        //       style:
+                        //           Theme.of(context).textTheme.subtitle1,
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ],
@@ -198,15 +172,5 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
       default:
         break;
     }
-  }
-
-  Widget versionInfoWidget() {
-    return Text(
-      '$appName $version + $buildNumber'.toUpperCase(),
-      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-            fontSize: MediaQuery.of(context).size.width * 0.024,
-          ),
-      textAlign: TextAlign.center,
-    );
   }
 }

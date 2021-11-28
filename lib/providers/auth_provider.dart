@@ -135,6 +135,35 @@ class AuthProvider with ChangeNotifier{
     return userData;
   }
 
+  Future<bool> actualizarNombre(String nombre) async {
+    DocumentReference userRef = _db.collection('usuarios').doc(_user.correo);
+
+    await userRef.set({
+      'nombre': nombre,
+    }, SetOptions(merge: true));
+    _user.nombre = nombre;
+    notifyListeners();
+
+    return true;
+  }
+
+  Future deleteUser() async {
+    try {
+      auth.User usuario = _auth.currentUser!;
+      //AuthCredential credentials = EmailAuthProvider.credential(email: email, password: password);
+      print(usuario);
+      //UserCredential authResult = await user.reauthenticateWithCredential(credentials);
+      //auth.User usuario = authResult.user!;
+      // await DatabaseService(uid: usuario.uid).deleteuser(); // called from database class
+      DocumentReference userRef = _db.collection('usuarios').doc(usuario.email);
+      userRef.delete();
+      usuario.delete();
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 
   Future<void> signOut() async {
     return await _auth.signOut();
