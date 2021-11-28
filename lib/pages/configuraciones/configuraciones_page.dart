@@ -204,7 +204,7 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
     return Text(
       '$appName $version + $buildNumber'.toUpperCase(),
       style: Theme.of(context).textTheme.bodyText1!.copyWith(
-            fontSize: MediaQuery.of(context).size.width * 0.024,
+            fontSize: MediaQuery.of(context).size.width * 0.028,
           ),
       textAlign: TextAlign.center,
     );

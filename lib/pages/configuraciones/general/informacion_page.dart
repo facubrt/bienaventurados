@@ -1,12 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class InformacionPage extends StatelessWidget {
+class InformacionPage extends StatefulWidget {
   const InformacionPage({Key? key}) : super(key: key);
 
   @override
+  State<InformacionPage> createState() => _InformacionPageState();
+}
+
+class _InformacionPageState extends State<InformacionPage> {
+  late PackageInfo packageInfo;
+  String appName = '';
+  String packageName = '';
+  String version = '';
+  String buildNumber = '';
+
+  @override
+  void initState() {
+    getPackageInfo();
+    super.initState();
+  }
+
+  void getPackageInfo() async {
+    packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      appName = packageInfo.appName;
+      version = packageInfo.version;
+      buildNumber = packageInfo.buildNumber;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -47,9 +75,7 @@ class InformacionPage extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width,
               alignment: Alignment.center,
-              child: Text('Carlo Acutis (beato) ver. 1.3.0',
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.04)),
+              child: versionInfoWidget(),
             ),
             Spacer(),
             Container(
@@ -111,6 +137,16 @@ class InformacionPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget versionInfoWidget() {
+    return Text(
+      '$appName $version + $buildNumber'.toUpperCase(),
+      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+            fontSize: MediaQuery.of(context).size.width * 0.028,
+          ),
+      textAlign: TextAlign.center,
     );
   }
 }
