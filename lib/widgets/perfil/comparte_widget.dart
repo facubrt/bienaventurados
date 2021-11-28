@@ -10,7 +10,7 @@ class ComparteWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColorDark.withOpacity(0.05),
-        //borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
         child: Padding(
