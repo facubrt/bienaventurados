@@ -40,15 +40,12 @@ class _ConstruirPageState extends State<ConstruirPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 30.0),
-          child: IconButton(
-            onPressed: () {
-              widget.openDrawer();
-            },
-            icon: Icon(FlutterIcons.menu_fea,
-                size: MediaQuery.of(context).size.width * 0.06),
-          ),
+        leading: IconButton(
+          onPressed: () {
+            widget.openDrawer();
+          },
+          icon: Icon(FlutterIcons.menu_fea,
+              size: MediaQuery.of(context).size.width * 0.06),
         ),
       ),
       body: PageView(

@@ -71,7 +71,11 @@ class _GuardadosPageState extends State<GuardadosPage> {
           }
           return ListView.separated(
               separatorBuilder: (context, index) {
-                return Divider();
+                return Divider(
+                  indent: MediaQuery.of(context).size.width * 0.1,
+                  endIndent: MediaQuery.of(context).size.width * 0.1,
+                  color: Theme.of(context).primaryColorDark,
+                );
               },
               itemCount: box.values.length,
               itemBuilder: (context, index) {

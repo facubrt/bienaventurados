@@ -13,7 +13,7 @@ class BienaventuradosPage extends StatefulWidget {
   State<BienaventuradosPage> createState() => _BienaventuradosPageState();
 }
 
-class _BienaventuradosPageState extends State<BienaventuradosPage> with TickerProviderStateMixin {
+class _BienaventuradosPageState extends State<BienaventuradosPage> {
   // Boton de carga
   int _state = 0;
 
@@ -22,12 +22,6 @@ class _BienaventuradosPageState extends State<BienaventuradosPage> with TickerPr
     ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false,);
     themeProvider.activarModoNoche(false);
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    this.dispose();
-    super.dispose();
   }
 
   @override
@@ -132,11 +126,11 @@ class _BienaventuradosPageState extends State<BienaventuradosPage> with TickerPr
         )
       );
     } else if (_state == 1) {
-      return SpinKitThreeBounce(
-        color: Theme.of(context).primaryColorDark,
-        size: 20.0,
-        controller: AnimationController(vsync: this, duration: const Duration(milliseconds: 1200)),
-      );
+      return Center(
+            child: CircularProgressIndicator(
+              color: Theme.of(context).primaryColorDark,
+            )
+          );
     } else {
       return Icon(Icons.check, color: Colors.white);
     }

@@ -13,8 +13,7 @@ class IniciarAventuraPage extends StatefulWidget {
   State<IniciarAventuraPage> createState() => _IniciarAventuraPageState();
 }
 
-class _IniciarAventuraPageState extends State<IniciarAventuraPage>
-    with TickerProviderStateMixin {
+class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
@@ -36,7 +35,6 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage>
 
   @override
   void dispose() {
-    this.dispose();
     passwordController.dispose();
     emailController.dispose();
     _pageController.dispose();
@@ -341,12 +339,11 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage>
         ),
       );
     } else if (_state == 1) {
-      return SpinKitThreeBounce(
-        color: Colors.white,
-        size: 20.0,
-        controller: AnimationController(
-            vsync: this, duration: const Duration(milliseconds: 1200)),
-      );
+      return Center(
+            child: CircularProgressIndicator(
+              color: Theme.of(context).primaryColor,
+            )
+          );
     } else {
       return Icon(Icons.check, color: Colors.white);
     }

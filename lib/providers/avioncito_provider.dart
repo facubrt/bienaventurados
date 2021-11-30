@@ -138,7 +138,6 @@ class AvioncitoProvider with ChangeNotifier {
       }
       print('MEZCLANDO AVIONCITOS, PRIMER AVIONCITO ${_avioncitos[0].usuario}');
       _avioncitos.shuffle();
-      print('PRIMER AVIONCITO RANDOM ${_avioncitos[0].usuario}');
       _localDB.setAvioncitos(_avioncitos);
       print('AVIONCITOS AGREGADOS A LOCAL');
       retVal = true;
@@ -149,7 +148,6 @@ class AvioncitoProvider with ChangeNotifier {
   Future<bool> getAvioncitoHoy() async {
     print('OBTENIENDO AVIONCITO DE HOY');
     _avioncito = await _localDB.getHoy()!.get(0);
-    print('EL AVIONCITO DE HOY LO CONSTRUYO ${_avioncito.usuario}');
     return true;
   }
 
@@ -162,9 +160,7 @@ class AvioncitoProvider with ChangeNotifier {
       _localDB.guardarAvioncito(true);
     }
     avioncitoGuardado.guardado = true;
-    print('Guardado el avioncito ${avioncitoGuardado.id}');
     _localDB.setGuardados(avioncitoGuardado.id, avioncitoGuardado);
-    print(_localDB.guardadosBox!.length);
     notifyListeners();
     return true;
   }
@@ -176,15 +172,12 @@ class AvioncitoProvider with ChangeNotifier {
     }
     avioncitoGuardado.guardado = false;
     _localDB.deleteGuardado(avioncitoGuardado.id);
-    print('Borrado el avioncito ${avioncitoGuardado.id}');
-    print(_localDB.guardadosBox!.length);
     notifyListeners();
     return true;
   }
 
   Future<bool> eliminarDB() async {
     await _localDB.deleteData();
-    print('Database eliminada');
     return true;
   }
 

@@ -2,6 +2,7 @@ import 'package:bienaventurados/providers/avioncito_provider.dart';
 //import 'package:bienaventurados/providers/local_notifications.dart';
 import 'package:bienaventurados/pages/inicio/avioncito_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 class InicioPage extends StatefulWidget {
@@ -16,7 +17,7 @@ class InicioPage extends StatefulWidget {
   _InicioPageState createState() => _InicioPageState();
 }
 
-class _InicioPageState extends State<InicioPage> {
+class _InicioPageState extends State<InicioPage>{
 
   @override
   void initState() {
@@ -48,6 +49,13 @@ class _InicioPageState extends State<InicioPage> {
     //   ),
     //   body: 
       avioncitoProvider.avioncitoListo
-        ? AvioncitoPage(avioncito: avioncitoProvider.avioncito!, openDrawer: widget.openDrawer) : Text('Cargando');
+        ? AvioncitoPage(
+          avioncito: avioncitoProvider.avioncito!, 
+          openDrawer: widget.openDrawer) 
+        : Center(
+            child: CircularProgressIndicator(
+              color: Theme.of(context).primaryColorDark,
+            )
+          );
   }
 }
