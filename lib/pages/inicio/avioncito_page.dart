@@ -311,15 +311,17 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                   ),
                 ),
               )),
-          capturandoScreen ? SizedBox.shrink() 
-            : InkWell(
-              onTap: () {
-                mostrarMensaje();
-              },
-              child: Text(
-                '¿Ya recibiste este avioncito?'
-                ),
-            ),
+          (widget.openDrawer != null) 
+            ? capturandoScreen ? SizedBox.shrink() 
+              : InkWell(
+                onTap: () {
+                  mostrarMensaje();
+                },
+                child: Text(
+                  '¿Ya recibiste este avioncito?'
+                  ),
+              ) 
+            : SizedBox.shrink(),
           SizedBox(height: MediaQuery.of(context).size.width * 0.06),
         ],
       ),
@@ -354,14 +356,14 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                     ),
                     InkWell(
                           onTap: () {
-                            // Navigator.of(context).pushReplacementNamed(construirPage, arguments: widget.openDrawer);
                             Navigator.of(context).pop();
+                            //Navigator.of(context).pushReplacementNamed(construirPage, arguments: widget.openDrawer);
                             //Navigator.of(context).popAndPushNamed(construirPage, arguments: widget.openDrawer);
                           },
                           child: Container(
                             alignment: Alignment.center,
                             child: Text(
-                              'Construir'.toUpperCase(),
+                              'De acuerdo'.toUpperCase(),
                               style: Theme.of(context)
                                   .textTheme
                                   .subtitle1!

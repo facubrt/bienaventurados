@@ -10,7 +10,7 @@ class AuthProvider with ChangeNotifier{
   final FirebaseAuth _auth;
   GoogleSignInAccount? _googleUser;
   Usuario _user = Usuario();
-  late final _displayName;
+  late String _displayName;
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseFirestore _db = FirebaseFirestore.instance;

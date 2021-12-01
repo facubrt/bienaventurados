@@ -1,10 +1,6 @@
 import 'package:bienaventurados/providers/auth_provider.dart';
-import 'package:bienaventurados/providers/avioncito_provider.dart';
-import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/utils/routes.dart';
-import 'package:bienaventurados/widgets/floating_modal.dart';
 import 'package:bienaventurados/widgets/perfil/comparte_widget.dart';
-import 'package:bienaventurados/widgets/perfil/logros_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +13,12 @@ class PerfilPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _listaPerfil = [
+      'Logros',
+      'Colecciones',
+      'Taller',
+    ];
+
     final snackbar = SnackBar(
       backgroundColor: Theme.of(context).colorScheme.secondary,
       content: Padding(
@@ -60,83 +62,56 @@ class PerfilPage extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: ComparteWidget(),
             ),
-            SizedBox(height: 40),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: InkWell(
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                },
-                child: Text(
-                  'Logros',
+            ListTile(
+              contentPadding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.08,
+                  vertical: MediaQuery.of(context).size.width * 0.04),
+              onTap: () {
+                ScaffoldMessenger.of(context).showSnackBar(snackbar);
+              },
+              title: Text('Logros',
                   style: Theme.of(context).textTheme.headline1!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.08,
-                  ),
-                ),
-              ),
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                      )),
             ),
-            SizedBox(height: 40),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: InkWell(
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                },
-                child: Text(
-                  'Colecciones',
+            Divider(
+              height: 0,
+              indent: MediaQuery.of(context).size.width * 0.08,
+              endIndent: MediaQuery.of(context).size.width * 0.08,
+              color: Theme.of(context).primaryColorDark,
+            ),
+            ListTile(
+              contentPadding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.08,
+                  vertical: MediaQuery.of(context).size.width * 0.04),
+              onTap: () {
+                ScaffoldMessenger.of(context).showSnackBar(snackbar);
+              },
+              title: Text('Colecciones',
                   style: Theme.of(context).textTheme.headline1!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.08,
-                  ),
-                ),
-              ),
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                      )),
             ),
-            // InkWell(
-            //   onTap: () {
-            //     //ScaffoldMessenger.of(context).showSnackBar(snackbar);
-            //     Navigator.of(context)
-            //         .pushNamed(guardadosPage, arguments: openDrawer);
-            //   },
-            //   child: Text(
-            //     'Guardados',
-            //     style: Theme.of(context).textTheme.headline1!.copyWith(
-            //     fontSize: MediaQuery.of(context).size.width * 0.08,
-            //   ),
-            //   ),
-            // ).padding(horizontal: 40),
-            // SizedBox(height: 40),
-            // InkWell(
-            //   onTap: () {
-            //     Navigator.of(context).pushNamed(construirPage);
-            //   },
-            //   child: Text(
-            //     'Construir',
-            //     style: Theme.of(context).textTheme.headline1!.copyWith(
-            //     fontSize: MediaQuery.of(context).size.width * 0.08,
-            //   ),
-            //   ),
-            // ).padding(horizontal: 40),
+            Divider(
+              height: 0,
+              indent: MediaQuery.of(context).size.width * 0.08,
+              endIndent: MediaQuery.of(context).size.width * 0.08,
+              color: Theme.of(context).primaryColorDark,
+            ),
             (authProvider.usuario.clase == 'administrador')
-                ? Column(
-                    children: [
-                      SizedBox(
-                        height: 40,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(tallerPage);
-                        },
-                        child: Text(
-                          'Taller',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.08,
-                              ),
-                        ),
-                      ).padding(horizontal: 40),
-                    ],
+                ? ListTile(
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.08,
+                        vertical: MediaQuery.of(context).size.width * 0.04),
+                    onTap: () {
+                      Navigator.of(context).pushNamed(tallerPage);
+                    },
+                    title: Text('Taller',
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.06,
+                            ),
+                    ),
                   )
                 : SizedBox.shrink(),
             SizedBox(height: MediaQuery.of(context).size.width * 0.08),

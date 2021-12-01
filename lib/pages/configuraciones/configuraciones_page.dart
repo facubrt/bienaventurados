@@ -32,7 +32,7 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
   final _listaOpciones = [
     'General',
     'Cuenta',
-    //'Legal',
+    'Legal',
     'Salir',
   ];
 
@@ -84,9 +84,10 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
           },
           separatorBuilder: (context, index) {
             return Divider(
-                height: 0,
-                indent: MediaQuery.of(context).size.width * 0.08,
-                endIndent: MediaQuery.of(context).size.width * 0.08);
+              height: 0,
+               indent: MediaQuery.of(context).size.width * 0.08,
+                  endIndent: MediaQuery.of(context).size.width * 0.08,
+                  color: Theme.of(context).primaryColorDark,);
           }),
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
@@ -103,17 +104,17 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final prefs = PreferenciasUsuario();
-    switch (pagina) {
-      case 0:
+    switch (_listaOpciones[pagina]) {
+      case 'General':
         Navigator.of(context).pushNamed(generalConfiguracionPage);
         break;
-      case 1:
+      case 'Cuenta':
         Navigator.of(context).pushNamed(cuentaConfiguracionPage);
         break;
-      // case 2:
-      //   Navigator.of(context).pushNamed(legalConfiguracionPage);
-      //   break;
-      case 2:
+      case 'Legal':
+        Navigator.of(context).pushNamed(legalConfiguracionPage);
+        break;
+      case 'Salir':
         showFloatingModalBottomSheet(
           backgroundColor: Theme.of(context).primaryColor,
           context: context,

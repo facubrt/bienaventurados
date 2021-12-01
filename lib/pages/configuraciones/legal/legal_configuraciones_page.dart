@@ -47,7 +47,8 @@ class _LegalConfiguracionesPageState extends State<LegalConfiguracionesPage> {
             return Divider(
                 height: 0,
                 indent: MediaQuery.of(context).size.width * 0.08,
-                endIndent: MediaQuery.of(context).size.width * 0.08);
+                endIndent: MediaQuery.of(context).size.width * 0.08,
+                color: Theme.of(context).primaryColorDark,);
           }),
     );
   }

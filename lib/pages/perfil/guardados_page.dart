@@ -72,8 +72,9 @@ class _GuardadosPageState extends State<GuardadosPage> {
           return ListView.separated(
               separatorBuilder: (context, index) {
                 return Divider(
-                  indent: MediaQuery.of(context).size.width * 0.1,
-                  endIndent: MediaQuery.of(context).size.width * 0.1,
+                  height: 0,
+                  indent: MediaQuery.of(context).size.width * 0.08,
+                  endIndent: MediaQuery.of(context).size.width * 0.08,
                   color: Theme.of(context).primaryColorDark,
                 );
               },
@@ -83,7 +84,6 @@ class _GuardadosPageState extends State<GuardadosPage> {
                 
                 return InkWell(
                   onTap: () {
-                    print(avioncitoGuardado.frase);
                     Navigator.of(context).pushNamed(avioncitoPage, arguments: avioncitoGuardado);
                     
                   },
@@ -103,7 +103,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
   Widget avioncitoCarta(BuildContext context, Avioncito avioncitoGuardado) {
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10),
+      padding: const EdgeInsets.only(left: 30.0, right: 30, top: 20, bottom: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
