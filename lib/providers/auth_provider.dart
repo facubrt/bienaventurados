@@ -26,7 +26,7 @@ class AuthProvider with ChangeNotifier{
     } else {
       DocumentSnapshot userSnap = await _db
         .collection('usuarios')
-        .doc(firebaseUser.email)
+        .doc(firebaseUser.uid)
         .get();
 
       _user.setFromFirestore(userSnap);

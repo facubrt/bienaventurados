@@ -13,6 +13,7 @@ class PerfilWidget extends StatefulWidget {
 class _PerfilWidgetState extends State<PerfilWidget> {
 
   late int _imagenPerfil;
+  late String? nombre;
   
   List images = [
     'perfil-0',
@@ -20,6 +21,13 @@ class _PerfilWidgetState extends State<PerfilWidget> {
     'perfil-2',
     'perfil-3',
   ];
+
+  @override
+  void initState() {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    nombre = authProvider.usuario.nombre;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +76,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${authProvider.usuario.nombre ?? ''}',
+                    nombre ?? '',
                     style: Theme.of(context).textTheme.headline1!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.06,
                         ),
