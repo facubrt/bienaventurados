@@ -105,7 +105,7 @@ class AuthProvider with ChangeNotifier{
   Future<DocumentSnapshot> createUserData(auth.User user) async {
     DocumentReference userRef = _db
       .collection('usuarios')
-      .doc(user.email);
+      .doc(user.uid);
 
     await userRef.set({
       'uid': user.uid,
@@ -124,7 +124,7 @@ class AuthProvider with ChangeNotifier{
   Future<DocumentSnapshot> updateUserData(auth.User user) async {
     DocumentReference userRef = _db
       .collection('usuarios')
-      .doc(user.email);
+      .doc(user.uid);
 
     await userRef.set({
       'ultimaConexion': DateTime.now(),
@@ -136,7 +136,7 @@ class AuthProvider with ChangeNotifier{
   }
 
   Future<bool> actualizarNombre(String nombre) async {
-    DocumentReference userRef = _db.collection('usuarios').doc(_user.correo);
+    DocumentReference userRef = _db.collection('usuarios').doc(_user.uid);
 
     await userRef.set({
       'nombre': nombre,
@@ -155,7 +155,7 @@ class AuthProvider with ChangeNotifier{
       //UserCredential authResult = await user.reauthenticateWithCredential(credentials);
       //auth.User usuario = authResult.user!;
       // await DatabaseService(uid: usuario.uid).deleteuser(); // called from database class
-      DocumentReference userRef = _db.collection('usuarios').doc(usuario.email);
+      DocumentReference userRef = _db.collection('usuarios').doc(usuario.uid);
       userRef.delete();
       usuario.delete();
       return true;

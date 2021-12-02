@@ -1,6 +1,7 @@
 import 'package:bienaventurados/providers/auth_provider.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:bienaventurados/widgets/perfil/comparte_widget.dart';
+import 'package:bienaventurados/widgets/perfil/perfil_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
@@ -49,15 +50,16 @@ class PerfilPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
-              child: Text(
-                'Hola, ${authProvider.usuario.nombre ?? ''}',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.08,
-                    ),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+            //   child: Text(
+            //     'Hola, ${authProvider.usuario.nombre ?? ''}',
+            //     style: Theme.of(context).textTheme.headline1!.copyWith(
+            //           fontSize: MediaQuery.of(context).size.width * 0.08,
+            //         ),
+            //   ),
+            // ),
+            PerfilWidget(),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: ComparteWidget(),

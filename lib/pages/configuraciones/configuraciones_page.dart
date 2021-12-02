@@ -32,7 +32,7 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
   final _listaOpciones = [
     'General',
     'Cuenta',
-    'Legal',
+    //'Legal',
     'Salir',
   ];
 

@@ -89,7 +89,7 @@ class _BienaventuradosState extends State<Bienaventurados> {
       title: 'Ser Eucaristía',
       debugShowCheckedModeBanner: false,
       theme: themeProvider.getTheme,
-      initialRoute: _sesionIniciada ? dashboardPage : bienaventuradosPage,
+      initialRoute: _sesionIniciada ? dashboardPage : bienaventuradosPage, //basePage : bienaventuradosPage,
       onGenerateRoute: Routes.generateRoute,
     );
   }

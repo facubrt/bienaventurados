@@ -1,4 +1,5 @@
 import 'package:bienaventurados/models/avioncito_model.dart';
+import 'package:bienaventurados/pages/base_page.dart';
 import 'package:bienaventurados/pages/comenzar/bienaventurados_page.dart';
 import 'package:bienaventurados/pages/comenzar/iniciar_aventura_page.dart';
 import 'package:bienaventurados/pages/configuraciones/cuenta/actualizar_correo_page.dart';
@@ -40,6 +41,7 @@ const String cuentaConfiguracionPage = 'cuentaConfiguracionPage';
 const String legalConfiguracionPage = 'legalConfiguracionPage';
 const String actualizarNombrePage = 'actualizarNombrePage';
 const String actualizarCorreoPage = 'actualizarCorreoPage';
+const String basePage = 'basePage';
 
 class Routes {
   static Route<dynamic> generateRoute (RouteSettings settings) {
@@ -47,6 +49,8 @@ class Routes {
     switch (settings.name) {
       case (dashboardPage):
         return FadeTransitionRoute(widget: DashboardPage());
+      case (basePage):
+        return FadeTransitionRoute(widget: BasePage());
       case (tallerPage):
         return SlideLeftTransitionRoute(widget: TallerPage());
       case (avioncitoPage):
