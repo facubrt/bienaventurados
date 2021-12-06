@@ -50,9 +50,8 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
                 )),
           ),
           ListTile(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
             dense: true,
-            isThreeLine: true,
             leading: Icon(FlutterIcons.sun_fea,
                 size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
             title: Text(
@@ -61,10 +60,14 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
                 fontSize: MediaQuery.of(context).size.width * 0.04,
               ),
             ),
-            subtitle: Text(
-              'Ilumina otros corazones con tu luz.',
-              style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                fontSize: MediaQuery.of(context).size.width * 0.04,
+            subtitle: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Text(
+                'Selecciona esta opción para iluminar a otros corazones con tu luz.',
+                style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  fontSize: MediaQuery.of(context).size.width * 0.03,
+                  color: Theme.of(context).primaryColorDark.withOpacity(0.4)
+                ),
               ),
             ),
             trailing: Radio(
@@ -77,16 +80,20 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
                 if (_opcion != 2) {
                   _opcion = 2;
                   themeProvider.swapTheme();
-                  // _activarModoNoche = false;
                   prefs.modoNoche = false;
                 }
               });
             },
           ),
+          Divider(
+                height: 0, 
+                color: Theme.of(context).primaryColorDark,
+                indent: MediaQuery.of(context).size.width * 0.08, 
+                endIndent: MediaQuery.of(context).size.width * 0.08
+              ),
           ListTile(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
             dense: true,
-            isThreeLine: true,
             leading: Icon(FlutterIcons.moon_fea,
                 size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
             title: Text(
@@ -95,10 +102,14 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
                 fontSize: MediaQuery.of(context).size.width * 0.04,
               ),
             ),
-            subtitle: Text(
-              'Aventurate en el silencio de la noche.',
-              style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                fontSize: MediaQuery.of(context).size.width * 0.04,
+            subtitle: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Text(
+                'Selecciona esta opción para aventurarte en el silencio de la noche.',
+                style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  fontSize: MediaQuery.of(context).size.width * 0.03,
+                  color: Theme.of(context).primaryColorDark.withOpacity(0.4)
+                ),
               ),
             ),
             trailing: Radio(

@@ -45,6 +45,7 @@ class _GeneralConfiguracionesPageState extends State<GeneralConfiguracionesPage>
         separatorBuilder: (context, index){ 
           return Divider(
             height: 0, 
+            color: Theme.of(context).primaryColorDark,
             indent: MediaQuery.of(context).size.width * 0.08, 
             endIndent: MediaQuery.of(context).size.width * 0.08);
         }
@@ -53,21 +54,21 @@ class _GeneralConfiguracionesPageState extends State<GeneralConfiguracionesPage>
   }
 
     Future<void> navegarHacia(int pagina) async {
-    switch (pagina) {
-      case 0:
+    switch (_listaOpciones[pagina]) {
+      case 'Notificaciones':
         Navigator.of(context).pushNamed(notificacionesConfiguracionPage);
         break;
-      case 1:
+      case 'Cambiar tema':
         Navigator.of(context).pushNamed(temaConfiguracionPage);
         break;
-      case 2:
+      case 'Calificanos':
       
         if (await inAppReview.isAvailable()) {
           print('CALIFICAR');
           inAppReview.requestReview();
         }
         break;
-      case 3:
+      case 'Acerca de':
         Navigator.of(context).pushNamed(informacionPage);
         break;
       default:

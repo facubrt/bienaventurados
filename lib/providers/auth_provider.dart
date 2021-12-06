@@ -147,14 +147,41 @@ class AuthProvider with ChangeNotifier{
     return true;
   }
 
+  Future<bool> actualizarCorreo(String correo) async {
+    DocumentReference userRef = _db.collection('usuarios').doc(_user.uid);
+    final currentUser = _auth.currentUser;
+    await userRef.set({
+      'correo': correo,
+    }, SetOptions(merge: true));
+    _user.correo = correo;
+    currentUser!.updateEmail(correo);
+    notifyListeners();
+
+    return true;
+  }
+
+  Future<bool> actualizarContrasena(String contrasenaAnterior, String contrasenaNueva) async {
+    
+    final user = _auth.currentUser;
+    print(user!.providerData);
+    final credential = EmailAuthProvider.credential(
+        email: user.email!, 
+        password: contrasenaAnterior,
+    );
+    // Now you can use that to reauthenticate
+    user.reauthenticateWithCredential(credential);
+    user.updatePassword(contrasenaNueva).then((result) {
+      user.updatePassword(contrasenaNueva);
+    } );
+    user.reload();
+    notifyListeners();
+
+    return true;
+  }
+
   Future deleteUser() async {
     try {
       auth.User usuario = _auth.currentUser!;
-      //AuthCredential credentials = EmailAuthProvider.credential(email: email, password: password);
-      print(usuario);
-      //UserCredential authResult = await user.reauthenticateWithCredential(credentials);
-      //auth.User usuario = authResult.user!;
-      // await DatabaseService(uid: usuario.uid).deleteuser(); // called from database class
       DocumentReference userRef = _db.collection('usuarios').doc(usuario.uid);
       userRef.delete();
       usuario.delete();

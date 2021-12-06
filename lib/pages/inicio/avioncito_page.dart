@@ -4,11 +4,10 @@ import 'package:bienaventurados/data/local/meses.dart';
 import 'package:bienaventurados/models/avioncito_model.dart';
 import 'package:bienaventurados/providers/avioncito_provider.dart';
 import 'package:bienaventurados/theme/colores.dart';
-import 'package:bienaventurados/utils/routes.dart';
 import 'package:bienaventurados/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-// import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -72,8 +71,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                     controller: screenshotController,
                     child: Container(
                       child: avioncitoWidget(),
-                    )
-                    ),
+                    )),
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.2,
@@ -137,27 +135,31 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: MediaQuery.of(context).size.width * 0.2,),
-          capturandoScreen 
-          ? Padding(
+          SizedBox(
+            height: MediaQuery.of(context).size.width * 0.2,
+          ),
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: Container(
               alignment: Alignment.centerLeft,
               child: Row(
                 children: [
-                  Image.asset('assets/images/isotipo.png', height: 40, width: 40, color: Theme.of(context).primaryColorDark),
+                  Image.asset('assets/images/isotipo.png',
+                      height: 40,
+                      width: 40,
+                      isAntiAlias: true,
+                      color: Theme.of(context).primaryColorDark),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.04),
                   Text(
                     'Bienaventurados',
                     style: Theme.of(context).textTheme.headline6!.copyWith(
-                      color: Theme.of(context).primaryColorDark,
-                    ),
-                    ),
+                          color: Theme.of(context).primaryColorDark,
+                        ),
+                  ),
                 ],
               ),
             ),
-          )
-          : SizedBox.shrink(),
+          ),
           Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -209,6 +211,12 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                           : Theme.of(context).primaryColorDark),
                   padding: EdgeInsets.all(0),
                 ),
+                // IconButton(
+                //   icon: Icon(FlutterIcons.more_vertical_fea),
+                //   onPressed: () {
+                //     otrasOpciones();
+                //   },
+                // ),
               ],
             ),
           ),
@@ -311,81 +319,197 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                   ),
                 ),
               )),
-          (widget.openDrawer != null) 
-            ? capturandoScreen ? SizedBox.shrink() 
-              : InkWell(
-                onTap: () {
-                  mostrarMensaje();
-                },
-                child: Text(
-                  '¿Ya recibiste este avioncito?'
-                  ),
-              ) 
-            : SizedBox.shrink(),
+          (widget.openDrawer != null)
+              ? capturandoScreen
+                  ? SizedBox.shrink()
+                  : InkWell(
+                      onTap: () {
+                        mostrarMensaje();
+                      },
+                      child: Text('¿Ya recibiste este avioncito?'),
+                    )
+              : SizedBox.shrink(),
           SizedBox(height: MediaQuery.of(context).size.width * 0.06),
         ],
       ),
     );
   }
 
+  void otrasOpciones() {
+    //final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
+    showFloatingModalBottomSheet(
+      backgroundColor: Theme.of(context).primaryColor,
+      context: context,
+      builder: (context) {
+        return Container(
+          color: Theme.of(context).primaryColor,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ListTile(
+                //   onTap: () {
+                //     if (!widget.avioncito.guardado!) {
+                //       avioncitoProvider.guardarAvioncito(widget.avioncito);
+                //     } else {
+                //       avioncitoProvider.noGuardarAvioncito(widget.avioncito);
+                //     }
+                //   },
+                //   leading: widget.avioncito.guardado!
+                //       ? Icon(FlutterIcons.bookmark_mco,
+                //           size: MediaQuery.of(context).size.width * 0.06,
+                //           color: capturandoScreen
+                //               ? Colors.transparent
+                //               : Theme.of(context).primaryColorDark)
+                //       : Icon(FlutterIcons.bookmark_outline_mco,
+                //           size: MediaQuery.of(context).size.width * 0.06,
+                //           color: capturandoScreen
+                //               ? Colors.transparent
+                //               : Theme.of(context).primaryColorDark),
+                //   title: Text('Guardar',
+                //       style: Theme.of(context).textTheme.headline6!.copyWith(
+                //             fontSize: MediaQuery.of(context).size.width * 0.04,
+                //           )),
+                // ),
+                // ListTile(
+                //   onTap: () {
+                //     Navigator.of(context).pop();
+                //   },
+                //   leading: Icon(FlutterIcons.download_fea,
+                //       color: Theme.of(context).primaryColorDark,
+                //       size: MediaQuery.of(context).size.width * 0.06),
+                //   title: Text(
+                //     'Descargar',
+                //     style: Theme.of(context).textTheme.headline6!.copyWith(
+                //           fontSize: MediaQuery.of(context).size.width * 0.04,
+                //         ),
+                //   ),
+                // ),
+                // ListTile(
+                //   onTap: () {
+                //     Navigator.of(context).pop();
+                //     setState(() {
+                //       capturandoScreen = true;
+                //     });
+                //     _takeScreenshotandShare(
+                //       widget.avioncito.frase!,
+                //       widget.avioncito.santo!,
+                //     );
+                //   },
+                //   leading: Icon(FlutterIcons.share_fea,
+                //       size: MediaQuery.of(context).size.width * 0.06,
+                //       color: Theme.of(context).primaryColorDark),
+                //   title: Text('Compartir',
+                //       style: Theme.of(context).textTheme.headline6!.copyWith(
+                //             fontSize: MediaQuery.of(context).size.width * 0.04,
+                //           )),
+                // ),
+                ListTile(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  leading: Icon(FlutterIcons.message_square_fea,
+                      color: Theme.of(context).primaryColorDark,
+                      size: MediaQuery.of(context).size.width * 0.06),
+                  title: Text('Solicitar corrección',
+                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                            fontSize: MediaQuery.of(context).size.width * 0.04,
+                          )),
+                ),
+                //SizedBox(height: MediaQuery.of(context).size.width * 0.04),
+                Divider(
+                  height: 40,
+                  color: Theme.of(context).primaryColorDark.withOpacity(0.4),
+                ),
+                Text(
+                  '¿Ya recibiste este avioncito? Bienaventurados todavía está en crecimiento. ¡Animate a ser parte construyendo tus propios avioncitos!',
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    color: Theme.of(context).primaryColorDark.withOpacity(0.4),    
+                  ),
+                      
+                ),
+                SizedBox(height: MediaQuery.of(context).size.width * 0.04),
+                Container(
+                  alignment: Alignment.center,
+                  child: TextButton(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColorDark,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Cancelar',
+                        style: Theme.of(context).textTheme.headline4!.copyWith(
+                            fontSize: MediaQuery.of(context).size.width * 0.04,
+                            color: Theme.of(context).primaryColor)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   void mostrarMensaje() {
     showFloatingModalBottomSheet(
-          backgroundColor: Theme.of(context).primaryColor,
-          context: context,
-          builder: (context) {
-            return Container(
-              color: Theme.of(context).primaryColor,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Este avioncito lo conozco...',
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.04)),
-                    SizedBox(height: MediaQuery.of(context).size.width * 0.06),
-                    Text(
-                      'Bienaventurados todavía está en crecimiento.\n\n¡Animate a ser parte construyendo tus propios avioncitos!',
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.04),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.width * 0.08,
-                    ),
-                    InkWell(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                            //Navigator.of(context).pushReplacementNamed(construirPage, arguments: widget.openDrawer);
-                            //Navigator.of(context).popAndPushNamed(construirPage, arguments: widget.openDrawer);
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              'De acuerdo'.toUpperCase(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle1!
-                                  .copyWith(
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.04,
-                                      color:
-                                          Theme.of(context).primaryColorDark),
-                            ),
-                          ),
-                        ),
-                  ],
+      backgroundColor: Theme.of(context).primaryColor,
+      context: context,
+      builder: (context) {
+        return Container(
+          color: Theme.of(context).primaryColor,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Este avioncito lo conozco...',
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.04)),
+                SizedBox(height: MediaQuery.of(context).size.width * 0.06),
+                Text(
+                  'Bienaventurados todavía está en crecimiento.\n\n¡Animate a ser parte construyendo tus propios avioncitos!',
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.04),
                 ),
-              ),
-            );
-          },
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.08,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    //Navigator.of(context).pushReplacementNamed(construirPage, arguments: widget.openDrawer);
+                    //Navigator.of(context).popAndPushNamed(construirPage, arguments: widget.openDrawer);
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'De acuerdo'.toUpperCase(),
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                          color: Theme.of(context).primaryColorDark),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
+      },
+    );
   }
 
   void _takeScreenshotandShare(String frase, String santo) async {
     _imageFile = null;
+
+    int _dia = DateTime.now()
+        .difference(DateTime(DateTime.now().year, 1, 1, 0, 0))
+        .inDays;
 
     await screenshotController
         .capture(delay: Duration(milliseconds: 20), pixelRatio: 10.0)
@@ -397,6 +521,9 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
       Uint8List pngBytes = _imageFile!;
       File imgFile = File('$directory/bienaventurados.png');
       await imgFile.writeAsBytes(pngBytes);
+      // GUARDAMOS EL AVIONCITO EN GALERÍA
+      await ImageGallerySaver.saveImage(pngBytes,
+          quality: 100, name: 'bienaventurados-$_dia');
       print('File Saved to Gallery');
       setState(() {
         capturandoScreen = false;

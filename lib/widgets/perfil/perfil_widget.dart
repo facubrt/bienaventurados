@@ -32,7 +32,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
   @override
   Widget build(BuildContext context) {
     final prefs = PreferenciasUsuario();
-    final authProvider = Provider.of<AuthProvider>(context);
+    // final authProvider = Provider.of<AuthProvider>(context);
     _imagenPerfil = prefs.imagenPerfil;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30),

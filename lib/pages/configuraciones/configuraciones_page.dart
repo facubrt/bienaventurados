@@ -143,28 +143,53 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        InkWell(
-                          onTap: () {
+                        // InkWell(
+                        //   onTap: () {
+                        //     Navigator.of(context).pop();
+                        //   },
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.symmetric(horizontal: 10),
+                        //     child: Text(
+                        //       'Cancelar',
+                        //       style: Theme.of(context)
+                        //           .textTheme
+                        //           .subtitle1!
+                        //           .copyWith(
+                        //               fontSize:
+                        //                   MediaQuery.of(context).size.width *
+                        //                       0.04,
+                        //               color:
+                        //                   Theme.of(context).primaryColorDark),
+                        //     ),
+                        //   ),
+                        // ),
+                        TextButton(
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(width: 2),
+                            backgroundColor: Theme.of(context).primaryColor,
+                          ),
+                          onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              'Cancelar',
+                          child: Text('Cancelar',
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1!
+                                  .headline4!
                                   .copyWith(
                                       fontSize:
                                           MediaQuery.of(context).size.width *
                                               0.04,
                                       color:
-                                          Theme.of(context).primaryColorDark),
-                            ),
-                          ),
+                                          Theme.of(context).primaryColorDark)),
                         ),
-                        InkWell(
-                          onTap: () {
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.02,
+                        ),
+                        TextButton(
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Theme.of(context).primaryColorDark,
+                          ),
+                          onPressed: () {
                             avioncitoProvider.eliminarDB();
                             authProvider.signOut();
                             prefs.limpiarPrefs();
@@ -172,20 +197,16 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                             Navigator.of(context).pushNamedAndRemoveUntil(
                                 bienaventuradosPage, (route) => false);
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              'Salir',
+                          child: Text('Salir',
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1!
+                                  .headline4!
                                   .copyWith(
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            0.04,
-                                  ),
-                            ),
-                          ),
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.04,
+                                      color:
+                                          Theme.of(context).primaryColor)),
                         ),
                       ],
                     ),

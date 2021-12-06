@@ -9,24 +9,24 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CuentaConfiguracionesPage extends StatefulWidget {
-  const CuentaConfiguracionesPage({ Key? key }) : super(key: key);
+  const CuentaConfiguracionesPage({Key? key}) : super(key: key);
 
   @override
-  _CuentaConfiguracionesPageState createState() => _CuentaConfiguracionesPageState();
+  _CuentaConfiguracionesPageState createState() =>
+      _CuentaConfiguracionesPageState();
 }
 
 class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
-  
   late SharedPreferences prefs;
   final InAppReview inAppReview = InAppReview.instance;
-  
+
   final _listaOpciones = [
     'Actualizar Nombre',
-    //'Actualizar Correo',
-    // 'Actualizar Contraseña'
-    //'Eliminar cuenta',
+    'Actualizar Correo',
+    // 'Actualizar Contraseña',
+    'Eliminar Cuenta',
   ];
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,25 +34,28 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
         elevation: 0,
       ),
       body: ListView.separated(
-        itemCount: _listaOpciones.length,
-        itemBuilder: (context, index){
-              return ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
-                onTap: () {
-                  navegarHacia(index);
-                },
-                title: Text(_listaOpciones[index], style: Theme.of(context).textTheme.headline1!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
-                    )),
-              );
-        }, 
-        separatorBuilder: (context, index){ 
-          return Divider(
-            height: 0, 
-            indent: MediaQuery.of(context).size.width * 0.08, 
-            endIndent: MediaQuery.of(context).size.width * 0.08);
-        }
-      ),
+          itemCount: _listaOpciones.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              contentPadding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.08,
+                  vertical: MediaQuery.of(context).size.width * 0.04),
+              onTap: () {
+                navegarHacia(index);
+              },
+              title: Text(_listaOpciones[index],
+                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                      )),
+            );
+          },
+          separatorBuilder: (context, index) {
+            return Divider(
+                height: 0,
+                color: Theme.of(context).primaryColorDark,
+                indent: MediaQuery.of(context).size.width * 0.08,
+                endIndent: MediaQuery.of(context).size.width * 0.08);
+          }),
     );
   }
 
@@ -60,14 +63,17 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
     final prefs = PreferenciasUsuario();
-    switch (pagina) {
-      case 0:
+    switch (_listaOpciones[pagina]) {
+      case 'Actualizar Nombre':
         Navigator.of(context).pushNamed(actualizarNombrePage);
         break;
-      // case 1:
-      //   Navigator.of(context).pushNamed(actualizarCorreoPage);
-      //   break;
-      case 1:
+      case 'Actualizar Correo':
+        Navigator.of(context).pushNamed(actualizarCorreoPage);
+        break;
+      case 'Actualizar Contraseña':
+        Navigator.of(context).pushNamed(actualizarContrasenaPage);
+        break;
+      case 'Eliminar Cuenta':
         showFloatingModalBottomSheet(
           backgroundColor: Theme.of(context).primaryColor,
           context: context,
@@ -86,7 +92,7 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
                                 MediaQuery.of(context).size.width * 0.04)),
                     SizedBox(height: MediaQuery.of(context).size.width * 0.06),
                     Text(
-                      'En Bienaventurados estamos muy agradecidos por haber compartido este camino juntos.\n\n¡Paz y Bien!',
+                      'En Bienaventurados estamos muy agradecidos por haber compartido este camino juntos.\n\n¡Hasta Pronto!',
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.04),
                     ),
@@ -96,70 +102,52 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        InkWell(
-                          onTap: () {
+                        TextButton(
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(width: 2),
+                            backgroundColor: Theme.of(context).primaryColor,
+                          ),
+                          onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              'Cancelar',
+                          child: Text('Cancelar',
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1!
+                                  .headline4!
                                   .copyWith(
                                       fontSize:
                                           MediaQuery.of(context).size.width *
                                               0.04,
                                       color:
-                                          Theme.of(context).primaryColorDark),
-                            ),
-                          ),
+                                          Theme.of(context).primaryColorDark)),
                         ),
-                        InkWell(
-                          onTap: () {
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.02,
+                        ),
+                        TextButton(
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Theme.of(context).primaryColorDark,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
                             avioncitoProvider.eliminarDB();
-                            authProvider.signOut();
                             prefs.limpiarPrefs();
                             prefs.modoNoche = false;
                             authProvider.deleteUser();
                             Navigator.of(context).pushNamedAndRemoveUntil(
-                                bienaventuradosPage, (route) => false);
+                              bienaventuradosPage, (route) => false
+                            );
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              'Eliminar cuenta',
+                          child: Text('Eliminar',
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1!
+                                  .headline4!
                                   .copyWith(
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            0.04,
-                                  ),
-                            ),
-                          ),
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.04,
+                                      color: Theme.of(context).primaryColor)),
                         ),
-                        // InkWell(
-                        //   onTap: () {
-                        //     avioncitoProvider.eliminarDB();
-                        //     SharedPrefs.limpiarPrefs();
-                        //     authProvider.signOut();
-                        //     Navigator.of(context)
-                        //         .pushNamedAndRemoveUntil(
-                        //             comenzarPage, (route) => false);
-                        //   },
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.symmetric(
-                        //         horizontal: 10),
-                        //     child: Text(
-                        //       'Eliminar cuenta',
-                        //       style:
-                        //           Theme.of(context).textTheme.subtitle1,
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                   ],

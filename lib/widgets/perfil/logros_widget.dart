@@ -1,4 +1,3 @@
-import 'package:bienaventurados/data/local/logros_data.dart';
 import 'package:flutter/material.dart';
 
 class LogrosWidget extends StatefulWidget {

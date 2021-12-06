@@ -1,7 +1,5 @@
 import 'package:bienaventurados/providers/auth_provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 
 class ActualizarCorreoPage extends StatefulWidget {
@@ -54,7 +52,7 @@ class _ActualizarCorreoPageState extends State<ActualizarCorreoPage> {
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
-                    hintText: 'Correo',
+                    hintText: 'Nuevo Correo',
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
@@ -89,8 +87,9 @@ class _ActualizarCorreoPageState extends State<ActualizarCorreoPage> {
                     currentFocus.unfocus();
                   }
                   setState(() {
-                    //authProvider.actualizarNombreUsuario();
+                    authProvider.actualizarCorreo(_correoController.text);
                     _correoController.clear();
+                    Navigator.of(context).pop();
                   });
                 }
               },

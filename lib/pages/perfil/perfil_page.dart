@@ -5,7 +5,6 @@ import 'package:bienaventurados/widgets/perfil/perfil_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:styled_widget/styled_widget.dart';
 
 class PerfilPage extends StatelessWidget {
   final VoidCallback openDrawer;
@@ -14,11 +13,6 @@ class PerfilPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _listaPerfil = [
-      'Logros',
-      'Colecciones',
-      'Taller',
-    ];
 
     final snackbar = SnackBar(
       backgroundColor: Theme.of(context).colorScheme.secondary,

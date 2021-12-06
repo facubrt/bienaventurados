@@ -3,7 +3,6 @@ import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 class IniciarAventuraPage extends StatefulWidget {
@@ -202,10 +201,12 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Debes ingresar una contraseña para continuar';
+                  } else if (value.length < 8) {
+                    return 'La contraseña debe contener más de 8 caracteres';
                   } else {
                     return null;
                   }
-                },
+                }
               ),
             ],
           ),
@@ -221,6 +222,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                   backgroundColor: Theme.of(context).primaryColorDark,
                 ),
                 child: setUpButtonChild(),
+                
                 onPressed: () {
                   FocusScopeNode currentFocus = FocusScope.of(context);
 
@@ -366,17 +368,16 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
       ),
     );
 
-    authProvider
-        .signInWithEmailAndPassword(
-            emailController.text, passwordController.text)
+    authProvider.signInWithEmailAndPassword(emailController.text, passwordController.text)
         .then((resultado) {
       if (resultado == 'user-found') {
         prefs.sesionIniciada = true;
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil(dashboardPage, (route) => false);
+        Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
       } else if (resultado == 'wrong-password') {
-        //ACA SE PUEDE REDIRECCIONAR A REGISTRAR PARA HACERLO SI NO ESTÁ REGISTRADO.
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        setState(() {
+          _state = 0;
+        });
       } else if (resultado == 'user-not-found') {
         setState(() {
           _state = 0;

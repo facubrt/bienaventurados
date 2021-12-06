@@ -1,8 +1,6 @@
 import 'package:bienaventurados/providers/avioncito_provider.dart';
-//import 'package:bienaventurados/providers/local_notifications.dart';
 import 'package:bienaventurados/pages/inicio/avioncito_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 class InicioPage extends StatefulWidget {

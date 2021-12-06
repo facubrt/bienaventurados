@@ -1,7 +1,7 @@
 import 'package:bienaventurados/models/avioncito_model.dart';
-import 'package:bienaventurados/pages/base_page.dart';
 import 'package:bienaventurados/pages/comenzar/bienaventurados_page.dart';
 import 'package:bienaventurados/pages/comenzar/iniciar_aventura_page.dart';
+import 'package:bienaventurados/pages/configuraciones/cuenta/actualizar_contrasena_page.dart';
 import 'package:bienaventurados/pages/configuraciones/cuenta/actualizar_correo_page.dart';
 import 'package:bienaventurados/pages/configuraciones/cuenta/actualizar_nombre_page.dart';
 import 'package:bienaventurados/pages/configuraciones/cuenta/cuenta_configuraciones_page.dart';
@@ -40,6 +40,7 @@ const String generalConfiguracionPage = 'generalConfiguracionPage';
 const String cuentaConfiguracionPage = 'cuentaConfiguracionPage';
 const String legalConfiguracionPage = 'legalConfiguracionPage';
 const String actualizarNombrePage = 'actualizarNombrePage';
+const String actualizarContrasenaPage = 'actualizarContrasenaPage';
 const String actualizarCorreoPage = 'actualizarCorreoPage';
 const String basePage = 'basePage';
 
@@ -49,8 +50,6 @@ class Routes {
     switch (settings.name) {
       case (dashboardPage):
         return FadeTransitionRoute(widget: DashboardPage());
-      case (basePage):
-        return FadeTransitionRoute(widget: BasePage());
       case (tallerPage):
         return SlideLeftTransitionRoute(widget: TallerPage());
       case (avioncitoPage):
@@ -92,6 +91,8 @@ class Routes {
         return SlideLeftTransitionRoute(widget: ActualizarCorreoPage());
       case (actualizarNombrePage):
         return SlideLeftTransitionRoute(widget: ActualizarNombrePage());
+      case (actualizarContrasenaPage):
+        return SlideLeftTransitionRoute(widget: ActualizarContrasenaPage());
       case (legalConfiguracionPage):
         return SlideLeftTransitionRoute(widget: LegalConfiguracionesPage());
       default:
