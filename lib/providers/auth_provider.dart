@@ -155,26 +155,39 @@ class AuthProvider with ChangeNotifier{
   Future<bool> actualizarCorreo(String correo) async {
     DocumentReference userRef = _db.collection('usuarios').doc(_user.uid);
     final currentUser = _auth.currentUser;
+
+    if(currentUser!.providerData[0].providerId == 'google.com') {
+      print('CUENTA DE GOOGLE');
+      GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+      final credential = auth.GoogleAuthProvider.credential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+      UserCredential authResult = await _auth.signInWithCredential(credential);
+      final currentUser = authResult.user;
+    }
+
     await userRef.set({
       'correo': correo,
     }, SetOptions(merge: true));
     _user.correo = correo;
-    currentUser!.updateEmail(correo);
+    currentUser.updateEmail(correo);
     notifyListeners();
 
     return true;
   }
 
   Future<bool> actualizarContrasena(String contrasenaAnterior, String contrasenaNueva) async {
-    
+    final credential;
     final user = _auth.currentUser;
-    print(user!.providerData);
-    final credential = EmailAuthProvider.credential(
-        email: user.email!, 
-        password: contrasenaAnterior,
-    );
-    // Now you can use that to reauthenticate
-    user.reauthenticateWithCredential(credential);
+    if(user!.providerData[0].providerId == 'google.com') {
+      print('CUENTA DE GOOGLE');
+      GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+      credential = auth.GoogleAuthProvider.credential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+      user.reauthenticateWithCredential(credential);
+      //UserCredential authResult = await _auth.signInWithCredential(credential);
+      //final currentUser = authResult.user;
+    } else if (user.providerData[0].providerId == 'email') {
+      credential = EmailAuthProvider.credential(email: user.email!, password: contrasenaAnterior);
+      user.reauthenticateWithCredential(credential);
+    }
     user.updatePassword(contrasenaNueva).then((result) {
       user.updatePassword(contrasenaNueva);
     } );
