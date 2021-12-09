@@ -32,6 +32,8 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
   Uint8List? _imageFile;
   bool capturandoScreen = false;
   bool capturarPantalla = false;
+  bool descargarAvioncito = false;
+  bool guardado = false;
 
   @override
   void initState() {
@@ -42,6 +44,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
 
   @override
   Widget build(BuildContext context) {
+    final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
     return GestureDetector(
       onVerticalDragUpdate: (details) {
         if (details.primaryDelta! < -7) {
@@ -103,7 +106,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                         ],
                       ),
               ),
-              capturandoScreen
+              avioncitoProvider.compartirAvioncito
                   ? Container(
                       color: Colores.contrasteDay.withOpacity(0.9),
                       child: Center(
@@ -172,51 +175,69 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                           fontSize: MediaQuery.of(context).size.width * 0.035,
                         )),
                 Spacer(),
-                IconButton(
-                  onPressed: () {
-                    if (!widget.avioncito.guardado!) {
-                      avioncitoProvider.guardarAvioncito(widget.avioncito);
-                    } else {
-                      avioncitoProvider.noGuardarAvioncito(widget.avioncito);
-                    }
-                  },
-                  icon: widget.avioncito.guardado!
-                      ? Icon(FlutterIcons.bookmark_mco,
-                          size: MediaQuery.of(context).size.width * 0.06,
-                          color: capturandoScreen
-                              ? Colors.transparent
-                              : Theme.of(context).primaryColorDark)
-                      : Icon(FlutterIcons.bookmark_outline_mco,
-                          size: MediaQuery.of(context).size.width * 0.06,
-                          color: capturandoScreen
-                              ? Colors.transparent
-                              : Theme.of(context).primaryColorDark),
-                  padding: EdgeInsets.all(0),
-                ),
-                IconButton(
-                  onPressed: () {
-                    //Navigator.of(context).pushNamed(compartirPage);
-                    setState(() {
-                      capturandoScreen = true;
-                    });
-                    _takeScreenshotandShare(
-                      widget.avioncito.frase!,
-                      widget.avioncito.santo!,
-                    );
-                  },
-                  icon: Icon(FlutterIcons.share_fea,
-                      size: MediaQuery.of(context).size.width * 0.06,
-                      color: capturandoScreen
-                          ? Colors.transparent
-                          : Theme.of(context).primaryColorDark),
-                  padding: EdgeInsets.all(0),
-                ),
                 // IconButton(
-                //   icon: Icon(FlutterIcons.more_vertical_fea),
                 //   onPressed: () {
-                //     otrasOpciones();
+                //     if (!widget.avioncito.guardado!) {
+                //       avioncitoProvider.guardarAvioncito(widget.avioncito);
+                //     } else {
+                //       avioncitoProvider.noGuardarAvioncito(widget.avioncito);
+                //     }
                 //   },
+                //   icon: widget.avioncito.guardado!
+                //       ? Icon(FlutterIcons.bookmark_mco,
+                //           size: MediaQuery.of(context).size.width * 0.06,
+                //           color: avioncitoProvider.compartirAvioncito
+                //               ? Colors.transparent
+                //               : Theme.of(context).primaryColorDark)
+                //       : Icon(FlutterIcons.bookmark_outline_mco,
+                //           size: MediaQuery.of(context).size.width * 0.06,
+                //           color: avioncitoProvider.compartirAvioncito
+                //               ? Colors.transparent
+                //               : Theme.of(context).primaryColorDark),
+                //   padding: EdgeInsets.all(0),
                 // ),
+                // IconButton(
+                //   onPressed: () {
+                //     Navigator.of(context).pushNamed(compartirPage);
+                //     setState(() {
+                //       capturandoScreen = true;
+                //     });
+                //     _takeScreenshotandShare(
+                //       widget.avioncito.frase!,
+                //       widget.avioncito.santo!,
+                //     );
+                //   },
+                //   icon: Icon(FlutterIcons.share_fea,
+                //       size: MediaQuery.of(context).size.width * 0.06,
+                //       color: avioncitoProvider.compartirAvioncito
+                //           ? Colors.transparent
+                //           : Theme.of(context).primaryColorDark),
+                //   padding: EdgeInsets.all(0),
+                // ),
+                IconButton(
+                  icon: Icon(FlutterIcons.more_horizontal_fea),
+                  onPressed: () {
+                    showFloatingModalBottomSheet<bool?>(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      context: context,
+                      builder: (context) {
+                        return avioncitoBottomSheet();
+                      },
+                    ).then((refrescar) {
+                      if(refrescar != null && refrescar) {
+                        if (descargarAvioncito) {
+                          _takeScreenshotandSave();
+                        }
+                        if (avioncitoProvider.compartirAvioncito) {
+                          _takeScreenshotandShare(
+                            widget.avioncito.frase!,
+                            widget.avioncito.santo!,
+                          );
+                        }
+                      }
+                    });
+                  },
+                ),
               ],
             ),
           ),
@@ -266,7 +287,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                   padding: const EdgeInsets.only(top: 30.0, bottom: 30),
                   child: Icon(
                     FlutterIcons.chevron_up_fea,
-                    color: (reflexionOpen || capturandoScreen)
+                    color: (reflexionOpen || avioncitoProvider.compartirAvioncito)
                         ? Colors.transparent
                         : Theme.of(context).primaryColorDark,
                     size: MediaQuery.of(context).size.width * 0.06,
@@ -319,141 +340,166 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                   ),
                 ),
               )),
-          (widget.openDrawer != null)
-              ? capturandoScreen
-                  ? SizedBox.shrink()
-                  : InkWell(
-                      onTap: () {
-                        mostrarMensaje();
-                      },
-                      child: Text('¿Ya recibiste este avioncito?'),
-                    )
-              : SizedBox.shrink(),
-          SizedBox(height: MediaQuery.of(context).size.width * 0.06),
+          // (widget.openDrawer != null)
+          //   ? avioncitoProvider.compartirAvioncito
+          //     ? SizedBox.shrink()
+          //     : InkWell(
+          //         onTap: () {
+          //           mostrarMensaje();
+          //         },
+          //         child: Text('¿Ya recibiste este avioncito?'),
+          //       )
+          //   : SizedBox.shrink(),
+          // SizedBox(height: MediaQuery.of(context).size.width * 0.06),
         ],
       ),
     );
   }
 
-  void otrasOpciones() {
-    //final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
-    showFloatingModalBottomSheet(
-      backgroundColor: Theme.of(context).primaryColor,
-      context: context,
-      builder: (context) {
-        return Container(
-          color: Theme.of(context).primaryColor,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // ListTile(
-                //   onTap: () {
-                //     if (!widget.avioncito.guardado!) {
-                //       avioncitoProvider.guardarAvioncito(widget.avioncito);
-                //     } else {
-                //       avioncitoProvider.noGuardarAvioncito(widget.avioncito);
-                //     }
-                //   },
-                //   leading: widget.avioncito.guardado!
-                //       ? Icon(FlutterIcons.bookmark_mco,
-                //           size: MediaQuery.of(context).size.width * 0.06,
-                //           color: capturandoScreen
-                //               ? Colors.transparent
-                //               : Theme.of(context).primaryColorDark)
-                //       : Icon(FlutterIcons.bookmark_outline_mco,
-                //           size: MediaQuery.of(context).size.width * 0.06,
-                //           color: capturandoScreen
-                //               ? Colors.transparent
-                //               : Theme.of(context).primaryColorDark),
-                //   title: Text('Guardar',
-                //       style: Theme.of(context).textTheme.headline6!.copyWith(
-                //             fontSize: MediaQuery.of(context).size.width * 0.04,
-                //           )),
-                // ),
-                // ListTile(
-                //   onTap: () {
-                //     Navigator.of(context).pop();
-                //   },
-                //   leading: Icon(FlutterIcons.download_fea,
-                //       color: Theme.of(context).primaryColorDark,
-                //       size: MediaQuery.of(context).size.width * 0.06),
-                //   title: Text(
-                //     'Descargar',
-                //     style: Theme.of(context).textTheme.headline6!.copyWith(
-                //           fontSize: MediaQuery.of(context).size.width * 0.04,
-                //         ),
-                //   ),
-                // ),
-                // ListTile(
-                //   onTap: () {
-                //     Navigator.of(context).pop();
-                //     setState(() {
-                //       capturandoScreen = true;
-                //     });
-                //     _takeScreenshotandShare(
-                //       widget.avioncito.frase!,
-                //       widget.avioncito.santo!,
-                //     );
-                //   },
-                //   leading: Icon(FlutterIcons.share_fea,
-                //       size: MediaQuery.of(context).size.width * 0.06,
-                //       color: Theme.of(context).primaryColorDark),
-                //   title: Text('Compartir',
-                //       style: Theme.of(context).textTheme.headline6!.copyWith(
-                //             fontSize: MediaQuery.of(context).size.width * 0.04,
-                //           )),
-                // ),
-                ListTile(
-                  onTap: () {
+  Widget avioncitoBottomSheet() {
+    final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
+    return StatefulBuilder(
+      builder: (BuildContext context, StateSetter setState) {
+      return Container(
+        color: Theme.of(context).primaryColor,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ListTile(
+                onTap: () {
+                  if (!widget.avioncito.guardado!) {
+                    avioncitoProvider.guardarAvioncito(widget.avioncito);
+                    //guardado = true;
+                  } else {
+                    avioncitoProvider.noGuardarAvioncito(widget.avioncito);
+                    //guardado = false;
+                  }
+                  Navigator.of(context).pop();
+                },
+                leading: avioncitoProvider.avioncito!.guardado!
+                    ? Icon(FlutterIcons.bookmark_mco,
+                        size: MediaQuery.of(context).size.width * 0.06,
+                        color: avioncitoProvider.compartirAvioncito
+                            ? Colors.transparent
+                            : Theme.of(context).primaryColorDark)
+                    : Icon(FlutterIcons.bookmark_outline_mco,
+                        size: MediaQuery.of(context).size.width * 0.06,
+                        color: avioncitoProvider.compartirAvioncito
+                            ? Colors.transparent
+                            : Theme.of(context).primaryColorDark),
+                title: Text('Guardar',
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                        )),
+              ),
+              ListTile(
+                onTap: () {
+                  descargarAvioncito = true;
+                  Navigator.of(context).pop(true);
+                },
+                leading: descargarAvioncito
+                    ? Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.width * 0.05,
+                        width: MediaQuery.of(context).size.width * 0.05,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Theme.of(context).primaryColorDark,
+                          ),
+                        ))
+                    : Icon(FlutterIcons.download_fea,
+                        color: Theme.of(context).primaryColorDark,
+                        size: MediaQuery.of(context).size.width * 0.06),
+                title: Text(
+                  'Descargar',
+                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.04,
+                      ),
+                ),
+              ),
+              ListTile(
+                onTap: () {
+                  avioncitoProvider.compartirAvioncito = true;
+                  Navigator.of(context).pop(true);
+                },
+                leading: Icon(FlutterIcons.share_fea,
+                    size: MediaQuery.of(context).size.width * 0.06,
+                    color: Theme.of(context).primaryColorDark),
+                title: Text('Compartir',
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                        )),
+              ),
+              // ListTile(
+              //   onTap: () {
+              //     Navigator.of(context).pop();
+              //   },
+              //   leading: Icon(FlutterIcons.message_square_fea,
+              //       color: Theme.of(context).primaryColorDark,
+              //       size: MediaQuery.of(context).size.width * 0.06),
+              //   title: Text('Solicitar corrección',
+              //       style: Theme.of(context).textTheme.headline6!.copyWith(
+              //             fontSize: MediaQuery.of(context).size.width * 0.04,
+              //           )),
+              // ),
+              Divider(
+                height: 20,
+                indent: 20,
+                endIndent: 20,
+                color: Theme.of(context).primaryColorDark,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+                child: Text(
+                  '¿Ya recibiste este avioncito? Ayudanos a construir muchos más avioncitos y sacarlos a pasear. ¡Animate a compartir la fe!',
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.03,
+                        color: Theme.of(context).primaryColorDark.withOpacity(0.4),
+                      ),
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: TextButton(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColorDark,
+                  ),
+                  onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  leading: Icon(FlutterIcons.message_square_fea,
-                      color: Theme.of(context).primaryColorDark,
-                      size: MediaQuery.of(context).size.width * 0.06),
-                  title: Text('Solicitar corrección',
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                            fontSize: MediaQuery.of(context).size.width * 0.04,
-                          )),
+                  child: Text('Cancelar',
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                          color: Theme.of(context).primaryColor)),
                 ),
-                //SizedBox(height: MediaQuery.of(context).size.width * 0.04),
-                Divider(
-                  height: 40,
-                  color: Theme.of(context).primaryColorDark.withOpacity(0.4),
-                ),
-                Text(
-                  '¿Ya recibiste este avioncito? Bienaventurados todavía está en crecimiento. ¡Animate a ser parte construyendo tus propios avioncitos!',
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
-                    color: Theme.of(context).primaryColorDark.withOpacity(0.4),    
-                  ),
-                      
-                ),
-                SizedBox(height: MediaQuery.of(context).size.width * 0.04),
-                Container(
-                  alignment: Alignment.center,
-                  child: TextButton(
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColorDark,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('Cancelar',
-                        style: Theme.of(context).textTheme.headline4!.copyWith(
-                            fontSize: MediaQuery.of(context).size.width * 0.04,
-                            color: Theme.of(context).primaryColor)),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        );
-      },
+        ),
+      );
+      }
     );
   }
+
+  // void otrasOpciones() async {
+  //   final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
+  //   final bool? shouldRefresh = await showFloatingModalBottomSheet<bool?>(
+  //     backgroundColor: Theme.of(context).primaryColor,
+  //     context: context,
+  //     builder: (context) {
+  //       return avioncitoBottomSheet();
+  //     },
+  //   );
+
+  //   if(shouldRefresh != null && shouldRefresh) {
+  //     avioncitoProvider.compartirAvioncito = true;
+  //     _takeScreenshotandShare();
+  //   }
+  // }
 
   void mostrarMensaje() {
     showFloatingModalBottomSheet(
@@ -506,11 +552,8 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
 
   void _takeScreenshotandShare(String frase, String santo) async {
     _imageFile = null;
-
-    int _dia = DateTime.now()
-        .difference(DateTime(DateTime.now().year, 1, 1, 0, 0))
-        .inDays;
-
+    // int _atSecond = DateTime.now().difference(DateTime(DateTime.now().year, 1, 1, 0, 0)).inSeconds;
+    final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
     await screenshotController
         .capture(delay: Duration(milliseconds: 20), pixelRatio: 10.0)
         .then((image) async {
@@ -522,97 +565,23 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
       File imgFile = File('$directory/bienaventurados.png');
       await imgFile.writeAsBytes(pngBytes);
       // GUARDAMOS EL AVIONCITO EN GALERÍA
-      await ImageGallerySaver.saveImage(pngBytes,
-          quality: 100, name: 'bienaventurados-$_dia');
-      print('File Saved to Gallery');
-      setState(() {
-        capturandoScreen = false;
-      });
-      //await Share.file('Hace volar palabras de amor', 'bienaventurados.png', pngBytes, 'image/png');
-      await Share.shareFiles(['$directory/bienaventurados.png'],
-          text: '"$frase" -$santo');
+      // await ImageGallerySaver.saveImage(pngBytes, quality: 100, name: 'bienaventurados-$_atSecond');
+      // print('File Saved to Gallery');
+      // setState(() {
+      //   capturandoScreen = false;
+      // });
+      avioncitoProvider.compartirAvioncito = false;
+      await Share.shareFiles(['$directory/bienaventurados.png'], text: '"$frase" -$santo');
     }).catchError((onError) {
       print(onError);
     });
   }
 
-  // CODIGO PARA GUARDAR AVIONCITO EN GALERÍA
-
-  // IconButton(
-  //   onPressed: () {},
-  //   icon: Icon(FlutterIcons.download_fea,
-  //       size: MediaQuery.of(context).size.width * 0.06,
-  //       color: capturandoScreen
-  //           ? Colors.transparent
-  //           : Theme.of(context).primaryColorDark),
-  //   padding: EdgeInsets.all(0),
-  // ),
-  // PopupMenuButton(
-  //   color: Theme.of(context).primaryColor,
-  //   shape: RoundedRectangleBorder(
-  //     borderRadius: BorderRadius.circular(16.0),
-  //   ),
-  //   icon: Icon(Icons.more_vert),
-  //   itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-  //     PopupMenuItem(
-  //       child: ListTile(
-  //         onTap: () {
-  //           Navigator.of(context).pop();
-  //           setState(() {
-  //             capturandoScreen = true;
-  //           });
-  //           _takeScreenshotandShare(
-  //             widget.avioncito.frase!,
-  //             widget.avioncito.santo!,
-  //           );
-  //         },
-  //         leading: Icon(FlutterIcons.share_fea,
-  //             size: MediaQuery.of(context).size.width * 0.06,
-  //             color: Theme.of(context).primaryColorDark),
-  //         title: Text(
-  //           'Hacer volar',
-  //           style: Theme.of(context)
-  //               .textTheme
-  //               .headline6!
-  //               .copyWith(
-  //                 fontSize:
-  //                     MediaQuery.of(context).size.width * 0.04,
-  //               ),
-  //         ),
-  //       ),
-  //     ),
-  //     PopupMenuItem(
-  //       child: ListTile(
-  //         onTap: () {
-  //           //Navigator.of(context).pushNamed(compartirPage);
-  //           Navigator.of(context).pop();
-  //           setState(() {
-  //             capturandoScreen = true;
-  //           });
-  //           _takeScreenshotandSave();
-  //         },
-  //         leading: Icon(FlutterIcons.download_fea,
-  //             color: Theme.of(context).primaryColorDark,
-  //             size: MediaQuery.of(context).size.width * 0.06),
-  //         title: Text('Descargar',
-  //             style: Theme.of(context)
-  //                 .textTheme
-  //                 .headline6!
-  //                 .copyWith(
-  //                   fontSize:
-  //                       MediaQuery.of(context).size.width * 0.04,
-  //                 )),
-  //       ),
-  //     ),
-  //   ],
-  // ),
-
-/*
-  void _takeScreenshotandSave() async {
+  void _takeScreenshotandSave () async {
     _imageFile = null;
-    int _dia = DateTime.now()
-        .difference(DateTime(DateTime.now().year, 1, 1, 0, 0))
-        .inDays;
+    // int _dia = DateTime.now().difference(DateTime(DateTime.now().year, 1, 1, 0, 0)).inDays;
+    int _atSecond = DateTime.now().difference(DateTime(DateTime.now().year, 1, 1, 0, 0)).inSeconds;
+    
     final snackbar = SnackBar(
       backgroundColor: Theme.of(context).colorScheme.secondary,
       content: Padding(
@@ -624,9 +593,8 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                 )),
       ),
     );
-    await screenshotController
-        .capture(delay: Duration(milliseconds: 20), pixelRatio: 10.0)
-        .then((image) async {
+
+    await screenshotController.capture(delay: Duration(milliseconds: 20), pixelRatio: 10.0).then((image) async {
       setState(() {
         _imageFile = image;
       });
@@ -635,15 +603,11 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
       File imgFile = File('$directory/bienaventurados.png');
       await imgFile.writeAsBytes(pngBytes);
       await ImageGallerySaver.saveImage(pngBytes,
-          quality: 100, name: 'bienaventurados-$_dia');
-      print('File Saved to Gallery');
-      setState(() {
-        capturandoScreen = false;
-      });
+          quality: 100, name: 'bienaventurados-$_atSecond');
+      descargarAvioncito = false;
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
     }).catchError((onError) {
       print(onError);
     });
   }
-*/
 }

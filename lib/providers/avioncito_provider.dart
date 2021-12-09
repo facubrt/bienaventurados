@@ -16,6 +16,8 @@ class AvioncitoProvider with ChangeNotifier {
   String? _ultimaConexion;
   late int nAvioncito;
   Box? avioncitosBox;
+  // compartir avioncito
+  bool _compartirAvioncito = false;
 
   final FirebaseFirestore _fireDB = FirebaseFirestore.instance;
   final LocalData _localDB = LocalData();
@@ -181,6 +183,13 @@ class AvioncitoProvider with ChangeNotifier {
     return true;
   }
 
+  set compartirAvioncito(bool compartirAvioncito) {
+    _compartirAvioncito = compartirAvioncito;
+    notifyListeners();
+  }
+
+  bool get compartirAvioncito => _compartirAvioncito;
+ 
   Avioncito? get avioncito => _avioncito;
   List<Avioncito> get avioncitosGuardados => _avioncitosGuardados;
   bool get avioncitoListo => _avioncitoListo;

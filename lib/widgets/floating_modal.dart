@@ -22,7 +22,7 @@ class _FloatingModalState extends State<FloatingModal> {
         filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
         child: SafeArea(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
         child: Material(
           color: widget.backgroundColor,
           clipBehavior: Clip.antiAlias,

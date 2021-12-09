@@ -104,7 +104,7 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
                       children: [
                         TextButton(
                           style: OutlinedButton.styleFrom(
-                            side: BorderSide(width: 2),
+                            side: BorderSide(width: 2, color: Theme.of(context).primaryColorDark),
                             backgroundColor: Theme.of(context).primaryColor,
                           ),
                           onPressed: () {

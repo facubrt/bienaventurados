@@ -106,6 +106,7 @@ class AuthProvider with ChangeNotifier{
     DocumentReference userRef = _db
       .collection('usuarios')
       .doc(user.uid);
+    final currentUser = _auth.currentUser;
 
     await userRef.set({
       'uid': user.uid,
@@ -115,6 +116,7 @@ class AuthProvider with ChangeNotifier{
       'primeraConexion': DateTime.now(),
       'nombre': _displayName,
     }, SetOptions(merge: true));
+    currentUser!.updateDisplayName(_displayName);
 
     DocumentSnapshot userData = await userRef.get();
 
@@ -137,11 +139,14 @@ class AuthProvider with ChangeNotifier{
 
   Future<bool> actualizarNombre(String nombre) async {
     DocumentReference userRef = _db.collection('usuarios').doc(_user.uid);
+    final currentUser = _auth.currentUser;
 
     await userRef.set({
       'nombre': nombre,
     }, SetOptions(merge: true));
+    
     _user.nombre = nombre;
+    currentUser!.updateDisplayName(_displayName);
     notifyListeners();
 
     return true;
@@ -179,7 +184,17 @@ class AuthProvider with ChangeNotifier{
     return true;
   }
 
-  Future deleteUser() async {
+  Future<bool> recuperarCuenta(String correo) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: correo);
+      return true;
+    } on FirebaseAuthException catch(e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> deleteUser() async {
     try {
       auth.User usuario = _auth.currentUser!;
       DocumentReference userRef = _db.collection('usuarios').doc(usuario.uid);
@@ -188,7 +203,7 @@ class AuthProvider with ChangeNotifier{
       return true;
     } catch (e) {
       print(e.toString());
-      return null;
+      return false;
     }
   }
 

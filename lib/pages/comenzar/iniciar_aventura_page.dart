@@ -208,6 +208,15 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                   }
                 }
               ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: InkWell(
+                  onTap: () {
+                    recuperarCuenta();
+                  },
+                  child: Text('¿Olvidaste tu contraseña?'),
+                ),
+              )
             ],
           ),
         ),
@@ -232,7 +241,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                   if (passwordFormKey.currentState!.validate()) {
                     setState(() {
                       if (_state == 0) {
-                          _state = 1;
+                        _state = 1;
                         iniciarCuenta();
                       }
                     });
@@ -349,6 +358,25 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
     } else {
       return Icon(Icons.check, color: Colors.white);
     }
+  }
+
+  void recuperarCuenta() {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final snackbar = SnackBar(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      content: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child:
+            Text('¡No te preocupes! Hemos enviado un correo a ${emailController.text} para que puedas restablecer tu contraseña.',
+                style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Theme.of(context).primaryColor,
+                    )),
+      ),
+    );
+    authProvider.recuperarCuenta(emailController.text);
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+
   }
 
   void iniciarCuenta() {
