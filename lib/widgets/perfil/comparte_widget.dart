@@ -14,7 +14,7 @@ class ComparteWidget extends StatelessWidget {
       ),
       child: Container(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 60.0, horizontal: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

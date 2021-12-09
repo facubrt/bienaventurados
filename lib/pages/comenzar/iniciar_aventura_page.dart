@@ -3,7 +3,6 @@ import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 class IniciarAventuraPage extends StatefulWidget {
@@ -13,8 +12,7 @@ class IniciarAventuraPage extends StatefulWidget {
   State<IniciarAventuraPage> createState() => _IniciarAventuraPageState();
 }
 
-class _IniciarAventuraPageState extends State<IniciarAventuraPage>
-    with TickerProviderStateMixin {
+class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
@@ -36,7 +34,6 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage>
 
   @override
   void dispose() {
-    this.dispose();
     passwordController.dispose();
     emailController.dispose();
     _pageController.dispose();
@@ -204,11 +201,22 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage>
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Debes ingresar una contraseña para continuar';
+                  } else if (value.length < 8) {
+                    return 'La contraseña debe contener más de 8 caracteres';
                   } else {
                     return null;
                   }
-                },
+                }
               ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: InkWell(
+                  onTap: () {
+                    recuperarCuenta();
+                  },
+                  child: Text('¿Olvidaste tu contraseña?'),
+                ),
+              )
             ],
           ),
         ),
@@ -223,6 +231,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage>
                   backgroundColor: Theme.of(context).primaryColorDark,
                 ),
                 child: setUpButtonChild(),
+                
                 onPressed: () {
                   FocusScopeNode currentFocus = FocusScope.of(context);
 
@@ -232,41 +241,12 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage>
                   if (passwordFormKey.currentState!.validate()) {
                     setState(() {
                       if (_state == 0) {
-                        setState(() {
-                          _state = 1;
-                        });
+                        _state = 1;
                         iniciarCuenta();
                       }
                     });
                   }
                 }),
-            //TextButton(
-            //   style: OutlinedButton.styleFrom(
-            //       backgroundColor: Theme.of(context).primaryColorDark,
-
-            //     ),
-            //   onPressed: () {
-            //     if (passwordFormKey.currentState!.validate()) {
-            //       authProvider.signInWithEmailAndPassword(emailController.text, passwordController.text).then((resultado) {
-            //         if (resultado != null) {
-            //         prefs.sesionIniciada = true;
-            //         Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
-            //         } else {
-            //           //ACA SE PUEDE REDIRECCIONAR A REGISTRAR PARA HACERLO SI NO ESTÁ REGISTRADO.
-            //           ScaffoldMessenger.of(context).showSnackBar(snackbar);
-            //         }
-            //       });
-            //     }
-            //   },
-            //   child: Text('Continuar',
-            //       style: Theme.of(context)
-            //           .textTheme
-            //           .headline4!
-            //           .copyWith(
-            //             fontSize: MediaQuery.of(context).size.width * 0.04,
-            //             color: Theme.of(context).primaryColor)
-            //   ),
-            // ),
           ),
         ),
       ),
@@ -344,9 +324,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage>
                   if (nameFormKey.currentState!.validate()) {
                     setState(() {
                       if (_state == 0) {
-                        setState(() {
                           _state = 1;
-                        });
                         registrarCuenta();
                       }
                     });
@@ -372,15 +350,33 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage>
         ),
       );
     } else if (_state == 1) {
-      return SpinKitThreeBounce(
-        color: Colors.white,
-        size: 20.0,
-        controller: AnimationController(
-            vsync: this, duration: const Duration(milliseconds: 1200)),
-      );
+      return Center(
+            child: CircularProgressIndicator(
+              color: Theme.of(context).primaryColor,
+            )
+          );
     } else {
       return Icon(Icons.check, color: Colors.white);
     }
+  }
+
+  void recuperarCuenta() {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final snackbar = SnackBar(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      content: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child:
+            Text('¡No te preocupes! Hemos enviado un correo a ${emailController.text} para que puedas restablecer tu contraseña.',
+                style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Theme.of(context).primaryColor,
+                    )),
+      ),
+    );
+    authProvider.recuperarCuenta(emailController.text);
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+
   }
 
   void iniciarCuenta() {
@@ -400,17 +396,16 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage>
       ),
     );
 
-    authProvider
-        .signInWithEmailAndPassword(
-            emailController.text, passwordController.text)
+    authProvider.signInWithEmailAndPassword(emailController.text, passwordController.text)
         .then((resultado) {
       if (resultado == 'user-found') {
         prefs.sesionIniciada = true;
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil(dashboardPage, (route) => false);
+        Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
       } else if (resultado == 'wrong-password') {
-        //ACA SE PUEDE REDIRECCIONAR A REGISTRAR PARA HACERLO SI NO ESTÁ REGISTRADO.
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        setState(() {
+          _state = 0;
+        });
       } else if (resultado == 'user-not-found') {
         setState(() {
           _state = 0;

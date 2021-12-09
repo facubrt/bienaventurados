@@ -16,7 +16,6 @@ class _NotificacionesConfiguracionPageState extends State<NotificacionesConfigur
   @override
   void initState() {
     super.initState();
-    //noti.init();
   }
 
   @override
@@ -36,26 +35,30 @@ class _NotificacionesConfiguracionPageState extends State<NotificacionesConfigur
               Padding(
                 padding: const EdgeInsets.all(40.0),
                 child: Text(
-                    '¿Cuándo te gustaría recibir un recordatorio de tu avioncito diario?',
+                    '¿Te gustaría recibir un recordatorio de tu avioncito diario?',
                     style: Theme.of(context).textTheme.headline1!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.08,
                     )),
               ),
               ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
                 dense: true,
-                leading: Icon(FlutterIcons.sunrise_fea,
+                leading: Icon(FlutterIcons.bell_fea,
                     size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
                 title: Text(
-                  'Tercia',
+                  'Recibir notificaciones',
                   style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.04,
                   ),
                 ),
-                subtitle: Text(
-                  '9:00 hs.',
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                subtitle: Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Text(
+                    'Selecciona esta opción si deseas que te enviemos una notificación cuando tu avioncito diario esté listo.',
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.03,
+                      color: Theme.of(context).primaryColorDark.withOpacity(0.4),
+                    ),
                   ),
                 ),
                 trailing: Radio(
@@ -73,78 +76,31 @@ class _NotificacionesConfiguracionPageState extends State<NotificacionesConfigur
               });
                 },
               ),
-              ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
-                dense: true,
-                leading: Icon(FlutterIcons.sun_fea,
-                    size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
-                title: Text(
-                  'Sexta',
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.04,
-                  ),
-                ),
-                subtitle: Text(
-                  '12:00 hs.',
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.04,
-                  ),
-                ),
-                trailing: Radio(
-                    activeColor: Theme.of(context).colorScheme.secondary,
-                    groupValue: _opcion,
-                    value: 12,
-                    onChanged: (int? value) {}),
-                onTap: () {
-                  setState(() {
-                if (_opcion != 12) {
-                  _opcion = 12;
-                  prefs.momentoNotificaciones = 12;
-                  noti.scheduleDaily9AMNotification(12);
-                }
-              });
-                },
+              Divider(
+                height: 0, 
+                color: Theme.of(context).primaryColorDark,
+                indent: MediaQuery.of(context).size.width * 0.08, 
+                endIndent: MediaQuery.of(context).size.width * 0.08
               ),
               ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
                 dense: true,
-                leading: Icon(FlutterIcons.sunset_fea,
+                leading: Icon(FlutterIcons.bell_off_fea,
                     size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
                 title: Text(
-                  'Completas',
+                  'No recibir notificaciones',
                   style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.04,
                   ),
                 ),
-                subtitle: Text(
-                  '21:00 hs.',
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.04,
-                  ),
-                ),
-                trailing: Radio(
-                    activeColor: Theme.of(context).colorScheme.secondary,
-                    groupValue: _opcion,
-                    value: 21,
-                    onChanged: (int? value) {}),
-                onTap: () {
-                  setState(() {
-                if (_opcion != 21) {
-                  _opcion = 21;
-                  prefs.momentoNotificaciones = 21;
-                  noti.scheduleDaily9AMNotification(21);
-                }
-              });
-                },
-              ),
-              ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 40.0),
-                leading: Icon(FlutterIcons.slash_fea,
-                    size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
-                title: Text(
-                  'Deshabilitar',
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                subtitle: Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Text(
+                    'Selecciona esta opción si no deseas recibir notificaciones.',
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.03,
+                      color: Theme.of(context).primaryColorDark.withOpacity(0.4),
+                    ),
                   ),
                 ),
                 trailing: Radio(

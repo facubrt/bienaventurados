@@ -59,6 +59,7 @@ class ThemeProvider extends ChangeNotifier{
     ),
     scaffoldBackgroundColor: Colores.primarioDay,
     primaryColor: Colores.primarioDay,
+    shadowColor: Colores.secundarioDay,
     // disabledColor: Colores.secundarioDay,
     // cardColor: Colores.secundarioDay,
     // dividerColor: Colores.contrasteDay,

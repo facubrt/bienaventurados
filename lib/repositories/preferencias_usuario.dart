@@ -55,6 +55,24 @@ class PreferenciasUsuario {
     _prefs.setBool('sesionIniciada', sesionIniciada);
   }
 
+  // GET y SET ultimaConexion
+  String? get ultimaConexion {
+    return _prefs.getString('ultimaConexion') ?? null;
+  }
+
+  set ultimaConexion(String? ultimaConexion) {
+    _prefs.setString('ultimaConexion', ultimaConexion!);
+  }
+
+  // GET y SET imagenPerfil
+  int get imagenPerfil {
+    return _prefs.getInt('imagenPerfil') ?? 0;
+  }
+
+  set imagenPerfil(int imagenPerfil) {
+    _prefs.setInt('imagenPerfil', imagenPerfil);
+  }
+
   Future<bool> limpiarPrefs() async {
     return _prefs.clear();
   }

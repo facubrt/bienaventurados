@@ -1,8 +1,8 @@
 import 'package:bienaventurados/data/local/local_db.dart';
 import 'package:bienaventurados/models/avioncito_model.dart';
+import 'package:bienaventurados/repositories/preferencias_usuario.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:bienaventurados/repositories/shared_prefs.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class AvioncitoProvider with ChangeNotifier {
@@ -16,6 +16,8 @@ class AvioncitoProvider with ChangeNotifier {
   String? _ultimaConexion;
   late int nAvioncito;
   Box? avioncitosBox;
+  // compartir avioncito
+  bool _compartirAvioncito = false;
 
   final FirebaseFirestore _fireDB = FirebaseFirestore.instance;
   final LocalData _localDB = LocalData();
@@ -36,8 +38,9 @@ class AvioncitoProvider with ChangeNotifier {
   }
 
   Future<void> comprobacionDia() async {
+    final prefs = PreferenciasUsuario();
     _actualConexion = DateTime.now().day.toString();
-    _ultimaConexion = await (SharedPrefs.obtenerPrefs('ultimaConexion'));
+    _ultimaConexion = prefs.ultimaConexion;
     if (_ultimaConexion != null) {
       if (_actualConexion == _ultimaConexion) {
         print('REUTILIZANDO AVIONCITO');
@@ -49,7 +52,7 @@ class AvioncitoProvider with ChangeNotifier {
         });
       } else {
         print('NUEVO DIA, NUEVO AVIONCITO!');
-        SharedPrefs.guardarPrefs('ultimaConexion', _actualConexion);
+        prefs.ultimaConexion = _actualConexion;
         await getAvioncitoFromLocal().then((avioncitosListos) async {
           if (avioncitosListos) {
             print('AVIONCITOS LISTOS PARA NUEVO DIA');
@@ -65,7 +68,7 @@ class AvioncitoProvider with ChangeNotifier {
       }
     } else {
       print('PRIMERA VEZ QUE SE INICIA LA APP');
-      SharedPrefs.guardarPrefs('ultimaConexion', _actualConexion);
+      prefs.ultimaConexion = _actualConexion;
       await getAvioncitoFromLocal().then((avioncitosListos) async {
         if (avioncitosListos) {
           print('PRIMEROS AVIONCITOS LISTOS');
@@ -137,7 +140,6 @@ class AvioncitoProvider with ChangeNotifier {
       }
       print('MEZCLANDO AVIONCITOS, PRIMER AVIONCITO ${_avioncitos[0].usuario}');
       _avioncitos.shuffle();
-      print('PRIMER AVIONCITO RANDOM ${_avioncitos[0].usuario}');
       _localDB.setAvioncitos(_avioncitos);
       print('AVIONCITOS AGREGADOS A LOCAL');
       retVal = true;
@@ -148,7 +150,6 @@ class AvioncitoProvider with ChangeNotifier {
   Future<bool> getAvioncitoHoy() async {
     print('OBTENIENDO AVIONCITO DE HOY');
     _avioncito = await _localDB.getHoy()!.get(0);
-    print('EL AVIONCITO DE HOY LO CONSTRUYO ${_avioncito.usuario}');
     return true;
   }
 
@@ -161,9 +162,7 @@ class AvioncitoProvider with ChangeNotifier {
       _localDB.guardarAvioncito(true);
     }
     avioncitoGuardado.guardado = true;
-    print('Guardado el avioncito ${avioncitoGuardado.id}');
     _localDB.setGuardados(avioncitoGuardado.id, avioncitoGuardado);
-    print(_localDB.guardadosBox!.length);
     notifyListeners();
     return true;
   }
@@ -175,18 +174,22 @@ class AvioncitoProvider with ChangeNotifier {
     }
     avioncitoGuardado.guardado = false;
     _localDB.deleteGuardado(avioncitoGuardado.id);
-    print('Borrado el avioncito ${avioncitoGuardado.id}');
-    print(_localDB.guardadosBox!.length);
     notifyListeners();
     return true;
   }
 
   Future<bool> eliminarDB() async {
     await _localDB.deleteData();
-    print('Database eliminada');
     return true;
   }
 
+  set compartirAvioncito(bool compartirAvioncito) {
+    _compartirAvioncito = compartirAvioncito;
+    notifyListeners();
+  }
+
+  bool get compartirAvioncito => _compartirAvioncito;
+ 
   Avioncito? get avioncito => _avioncito;
   List<Avioncito> get avioncitosGuardados => _avioncitosGuardados;
   bool get avioncitoListo => _avioncitoListo;

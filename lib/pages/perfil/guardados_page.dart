@@ -8,7 +8,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 class GuardadosPage extends StatefulWidget {
-  const GuardadosPage({ Key? key }) : super(key: key);
+  final VoidCallback openDrawer;
+
+  const GuardadosPage(
+    { Key? key,
+      required this.openDrawer,
+    }) : super(key: key);
 
   @override
   State<GuardadosPage> createState() => _GuardadosPageState();
@@ -24,8 +29,16 @@ class _GuardadosPageState extends State<GuardadosPage> {
   Widget build(BuildContext context) {
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            widget.openDrawer();
+          },
+          icon: Icon(FlutterIcons.menu_fea, size: 22),
+        ),
       ),
       body: ValueListenableBuilder(
         valueListenable: avioncitoProvider.getGuardadosFromLocal().listenable(),
@@ -58,7 +71,12 @@ class _GuardadosPageState extends State<GuardadosPage> {
           }
           return ListView.separated(
               separatorBuilder: (context, index) {
-                return Divider();
+                return Divider(
+                  height: 0,
+                  indent: MediaQuery.of(context).size.width * 0.08,
+                  endIndent: MediaQuery.of(context).size.width * 0.08,
+                  color: Theme.of(context).primaryColorDark,
+                );
               },
               itemCount: box.values.length,
               itemBuilder: (context, index) {
@@ -66,7 +84,6 @@ class _GuardadosPageState extends State<GuardadosPage> {
                 
                 return InkWell(
                   onTap: () {
-                    print(avioncitoGuardado.frase);
                     Navigator.of(context).pushNamed(avioncitoPage, arguments: avioncitoGuardado);
                     
                   },
@@ -86,7 +103,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
   Widget avioncitoCarta(BuildContext context, Avioncito avioncitoGuardado) {
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10),
+      padding: const EdgeInsets.only(left: 30.0, right: 30, top: 20, bottom: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

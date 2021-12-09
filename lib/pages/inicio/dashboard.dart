@@ -1,7 +1,9 @@
 import 'package:bienaventurados/data/local/drawer_items.dart';
 import 'package:bienaventurados/models/drawer_item_model.dart';
 import 'package:bienaventurados/pages/configuraciones/configuraciones_page.dart';
+import 'package:bienaventurados/pages/construir/construir_page.dart';
 import 'package:bienaventurados/pages/inicio/inicio_page.dart';
+import 'package:bienaventurados/pages/perfil/guardados_page.dart';
 import 'package:bienaventurados/pages/perfil/perfil_page.dart';
 import 'package:bienaventurados/providers/local_notifications.dart';
 import 'package:bienaventurados/repositories/preferencias_usuario.dart';
@@ -30,14 +32,12 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     _paginasCargadas = false;
     closeDrawer();
-    noti.init();
-    if (prefs.momentoNotificaciones != 0) {
-      print('notificaciones activadas a las ${prefs.momentoNotificaciones}');
-      noti.scheduleDaily9AMNotification(prefs.momentoNotificaciones);
-    } else {
-      print('notificaciones desactivadas');
-      noti.cancelAllNotification();
-    }
+    // noti.init();
+    // if (prefs.momentoNotificaciones != 0) {
+    //   noti.scheduleDaily9AMNotification(prefs.momentoNotificaciones);
+    // } else {
+    //   noti.cancelAllNotification();
+    // }
     super.initState();
   }
 
@@ -58,34 +58,42 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
+      body: Stack(
+        children: [
         _paginasCargadas ? buildDrawer() : CircularProgressIndicator(),
-        buildPage()
+        buildShadow(),
+        buildPage(),
       ]),
     );
   }
 
-  Widget buildDrawer() =>
-      SafeArea(child: DrawerWidget(onSelectedItem: (pagina) {
-        setState(() => this.pagina = pagina);
-        closeDrawer();
-      }));
+  Widget buildDrawer() {
+    return SafeArea(
+      child: DrawerWidget(
+        onSelectedItem: (pagina) {
+          setState(() => this.pagina = pagina);
+          closeDrawer();
+        }
+      )
+    );
+  }
 
   Widget buildPage() {
     setState(() {
       _paginasCargadas = true;
     });
-    return WillPopScope(
+    return
+    WillPopScope(
       onWillPop: () async {
-        if (!isDrawerOpen) {
+        if (isDrawerOpen) {
           closeDrawer();
-
           return false;
         } else {
           return true;
         }
       },
-      child: GestureDetector(
+      child: 
+      GestureDetector(
         onTap: closeDrawer,
         onHorizontalDragStart: (details) => isDragging = true,
         onHorizontalDragUpdate: (details) {
@@ -116,14 +124,26 @@ class _DashboardPageState extends State<DashboardPage> {
                   color: Theme.of(context).primaryColor,
                   border:  Border.all(width: 4, color: Theme.of(context).primaryColorDark))
                   : BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
                   color: Theme.of(context).primaryColor,
-                  border:  Border.all(width: 0, color: Theme.of(context).primaryColor)
                 ),
                 child: getDrawerPage(),
               )),
         ),
-      ),
+    ),);
+  }
+
+    Widget buildShadow() {
+    setState(() {
+      _paginasCargadas = true;
+    });
+    return AnimatedContainer(
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeInOut,
+          transform: Matrix4.translationValues(xOffset - 10, yOffset + 26, 0)
+            ..scale(scaleFactor - 0.06),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Theme.of(context).shadowColor,),
     );
   }
 
@@ -131,6 +151,10 @@ class _DashboardPageState extends State<DashboardPage> {
     switch (pagina) {
       case DrawerItems.inicio:
         return InicioPage(openDrawer: openDrawer);
+      case DrawerItems.guardados:
+        return GuardadosPage(openDrawer: openDrawer);
+      case DrawerItems.construir:
+        return ConstruirPage(openDrawer: openDrawer);
       case DrawerItems.perfil:
         return PerfilPage(openDrawer: openDrawer);
       case DrawerItems.configuraciones:
