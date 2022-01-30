@@ -1,44 +1,14 @@
-import 'dart:convert';
 import 'package:bienaventurados/src/core/utils/routes.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
-import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
-import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
-import 'package:bienaventurados/src/logic/providers/theme_provider.dart';
 import 'package:bienaventurados/src/logic/services/messaging_service.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:bienaventurados/src/logic/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'dart:convert';
 
-late bool _sesionIniciada;
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent)); // statusbar transparente
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,]); // orientacion vertical
-  //await SystemChrome.setEnabledSystemUIOverlays([]); // fullscreen
-  
-  await Firebase.initializeApp();
-  //FirebaseCrashlytics.instance.crash(); // simula una falla para Crashlytics
-
-  final prefs = new PreferenciasUsuario();
-  await prefs.initPrefs();
-  // final localDB = new LocalData();
-  // await localDB.initLocalData();
-  // SharedPreferences prefs = await SharedPreferences.getInstance();
-  _sesionIniciada = prefs.sesionIniciada;
-
-  return runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (BuildContext context) => AuthProvider.instance(),),
-      ChangeNotifierProvider(create: (BuildContext context) => ThemeProvider(activarModoNoche: prefs.modoNoche)),
-      ChangeNotifierProvider(create: (BuildContext context) => AvioncitoProvider()),
-    ],
-    child: Bienaventurados(),
-  ));
-}
+import 'package:provider/provider.dart';
 
 class Bienaventurados extends StatefulWidget {
   @override
@@ -47,9 +17,7 @@ class Bienaventurados extends StatefulWidget {
 
 class _BienaventuradosState extends State<Bienaventurados> {
 
-
   void _firebaseCrash() async {
-
     if (kDebugMode) {
       await FirebaseCrashlytics.instance
           .setCrashlyticsCollectionEnabled(false);
@@ -85,11 +53,12 @@ class _BienaventuradosState extends State<Bienaventurados> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final prefs = PreferenciasUsuario();
     return MaterialApp(
       title: 'Ser Eucaristía',
       debugShowCheckedModeBanner: false,
       theme: themeProvider.getTheme,
-      initialRoute: _sesionIniciada ? dashboardPage : bienaventuradosPage, //basePage : bienaventuradosPage,
+      initialRoute: prefs.sesionIniciada ? dashboardPage : bienaventuradosPage, //basePage : bienaventuradosPage,
       onGenerateRoute: Routes.generateRoute,
     );
   }

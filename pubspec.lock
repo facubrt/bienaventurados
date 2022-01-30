@@ -197,6 +197,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.6"
+  equatable:
+    dependency: "direct main"
+    description:
+      name: equatable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.3"
   fake_async:
     dependency: transitive
     description:
@@ -438,6 +445,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
+  http:
+    dependency: "direct main"
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.4"
   http_multi_server:
     dependency: transitive
     description:
@@ -452,6 +466,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  iconsax:
+    dependency: "direct main"
+    description:
+      name: iconsax
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.8"
   image:
     dependency: transitive
     description:
@@ -926,6 +947,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  webfeed:
+    dependency: "direct main"
+    description:
+      name: webfeed
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.0"
   win32:
     dependency: transitive
     description:
