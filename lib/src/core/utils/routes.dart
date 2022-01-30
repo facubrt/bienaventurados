@@ -14,6 +14,8 @@ import 'package:bienaventurados/src/views/pages/construir/construir_page.dart';
 import 'package:bienaventurados/src/views/pages/construir/editar_page.dart';
 import 'package:bienaventurados/src/views/pages/inicio/dashboard.dart';
 import 'package:bienaventurados/src/views/pages/guardados/redescubre_page.dart';
+import 'package:bienaventurados/src/views/pages/perfil/colecciones_page.dart';
+import 'package:bienaventurados/src/views/pages/perfil/logros_page.dart';
 import 'package:bienaventurados/src/views/pages/taller/taller_page.dart';
 import 'package:bienaventurados/src/core/utils/fade_transition_route.dart';
 import 'package:bienaventurados/src/core/utils/slide_transition_route.dart';
@@ -26,6 +28,8 @@ const String comenzarPage = 'comenzarPage';
 const String bienaventuradosPage = 'bienaventuradosPage';
 const String iniciarAventuraPage = 'iniciarAventuraPage';
 const String construirPage = 'construirPage';
+const String coleccionesPage = 'coleccionesPage';
+const String logrosPage = 'logrosPage';
 const String informacionPage = 'informacionPage';
 const String tallerPage = 'tallerPage';
 const String editarPage = 'editarPage';
@@ -66,6 +70,10 @@ class Routes {
         return SlideLeftTransitionRoute(widget: InformacionPage());
       case (iniciarAventuraPage):
         return SlideLeftTransitionRoute(widget: IniciarAventuraPage());
+      case (coleccionesPage):
+        return SlideLeftTransitionRoute(widget: ColeccionesPage());
+      case (logrosPage):
+        return SlideLeftTransitionRoute(widget: LogrosPage());
       case (construirPage):
         final args = settings.arguments;
         VoidCallback openDrawer = args as VoidCallback;

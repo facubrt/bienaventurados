@@ -63,7 +63,7 @@ class PerfilPage extends StatelessWidget {
                   horizontal: MediaQuery.of(context).size.width * 0.08,
                   vertical: MediaQuery.of(context).size.width * 0.04),
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                Navigator.of(context).pushNamed(logrosPage);
               },
               title: Text('Logros',
                   style: Theme.of(context).textTheme.headline1!.copyWith(
@@ -81,7 +81,7 @@ class PerfilPage extends StatelessWidget {
                   horizontal: MediaQuery.of(context).size.width * 0.08,
                   vertical: MediaQuery.of(context).size.width * 0.04),
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                Navigator.of(context).pushNamed(coleccionesPage);
               },
               title: Text('Colecciones',
                   style: Theme.of(context).textTheme.headline1!.copyWith(

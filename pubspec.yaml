@@ -76,6 +76,8 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/colecciones/
+    - assets/images/logros/
 
   fonts:
     - family: Gotham
