@@ -12,8 +12,6 @@ class Logro {
   String descripcion;
   @HiveField(3)
   bool desbloqueado;
-  @HiveField(4)
-  String fecha;
 
   Logro({
 
@@ -21,6 +19,5 @@ class Logro {
     required this.img,
     required this.descripcion,
     required this.desbloqueado,
-    required this.fecha,
   });
 }

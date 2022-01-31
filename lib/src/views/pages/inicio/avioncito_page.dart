@@ -281,65 +281,65 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                 ),
               )),
           SizedBox(height: MediaQuery.of(context).size.width * 0.06),
-          reflexionOpen
-              ? SizedBox.shrink()
-              : Padding(
-                  padding: const EdgeInsets.only(top: 30.0, bottom: 30),
-                  child: Icon(
-                    Iconsax.arrow_up_2,
-                    color: (reflexionOpen || avioncitoProvider.compartirAvioncito)
-                        ? Colors.transparent
-                        : Theme.of(context).primaryColorDark,
-                    size: MediaQuery.of(context).size.width * 0.06,
-                  ),
-                ),
-          AnimatedContainer(
-              duration: Duration(milliseconds: 200),
-              curve: Curves.easeInOut,
-              height: reflexionOpen ? Align().heightFactor : 0.0,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 20.0, right: 20.0, bottom: 20.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Theme.of(context).primaryColorDark.withOpacity(0.05),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.avioncito.reflexion!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.04,
-                              ),
-                        ),
-                        Divider(
-                          height: 40,
-                        ),
-                        Text('Construido por ${widget.avioncito.usuario}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            0.03,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context)
-                                        .primaryColorDark
-                                        .withOpacity(0.2))),
-                      ],
-                    ),
-                  ),
-                ),
-              )),
+          // reflexionOpen
+          //     ? SizedBox.shrink()
+          //     : Padding(
+          //         padding: const EdgeInsets.only(top: 30.0, bottom: 30),
+          //         child: Icon(
+          //           Iconsax.arrow_up_2,
+          //           color: (reflexionOpen || avioncitoProvider.compartirAvioncito)
+          //               ? Colors.transparent
+          //               : Theme.of(context).primaryColorDark,
+          //           size: MediaQuery.of(context).size.width * 0.06,
+          //         ),
+          //       ),
+          // AnimatedContainer(
+          //     duration: Duration(milliseconds: 200),
+          //     curve: Curves.easeInOut,
+          //     height: reflexionOpen ? Align().heightFactor : 0.0,
+          //     child: Padding(
+          //       padding: const EdgeInsets.only(
+          //           left: 20.0, right: 20.0, bottom: 20.0),
+          //       child: Container(
+          //         decoration: BoxDecoration(
+          //           borderRadius: BorderRadius.circular(10),
+          //           color: Theme.of(context).primaryColorDark.withOpacity(0.05),
+          //         ),
+          //         child: Padding(
+          //           padding: const EdgeInsets.all(20.0),
+          //           child: Column(
+          //             crossAxisAlignment: CrossAxisAlignment.start,
+          //             children: [
+          //               Text(
+          //                 widget.avioncito.reflexion!,
+          //                 style: Theme.of(context)
+          //                     .textTheme
+          //                     .bodyText1!
+          //                     .copyWith(
+          //                       fontSize:
+          //                           MediaQuery.of(context).size.width * 0.04,
+          //                     ),
+          //               ),
+          //               Divider(
+          //                 height: 40,
+          //               ),
+          //               Text('Construido por ${widget.avioncito.usuario}',
+          //                   style: Theme.of(context)
+          //                       .textTheme
+          //                       .bodyText2!
+          //                       .copyWith(
+          //                           fontSize:
+          //                               MediaQuery.of(context).size.width *
+          //                                   0.03,
+          //                           fontWeight: FontWeight.bold,
+          //                           color: Theme.of(context)
+          //                               .primaryColorDark
+          //                               .withOpacity(0.2))),
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //     )),
           // (widget.openDrawer != null)
           //   ? avioncitoProvider.compartirAvioncito
           //     ? SizedBox.shrink()

@@ -13,7 +13,9 @@ class Coleccion {
   @HiveField(3)
   bool desbloqueado;
   @HiveField(4)
-  String fecha;
+  int dia;
+  @HiveField(5)
+  int mes;
 
   Coleccion({
 
@@ -21,6 +23,7 @@ class Coleccion {
     required this.img,
     required this.descripcion,
     required this.desbloqueado,
-    required this.fecha,
+    required this.dia,
+    required this.mes,
   });
 }

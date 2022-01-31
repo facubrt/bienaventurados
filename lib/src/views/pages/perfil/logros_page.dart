@@ -1,6 +1,7 @@
 import 'package:bienaventurados/src/data/datasources/local/logros_data.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class LogrosPage extends StatelessWidget {
   
@@ -80,109 +81,78 @@ class LogrosPage extends StatelessWidget {
 
     void abrirLogro(BuildContext context, int index) {
     showFloatingModalBottomSheet(
-          backgroundColor: Theme.of(context).primaryColor,
-          context: context,
-          builder: (context) {
-            return Container(
-              color: Theme.of(context).primaryColor,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      backgroundColor: Theme.of(context).primaryColor,
+      context: context,
+      builder: (context) {
+        return Container(
+          color: Theme.of(context).primaryColor,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    padding: EdgeInsets.all(0),
+                              icon: Icon(
+                                Iconsax.close_square,
+                                size: MediaQuery.of(context).size.width * 0.06,
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                ),
+                Row(
                   children: [
-                    Text(Logros.logros[index].titulo,
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.05)),
-                    SizedBox(height: MediaQuery.of(context).size.width * 0.06),
-                    Row(
-                      children: [
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.1,
-                          width: MediaQuery.of(context).size.height * 0.1,
-                          child: ClipRRect(
-                                  child: Image.asset(
-                                    Logros.logros[index].img,
-                                  ),    
-                                ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      width: MediaQuery.of(context).size.height * 0.1,
+                      child: ClipRRect(
+                        child: Image.asset(
+                          Logros.logros[index].img,
                         ),
-                        SizedBox(width: MediaQuery.of(context).size.height * 0.04,),
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                Logros.logros[index].fecha,
-                                style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                  fontSize: MediaQuery.of(context).size.width * 0.04),
-                              ),
-                              SizedBox(
-                      height: MediaQuery.of(context).size.width * 0.04,
-                    ),
-                              Text(
-                                'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. \n\n¡Paz y Bien!',
-                                style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                    fontSize: MediaQuery.of(context).size.width * 0.04),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.width * 0.08,
+                      width: MediaQuery.of(context).size.height * 0.04,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        // InkWell(
-                        //   onTap: () {
-                        //     Navigator.of(context).pop();
-                        //   },
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.symmetric(horizontal: 10),
-                        //     child: Text(
-                        //       'Cancelar',
-                        //       style: Theme.of(context)
-                        //           .textTheme
-                        //           .subtitle1!
-                        //           .copyWith(
-                        //               fontSize:
-                        //                   MediaQuery.of(context).size.width *
-                        //                       0.04,
-                        //               color:
-                        //                   Theme.of(context).primaryColorDark),
-                        //     ),
-                        //   ),
-                        // ),
-                        TextButton(
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(width: 2, color: Theme.of(context).primaryColorDark),
-                            backgroundColor: Theme.of(context).primaryColor,
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('Desbloquear',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4!
-                                  .copyWith(
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.04,
-                                      color:
-                                          Theme.of(context).primaryColorDark)),
+                    Flexible(
+                      child: Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(Logros.logros[index].titulo,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.05)),
+                            
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
-              ),
-            );
-          },
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.06,
+                ),
+                Text(
+                  'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. \n\n¡Paz y Bien!',
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.04),
+                ),
+              ],
+            ),
+          ),
         );
+      },
+    );
   }
 
 }
