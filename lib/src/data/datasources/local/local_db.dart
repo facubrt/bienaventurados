@@ -1,4 +1,6 @@
 import 'package:bienaventurados/src/data/models/avioncito_model.dart';
+import 'package:bienaventurados/src/data/models/coleccion_model.dart';
+import 'package:bienaventurados/src/data/models/logro_model.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -6,6 +8,8 @@ class LocalData {
   var initialized = false;
   Box? avioncitosBox;
   Box? guardadosBox;
+  Box? coleccionesBox;
+  Box? logrosBox;
   Box? hoyBox;
 
   Future<bool> initLocalData() async {
@@ -15,6 +19,8 @@ class LocalData {
       Hive.init(path.path);
       if (!Hive.isAdapterRegistered(0)) {
         Hive.registerAdapter(AvioncitoAdapter());
+        Hive.registerAdapter(ColeccionAdapter());
+        Hive.registerAdapter(LogroAdapter());
       }
       initialized = true;
     }
@@ -22,6 +28,8 @@ class LocalData {
     avioncitosBox = await Hive.openBox<Avioncito>('avioncitos');
     guardadosBox = await Hive.openBox<Avioncito>('guardados');
     hoyBox = await Hive.openBox<Avioncito>('hoy');
+    coleccionesBox = await Hive.openBox<Coleccion>('colecciones');
+    logrosBox = await Hive.openBox<Logro>('logros');
     //diasBox = await Hive.openBox('dias');
     return true;
   }
@@ -103,6 +111,25 @@ class LocalData {
     guardadosBox!.delete(id);
     //guardadosBox!.deleteAt(index);
   }
+
+  // COLECCIONES
+  Box? getColecciones() {
+    return coleccionesBox;
+  }
+
+  void setColecciones(int index, Coleccion coleccion, bool desbloqueado) {
+    Coleccion _coleccion = Coleccion(
+      dia: coleccion.dia,
+      mes: coleccion.mes,
+      titulo: coleccion.titulo,
+      img: coleccion.img,
+      descripcion: coleccion.descripcion,
+      tipo: coleccion.tipo,
+      desbloqueado: desbloqueado,
+    );
+    coleccionesBox!.putAt(index, _coleccion);
+  }
+  //
 
   void deleteAvioncitoLocal(int index) {
     avioncitosBox!.delete(index);

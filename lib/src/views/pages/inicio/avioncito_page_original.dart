@@ -4,7 +4,6 @@ import 'package:bienaventurados/src/data/datasources/local/meses_data.dart';
 import 'package:bienaventurados/src/data/models/avioncito_model.dart';
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/core/theme/colores.dart';
-import 'package:bienaventurados/src/views/pages/inicio/widgets/colecciones_widget.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -60,16 +59,11 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
           });
         }
       },
-      child: 
-      // Scaffold(
-      //   backgroundColor: (widget.openDrawer != null)
-      //       ? Colors.transparent
-      //       : Theme.of(context).primaryColor,
-      //   body: 
-        Container(
-          color: (widget.openDrawer != null)
+      child: Scaffold(
+        backgroundColor: (widget.openDrawer != null)
             ? Colors.transparent
             : Theme.of(context).primaryColor,
+        body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Stack(
@@ -82,36 +76,36 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                       child: avioncitoWidget(),
                     )),
               ),
-              // Container(
-              //   height: MediaQuery.of(context).size.height * 0.2,
-              //   child: (widget.openDrawer != null)
-              //       ? AppBar(
-              //           backgroundColor: Colors.transparent,
-              //           elevation: 0,
-              //           leading: IconButton(
-              //             onPressed: () {
-              //               widget.openDrawer!();
-              //             },
-              //             icon: Icon(Iconsax.category,
-              //                 size: MediaQuery.of(context).size.width * 0.06),
-              //           ))
-              //       : AppBar(
-              //           backgroundColor: Colors.transparent,
-              //           automaticallyImplyLeading: false,
-              //           elevation: 0.0,
-              //           actions: [
-              //             IconButton(
-              //               icon: Icon(
-              //                 Iconsax.close_square,
-              //                 size: MediaQuery.of(context).size.width * 0.06,
-              //               ),
-              //               onPressed: () {
-              //                 Navigator.of(context).pop();
-              //               },
-              //             ),
-              //           ],
-              //         ),
-              // ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.2,
+                child: (widget.openDrawer != null)
+                    ? AppBar(
+                        backgroundColor: Colors.transparent,
+                        elevation: 0,
+                        leading: IconButton(
+                          onPressed: () {
+                            widget.openDrawer!();
+                          },
+                          icon: Icon(Iconsax.category,
+                              size: MediaQuery.of(context).size.width * 0.06),
+                        ))
+                    : AppBar(
+                        backgroundColor: Colors.transparent,
+                        automaticallyImplyLeading: false,
+                        elevation: 0.0,
+                        actions: [
+                          IconButton(
+                            icon: Icon(
+                              Iconsax.close_square,
+                              size: MediaQuery.of(context).size.width * 0.06,
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      ),
+              ),
               avioncitoProvider.compartirAvioncito
                   ? Container(
                       color: Colores.contrasteDay.withOpacity(0.9),
@@ -132,6 +126,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
             ],
           ),
         ),
+      ),
     );
   }
 
@@ -143,12 +138,30 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // SizedBox(
-          //   height: MediaQuery.of(context).size.width * 0.2,
-          // ),
+          SizedBox(
+            height: MediaQuery.of(context).size.width * 0.2,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: ColeccionesWidget(),
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  Image.asset('assets/images/isotipo.png',
+                      height: 40,
+                      width: 40,
+                      isAntiAlias: true,
+                      color: Theme.of(context).primaryColorDark),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.04),
+                  Text(
+                    'Bienaventurados',
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                          color: Theme.of(context).primaryColorDark,
+                        ),
+                  ),
+                ],
+              ),
+            ),
           ),
           Spacer(),
           Padding(
@@ -228,7 +241,22 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
               ],
             ),
           ),
-          
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: Row(
+              children: [
+                Chip(
+                  visualDensity: VisualDensity.comfortable,
+                  label: Text(widget.avioncito.tag!.toUpperCase(),
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.025,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor)),
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                ),
+              ],
+            ),
+          ),
           SizedBox(height: MediaQuery.of(context).size.width * 0.06),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -253,50 +281,65 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                 ),
               )),
           SizedBox(height: MediaQuery.of(context).size.width * 0.06),
-          Padding(
-            padding: const EdgeInsets.only(
-                left: 20.0, right: 20.0, bottom: 20.0),
-            child: Container(
-              height: Align().heightFactor,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Theme.of(context).primaryColorDark.withOpacity(0.05),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.avioncito.reflexion!,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.04,
-                          ),
-                    ),
-                    Divider(
-                      height: 40,
-                    ),
-                    Text('Construido por ${widget.avioncito.usuario}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(
-                                fontSize:
-                                    MediaQuery.of(context).size.width *
-                                        0.03,
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context)
-                                    .primaryColorDark
-                                    .withOpacity(0.2))),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          // reflexionOpen
+          //     ? SizedBox.shrink()
+          //     : Padding(
+          //         padding: const EdgeInsets.only(top: 30.0, bottom: 30),
+          //         child: Icon(
+          //           Iconsax.arrow_up_2,
+          //           color: (reflexionOpen || avioncitoProvider.compartirAvioncito)
+          //               ? Colors.transparent
+          //               : Theme.of(context).primaryColorDark,
+          //           size: MediaQuery.of(context).size.width * 0.06,
+          //         ),
+          //       ),
+          // AnimatedContainer(
+          //     duration: Duration(milliseconds: 200),
+          //     curve: Curves.easeInOut,
+          //     height: reflexionOpen ? Align().heightFactor : 0.0,
+          //     child: Padding(
+          //       padding: const EdgeInsets.only(
+          //           left: 20.0, right: 20.0, bottom: 20.0),
+          //       child: Container(
+          //         decoration: BoxDecoration(
+          //           borderRadius: BorderRadius.circular(10),
+          //           color: Theme.of(context).primaryColorDark.withOpacity(0.05),
+          //         ),
+          //         child: Padding(
+          //           padding: const EdgeInsets.all(20.0),
+          //           child: Column(
+          //             crossAxisAlignment: CrossAxisAlignment.start,
+          //             children: [
+          //               Text(
+          //                 widget.avioncito.reflexion!,
+          //                 style: Theme.of(context)
+          //                     .textTheme
+          //                     .bodyText1!
+          //                     .copyWith(
+          //                       fontSize:
+          //                           MediaQuery.of(context).size.width * 0.04,
+          //                     ),
+          //               ),
+          //               Divider(
+          //                 height: 40,
+          //               ),
+          //               Text('Construido por ${widget.avioncito.usuario}',
+          //                   style: Theme.of(context)
+          //                       .textTheme
+          //                       .bodyText2!
+          //                       .copyWith(
+          //                           fontSize:
+          //                               MediaQuery.of(context).size.width *
+          //                                   0.03,
+          //                           fontWeight: FontWeight.bold,
+          //                           color: Theme.of(context)
+          //                               .primaryColorDark
+          //                               .withOpacity(0.2))),
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //     )),
           // (widget.openDrawer != null)
           //   ? avioncitoProvider.compartirAvioncito
           //     ? SizedBox.shrink()

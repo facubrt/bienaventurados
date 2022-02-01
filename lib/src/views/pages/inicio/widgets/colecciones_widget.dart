@@ -1,107 +1,47 @@
-import 'package:bienaventurados/src/data/datasources/local/colecciones_data.dart';
-import 'package:bienaventurados/src/data/datasources/local/logros_data.dart';
 import 'package:bienaventurados/src/data/datasources/local/meses_data.dart';
+import 'package:bienaventurados/src/data/models/coleccion_model.dart';
+import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
-class ColeccionesPage extends StatelessWidget {
-  
+class ColeccionesWidget extends StatelessWidget {
+  const ColeccionesWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    
-    const ColorFilter greyscaleFilter = ColorFilter.matrix(<double>[
-      0.2126,
-      0.7152,
-      0.0722,
-      0,
-      0,
-      0.2126,
-      0.7152,
-      0.0722,
-      0,
-      0,
-      0.2126,
-      0.7152,
-      0.0722,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0,
-    ]);
     final coleccionesProvider = Provider.of<ColeccionesProvider>(context);
-    Box box = coleccionesProvider.getColeccion();
-    
-    return Scaffold(
-      appBar: AppBar(
-        title:
-            Text('Colecciones', style: Theme.of(context).textTheme.headline4),
-        elevation: 0.0,
-      ),
-      body: NotificationListener<OverscrollIndicatorNotification>(
-        onNotification: (overScroll) {
-          overScroll.disallowGlow();
-          return true;
+    Coleccion? coleccion = coleccionesProvider.coleccion ?? null;
+    //avioncitoProvider.getTiempoLiturgico();
+    return coleccionesProvider.coleccionDesbloqueada 
+      ? InkWell(
+        onTap: () {
+          abrirColeccion(context, coleccion);
         },
-        child: CustomScrollView(
-          slivers: [
-            SliverPadding(
-                padding: const EdgeInsets.all(40.0),
-                sliver: SliverToBoxAdapter(
-                  child: Text('Colecciona momentos especiales',
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: MediaQuery.of(context).size.width * 0.08,
-                          )),
-                )),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-              sliver: SliverGrid(
-                delegate: SliverChildBuilderDelegate(
-                  (contex, index) {
-                    return InkWell(
-                      onTap: () {
-                        abrirColeccion(context, box, index);
-                      },
-                      child: box.getAt(index).desbloqueado
-                          ? ClipRRect(
-                              child: Image.asset(
-                                box.getAt(index).img,
-                              ),
-                            )
-                          : ColorFiltered(
-                              colorFilter: greyscaleFilter,
-                              child: ClipRRect(
-                                child: Image.asset(
-                                  box.getAt(index).img,
-                                ),
-                              ),
-                            ),
-                    );
-                  },
-                  childCount: box.values.length,
-                ),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                  childAspectRatio: 1,
-                ),
-              ),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColorDark.withOpacity(0.05),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
+            child: Text(
+              '¡Mira! Puedes desbloquear ${coleccion!.titulo}',
+              style: Theme.of(context).textTheme.headline6!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.036,
+                  ),
             ),
-          ],
+          ),
         ),
-      ),
-    );
+      )
+    : SizedBox.shrink();
   }
 
-  void abrirColeccion(BuildContext context, Box box, int index) {
+  void abrirColeccion(BuildContext context, Coleccion? coleccion) {
+    final coleccionesProvider = Provider.of<ColeccionesProvider>(context, listen: false);
     showFloatingModalBottomSheet(
       backgroundColor: Theme.of(context).primaryColor,
       context: context,
@@ -134,7 +74,7 @@ class ColeccionesPage extends StatelessWidget {
                       width: MediaQuery.of(context).size.height * 0.1,
                       child: ClipRRect(
                         child: Image.asset(
-                          box.getAt(index).img,
+                          coleccion!.img,
                         ),
                       ),
                     ),
@@ -146,7 +86,7 @@ class ColeccionesPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(box.getAt(index).titulo,
+                            Text(coleccion.titulo,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6!
@@ -158,7 +98,7 @@ class ColeccionesPage extends StatelessWidget {
                               height: MediaQuery.of(context).size.height * 0.02,
                             ),
                             Text(
-                              '${box.getAt(index).dia} de ${MesesData.meses[box.getAt(index).mes - 1].id}, ${DateTime.now().year}',
+                              '${coleccion.dia} de ${MesesData.meses[coleccion.mes - 1].id}, ${DateTime.now().year}',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
@@ -181,6 +121,32 @@ class ColeccionesPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.04),
                 ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.06,
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: TextButton(
+                            style: OutlinedButton.styleFrom(
+                              backgroundColor: Theme.of(context).primaryColorDark,
+                            ),
+                            onPressed: () {
+                              coleccionesProvider.setColeccionDesbloqueada = false;
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Desbloquear',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline4!
+                                    .copyWith(
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.04,
+                                        color:
+                                            Theme.of(context).primaryColor)),
+                          ),
+                ),
+              
               ],
             ),
           ),
@@ -188,4 +154,5 @@ class ColeccionesPage extends StatelessWidget {
       },
     );
   }
+
 }

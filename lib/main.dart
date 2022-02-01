@@ -3,6 +3,7 @@ import 'package:bienaventurados/src/core/utils/routes.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
+import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
 import 'package:bienaventurados/src/logic/providers/theme_provider.dart';
 import 'package:bienaventurados/src/logic/services/messaging_service.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,6 +36,7 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (BuildContext context) => AuthProvider.instance(),),
       ChangeNotifierProvider(create: (BuildContext context) => ThemeProvider(activarModoNoche: prefs.modoNoche)),
       ChangeNotifierProvider(create: (BuildContext context) => AvioncitoProvider()),
+      ChangeNotifierProvider(create: (BuildContext context) => ColeccionesProvider()),
     ],
     child: Bienaventurados(),
   ));

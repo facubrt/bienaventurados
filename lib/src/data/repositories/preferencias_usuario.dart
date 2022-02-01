@@ -64,6 +64,14 @@ class PreferenciasUsuario extends IPreferenciasUsuario {
     _prefs.setInt('imagenPerfil', imagenPerfil);
   }
 
+  // GET y SET coleccionDesbloqueada
+  bool get coleccionDesbloqueada {
+    return _prefs.getBool('coleccionDesbloqueada') ?? false;
+  }
+
+  set coleccionDesbloqueada(bool desbloqueada) {
+    _prefs.setBool('coleccionDesbloqueada', desbloqueada);
+  }
   Future<bool> limpiarPrefs() async {
     return _prefs.clear();
   }

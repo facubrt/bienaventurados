@@ -1,8 +1,8 @@
 import 'package:hive/hive.dart';
 
-//part 'logro_model.g.dart';
+part 'logro_model.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 2)
 class Logro {
   @HiveField(0)
   String titulo;

@@ -1,4 +1,5 @@
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
+import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
 import 'package:bienaventurados/src/views/pages/inicio/avioncito_page.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/avioncito_widget.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/lectura_widget.dart';
@@ -24,9 +25,11 @@ class _InicioPageState extends State<InicioPage>{
   @override
   void initState() {
     super.initState();
-    final avioncitoProvider =
-        Provider.of<AvioncitoProvider>(context, listen: false);
+    final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
     avioncitoProvider.configuracionInicial();
+    final coleccionesProvider = Provider.of<ColeccionesProvider>(context, listen: false);
+    coleccionesProvider.configuracionInicial();
+
   }
 
   @override
@@ -35,18 +38,19 @@ class _InicioPageState extends State<InicioPage>{
     return 
     Scaffold(
       backgroundColor: Colors.transparent,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      //   title: Text('Hoy'),
-      //   leading: IconButton(
-      //     onPressed: () {
-      //       widget.openDrawer();
-      //     },
-      //     icon: Icon(Iconsax.category,
-      //         size: MediaQuery.of(context).size.width * 0.06),
-      //   ),
-      // ),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text('Bienaventurados'),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            widget.openDrawer();
+          },
+          icon: Icon(Iconsax.category,
+              size: MediaQuery.of(context).size.width * 0.06),
+        ),
+      ),
       body: 
       // SingleChildScrollView(
       //   padding: EdgeInsets.symmetric(horizontal: 20.0),
