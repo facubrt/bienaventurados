@@ -11,23 +11,25 @@ class LocalData {
   Box? coleccionesBox;
   Box? logrosBox;
   Box? hoyBox;
+  Box? coleccionDesbloqueadaBox;
 
-  Future<bool> initLocalData() async {
-    
+  Future<bool> init() async {
     var path = await getApplicationDocumentsDirectory();
-    if(!initialized){
-      Hive.init(path.path);
-      if (!Hive.isAdapterRegistered(0)) {
-        Hive.registerAdapter(AvioncitoAdapter());
-        Hive.registerAdapter(ColeccionAdapter());
-        Hive.registerAdapter(LogroAdapter());
-      }
-      initialized = true;
+    Hive.init(path.path);
+    if (!Hive.isAdapterRegistered(0)) {
+      Hive.registerAdapter(AvioncitoAdapter());
+      Hive.registerAdapter(ColeccionAdapter());
+      Hive.registerAdapter(LogroAdapter());
     }
-    
+    return true;
+  }
+
+  Future<bool> openBox() async {
     avioncitosBox = await Hive.openBox<Avioncito>('avioncitos');
     guardadosBox = await Hive.openBox<Avioncito>('guardados');
     hoyBox = await Hive.openBox<Avioncito>('hoy');
+    coleccionDesbloqueadaBox =
+        await Hive.openBox<Coleccion>('coleccionDesbloqueadaBox');
     coleccionesBox = await Hive.openBox<Coleccion>('colecciones');
     logrosBox = await Hive.openBox<Logro>('logros');
     //diasBox = await Hive.openBox('dias');
@@ -50,7 +52,7 @@ class LocalData {
     return hoyBox;
   }
 
-  void setHoy(Avioncito avioncito) {
+  void setAvioncitoHoy(Avioncito avioncito) {
     Avioncito _avioncito = Avioncito(
       id: avioncito.id,
       fecha: avioncito.fecha,
@@ -65,6 +67,24 @@ class LocalData {
       visto: avioncito.visto,
     );
     hoyBox!.put(0, _avioncito);
+  }
+
+  void setColeccionDesbloqueada(Coleccion coleccion) {
+    Coleccion _coleccion = Coleccion(
+      id: coleccion.id,
+      dia: coleccion.dia,
+      mes: coleccion.mes,
+      titulo: coleccion.titulo,
+      img: coleccion.img,
+      descripcion: coleccion.descripcion,
+      tipo: coleccion.tipo,
+      desbloqueado: coleccion.desbloqueado,
+    );
+    coleccionDesbloqueadaBox!.put(0, _coleccion);
+  }
+
+  Box? getColeccionDesbloqueada() {
+    return coleccionDesbloqueadaBox;
   }
 
   void actualizarAvioncito(int index, Avioncito avioncito) {
@@ -117,8 +137,9 @@ class LocalData {
     return coleccionesBox;
   }
 
-  void setColecciones(int index, Coleccion coleccion, bool desbloqueado) {
+  void setColecciones(Coleccion coleccion, bool desbloqueado) {
     Coleccion _coleccion = Coleccion(
+      id: coleccion.id,
       dia: coleccion.dia,
       mes: coleccion.mes,
       titulo: coleccion.titulo,
@@ -127,7 +148,7 @@ class LocalData {
       tipo: coleccion.tipo,
       desbloqueado: desbloqueado,
     );
-    coleccionesBox!.putAt(index, _coleccion);
+    coleccionesBox!.put(_coleccion.id, _coleccion);
   }
   //
 
@@ -167,8 +188,9 @@ class LocalData {
     Hive.deleteBoxFromDisk('avioncitosBox');
     Hive.deleteBoxFromDisk('guardadosBox');
     Hive.deleteBoxFromDisk('hoyBox');
+    Hive.deleteBoxFromDisk('coleccionesBox');
+    Hive.deleteBoxFromDisk('logrosBox');
     Hive.deleteFromDisk();
     initialized = false;
   }
-
 }

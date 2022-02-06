@@ -1,19 +1,14 @@
-import 'package:bienaventurados/src/data/datasources/local/colecciones_data.dart';
-import 'package:bienaventurados/src/data/datasources/local/logros_data.dart';
 import 'package:bienaventurados/src/data/datasources/local/meses_data.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class ColeccionesPage extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
-    
     const ColorFilter greyscaleFilter = ColorFilter.matrix(<double>[
       0.2126,
       0.7152,
@@ -38,7 +33,7 @@ class ColeccionesPage extends StatelessWidget {
     ]);
     final coleccionesProvider = Provider.of<ColeccionesProvider>(context);
     Box box = coleccionesProvider.getColeccion();
-    
+
     return Scaffold(
       appBar: AppBar(
         title:
@@ -118,14 +113,14 @@ class ColeccionesPage extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: IconButton(
                     padding: EdgeInsets.all(0),
-                              icon: Icon(
-                                Iconsax.close_square,
-                                size: MediaQuery.of(context).size.width * 0.06,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
+                    icon: Icon(
+                      Iconsax.close_square,
+                      size: MediaQuery.of(context).size.width * 0.06,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
                 ),
                 Row(
                   children: [

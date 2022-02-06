@@ -17,33 +17,36 @@ class ColeccionAdapter extends TypeAdapter<Coleccion> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Coleccion(
-      dia: fields[0] as int,
-      mes: fields[1] as int,
-      titulo: fields[2] as String,
-      img: fields[3] as String,
-      tipo: fields[4] as String,
-      descripcion: fields[5] as String,
-      desbloqueado: fields[6] as bool,
+      id: fields[0] as int,
+      dia: fields[1] as int,
+      mes: fields[2] as int,
+      titulo: fields[3] as String,
+      img: fields[4] as String,
+      tipo: fields[5] as String,
+      descripcion: fields[6] as String,
+      desbloqueado: fields[7] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Coleccion obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
-      ..write(obj.dia)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.mes)
+      ..write(obj.dia)
       ..writeByte(2)
-      ..write(obj.titulo)
+      ..write(obj.mes)
       ..writeByte(3)
-      ..write(obj.img)
+      ..write(obj.titulo)
       ..writeByte(4)
-      ..write(obj.tipo)
+      ..write(obj.img)
       ..writeByte(5)
-      ..write(obj.descripcion)
+      ..write(obj.tipo)
       ..writeByte(6)
+      ..write(obj.descripcion)
+      ..writeByte(7)
       ..write(obj.desbloqueado);
   }
 

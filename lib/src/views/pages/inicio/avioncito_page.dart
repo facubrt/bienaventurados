@@ -1,25 +1,25 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:bienaventurados/src/core/utils/routes.dart';
 import 'package:bienaventurados/src/data/datasources/local/meses_data.dart';
 import 'package:bienaventurados/src/data/models/avioncito_model.dart';
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/core/theme/colores.dart';
-import 'package:bienaventurados/src/views/pages/inicio/widgets/colecciones_widget.dart';
+import 'package:bienaventurados/src/views/pages/compartir/compartir_avioncito.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 
 class AvioncitoPage extends StatefulWidget {
-  final VoidCallback? openDrawer;
   final Avioncito avioncito;
 
-  const AvioncitoPage({Key? key, required this.avioncito, this.openDrawer})
-      : super(key: key);
+  const AvioncitoPage({Key? key, required this.avioncito}) : super(key: key);
 
   @override
   _AvioncitoPageState createState() => _AvioncitoPageState();
@@ -60,28 +60,49 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
           });
         }
       },
-      child: 
-      // Scaffold(
-      //   backgroundColor: (widget.openDrawer != null)
-      //       ? Colors.transparent
-      //       : Theme.of(context).primaryColor,
-      //   body: 
-        Container(
-          color: (widget.openDrawer != null)
-            ? Colors.transparent
-            : Theme.of(context).primaryColor,
+      child:
+          // Scaffold(
+          //   backgroundColor: (widget.openDrawer != null)
+          //       ? Colors.transparent
+          //       : Theme.of(context).primaryColor,
+          //   body:
+          Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0.0,
+          actions: [
+            IconButton(
+              icon: Icon(
+                Iconsax.close_square,
+                size: MediaQuery.of(context).size.width * 0.06,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            IconButton(
+              icon: Icon(
+                Iconsax.share,
+                size: MediaQuery.of(context).size.width * 0.06,
+              ),
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(compartirPage, arguments: widget.avioncito);
+              },
+            ),
+          ],
+        ),
+        body: Container(
+          color: Theme.of(context).primaryColor,
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Stack(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Screenshot(
-                    controller: screenshotController,
-                    child: Container(
-                      child: avioncitoWidget(),
-                    )),
-              ),
+              Screenshot(
+                  controller: screenshotController,
+                  child: Container(
+                    child: avioncitoWidget(),
+                  )),
               // Container(
               //   height: MediaQuery.of(context).size.height * 0.2,
               //   child: (widget.openDrawer != null)
@@ -132,6 +153,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
             ],
           ),
         ),
+      ),
     );
   }
 
@@ -146,10 +168,10 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
           // SizedBox(
           //   height: MediaQuery.of(context).size.width * 0.2,
           // ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: ColeccionesWidget(),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          //   child: ColeccionesWidget(),
+          // ),
           Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -211,7 +233,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                         return avioncitoBottomSheet();
                       },
                     ).then((refrescar) {
-                      if(refrescar != null && refrescar) {
+                      if (refrescar != null && refrescar) {
                         if (descargarAvioncito) {
                           _takeScreenshotandSave();
                         }
@@ -228,7 +250,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
               ],
             ),
           ),
-          
+
           SizedBox(height: MediaQuery.of(context).size.width * 0.06),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -253,70 +275,76 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                 ),
               )),
           SizedBox(height: MediaQuery.of(context).size.width * 0.06),
-          Padding(
-            padding: const EdgeInsets.only(
-                left: 20.0, right: 20.0, bottom: 20.0),
-            child: Container(
-              height: Align().heightFactor,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Theme.of(context).primaryColorDark.withOpacity(0.05),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.avioncito.reflexion!,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.04,
-                          ),
-                    ),
-                    Divider(
-                      height: 40,
-                    ),
-                    Text('Construido por ${widget.avioncito.usuario}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(
-                                fontSize:
-                                    MediaQuery.of(context).size.width *
-                                        0.03,
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context)
-                                    .primaryColorDark
-                                    .withOpacity(0.2))),
-                  ],
+          reflexionOpen
+              ? SizedBox.shrink()
+              : Padding(
+                  padding: const EdgeInsets.only(top: 30.0, bottom: 30),
+                  child: Icon(
+                    Iconsax.arrow_up_2,
+                    color:
+                        (reflexionOpen || avioncitoProvider.compartirAvioncito)
+                            ? Colors.transparent
+                            : Theme.of(context).primaryColorDark,
+                    size: MediaQuery.of(context).size.width * 0.06,
+                  ),
                 ),
-              ),
-            ),
-          ),
-          // (widget.openDrawer != null)
-          //   ? avioncitoProvider.compartirAvioncito
-          //     ? SizedBox.shrink()
-          //     : InkWell(
-          //         onTap: () {
-          //           mostrarMensaje();
-          //         },
-          //         child: Text('¿Ya recibiste este avioncito?'),
-          //       )
-          //   : SizedBox.shrink(),
-          // SizedBox(height: MediaQuery.of(context).size.width * 0.06),
+          AnimatedContainer(
+              duration: Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+              height: reflexionOpen ? Align().heightFactor : 00.0,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 20.0, right: 20.0, bottom: 20.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Theme.of(context).primaryColorDark.withOpacity(0.05),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.avioncito.reflexion!,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.04,
+                              ),
+                        ),
+                        Divider(
+                          height: 40,
+                        ),
+                        Text('Construido por ${widget.avioncito.usuario}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.03,
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context)
+                                        .primaryColorDark
+                                        .withOpacity(0.2))),
+                      ],
+                    ),
+                  ),
+                ),
+              )),
         ],
       ),
     );
   }
 
   Widget avioncitoBottomSheet() {
-    final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
+    final avioncitoProvider =
+        Provider.of<AvioncitoProvider>(context, listen: false);
     return StatefulBuilder(
-      builder: (BuildContext context, StateSetter setState) {
+        builder: (BuildContext context, StateSetter setState) {
       return Container(
         color: Theme.of(context).primaryColor,
         child: Padding(
@@ -410,12 +438,14 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                 color: Theme.of(context).primaryColorDark,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 20.0),
                 child: Text(
                   '¿Ya recibiste este avioncito? Ayudanos a construir muchos más avioncitos y sacarlos a pasear. ¡Animate a compartir la fe!',
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.03,
-                        color: Theme.of(context).primaryColorDark.withOpacity(0.4),
+                        color:
+                            Theme.of(context).primaryColorDark.withOpacity(0.4),
                       ),
                 ),
               ),
@@ -438,8 +468,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
           ),
         ),
       );
-      }
-    );
+    });
   }
 
   // void otrasOpciones() async {
@@ -510,7 +539,8 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
   void _takeScreenshotandShare(String frase, String santo) async {
     _imageFile = null;
     // int _atSecond = DateTime.now().difference(DateTime(DateTime.now().year, 1, 1, 0, 0)).inSeconds;
-    final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
+    final avioncitoProvider =
+        Provider.of<AvioncitoProvider>(context, listen: false);
     await screenshotController
         .capture(delay: Duration(milliseconds: 20), pixelRatio: 10.0)
         .then((image) async {
@@ -528,17 +558,20 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
       //   capturandoScreen = false;
       // });
       avioncitoProvider.compartirAvioncito = false;
-      await Share.shareFiles(['$directory/bienaventurados.png'], text: '"$frase" -$santo');
+      await Share.shareFiles(['$directory/bienaventurados.png'],
+          text: '"$frase" -$santo');
     }).catchError((onError) {
       print(onError);
     });
   }
 
-  void _takeScreenshotandSave () async {
+  void _takeScreenshotandSave() async {
     _imageFile = null;
     // int _dia = DateTime.now().difference(DateTime(DateTime.now().year, 1, 1, 0, 0)).inDays;
-    int _atSecond = DateTime.now().difference(DateTime(DateTime.now().year, 1, 1, 0, 0)).inSeconds;
-    
+    int _atSecond = DateTime.now()
+        .difference(DateTime(DateTime.now().year, 1, 1, 0, 0))
+        .inSeconds;
+
     final snackbar = SnackBar(
       backgroundColor: Theme.of(context).colorScheme.secondary,
       content: Padding(
@@ -551,7 +584,9 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
       ),
     );
 
-    await screenshotController.capture(delay: Duration(milliseconds: 20), pixelRatio: 10.0).then((image) async {
+    await screenshotController
+        .capture(delay: Duration(milliseconds: 20), pixelRatio: 10.0)
+        .then((image) async {
       setState(() {
         _imageFile = image;
       });

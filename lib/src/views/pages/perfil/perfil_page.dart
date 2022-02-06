@@ -13,20 +13,6 @@ class PerfilPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final snackbar = SnackBar(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      content: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Text(
-            '¡Oh, oh! Parece que todavía no puedes acceder a este lugar. ¡Regresa pronto!',
-            style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                  fontSize: MediaQuery.of(context).size.width * 0.04,
-                  color: Theme.of(context).primaryColor,
-                )),
-      ),
-    );
-
     final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -102,11 +88,11 @@ class PerfilPage extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).pushNamed(tallerPage);
                     },
-                    title: Text('Taller',
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
-                              fontSize:
-                                  MediaQuery.of(context).size.width * 0.06,
-                            ),
+                    title: Text(
+                      'Taller',
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize: MediaQuery.of(context).size.width * 0.06,
+                          ),
                     ),
                   )
                 : SizedBox.shrink(),

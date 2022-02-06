@@ -1,6 +1,7 @@
 import 'package:bienaventurados/src/data/models/avioncito_model.dart';
 import 'package:bienaventurados/src/views/pages/comenzar/bienaventurados_page.dart';
 import 'package:bienaventurados/src/views/pages/comenzar/iniciar_aventura_page.dart';
+import 'package:bienaventurados/src/views/pages/compartir/compartir_avioncito.dart';
 import 'package:bienaventurados/src/views/pages/configuraciones/cuenta/actualizar_contrasena_page.dart';
 import 'package:bienaventurados/src/views/pages/configuraciones/cuenta/actualizar_correo_page.dart';
 import 'package:bienaventurados/src/views/pages/configuraciones/cuenta/actualizar_nombre_page.dart';
@@ -39,7 +40,8 @@ const String redescubrePage = 'redescubrePage';
 const String avioncitoPage = 'avioncitoPage';
 const String guardadosPage = 'guardadosPage';
 const String temaConfiguracionPage = 'temaConfiguracionPage';
-const String notificacionesConfiguracionPage = 'notificacionesConfiguracionPage';
+const String notificacionesConfiguracionPage =
+    'notificacionesConfiguracionPage';
 const String generalConfiguracionPage = 'generalConfiguracionPage';
 const String cuentaConfiguracionPage = 'cuentaConfiguracionPage';
 const String legalConfiguracionPage = 'legalConfiguracionPage';
@@ -47,10 +49,10 @@ const String actualizarNombrePage = 'actualizarNombrePage';
 const String actualizarContrasenaPage = 'actualizarContrasenaPage';
 const String actualizarCorreoPage = 'actualizarCorreoPage';
 const String basePage = 'basePage';
+const String compartirPage = 'compartirPage';
 
 class Routes {
-  static Route<dynamic> generateRoute (RouteSettings settings) {
-    
+  static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case (dashboardPage):
         return FadeTransitionRoute(widget: DashboardPage());
@@ -59,13 +61,27 @@ class Routes {
       case (avioncitoPage):
         final args = settings.arguments;
         Avioncito avioncito = args as Avioncito;
-        return SlideUpTransitionRoute(widget: AvioncitoPage(avioncito: avioncito));
+        return SlideUpTransitionRoute(
+            widget: AvioncitoPage(avioncito: avioncito));
+      case (compartirPage):
+        final args = settings.arguments;
+        Avioncito avioncito = args as Avioncito;
+        return SlideUpTransitionRoute(
+            widget: CompartirPage(avioncito: avioncito));
       // case (guardadosPage):
       //   return SlideLeftTransitionRoute(widget: GuardadosPage());
       case (editarPage):
         final args = settings.arguments;
         Avioncito avioncito = args as Avioncito;
-        return FadeTransitionRoute(widget: EditarPage(id: avioncito.id, frase: avioncito.frase, santo: avioncito.santo, reflexion: avioncito.reflexion, tag: avioncito.tag, usuario: avioncito.usuario,));
+        return FadeTransitionRoute(
+            widget: EditarPage(
+          id: avioncito.id,
+          frase: avioncito.frase,
+          santo: avioncito.santo,
+          reflexion: avioncito.reflexion,
+          tag: avioncito.tag,
+          usuario: avioncito.usuario,
+        ));
       case (informacionPage):
         return SlideLeftTransitionRoute(widget: InformacionPage());
       case (iniciarAventuraPage):
@@ -77,16 +93,19 @@ class Routes {
       case (construirPage):
         final args = settings.arguments;
         VoidCallback openDrawer = args as VoidCallback;
-        return SlideLeftTransitionRoute(widget: ConstruirPage(openDrawer: openDrawer));
+        return SlideLeftTransitionRoute(
+            widget: ConstruirPage(openDrawer: openDrawer));
       case (temaConfiguracionPage):
         return SlideLeftTransitionRoute(widget: TemaConfiguracionPage());
       case (notificacionesConfiguracionPage):
-        return SlideLeftTransitionRoute(widget: NotificacionesConfiguracionPage());
+        return SlideLeftTransitionRoute(
+            widget: NotificacionesConfiguracionPage());
       case (bienaventuradosPage):
         return SlideLeftTransitionRoute(widget: BienaventuradosPage());
       case (redescubrePage):
         final args = settings.arguments as Avioncito;
-        return SlideUpTransitionRoute(widget: RedescubrePage(avioncitoGuardado: args));
+        return SlideUpTransitionRoute(
+            widget: RedescubrePage(avioncitoGuardado: args));
       // case (configuracionesPage):
       //   return FadeTransitionRoute(widget: ConfiguracionesPage());
       // case (perfilPage):

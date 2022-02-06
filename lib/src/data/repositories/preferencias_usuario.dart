@@ -2,8 +2,8 @@ import 'package:bienaventurados/src/domain/repositories/ipreferencias_usuario.da
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferenciasUsuario extends IPreferenciasUsuario {
-
-  static final PreferenciasUsuario _instancia = new PreferenciasUsuario._internal();
+  static final PreferenciasUsuario _instancia =
+      new PreferenciasUsuario._internal();
 
   factory PreferenciasUsuario() {
     return _instancia;
@@ -22,10 +22,9 @@ class PreferenciasUsuario extends IPreferenciasUsuario {
     return _prefs.getInt('momentoNotificaciones') ?? 9;
   }
 
-  set momentoNotificaciones( int momento ) {
+  set momentoNotificaciones(int momento) {
     _prefs.setInt('momentoNotificaciones', momento);
   }
-  
 
   // GET y SET del tema
   bool get modoNoche {
@@ -72,8 +71,17 @@ class PreferenciasUsuario extends IPreferenciasUsuario {
   set coleccionDesbloqueada(bool desbloqueada) {
     _prefs.setBool('coleccionDesbloqueada', desbloqueada);
   }
+
+  // GET y SET databaseIniciada
+  bool get databaseIniciada {
+    return _prefs.getBool('databaseIniciada') ?? false;
+  }
+
+  set databaseIniciada(bool iniciada) {
+    _prefs.setBool('databaseIniciada', iniciada);
+  }
+
   Future<bool> limpiarPrefs() async {
     return _prefs.clear();
   }
-
 }

@@ -1,6 +1,6 @@
 import 'package:bienaventurados/src/data/datasources/local/meses_data.dart';
 import 'package:bienaventurados/src/data/models/coleccion_model.dart';
-import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
+import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
@@ -15,33 +15,58 @@ class ColeccionesWidget extends StatelessWidget {
     final coleccionesProvider = Provider.of<ColeccionesProvider>(context);
     Coleccion? coleccion = coleccionesProvider.coleccion ?? null;
     //avioncitoProvider.getTiempoLiturgico();
-    return coleccionesProvider.coleccionDesbloqueada 
-      ? InkWell(
-        onTap: () {
-          abrirColeccion(context, coleccion);
-        },
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColorDark.withOpacity(0.05),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
-            child: Text(
-              '¡Mira! Puedes desbloquear ${coleccion!.titulo}',
-              style: Theme.of(context).textTheme.headline6!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.036,
+    final prefs = PreferenciasUsuario();
+    return prefs.coleccionDesbloqueada
+        ? Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+            child: InkWell(
+              onTap: () {
+                abrirColeccion(context, coleccion);
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      width: 2, color: Theme.of(context).colorScheme.secondary),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 20.0, horizontal: 20),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Iconsax.note,
+                        size: 32,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.height * 0.04,
+                      ),
+                      Flexible(
+                        child: Text(
+                          '¡Bienaventurado seas! Has desbloqueado un nuevo Coleccionable',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.032,
+                              ),
+                        ),
+                      ),
+                    ],
                   ),
+                ),
+              ),
             ),
-          ),
-        ),
-      )
-    : SizedBox.shrink();
+          )
+        : SizedBox.shrink();
   }
 
   void abrirColeccion(BuildContext context, Coleccion? coleccion) {
-    final coleccionesProvider = Provider.of<ColeccionesProvider>(context, listen: false);
+    final coleccionesProvider =
+        Provider.of<ColeccionesProvider>(context, listen: false);
     showFloatingModalBottomSheet(
       backgroundColor: Theme.of(context).primaryColor,
       context: context,
@@ -58,14 +83,14 @@ class ColeccionesWidget extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: IconButton(
                     padding: EdgeInsets.all(0),
-                              icon: Icon(
-                                Iconsax.close_square,
-                                size: MediaQuery.of(context).size.width * 0.06,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
+                    icon: Icon(
+                      Iconsax.close_square,
+                      size: MediaQuery.of(context).size.width * 0.06,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
                 ),
                 Row(
                   children: [
@@ -127,26 +152,20 @@ class ColeccionesWidget extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   child: TextButton(
-                            style: OutlinedButton.styleFrom(
-                              backgroundColor: Theme.of(context).primaryColorDark,
-                            ),
-                            onPressed: () {
-                              coleccionesProvider.setColeccionDesbloqueada = false;
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('Desbloquear',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline4!
-                                    .copyWith(
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.04,
-                                        color:
-                                            Theme.of(context).primaryColor)),
-                          ),
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColorDark,
+                    ),
+                    onPressed: () {
+                      coleccionesProvider.setColeccionDesbloqueada = false;
+                      coleccionesProvider.setColeccion(coleccion, true);
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Desbloquear',
+                        style: Theme.of(context).textTheme.headline4!.copyWith(
+                            fontSize: MediaQuery.of(context).size.width * 0.04,
+                            color: Theme.of(context).primaryColor)),
+                  ),
                 ),
-              
               ],
             ),
           ),
@@ -154,5 +173,4 @@ class ColeccionesWidget extends StatelessWidget {
       },
     );
   }
-
 }

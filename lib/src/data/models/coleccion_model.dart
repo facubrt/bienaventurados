@@ -5,25 +5,27 @@ part 'coleccion_model.g.dart';
 @HiveType(typeId: 1)
 class Coleccion {
   @HiveField(0)
-  int dia;
+  int id;
   @HiveField(1)
-  int mes;
+  int dia;
   @HiveField(2)
-  String titulo;
+  int mes;
   @HiveField(3)
-  String img;
+  String titulo;
   @HiveField(4)
-  String tipo;
+  String img;
   @HiveField(5)
-  String descripcion;
+  String tipo;
   @HiveField(6)
+  String descripcion;
+  @HiveField(7)
   bool desbloqueado;
 
   Coleccion({
-
+    required this.id,
     required this.dia,
     required this.mes,
-    required this.titulo, 
+    required this.titulo,
     required this.img,
     required this.tipo,
     required this.descripcion,

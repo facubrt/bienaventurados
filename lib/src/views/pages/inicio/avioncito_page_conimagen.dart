@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:bienaventurados/src/core/theme/colores.dart';
 import 'package:bienaventurados/src/data/datasources/local/meses_data.dart';
 import 'package:bienaventurados/src/data/models/avioncito_model.dart';
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
@@ -12,7 +11,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AvioncitoPage extends StatefulWidget {
   final VoidCallback? openDrawer;
