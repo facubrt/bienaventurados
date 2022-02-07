@@ -80,16 +80,6 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                 Navigator.of(context).pop();
               },
             ),
-            IconButton(
-              icon: Icon(
-                Iconsax.share,
-                size: MediaQuery.of(context).size.width * 0.06,
-              ),
-              onPressed: () {
-                Navigator.of(context)
-                    .pushNamed(compartirPage, arguments: widget.avioncito);
-              },
-            ),
           ],
         ),
         body: Container(
@@ -165,13 +155,6 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // SizedBox(
-          //   height: MediaQuery.of(context).size.width * 0.2,
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 30.0),
-          //   child: ColeccionesWidget(),
-          // ),
           Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -192,37 +175,36 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                 //       avioncitoProvider.noGuardarAvioncito(widget.avioncito);
                 //     }
                 //   },
-                //   icon: widget.avioncito.guardado!
-                //       ? Icon(FlutterIcons.bookmark_mco,
+                //   icon: avioncitoProvider.avioncito!.guardado!
+                //       ? Icon(Iconsax.archive_slash,
                 //           size: MediaQuery.of(context).size.width * 0.06,
                 //           color: avioncitoProvider.compartirAvioncito
                 //               ? Colors.transparent
                 //               : Theme.of(context).primaryColorDark)
-                //       : Icon(FlutterIcons.bookmark_outline_mco,
+                //       : Icon(Iconsax.archive_1,
                 //           size: MediaQuery.of(context).size.width * 0.06,
                 //           color: avioncitoProvider.compartirAvioncito
                 //               ? Colors.transparent
                 //               : Theme.of(context).primaryColorDark),
                 //   padding: EdgeInsets.all(0),
                 // ),
-                // IconButton(
-                //   onPressed: () {
-                //     Navigator.of(context).pushNamed(compartirPage);
-                //     setState(() {
-                //       capturandoScreen = true;
-                //     });
-                //     _takeScreenshotandShare(
-                //       widget.avioncito.frase!,
-                //       widget.avioncito.santo!,
-                //     );
-                //   },
-                //   icon: Icon(FlutterIcons.share_fea,
-                //       size: MediaQuery.of(context).size.width * 0.06,
-                //       color: avioncitoProvider.compartirAvioncito
-                //           ? Colors.transparent
-                //           : Theme.of(context).primaryColorDark),
-                //   padding: EdgeInsets.all(0),
-                // ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(compartirPage, arguments: widget.avioncito);
+                    // setState(() {
+                    //   capturandoScreen = true;
+                    // });
+                    // _takeScreenshotandShare(
+                    //   widget.avioncito.frase!,
+                    //   widget.avioncito.santo!,
+                    // );
+                  },
+                  icon: Icon(Iconsax.export_1,
+                      size: MediaQuery.of(context).size.width * 0.06,
+                      color: Theme.of(context).primaryColorDark),
+                  padding: EdgeInsets.all(0),
+                ),
                 IconButton(
                   icon: Icon(Iconsax.more),
                   onPressed: () {
@@ -250,7 +232,22 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
               ],
             ),
           ),
-
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: Row(
+              children: [
+                Chip(
+                  visualDensity: VisualDensity.comfortable,
+                  label: Text(widget.avioncito.tag!.toUpperCase(),
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.025,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor)),
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                ),
+              ],
+            ),
+          ),
           SizedBox(height: MediaQuery.of(context).size.width * 0.06),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -312,7 +309,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                               .bodyText1!
                               .copyWith(
                                 fontSize:
-                                    MediaQuery.of(context).size.width * 0.04,
+                                    MediaQuery.of(context).size.width * 0.032,
                               ),
                         ),
                         Divider(
@@ -321,12 +318,11 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                         Text('Construido por ${widget.avioncito.usuario}',
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyText1!
                                 .copyWith(
                                     fontSize:
                                         MediaQuery.of(context).size.width *
                                             0.03,
-                                    fontWeight: FontWeight.bold,
                                     color: Theme.of(context)
                                         .primaryColorDark
                                         .withOpacity(0.2))),
@@ -406,31 +402,31 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                       ),
                 ),
               ),
-              ListTile(
-                onTap: () {
-                  avioncitoProvider.compartirAvioncito = true;
-                  Navigator.of(context).pop(true);
-                },
-                leading: Icon(Iconsax.export_1,
-                    size: MediaQuery.of(context).size.width * 0.06,
-                    color: Theme.of(context).primaryColorDark),
-                title: Text('Compartir',
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.04,
-                        )),
-              ),
               // ListTile(
               //   onTap: () {
-              //     Navigator.of(context).pop();
+              //     avioncitoProvider.compartirAvioncito = true;
+              //     Navigator.of(context).pop(true);
               //   },
-              //   leading: Icon(FlutterIcons.message_square_fea,
-              //       color: Theme.of(context).primaryColorDark,
-              //       size: MediaQuery.of(context).size.width * 0.06),
-              //   title: Text('Solicitar corrección',
+              //   leading: Icon(Iconsax.export_1,
+              //       size: MediaQuery.of(context).size.width * 0.06,
+              //       color: Theme.of(context).primaryColorDark),
+              //   title: Text('Compartir',
               //       style: Theme.of(context).textTheme.headline6!.copyWith(
               //             fontSize: MediaQuery.of(context).size.width * 0.04,
               //           )),
               // ),
+              ListTile(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                leading: Icon(Iconsax.message_text,
+                    color: Theme.of(context).primaryColorDark,
+                    size: MediaQuery.of(context).size.width * 0.06),
+                title: Text('Reportar avioncito',
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                        )),
+              ),
               Divider(
                 height: 20,
                 indent: 20,

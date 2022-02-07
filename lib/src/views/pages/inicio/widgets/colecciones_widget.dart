@@ -73,31 +73,20 @@ class ColeccionesWidget extends StatelessWidget {
       builder: (context) {
         return Container(
           color: Theme.of(context).primaryColor,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                    padding: EdgeInsets.all(0),
-                    icon: Icon(
-                      Iconsax.close_square,
-                      size: MediaQuery.of(context).size.width * 0.06,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ),
-                Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 20.0),
+                child: Row(
                   children: [
                     Container(
                       height: MediaQuery.of(context).size.height * 0.1,
                       width: MediaQuery.of(context).size.height * 0.1,
                       child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
                         child: Image.asset(
                           coleccion!.img,
                         ),
@@ -111,6 +100,20 @@ class ColeccionesWidget extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Container(
+                              alignment: Alignment.centerRight,
+                              child: IconButton(
+                                padding: EdgeInsets.all(0),
+                                icon: Icon(
+                                  Iconsax.close_square,
+                                  size:
+                                      MediaQuery.of(context).size.width * 0.06,
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ),
                             Text(coleccion.titulo,
                                 style: Theme.of(context)
                                     .textTheme
@@ -122,52 +125,71 @@ class ColeccionesWidget extends StatelessWidget {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.02,
                             ),
-                            Text(
-                              '${coleccion.dia} de ${MesesData.meses[coleccion.mes - 1].id}, ${DateTime.now().year}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2!
-                                  .copyWith(
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.04),
-                            ),
                           ],
                         ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.06,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  children: [
+                    Text(
+                      '${coleccion.dia} de ${MesesData.meses[coleccion.mes - 1].id}, ${DateTime.now().year}',
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            fontSize: MediaQuery.of(context).size.width * 0.03,
+                            color: Theme.of(context)
+                                .primaryColorDark
+                                .withOpacity(0.4),
+                          ),
+                    ),
+                    Text(
+                      ' - ${coleccion.tipo}',
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            fontSize: MediaQuery.of(context).size.width * 0.03,
+                            color: Theme.of(context)
+                                .primaryColorDark
+                                .withOpacity(0.4),
+                          ),
+                    ),
+                  ],
                 ),
-                Text(
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.04,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
                   'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. \n\n¡Paz y Bien!',
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.04),
+                      fontSize: MediaQuery.of(context).size.width * 0.03),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.06,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: TextButton(
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColorDark,
-                    ),
-                    onPressed: () {
-                      coleccionesProvider.setColeccionDesbloqueada = false;
-                      coleccionesProvider.setColeccion(coleccion, true);
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('Desbloquear',
-                        style: Theme.of(context).textTheme.headline4!.copyWith(
-                            fontSize: MediaQuery.of(context).size.width * 0.04,
-                            color: Theme.of(context).primaryColor)),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.06,
+              ),
+              Container(
+                alignment: Alignment.center,
+                color: Theme.of(context).colorScheme.secondary,
+                child: TextButton(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                   ),
+                  onPressed: () {
+                    coleccionesProvider.setColeccionDesbloqueada = false;
+                    coleccionesProvider.setColeccion(coleccion, true);
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Desbloquear',
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.03,
+                          color: Theme.of(context).primaryColor)),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },

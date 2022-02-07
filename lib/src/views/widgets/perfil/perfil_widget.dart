@@ -11,10 +11,9 @@ class PerfilWidget extends StatefulWidget {
 }
 
 class _PerfilWidgetState extends State<PerfilWidget> {
-
   late int _imagenPerfil;
   late String? nombre;
-  
+
   List images = [
     'perfil-0',
     'perfil-1',
@@ -24,14 +23,14 @@ class _PerfilWidgetState extends State<PerfilWidget> {
 
   @override
   void initState() {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    nombre = authProvider.usuario.nombre;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final prefs = PreferenciasUsuario();
+    final authProvider = Provider.of<AuthProvider>(context);
+    nombre = authProvider.usuario.nombre;
     // final authProvider = Provider.of<AuthProvider>(context);
     _imagenPerfil = prefs.imagenPerfil;
     return Padding(
@@ -42,7 +41,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
             splashColor: Colors.transparent,
             onTap: () {
               setState(() {
-                if(_imagenPerfil < 3) {
+                if (_imagenPerfil < 3) {
                   _imagenPerfil += 1;
                 } else {
                   _imagenPerfil = 0;
@@ -54,8 +53,9 @@ class _PerfilWidgetState extends State<PerfilWidget> {
               height: MediaQuery.of(context).size.width * 0.2,
               width: MediaQuery.of(context).size.width * 0.2,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18),
-                border: Border.all(width: 2, color: Theme.of(context).primaryColorDark)),
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(
+                      width: 2, color: Theme.of(context).primaryColorDark)),
               child: Padding(
                 padding: const EdgeInsets.all(2.0),
                 child: ClipRRect(
@@ -68,7 +68,9 @@ class _PerfilWidgetState extends State<PerfilWidget> {
               ),
             ),
           ),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.06,),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.06,
+          ),
           Expanded(
             child: Container(
               alignment: Alignment.centerLeft,
@@ -81,7 +83,9 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                           fontSize: MediaQuery.of(context).size.width * 0.06,
                         ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.width * 0.04,),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.04,
+                  ),
                   Text(
                     'Bienaventurado seas',
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(

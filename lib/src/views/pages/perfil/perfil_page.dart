@@ -6,11 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
-class PerfilPage extends StatelessWidget {
+class PerfilPage extends StatefulWidget {
   final VoidCallback openDrawer;
 
   const PerfilPage({Key? key, required this.openDrawer}) : super(key: key);
 
+  @override
+  State<PerfilPage> createState() => _PerfilPageState();
+}
+
+class _PerfilPageState extends State<PerfilPage> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
@@ -21,7 +26,7 @@ class PerfilPage extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            openDrawer();
+            widget.openDrawer();
           },
           icon: Icon(Iconsax.category, size: 22),
         ),

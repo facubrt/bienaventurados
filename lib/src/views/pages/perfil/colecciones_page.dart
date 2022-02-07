@@ -1,4 +1,5 @@
 import 'package:bienaventurados/src/data/datasources/local/meses_data.dart';
+import 'package:bienaventurados/src/data/models/coleccion_model.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
@@ -60,25 +61,26 @@ class ColeccionesPage extends StatelessWidget {
               sliver: SliverGrid(
                 delegate: SliverChildBuilderDelegate(
                   (contex, index) {
-                    return InkWell(
-                      onTap: () {
-                        abrirColeccion(context, box, index);
-                      },
-                      child: box.getAt(index).desbloqueado
-                          ? ClipRRect(
+                    return box.getAt(index).desbloqueado
+                        ? InkWell(
+                            onTap: () {
+                              abrirColeccion(context, box.getAt(index));
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
                               child: Image.asset(
                                 box.getAt(index).img,
                               ),
-                            )
-                          : ColorFiltered(
-                              colorFilter: greyscaleFilter,
-                              child: ClipRRect(
-                                child: Image.asset(
-                                  box.getAt(index).img,
-                                ),
+                            ))
+                        : ColorFiltered(
+                            colorFilter: greyscaleFilter,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image.asset(
+                                box.getAt(index).img,
                               ),
                             ),
-                    );
+                          );
                   },
                   childCount: box.values.length,
                 ),
@@ -96,40 +98,31 @@ class ColeccionesPage extends StatelessWidget {
     );
   }
 
-  void abrirColeccion(BuildContext context, Box box, int index) {
+  void abrirColeccion(BuildContext context, Coleccion? coleccion) {
+    final coleccionesProvider =
+        Provider.of<ColeccionesProvider>(context, listen: false);
     showFloatingModalBottomSheet(
       backgroundColor: Theme.of(context).primaryColor,
       context: context,
       builder: (context) {
         return Container(
           color: Theme.of(context).primaryColor,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                    padding: EdgeInsets.all(0),
-                    icon: Icon(
-                      Iconsax.close_square,
-                      size: MediaQuery.of(context).size.width * 0.06,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ),
-                Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 20.0),
+                child: Row(
                   children: [
                     Container(
                       height: MediaQuery.of(context).size.height * 0.1,
                       width: MediaQuery.of(context).size.height * 0.1,
                       child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
                         child: Image.asset(
-                          box.getAt(index).img,
+                          coleccion!.img,
                         ),
                       ),
                     ),
@@ -141,7 +134,21 @@ class ColeccionesPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(box.getAt(index).titulo,
+                            Container(
+                              alignment: Alignment.centerRight,
+                              child: IconButton(
+                                padding: EdgeInsets.all(0),
+                                icon: Icon(
+                                  Iconsax.close_square,
+                                  size:
+                                      MediaQuery.of(context).size.width * 0.06,
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ),
+                            Text(coleccion.titulo,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6!
@@ -152,32 +159,64 @@ class ColeccionesPage extends StatelessWidget {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.02,
                             ),
-                            Text(
-                              '${box.getAt(index).dia} de ${MesesData.meses[box.getAt(index).mes - 1].id}, ${DateTime.now().year}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2!
-                                  .copyWith(
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.04),
-                            ),
                           ],
                         ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.06,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  children: [
+                    Text(
+                      '${coleccion.dia} de ${MesesData.meses[coleccion.mes - 1].id}, ${DateTime.now().year}',
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            fontSize: MediaQuery.of(context).size.width * 0.03,
+                            color: Theme.of(context)
+                                .primaryColorDark
+                                .withOpacity(0.4),
+                          ),
+                    ),
+                    Text(
+                      ' - ${coleccion.tipo}',
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            fontSize: MediaQuery.of(context).size.width * 0.03,
+                            color: Theme.of(context)
+                                .primaryColorDark
+                                .withOpacity(0.4),
+                          ),
+                    ),
+                  ],
                 ),
-                Text(
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.04,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
                   'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. \n\n¡Paz y Bien!',
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.04),
+                      fontSize: MediaQuery.of(context).size.width * 0.03),
                 ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.06,
+              ),
+              Container(
+                alignment: Alignment.center,
+                color: Theme.of(context).colorScheme.secondary,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text('Desbloqueado',
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.03,
+                          color: Theme.of(context).primaryColor)),
+                ),
+              ),
+            ],
           ),
         );
       },

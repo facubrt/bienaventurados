@@ -14,7 +14,6 @@ import 'package:bienaventurados/src/views/pages/configuraciones/legal/legal_conf
 import 'package:bienaventurados/src/views/pages/construir/construir_page.dart';
 import 'package:bienaventurados/src/views/pages/construir/editar_page.dart';
 import 'package:bienaventurados/src/views/pages/inicio/dashboard.dart';
-import 'package:bienaventurados/src/views/pages/guardados/redescubre_page.dart';
 import 'package:bienaventurados/src/views/pages/perfil/colecciones_page.dart';
 import 'package:bienaventurados/src/views/pages/perfil/logros_page.dart';
 import 'package:bienaventurados/src/views/pages/taller/taller_page.dart';
@@ -102,10 +101,6 @@ class Routes {
             widget: NotificacionesConfiguracionPage());
       case (bienaventuradosPage):
         return SlideLeftTransitionRoute(widget: BienaventuradosPage());
-      case (redescubrePage):
-        final args = settings.arguments as Avioncito;
-        return SlideUpTransitionRoute(
-            widget: RedescubrePage(avioncitoGuardado: args));
       // case (configuracionesPage):
       //   return FadeTransitionRoute(widget: ConfiguracionesPage());
       // case (perfilPage):

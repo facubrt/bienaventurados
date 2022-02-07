@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
 import 'package:flutter/material.dart';
 
 class InformacionWidget extends StatefulWidget {
@@ -8,6 +9,8 @@ class InformacionWidget extends StatefulWidget {
 }
 
 class _InformacionWidgetState extends State<InformacionWidget> {
+  final prefs = PreferenciasUsuario();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,11 +22,17 @@ class _InformacionWidgetState extends State<InformacionWidget> {
           padding: const EdgeInsets.all(60.0),
           child: Row(
             children: [
-              Image.asset(
-                'assets/images/isotipo-oscuro.png',
-                height: 60,
-                width: 60,
-              ),
+              prefs.modoNoche
+                  ? Image.asset(
+                      'assets/images/isotipo-claro.png',
+                      height: 60,
+                      width: 60,
+                    )
+                  : Image.asset(
+                      'assets/images/isotipo-oscuro.png',
+                      height: 60,
+                      width: 60,
+                    ),
               SizedBox(
                 width: 20,
               ),
