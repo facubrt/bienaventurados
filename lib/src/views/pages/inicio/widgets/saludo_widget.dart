@@ -25,7 +25,7 @@ class _SaludoWidgetState extends State<SaludoWidget> {
                 ),
           ),
           Text(
-            '${authProvider.usuario.nombre}',
+            '${authProvider.usuario.nombre ?? ''}',
             style: Theme.of(context).textTheme.headline2!.copyWith(
                   fontSize: MediaQuery.of(context).size.width * 0.06,
                 ),

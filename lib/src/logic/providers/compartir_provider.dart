@@ -37,16 +37,16 @@ class CompartirProvider with ChangeNotifier {
       ScreenshotController controller, String frase, String santo) {
     _isDragging = false;
     final y = _position.dy;
-    final delta = 20;
+    final delta = 10;
     notifyListeners();
     if (y >= delta) {
-      HapticFeedback.mediumImpact();
+      HapticFeedback.vibrate();
       print('DESCARGAR');
       _descargando = true;
       _takeScreenshotandSave(controller);
       notifyListeners();
     } else if (y <= -delta) {
-      HapticFeedback.mediumImpact();
+      HapticFeedback.vibrate();
       print('COMPARTIR');
       _compartiendo = true;
       _takeScreenshotandShare(controller, frase, santo);

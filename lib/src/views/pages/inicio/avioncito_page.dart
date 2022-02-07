@@ -376,32 +376,32 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                           fontSize: MediaQuery.of(context).size.width * 0.04,
                         )),
               ),
-              ListTile(
-                onTap: () {
-                  descargarAvioncito = true;
-                  Navigator.of(context).pop(true);
-                },
-                leading: descargarAvioncito
-                    ? Container(
-                        alignment: Alignment.center,
-                        height: MediaQuery.of(context).size.width * 0.05,
-                        width: MediaQuery.of(context).size.width * 0.05,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Theme.of(context).primaryColorDark,
-                          ),
-                        ))
-                    : Icon(Iconsax.receive_square,
-                        color: Theme.of(context).primaryColorDark,
-                        size: MediaQuery.of(context).size.width * 0.06),
-                title: Text(
-                  'Descargar',
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.04,
-                      ),
-                ),
-              ),
+              // ListTile(
+              //   onTap: () {
+              //     descargarAvioncito = true;
+              //     Navigator.of(context).pop(true);
+              //   },
+              //   leading: descargarAvioncito
+              //       ? Container(
+              //           alignment: Alignment.center,
+              //           height: MediaQuery.of(context).size.width * 0.05,
+              //           width: MediaQuery.of(context).size.width * 0.05,
+              //           child: Center(
+              //             child: CircularProgressIndicator(
+              //               strokeWidth: 2,
+              //               color: Theme.of(context).primaryColorDark,
+              //             ),
+              //           ))
+              //       : Icon(Iconsax.receive_square,
+              //           color: Theme.of(context).primaryColorDark,
+              //           size: MediaQuery.of(context).size.width * 0.06),
+              //   title: Text(
+              //     'Descargar',
+              //     style: Theme.of(context).textTheme.headline6!.copyWith(
+              //           fontSize: MediaQuery.of(context).size.width * 0.04,
+              //         ),
+              //   ),
+              // ),
               // ListTile(
               //   onTap: () {
               //     avioncitoProvider.compartirAvioncito = true;
