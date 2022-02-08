@@ -14,7 +14,7 @@ dependencies:
   firebase_crashlytics: ^2.2.3
   firebase_in_app_messaging: ^0.5.0+10
   firebase_messaging: ^10.0.8
-  flutter_svg:
+  fluttertoast: ^8.0.8
   flutter:
     sdk: flutter
   flutter_icons:

@@ -6,6 +6,7 @@ import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
 import 'package:bienaventurados/src/logic/providers/compartir_provider.dart';
+import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
 import 'package:bienaventurados/src/logic/providers/theme_provider.dart';
 import 'package:bienaventurados/src/logic/services/messaging_service.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -47,6 +48,7 @@ Future<void> main() async {
           create: (BuildContext context) => AvioncitoProvider()),
       ChangeNotifierProvider(
           create: (BuildContext context) => CompartirProvider()),
+      ChangeNotifierProvider(create: (BuildContext context) => LogroProvider()),
       ChangeNotifierProvider(
           create: (BuildContext context) => ColeccionesProvider()),
     ],

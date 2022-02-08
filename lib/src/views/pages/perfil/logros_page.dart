@@ -1,8 +1,11 @@
 import 'package:bienaventurados/src/data/datasources/local/logros_data.dart';
 import 'package:bienaventurados/src/data/models/logro_model.dart';
+import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 
 class LogrosPage extends StatelessWidget {
   @override
@@ -29,6 +32,8 @@ class LogrosPage extends StatelessWidget {
       0.5,
       0,
     ]);
+    final logroProvider = Provider.of<LogroProvider>(context, listen: false);
+    Box box = logroProvider.getLogros();
 
     return Scaffold(
       appBar: AppBar(
@@ -55,15 +60,15 @@ class LogrosPage extends StatelessWidget {
               sliver: SliverGrid(
                 delegate: SliverChildBuilderDelegate(
                   (contex, index) {
-                    return Logros.logros[index].desbloqueado
+                    return box.getAt(index).desbloqueado
                         ? InkWell(
                             onTap: () {
-                              abrirLogro(context, Logros.logros[index]);
+                              abrirLogro(context, box.getAt(index));
                             },
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(16),
                               child: Image.asset(
-                                Logros.logros[index].img,
+                                box.getAt(index).img,
                               ),
                             ))
                         : ColorFiltered(
@@ -71,12 +76,12 @@ class LogrosPage extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(16),
                               child: Image.asset(
-                                Logros.logros[index].img,
+                                box.getAt(index).img,
                               ),
                             ),
                           );
                   },
-                  childCount: Logros.logros.length,
+                  childCount: box.values.length,
                 ),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,

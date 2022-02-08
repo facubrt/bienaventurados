@@ -152,6 +152,23 @@ class LocalData {
   }
   //
 
+  // LOGROS
+  Box? getLogros() {
+    return logrosBox;
+  }
+
+  void setLogro(Logro logro, bool desbloqueado) {
+    Logro _logro = Logro(
+      id: logro.id,
+      titulo: logro.titulo,
+      objetivo: logro.objetivo,
+      img: logro.img,
+      descripcion: logro.descripcion,
+      desbloqueado: desbloqueado,
+    );
+    logrosBox!.put(_logro.id, _logro);
+  }
+
   void deleteAvioncitoLocal(int index) {
     avioncitosBox!.delete(index);
   }

@@ -1,6 +1,7 @@
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
+import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
 import 'package:bienaventurados/src/views/pages/inicio/avioncito_page.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/avioncito_widget.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/colecciones_widget.dart';
@@ -43,6 +44,7 @@ class _InicioPageState extends State<InicioPage> {
         Provider.of<AvioncitoProvider>(context, listen: false);
     final coleccionesProvider =
         Provider.of<ColeccionesProvider>(context, listen: false);
+    final logroProvider = Provider.of<LogroProvider>(context, listen: false);
     _actualConexion = DateTime.now().day.toString();
     _ultimaConexion = prefs.ultimaConexion;
     print('ULTIMA CONEXION $_ultimaConexion');
@@ -52,12 +54,14 @@ class _InicioPageState extends State<InicioPage> {
         _coleccionDesbloqueada = prefs.coleccionDesbloqueada;
         await avioncitoProvider.mismoAvioncito();
         await coleccionesProvider.getColeccionDesbloqueada();
+        logroProvider.abrirLogros();
         await coleccionesProvider.abrirColecciones();
       } else {
         print('NUEVO DIA');
         prefs.ultimaConexion = _actualConexion;
         await avioncitoProvider.nuevoAvioncito();
         coleccionesProvider.abrirColecciones();
+        logroProvider.abrirLogros();
         coleccionesProvider.comprobacionColecciones();
       }
     } else {
@@ -65,7 +69,10 @@ class _InicioPageState extends State<InicioPage> {
       prefs.ultimaConexion = _actualConexion;
       await avioncitoProvider.primerInicio();
       coleccionesProvider.crearColecciones();
+      logroProvider.iniciarLogros();
       coleccionesProvider.comprobacionColecciones();
+      print('DESBLOQUEASTE LOGRO - PRIMER INICIO');
+      logroProvider.comprobacionLogros('Primer Inicio');
     }
   }
 
@@ -87,25 +94,31 @@ class _InicioPageState extends State<InicioPage> {
               size: MediaQuery.of(context).size.width * 0.06),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SaludoWidget(),
-            AvioncitoWidget(),
-            ColeccionesWidget(),
-            InformacionWidget(),
-          ],
+      body: NotificationListener<OverscrollIndicatorNotification>(
+        onNotification: (overScroll) {
+          overScroll.disallowGlow();
+          return true;
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SaludoWidget(),
+              AvioncitoWidget(),
+              ColeccionesWidget(),
+              InformacionWidget(),
+            ],
+          ),
         ),
+        // avioncitoProvider.avioncitoListo
+        //     ? AvioncitoPage(
+        //         avioncito: avioncitoProvider.avioncito!,
+        //         openDrawer: widget.openDrawer)
+        //     : Center(
+        //         child: CircularProgressIndicator(
+        //         color: Theme.of(context).primaryColorDark,
+        //       )),
       ),
-      // avioncitoProvider.avioncitoListo
-      //     ? AvioncitoPage(
-      //         avioncito: avioncitoProvider.avioncito!,
-      //         openDrawer: widget.openDrawer)
-      //     : Center(
-      //         child: CircularProgressIndicator(
-      //         color: Theme.of(context).primaryColorDark,
-      //       )),
     );
   }
 }

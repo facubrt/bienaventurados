@@ -59,28 +59,34 @@ class _CompartirPageState extends State<CompartirPage> {
             ),
           ],
         ),
-        body: Stack(
-          alignment: AlignmentDirectional.bottomCenter,
-          children: [
-            PageView(
-              onPageChanged: _onPageChanged,
-              controller: _pageController,
-              scrollDirection: Axis.horizontal,
-              children: [
-                avioncito916Widget(context),
-                avioncito11Widget(context),
-              ],
-            ),
-            SizedBox(height: 60),
-            Container(
-                child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                for (int i = 0; i < 2; i++)
-                  if (i == _currentPage) SlideDots(true) else SlideDots(false)
-              ],
-            )),
-          ],
+        body: NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (overScroll) {
+            overScroll.disallowGlow();
+            return true;
+          },
+          child: Stack(
+            alignment: AlignmentDirectional.bottomCenter,
+            children: [
+              PageView(
+                onPageChanged: _onPageChanged,
+                controller: _pageController,
+                scrollDirection: Axis.horizontal,
+                children: [
+                  avioncito916Widget(context),
+                  avioncito11Widget(context),
+                ],
+              ),
+              SizedBox(height: 60),
+              Container(
+                  child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (int i = 0; i < 2; i++)
+                    if (i == _currentPage) SlideDots(true) else SlideDots(false)
+                ],
+              )),
+            ],
+          ),
         ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 40.0),

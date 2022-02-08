@@ -17,24 +17,30 @@ class LogroAdapter extends TypeAdapter<Logro> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Logro(
-      titulo: fields[0] as String,
-      img: fields[1] as String,
-      descripcion: fields[2] as String,
-      desbloqueado: fields[3] as bool,
+      id: fields[0] as int,
+      titulo: fields[1] as String,
+      objetivo: fields[2] as String,
+      img: fields[3] as String,
+      descripcion: fields[4] as String,
+      desbloqueado: fields[5] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Logro obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.titulo)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.img)
+      ..write(obj.titulo)
       ..writeByte(2)
-      ..write(obj.descripcion)
+      ..write(obj.objetivo)
       ..writeByte(3)
+      ..write(obj.img)
+      ..writeByte(4)
+      ..write(obj.descripcion)
+      ..writeByte(5)
       ..write(obj.desbloqueado);
   }
 
