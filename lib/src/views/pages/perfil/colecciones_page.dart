@@ -99,8 +99,6 @@ class ColeccionesPage extends StatelessWidget {
   }
 
   void abrirColeccion(BuildContext context, Coleccion? coleccion) {
-    final coleccionesProvider =
-        Provider.of<ColeccionesProvider>(context, listen: false);
     showFloatingModalBottomSheet(
       backgroundColor: Theme.of(context).primaryColor,
       context: context,

@@ -72,18 +72,20 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                       curve: Curves.linearToEaseOut,
                       transformAlignment: Alignment.center,
                       transform: Matrix4.identity()
-                        ..scale(compartirProvider.compartiendo ? 0.72 : 1.0,
-                            compartirProvider.compartiendo ? 0.72 : 1.0),
+                        ..scale(compartirProvider.capturando ? 0.72 : 1.0,
+                            compartirProvider.capturando ? 0.72 : 1.0),
                       decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
-                        border: compartirProvider.compartiendo
+                        border: compartirProvider.capturando
                             ? Border.all(
                                 width: 4,
                                 color: Theme.of(context).primaryColorDark)
                             : Border.all(
                                 width: 0.0,
                                 color: Theme.of(context).primaryColor),
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: compartirProvider.capturando
+                            ? BorderRadius.circular(16)
+                            : BorderRadius.zero,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
@@ -110,7 +112,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                   ],
                 ),
               ),
-              compartirProvider.compartiendo
+              compartirProvider.capturando
                   ? Container(
                       color: Colores.contrasteDay.withOpacity(0.9),
                       child: Center(
@@ -137,6 +139,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
   Widget avioncitoWidget() {
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
     final compartirProvider = Provider.of<CompartirProvider>(context);
+    final logroProvider = Provider.of<LogroProvider>(context);
     final prefs = PreferenciasUsuario();
     return Container(
       color: Theme.of(context).primaryColor,
@@ -144,7 +147,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          compartirProvider.compartiendo
+          compartirProvider.capturando
               ? Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: prefs.modoNoche
@@ -170,11 +173,12 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                           fontSize: MediaQuery.of(context).size.width * 0.035,
                         )),
                 Spacer(),
-                compartirProvider.compartiendo
+                compartirProvider.capturando
                     ? SizedBox.shrink()
                     : IconButton(
                         onPressed: () {
-                          compartirProvider.compartiendo = true;
+                          logroProvider.comprobacionLogros('compartidos');
+                          compartirProvider.capturando = true;
                           compartirProvider.takeScreenshotandShare(
                               screenshotController,
                               widget.avioncito.frase!,
@@ -186,7 +190,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                             color: Theme.of(context).primaryColorDark),
                         padding: EdgeInsets.all(0),
                       ),
-                compartirProvider.compartiendo
+                compartirProvider.capturando
                     ? SizedBox.shrink()
                     : IconButton(
                         icon: Icon(Iconsax.more),
@@ -316,6 +320,8 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
   Widget avioncitoBottomSheet() {
     final avioncitoProvider =
         Provider.of<AvioncitoProvider>(context, listen: false);
+    final compartirProvider =
+        Provider.of<CompartirProvider>(context, listen: false);
     final logroProvider = Provider.of<LogroProvider>(context, listen: false);
     return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
@@ -368,8 +374,9 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
               ),
               ListTile(
                 onTap: () {
-                  descargarAvioncito = true;
-                  Navigator.of(context).pop(true);
+                  Navigator.of(context).pop();
+                  compartirProvider.capturando = true;
+                  compartirProvider.takeScreenshotandSave(screenshotController);
                 },
                 leading: descargarAvioncito
                     ? Container(

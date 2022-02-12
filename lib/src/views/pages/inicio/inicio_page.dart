@@ -2,7 +2,6 @@ import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart'
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
 import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
-import 'package:bienaventurados/src/views/pages/inicio/avioncito_page.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/avioncito_widget.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/colecciones_widget.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/informacion_widget.dart';
@@ -47,15 +46,14 @@ class _InicioPageState extends State<InicioPage> {
     final logroProvider = Provider.of<LogroProvider>(context, listen: false);
     _actualConexion = DateTime.now().day.toInt();
     _ultimaConexion = prefs.ultimaConexion;
-    print('ULTIMA CONEXION $_ultimaConexion');
     if (_ultimaConexion != null) {
-      if (_actualConexion != _ultimaConexion) {
+      if (_actualConexion == _ultimaConexion) {
         print('MISMO DIA');
         _coleccionDesbloqueada = prefs.coleccionDesbloqueada;
         await avioncitoProvider.mismoAvioncito();
         await coleccionesProvider.getColeccionDesbloqueada();
-        logroProvider.abrirLogros();
-        await coleccionesProvider.abrirColecciones();
+        //logroProvider.abrirLogros();
+        //await coleccionesProvider.abrirColecciones();
       } else {
         print('NUEVO DIA');
         final ultimoDia = DateTime(
@@ -67,15 +65,12 @@ class _InicioPageState extends State<InicioPage> {
           if (ultimoDia.day + 1 == nuevoDia.day || 1 == nuevoDia.day) {
             print('CONSTANCIA AUMENTADA');
             logroProvider.comprobacionLogros('constancia');
-          } else {
-            logroProvider.comprobacionLogros('constancia');
-            print('CONSTANCIA NO AUMENTADA');
-          }
+          } 
         }
         prefs.ultimaConexion = _actualConexion;
         await avioncitoProvider.nuevoAvioncito();
-        coleccionesProvider.abrirColecciones();
-        logroProvider.abrirLogros();
+        //coleccionesProvider.abrirColecciones();
+        //logroProvider.abrirLogros();
         coleccionesProvider.comprobacionColecciones();
       }
     } else {
@@ -85,14 +80,12 @@ class _InicioPageState extends State<InicioPage> {
       coleccionesProvider.crearColecciones();
       logroProvider.iniciarLogros();
       coleccionesProvider.comprobacionColecciones();
-      print('DESBLOQUEASTE LOGRO - PRIMER INICIO');
       logroProvider.comprobacionLogros('Primer Inicio');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(

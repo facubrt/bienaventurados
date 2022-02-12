@@ -1,4 +1,3 @@
-import 'package:bienaventurados/src/data/datasources/local/logros_data.dart';
 import 'package:bienaventurados/src/data/models/logro_model.dart';
 import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';

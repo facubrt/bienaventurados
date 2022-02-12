@@ -29,19 +29,14 @@ class AvioncitoProvider with ChangeNotifier {
   Future<void> primerInicio() async {
     await _localDB.openBox().then((iniciado) async {
       if (iniciado) {
-        print('PRIMERA VEZ QUE SE INICIA LA APP');
         await getAvioncitoFromLocal().then((avioncitosListos) async {
           if (avioncitosListos) {
-            print('PRIMEROS AVIONCITOS LISTOS');
             await getAvioncitoHoy().then((listo) {
               if (listo) {
-                print('TODO LISTO PRIMERA VEZ');
                 _avioncitoListo = true;
                 notifyListeners();
               }
             });
-          } else {
-            print('ERROR AL CARGAR PRIMER AVIONCITOS');
           }
         });
       }
@@ -51,15 +46,12 @@ class AvioncitoProvider with ChangeNotifier {
   Future<void> mismoAvioncito() async {
     await _localDB.openBox().then((iniciado) async {
       if (iniciado) {
-        print('REUTILIZANDO AVIONCITO');
         await getAvioncitoHoy().then((listo) {
           if (listo) {
             _avioncitoListo = true;
             notifyListeners();
           }
         });
-      } else {
-        print('ERROR');
       }
     });
   }
@@ -67,63 +59,44 @@ class AvioncitoProvider with ChangeNotifier {
   Future<void> nuevoAvioncito() async {
     await _localDB.openBox().then((iniciado) async {
       if (iniciado) {
-        print('NUEVO DIA, NUEVO AVIONCITO!');
         await getAvioncitoFromLocal().then((avioncitosListos) async {
           if (avioncitosListos) {
-            print('AVIONCITOS LISTOS PARA NUEVO DIA');
             await getAvioncitoHoy().then((listo) {
               if (listo) {
-                print('TODO LISTO');
                 _avioncitoListo = true;
                 notifyListeners();
               }
             });
           }
         });
-      } else {
-        print('ERROR');
       }
     });
   }
 
   Future<bool> getAvioncitoFromLocal() async {
     avioncitosBox = _localDB.getAvioncitos();
-    print('HAY ${avioncitosBox!.length} AVIONCITOS EN LOCAL');
-    // print('ENTRANDO EN TRY');
     if (avioncitosBox!.isEmpty) {
-      print('NO QUEDAN AVIONCITOS LOCALES');
       await getAvioncitosFromFirestore().then((listo) {
         if (listo) {
-          print('AVIONCITOS CARGADOS ${_avioncitos.length}');
           // nAvioncito = Random().nextInt(_avioncitos.length);
           _avioncito = _localDB.getAvioncitoHoy();
           _avioncito.fecha = DateTime.now();
-          print('LA FRASE DE HOY ES ${_avioncito.frase}');
           _localDB.setAvioncitoHoy(_avioncito);
-          // _localDB.deleteAvioncitoLocal(nAvioncito);
           _localDB.deleteAvioncitoHoy();
-          print('SE ELIMINA AVIONCITO ${_avioncito.id}');
-          print('AVIONCITOS RESTANTES ${_localDB.getAvioncitos()!.length}');
           return true;
         }
       });
     } else {
-      print('LOCAL NO ESTÁ VACÍO');
       _avioncito = _localDB.getAvioncitoHoy();
       _avioncito.fecha = DateTime.now();
       _avioncito.visto = true;
-      print('LA FRASE DE HOY ES ${_avioncito.frase}');
-
       _localDB.setAvioncitoHoy(_avioncito);
       _localDB.deleteAvioncitoHoy();
-      print('SE ELIMINA AVIONCITO ${_avioncito.id}');
-      print('AVIONCITOS RESTANTES ${_localDB.getAvioncitos()!.length}');
     }
     return true;
   }
 
   Future<bool> getAvioncitosFromFirestore() async {
-    print('CARGANDO AVIONCITOS DE FIRESTORE');
     _avioncitos.clear();
     bool retVal = false;
     await _fireDB
@@ -136,25 +109,20 @@ class AvioncitoProvider with ChangeNotifier {
           .inDays;
       int _lenght = snapshot.docs.length;
       if (_diasRestantes < snapshot.docs.length) {
-        print(
-            'DE ${snapshot.docs.length} SE CARGAN SOLO $_diasRestantes avioncitos');
         _lenght = _diasRestantes;
       }
       for (var i = 0; i < _lenght; i++) {
         Avioncito av = Avioncito.fromFirestore(snapshot.docs[i]);
         _avioncitos.add(av);
       }
-      print('MEZCLANDO AVIONCITOS, PRIMER AVIONCITO ${_avioncitos[0].usuario}');
       _avioncitos.shuffle();
       _localDB.setAvioncitos(_avioncitos);
-      print('AVIONCITOS AGREGADOS A LOCAL');
       retVal = true;
     });
     return retVal;
   }
 
   Future<bool> getAvioncitoHoy() async {
-    print('OBTENIENDO AVIONCITO DE HOY');
     _avioncito = await _localDB.getHoy()!.get(0);
     return true;
   }
@@ -233,9 +201,7 @@ class AvioncitoProvider with ChangeNotifier {
     _compartirAvioncito = compartirAvioncito;
     notifyListeners();
   }
-
   bool get compartirAvioncito => _compartirAvioncito;
-
   Avioncito? get avioncito => _avioncito;
   String get tiepoLiturgico => _tiempoLiturgico;
   String get lectura => _lectura;

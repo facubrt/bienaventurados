@@ -1,6 +1,7 @@
 import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
+import 'package:bienaventurados/src/views/pages/perfil/widgets/qr_bottomsheet.dart';
+import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
@@ -21,7 +22,7 @@ class ComparteWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
-                'Comparte con otros',
+                'Llevá la fe a todas partes',
                 style: Theme.of(context).textTheme.headline4!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.04,
                       color: Theme.of(context).primaryColorDark,
@@ -50,7 +51,7 @@ class ComparteWidget extends StatelessWidget {
                     horizontal: 10.0, vertical: 20.0),
                 child: Text('Comparte esta aventura',
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                          fontSize: MediaQuery.of(context).size.width * 0.03,
                           color: Theme.of(context).primaryColor,
                         )),
               ),
@@ -65,21 +66,28 @@ class ComparteWidget extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.width * 0.02,
             ),
-            // TextButton(
-            //   style: OutlinedButton.styleFrom(
-            //     backgroundColor: Colors.transparent,
-            //   ),
-            //   child: Padding(
-            //     padding: const EdgeInsets.symmetric(
-            //         horizontal: 10.0, vertical: 10.0),
-            //     child: Text('Código QR',
-            //         style: Theme.of(context).textTheme.subtitle1!.copyWith(
-            //               fontSize: MediaQuery.of(context).size.width * 0.04,
-            //               color: Theme.of(context).primaryColorDark,
-            //             )),
-            //   ),
-            //   onPressed: () async {},
-            // )
+            TextButton(
+              style: OutlinedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 10.0, vertical: 10.0),
+                child: Text('Código QR',
+                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.03,
+                          color: Theme.of(context).primaryColorDark,
+                        )),
+              ),
+              onPressed: () async {
+                showFloatingModalBottomSheet<bool?>(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    context: context,
+                    builder: (context) {
+                      return qrBottomSheet();
+                    });
+              },
+            )
           ],
         ),
       ),

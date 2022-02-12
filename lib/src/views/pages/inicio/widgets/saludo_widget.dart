@@ -14,7 +14,7 @@ class _SaludoWidgetState extends State<SaludoWidget> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -20,11 +20,8 @@ import 'package:flutter/foundation.dart' show kDebugMode;
 late bool _sesionIniciada;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent)); // statusbar transparente
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]); // orientacion vertical
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent)); // statusbar transparente
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,]); // orientacion vertical
   //await SystemChrome.setEnabledSystemUIOverlays([]); // fullscreen
 
   await Firebase.initializeApp();
@@ -38,19 +35,12 @@ Future<void> main() async {
   _sesionIniciada = prefs.sesionIniciada;
   return runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(
-        create: (BuildContext context) => AuthProvider.instance(),
-      ),
-      ChangeNotifierProvider(
-          create: (BuildContext context) =>
-              ThemeProvider(activarModoNoche: prefs.modoNoche)),
-      ChangeNotifierProvider(
-          create: (BuildContext context) => AvioncitoProvider()),
-      ChangeNotifierProvider(
-          create: (BuildContext context) => CompartirProvider()),
+      ChangeNotifierProvider(create: (BuildContext context) => AuthProvider.instance(),),
+      ChangeNotifierProvider(create: (BuildContext context) => ThemeProvider(activarModoNoche: prefs.modoNoche)),
+      ChangeNotifierProvider(create: (BuildContext context) => AvioncitoProvider()),
+      ChangeNotifierProvider(create: (BuildContext context) => CompartirProvider()),
       ChangeNotifierProvider(create: (BuildContext context) => LogroProvider()),
-      ChangeNotifierProvider(
-          create: (BuildContext context) => ColeccionesProvider()),
+      ChangeNotifierProvider(create: (BuildContext context) => ColeccionesProvider()),
     ],
     child: Bienaventurados(),
   ));
@@ -73,9 +63,7 @@ class _BienaventuradosState extends State<Bienaventurados> {
   @override
   void initState() {
     _firebaseCrash();
-    MessagingService.initialize(onSelectNotification).then(
-      (value) => firebaseCloudMessagingListeners(),
-    );
+    MessagingService.initialize(onSelectNotification).then((value) => firebaseCloudMessagingListeners(),);
     super.initState();
   }
 
@@ -101,8 +89,8 @@ class _BienaventuradosState extends State<Bienaventurados> {
       debugShowCheckedModeBanner: false,
       theme: themeProvider.getTheme,
       initialRoute: _sesionIniciada
-          ? dashboardPage
-          : bienaventuradosPage, //basePage : bienaventuradosPage,
+        ? dashboardPage
+        : bienaventuradosPage, //basePage : bienaventuradosPage,
       onGenerateRoute: Routes.generateRoute,
     );
   }

@@ -1,22 +1,17 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 
 class CompartirProvider with ChangeNotifier {
-  Offset _position = Offset.zero;
-  bool _isDragging = false;
-  bool _compartiendo = false;
-  bool _descargando = false;
+  bool _capturando = false;
   Uint8List? _imageFile;
-  ScreenshotController screenshot11Controller = ScreenshotController();
 
+  // FUNCIONES
   void takeScreenshotandShare(
       ScreenshotController controller, String frase, String santo) async {
     _imageFile = null;
@@ -24,7 +19,6 @@ class CompartirProvider with ChangeNotifier {
         .capture(delay: Duration(milliseconds: 310), pixelRatio: 6.0)
         .then((image) async {
       _imageFile = image;
-
       final directory = (await getApplicationDocumentsDirectory()).path;
       Uint8List pngBytes = _imageFile!;
       File imgFile = File('$directory/bienaventurados.png');
@@ -34,7 +28,7 @@ class CompartirProvider with ChangeNotifier {
     }).catchError((onError) {
       print(onError);
     });
-    _compartiendo = false;
+    _capturando = false;
     notifyListeners();
   }
 
@@ -44,7 +38,7 @@ class CompartirProvider with ChangeNotifier {
         .difference(DateTime(DateTime.now().year, 1, 1, 0, 0))
         .inSeconds;
     await controller
-        .capture(delay: Duration(milliseconds: 20), pixelRatio: 10.0)
+        .capture(delay: Duration(milliseconds: 310), pixelRatio: 6.0)
         .then((image) async {
       _imageFile = image;
       final directory = (await getApplicationDocumentsDirectory()).path;
@@ -56,17 +50,14 @@ class CompartirProvider with ChangeNotifier {
     }).catchError((onError) {
       print(onError);
     });
-    _descargando = false;
+    _capturando = false;
     notifyListeners();
   }
 
-  bool get compartiendo => _compartiendo;
-  set compartiendo(bool compartir) {
-    _compartiendo = compartir;
+  // GETTERS AND SETTERS
+  bool get capturando => _capturando;
+  set capturando(bool compartir) {
+    _capturando = compartir;
     notifyListeners();
   }
-
-  bool get descargando => _descargando;
-  bool get isDragging => _isDragging;
-  Offset get position => _position;
 }

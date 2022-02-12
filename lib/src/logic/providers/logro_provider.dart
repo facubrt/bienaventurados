@@ -35,112 +35,157 @@ class LogroProvider with ChangeNotifier {
         Box? box = _localDB.getLogros();
         switch (titulo) {
           case 'Primer Inicio':
-            Logro logro = box!.getAt(0);
-            if (logro.desbloqueado) {
-              print('LOGRO YA DESBLOQUEADO');
-            } else {
-              print('LOGRO NO DESBLOQUEADO');
-              //setLogro(logro, true);
-              actualizarLogro(logro);
-            }
+            primerInicio(box);
             break;
           case 'constancia':
             constancia(box);
             break;
           case 'guardados':
-            Logro logro = box!.getAt(4);
-            if (logro.desbloqueado) {
-              logro = box.getAt(5);
-              if (logro.desbloqueado) {
-                logro = box.getAt(6);
-                if (logro.desbloqueado) {
-                  break;
-                } else {
-                  actualizarLogro(logro);
-                  break;
-                }
-              } else {
-                actualizarLogro(logro);
-                break;
-              }
-            }
-            actualizarLogro(logro);
+            guardados(box);
             break;
           case 'calificar-app':
-            Logro logro = box!.getAt(7);
-            if (logro.desbloqueado) {
-              print('LOGRO YA DESBLOQUEADO');
-            } else {
-              print('LOGRO NO DESBLOQUEADO');
-              //setLogro(logro, true);
-              actualizarLogro(logro);
-            }
+            calificarApp(box);
             break;
           case 'compartidos':
-            print('LOGRO COMPARTIDOS');
-            Logro logro = box!.getAt(8);
-            if (logro.desbloqueado) {
-              print('PRIMERA VEZ DESBLOQUEADO');
-              logro = box.getAt(9);
-              if (logro.desbloqueado) {
-                print('SEGUNDA VEZ DESBLOQUEADO');
-                logro = box.getAt(10);
-                if (logro.desbloqueado) {
-                  print('TERCERA VEZ DESBLOQUEADO');
-                  break;
-                } else {
-                  actualizarLogro(logro);
-                  break;
-                }
-              } else {
-                actualizarLogro(logro);
-                break;
-              }
-            }
-            actualizarLogro(logro);
+            compartidos(box);
             break;
           case 'compartir-app':
-            Logro logro = box!.getAt(11);
-            if (logro.desbloqueado) {
-              print('LOGRO YA DESBLOQUEADO');
-            } else {
-              print('LOGRO NO DESBLOQUEADO');
-              //setLogro(logro, true);
-              actualizarLogro(logro);
-            }
+            compartirApp(box);
             break;
           case 'construidos':
-            Logro logro = box!.getAt(12);
-            if (logro.desbloqueado) {
-              logro = box.getAt(13);
-              if (logro.desbloqueado) {
-                logro = box.getAt(14);
-                if (logro.desbloqueado) {
-                  break;
-                } else {
-                  actualizarLogro(logro);
-                  break;
-                }
-              } else {
-                actualizarLogro(logro);
-                break;
-              }
-            }
-            actualizarLogro(logro);
+            construidos(box);
             break;
           case 'modo-noche':
-            Logro logro = box!.getAt(15);
-            if (logro.desbloqueado) {
-              print('LOGRO YA DESBLOQUEADO');
-            } else {
-              print('LOGRO NO DESBLOQUEADO');
-              //setLogro(logro, true);
-              actualizarLogro(logro);
-            }
+            modoNoche(box);
             break;
         }
       }
     });
+  }
+
+  //
+
+  void modoNoche(Box? box) {
+    Logro logro = box!.getAt(15);
+    if (logro.desbloqueado) {
+      print('LOGRO YA DESBLOQUEADO');
+    } else {
+      print('LOGRO NO DESBLOQUEADO');
+      logro.n += 1;
+      actualizarLogro(logro);
+    }
+  }
+
+  void construidos(Box? box) {
+    Logro logro = box!.getAt(12);
+    if (logro.desbloqueado) {
+      logro = box.getAt(13);
+      if (logro.desbloqueado) {
+        logro = box.getAt(14);
+        if (logro.desbloqueado) {
+        } else {
+          print('LOGRO NO DESBLOQUEADO');
+          logro.n += 1;
+          actualizarLogro(logro);
+        }
+      } else {
+        print('LOGRO NO DESBLOQUEADO');
+        logro.n += 1;
+        actualizarLogro(logro);
+      }
+    } else {
+      print('LOGRO NO DESBLOQUEADO');
+      logro.n += 1;
+      actualizarLogro(logro);
+    }
+  }
+
+  void compartirApp(Box? box) {
+    Logro logro = box!.getAt(11);
+    if (logro.desbloqueado) {
+      print('LOGRO YA DESBLOQUEADO');
+    } else {
+      print('LOGRO NO DESBLOQUEADO');
+      logro.n += 1;
+      actualizarLogro(logro);
+    }
+  }
+
+  void compartidos(Box? box) {
+    print('LOGRO COMPARTIDOS');
+    Logro logro = box!.getAt(8);
+    if (logro.desbloqueado) {
+      print('PRIMERA VEZ DESBLOQUEADO');
+      logro = box.getAt(9);
+      if (logro.desbloqueado) {
+        print('SEGUNDA VEZ DESBLOQUEADO');
+        logro = box.getAt(10);
+        if (logro.desbloqueado) {
+          print('TERCERA VEZ DESBLOQUEADO');
+        } else {
+          logro.n += 1;
+          print('ACCION REALIZADA ${logro.n}');
+          actualizarLogro(logro);
+        }
+      } else {
+        logro.n += 1;
+        print('ACCION REALIZADA ${logro.n}');
+        actualizarLogro(logro);
+      }
+    } else {
+      logro.n += 1;
+      print('ACCION REALIZADA ${logro.n}');
+      actualizarLogro(logro);
+    }
+  }
+
+  void calificarApp(Box? box) {
+    Logro logro = box!.getAt(7);
+    if (logro.desbloqueado) {
+      print('LOGRO YA DESBLOQUEADO');
+    } else {
+      print('LOGRO NO DESBLOQUEADO');
+      logro.n += 1;
+      actualizarLogro(logro);
+    }
+  }
+
+  void guardados(Box? box) {
+    Logro logro = box!.getAt(4);
+    if (logro.desbloqueado) {
+      print('PRIMER NIVEL DESBLOQUEADO');
+      logro = box.getAt(5);
+      if (logro.desbloqueado) {
+        print('SEGUNDO NIVEL DESBLOQUEADO');
+        logro = box.getAt(6);
+        if (logro.desbloqueado) {
+          print('TERCER NIVEL DESBLOQUEADO');
+        } else {
+          logro.n += 1;
+          print('ACCION REALIZADA ${logro.n}');
+          actualizarLogro(logro);
+        }
+      } else {
+        logro.n += 1;
+        print('ACCION REALIZADA ${logro.n}');
+        actualizarLogro(logro);
+      }
+    } else {
+      logro.n += 1;
+      print('ACCION REALIZADA ${logro.n}');
+      actualizarLogro(logro);
+    }
+  }
+
+  void primerInicio(Box? box) {
+    Logro logro = box!.getAt(0);
+    if (logro.desbloqueado) {
+      print('LOGRO YA DESBLOQUEADO');
+    } else {
+      logro.n += 1;
+      print('ACCION REALIZADA ${logro.n}');
+      actualizarLogro(logro);
+    }
   }
 
   void constancia(Box? box) {
@@ -153,13 +198,24 @@ class LogroProvider with ChangeNotifier {
         logro = box.getAt(3);
         if (logro.desbloqueado) {
           print('TERCERA VEZ DESBLOQUEADO');
+        } else {
+          logro.n += 1;
+          print('ACCION REALIZADA ${logro.n}');
+          actualizarLogro(logro);
         }
+      } else {
+        logro.n += 1;
+        print('ACCION REALIZADA ${logro.n}');
+        actualizarLogro(logro);
       }
+    } else {
+      logro.n += 1;
+      print('ACCION REALIZADA ${logro.n}');
+      actualizarLogro(logro);
     }
-    logro.n += 1;
-    print('ACCION REALIZADA ${logro.n}');
-    actualizarLogro(logro);
   }
+
+  //
 
   Future<void> abrirLogros() async {
     await _localDB.openBox().then((iniciado) async {
