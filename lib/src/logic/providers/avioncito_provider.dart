@@ -26,21 +26,6 @@ class AvioncitoProvider with ChangeNotifier {
   final LocalData _localDB = LocalData();
   final prefs = PreferenciasUsuario();
 
-  // void configuracionInicial() async {
-  //   await _localDB.openBox().then((iniciado) {
-  //     if (iniciado) {
-  //       // int _diasRestantes = DateTime(DateTime.now().year + 1, 1, 1, 0, 0).difference(DateTime.now()).inDays;
-  //       // print('DIAS RESTANTES PARA FIN DE AÑO $_diasRestantes');
-  //       // _dia = DateTime.now().difference(DateTime(DateTime.now().year + 1, 1, 1, 0, 0)).inDays;
-  //       // _dia = DateTime.now().difference(DateTime(DateTime.now().year, 1, 1, 0, 0)).inDays;
-  //       // print('HOY ES EL DIA $_dia');
-  //       // _localDB.avioncitosBox!.clear();
-  //       // _localDB.hoyBox!.clear();
-  //       comprobacionDia();
-  //     }
-  //   });
-  // }
-
   Future<void> primerInicio() async {
     await _localDB.openBox().then((iniciado) async {
       if (iniciado) {

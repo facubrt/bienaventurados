@@ -17,49 +17,11 @@ class CompartirProvider with ChangeNotifier {
   Uint8List? _imageFile;
   ScreenshotController screenshot11Controller = ScreenshotController();
 
-  void startPosition(DragStartDetails details) {
-    _isDragging = true;
-
-    notifyListeners();
-  }
-
-  void updatePosition(DragUpdateDetails details) {
-    _position += details.delta;
-    final delta = 40;
-    if (_position.dy >= delta || _position.dy <= -delta) {
-      resetPosition();
-    }
-
-    notifyListeners();
-  }
-
-  void endPosition(
-      ScreenshotController controller, String frase, String santo) {
-    _isDragging = false;
-    final y = _position.dy;
-    final delta = 10;
-    notifyListeners();
-    if (y >= delta) {
-      HapticFeedback.vibrate();
-      print('DESCARGAR');
-      _descargando = true;
-      _takeScreenshotandSave(controller);
-      notifyListeners();
-    } else if (y <= -delta) {
-      HapticFeedback.vibrate();
-      print('COMPARTIR');
-      _compartiendo = true;
-      _takeScreenshotandShare(controller, frase, santo);
-      notifyListeners();
-    }
-    resetPosition();
-  }
-
-  void _takeScreenshotandShare(
+  void takeScreenshotandShare(
       ScreenshotController controller, String frase, String santo) async {
     _imageFile = null;
     await controller
-        .capture(delay: Duration(milliseconds: 20), pixelRatio: 10.0)
+        .capture(delay: Duration(milliseconds: 310), pixelRatio: 6.0)
         .then((image) async {
       _imageFile = image;
 
@@ -76,7 +38,7 @@ class CompartirProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void _takeScreenshotandSave(ScreenshotController controller) async {
+  void takeScreenshotandSave(ScreenshotController controller) async {
     _imageFile = null;
     int _atSecond = DateTime.now()
         .difference(DateTime(DateTime.now().year, 1, 1, 0, 0))
@@ -98,12 +60,12 @@ class CompartirProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void resetPosition() {
-    _isDragging = false;
-    _position = Offset.zero;
+  bool get compartiendo => _compartiendo;
+  set compartiendo(bool compartir) {
+    _compartiendo = compartir;
+    notifyListeners();
   }
 
-  bool get compartiendo => _compartiendo;
   bool get descargando => _descargando;
   bool get isDragging => _isDragging;
   Offset get position => _position;

@@ -8,6 +8,8 @@ class Logros {
       objetivo: 'Inicia Sesión por primera vez',
       img: 'assets/images/logros/logro-primer-inicio.png',
       descripcion: 'descripcion',
+      n: 0,
+      maximo: 1,
       desbloqueado: false,
     ),
     Logro(
@@ -16,6 +18,8 @@ class Logros {
       objetivo: 'Mantén una constancia de 3 día',
       img: 'assets/images/logros/logro-racha-3.png',
       descripcion: 'descripcion',
+      n: 0,
+      maximo: 3,
       desbloqueado: false,
     ),
     Logro(
@@ -24,6 +28,8 @@ class Logros {
       objetivo: 'Mantén una constancia de 10 días',
       img: 'assets/images/logros/logro-racha-10.png',
       descripcion: 'descripcion',
+      n: 3,
+      maximo: 10,
       desbloqueado: false,
     ),
     Logro(
@@ -32,6 +38,8 @@ class Logros {
       objetivo: 'Mantén una constancia de 50 días',
       img: 'assets/images/logros/logro-racha-50.png',
       descripcion: 'descripcion',
+      n: 10,
+      maximo: 50,
       desbloqueado: false,
     ),
     Logro(
@@ -40,6 +48,8 @@ class Logros {
       objetivo: 'Guarda 1 avioncito de papel',
       img: 'assets/images/logros/logro-guardar-1.png',
       descripcion: 'descripcion',
+      n: 0,
+      maximo: 1,
       desbloqueado: false,
     ),
     Logro(
@@ -48,6 +58,8 @@ class Logros {
       objetivo: 'Guarda 10 avioncito de papel',
       img: 'assets/images/logros/logro-guardar-10.png',
       descripcion: 'descripcion',
+      n: 1,
+      maximo: 10,
       desbloqueado: false,
     ),
     Logro(
@@ -56,6 +68,8 @@ class Logros {
       objetivo: 'Guarda 50 avioncito de papel',
       img: 'assets/images/logros/logro-guardar-50.png',
       descripcion: 'descripcion',
+      n: 10,
+      maximo: 50,
       desbloqueado: false,
     ),
     Logro(
@@ -64,6 +78,8 @@ class Logros {
       objetivo: 'Califica la Aplicación en la Play Store',
       img: 'assets/images/logros/logro-calificar-app.png',
       descripcion: 'descripcion',
+      n: 0,
+      maximo: 1,
       desbloqueado: false,
     ),
     Logro(
@@ -72,6 +88,8 @@ class Logros {
       objetivo: 'Comparte 1 avioncito de papel',
       img: 'assets/images/logros/logro-compartir-1.png',
       descripcion: 'descripcion',
+      n: 0,
+      maximo: 1,
       desbloqueado: false,
     ),
     Logro(
@@ -80,6 +98,8 @@ class Logros {
       objetivo: 'Comparte 10 avioncito de papel',
       img: 'assets/images/logros/logro-compartir-10.png',
       descripcion: 'descripcion',
+      n: 1,
+      maximo: 10,
       desbloqueado: false,
     ),
     Logro(
@@ -88,6 +108,8 @@ class Logros {
       objetivo: 'Comparte 50 avioncito de papel',
       img: 'assets/images/logros/logro-compartir-50.png',
       descripcion: 'descripcion',
+      n: 10,
+      maximo: 50,
       desbloqueado: false,
     ),
     Logro(
@@ -96,6 +118,8 @@ class Logros {
       objetivo: 'Comparte Bienaventurados con tus amigos',
       img: 'assets/images/logros/logro-compartir-app.png',
       descripcion: 'descripcion',
+      n: 0,
+      maximo: 1,
       desbloqueado: false,
     ),
     Logro(
@@ -104,6 +128,8 @@ class Logros {
       objetivo: 'Construye 1 avioncito de papel',
       img: 'assets/images/logros/logro-construir-1.png',
       descripcion: 'descripcion',
+      n: 0,
+      maximo: 1,
       desbloqueado: false,
     ),
     Logro(
@@ -112,6 +138,8 @@ class Logros {
       objetivo: 'Construye 10 avioncito de papel',
       img: 'assets/images/logros/logro-construir-10.png',
       descripcion: 'descripcion',
+      n: 1,
+      maximo: 10,
       desbloqueado: false,
     ),
     Logro(
@@ -120,6 +148,8 @@ class Logros {
       objetivo: 'Construye 50 avioncito de papel',
       img: 'assets/images/logros/logro-construir-50.png',
       descripcion: 'descripcion',
+      n: 10,
+      maximo: 50,
       desbloqueado: false,
     ),
     Logro(
@@ -128,6 +158,8 @@ class Logros {
       objetivo: 'Activa el Modo Noche',
       img: 'assets/images/logros/logro-modo-noche.png',
       descripcion: 'descripcion',
+      n: 0,
+      maximo: 1,
       desbloqueado: false,
     ),
   ];

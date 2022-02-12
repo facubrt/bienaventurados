@@ -1,5 +1,6 @@
 import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/core/utils/routes.dart';
+import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -129,8 +130,8 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   },
                 ),
                 SizedBox(
-                height: MediaQuery.of(context).size.width * 0.04,
-              ),
+                  height: MediaQuery.of(context).size.width * 0.04,
+                ),
                 TextFormField(
                   controller: _santoController,
                   autofocus: false,
@@ -470,6 +471,9 @@ class _ConstruirPageState extends State<ConstruirPage> {
             ),
             onPressed: () {
               Navigator.of(context).pushNamed(dashboardPage);
+              final logroProvider =
+                  Provider.of<LogroProvider>(context, listen: false);
+              logroProvider.comprobacionLogros('construidos');
             },
             child: Text('Finalizar',
                 style: Theme.of(context).textTheme.headline4!.copyWith(

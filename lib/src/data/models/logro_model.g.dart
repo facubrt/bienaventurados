@@ -23,13 +23,15 @@ class LogroAdapter extends TypeAdapter<Logro> {
       img: fields[3] as String,
       descripcion: fields[4] as String,
       desbloqueado: fields[5] as bool,
+      n: fields[6] as int,
+      maximo: fields[7] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Logro obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,7 +43,11 @@ class LogroAdapter extends TypeAdapter<Logro> {
       ..writeByte(4)
       ..write(obj.descripcion)
       ..writeByte(5)
-      ..write(obj.desbloqueado);
+      ..write(obj.desbloqueado)
+      ..writeByte(6)
+      ..write(obj.n)
+      ..writeByte(7)
+      ..write(obj.maximo);
   }
 
   @override

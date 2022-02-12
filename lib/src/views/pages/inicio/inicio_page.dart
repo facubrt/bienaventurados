@@ -25,8 +25,8 @@ class InicioPage extends StatefulWidget {
 
 class _InicioPageState extends State<InicioPage> {
   final prefs = PreferenciasUsuario();
-  String? _actualConexion;
-  String? _ultimaConexion;
+  int? _actualConexion;
+  int? _ultimaConexion;
   bool _coleccionDesbloqueada = false;
 
   @override
@@ -45,11 +45,11 @@ class _InicioPageState extends State<InicioPage> {
     final coleccionesProvider =
         Provider.of<ColeccionesProvider>(context, listen: false);
     final logroProvider = Provider.of<LogroProvider>(context, listen: false);
-    _actualConexion = DateTime.now().day.toString();
+    _actualConexion = DateTime.now().day.toInt();
     _ultimaConexion = prefs.ultimaConexion;
     print('ULTIMA CONEXION $_ultimaConexion');
     if (_ultimaConexion != null) {
-      if (_actualConexion == _ultimaConexion) {
+      if (_actualConexion != _ultimaConexion) {
         print('MISMO DIA');
         _coleccionDesbloqueada = prefs.coleccionDesbloqueada;
         await avioncitoProvider.mismoAvioncito();
@@ -58,6 +58,20 @@ class _InicioPageState extends State<InicioPage> {
         await coleccionesProvider.abrirColecciones();
       } else {
         print('NUEVO DIA');
+        final ultimoDia = DateTime(
+            DateTime.now().year, DateTime.now().month, _ultimaConexion!);
+        final nuevoDia = DateTime(
+            DateTime.now().year, DateTime.now().month, _actualConexion!);
+        if (ultimoDia.month == nuevoDia.month ||
+            ultimoDia.month + 1 == nuevoDia.month) {
+          if (ultimoDia.day + 1 == nuevoDia.day || 1 == nuevoDia.day) {
+            print('CONSTANCIA AUMENTADA');
+            logroProvider.comprobacionLogros('constancia');
+          } else {
+            logroProvider.comprobacionLogros('constancia');
+            print('CONSTANCIA NO AUMENTADA');
+          }
+        }
         prefs.ultimaConexion = _actualConexion;
         await avioncitoProvider.nuevoAvioncito();
         coleccionesProvider.abrirColecciones();
@@ -106,7 +120,7 @@ class _InicioPageState extends State<InicioPage> {
               SaludoWidget(),
               AvioncitoWidget(),
               ColeccionesWidget(),
-              InformacionWidget(),
+              //InformacionWidget(),
             ],
           ),
         ),

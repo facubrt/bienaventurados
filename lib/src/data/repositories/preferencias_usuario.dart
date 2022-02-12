@@ -46,12 +46,12 @@ class PreferenciasUsuario extends IPreferenciasUsuario {
   }
 
   // GET y SET ultimaConexion
-  String? get ultimaConexion {
-    return _prefs.getString('ultimaConexion') ?? null;
+  int? get ultimaConexion {
+    return _prefs.getInt('ultimaConexion') ?? null;
   }
 
-  set ultimaConexion(String? ultimaConexion) {
-    _prefs.setString('ultimaConexion', ultimaConexion!);
+  set ultimaConexion(int? ultimaConexion) {
+    _prefs.setInt('ultimaConexion', ultimaConexion!);
   }
 
   // GET y SET imagenPerfil

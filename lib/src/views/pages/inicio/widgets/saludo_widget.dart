@@ -14,20 +14,21 @@ class _SaludoWidgetState extends State<SaludoWidget> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'Bendecido día,',
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                  fontSize: MediaQuery.of(context).size.width * 0.06,
+            style: Theme.of(context).textTheme.headline1!.copyWith(
+                  fontSize: MediaQuery.of(context).size.width * 0.08,
+                  fontWeight: FontWeight.normal,
                 ),
           ),
           Text(
             '${authProvider.usuario.nombre ?? ''}',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
-                  fontSize: MediaQuery.of(context).size.width * 0.06,
+            style: Theme.of(context).textTheme.headline1!.copyWith(
+                  fontSize: MediaQuery.of(context).size.width * 0.08,
                 ),
           ),
         ],

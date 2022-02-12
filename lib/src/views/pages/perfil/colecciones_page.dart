@@ -207,7 +207,7 @@ class ColeccionesPage extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.center,
-                color: Theme.of(context).colorScheme.secondary,
+                color: Theme.of(context).primaryColorDark,
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Text('Desbloqueado',

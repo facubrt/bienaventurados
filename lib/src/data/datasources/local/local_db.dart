@@ -164,6 +164,8 @@ class LocalData {
       objetivo: logro.objetivo,
       img: logro.img,
       descripcion: logro.descripcion,
+      n: logro.n,
+      maximo: logro.maximo,
       desbloqueado: desbloqueado,
     );
     logrosBox!.put(_logro.id, _logro);

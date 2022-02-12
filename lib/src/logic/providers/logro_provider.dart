@@ -40,21 +40,125 @@ class LogroProvider with ChangeNotifier {
               print('LOGRO YA DESBLOQUEADO');
             } else {
               print('LOGRO NO DESBLOQUEADO');
-              setLogro(logro, true);
-              mostrarMensaje(logro);
+              //setLogro(logro, true);
+              actualizarLogro(logro);
             }
             break;
           case 'constancia':
+            constancia(box);
             break;
           case 'guardados':
             Logro logro = box!.getAt(4);
-            if (!logro.desbloqueado) {
-              actualizarLogro(titulo);
+            if (logro.desbloqueado) {
+              logro = box.getAt(5);
+              if (logro.desbloqueado) {
+                logro = box.getAt(6);
+                if (logro.desbloqueado) {
+                  break;
+                } else {
+                  actualizarLogro(logro);
+                  break;
+                }
+              } else {
+                actualizarLogro(logro);
+                break;
+              }
+            }
+            actualizarLogro(logro);
+            break;
+          case 'calificar-app':
+            Logro logro = box!.getAt(7);
+            if (logro.desbloqueado) {
+              print('LOGRO YA DESBLOQUEADO');
+            } else {
+              print('LOGRO NO DESBLOQUEADO');
+              //setLogro(logro, true);
+              actualizarLogro(logro);
+            }
+            break;
+          case 'compartidos':
+            print('LOGRO COMPARTIDOS');
+            Logro logro = box!.getAt(8);
+            if (logro.desbloqueado) {
+              print('PRIMERA VEZ DESBLOQUEADO');
+              logro = box.getAt(9);
+              if (logro.desbloqueado) {
+                print('SEGUNDA VEZ DESBLOQUEADO');
+                logro = box.getAt(10);
+                if (logro.desbloqueado) {
+                  print('TERCERA VEZ DESBLOQUEADO');
+                  break;
+                } else {
+                  actualizarLogro(logro);
+                  break;
+                }
+              } else {
+                actualizarLogro(logro);
+                break;
+              }
+            }
+            actualizarLogro(logro);
+            break;
+          case 'compartir-app':
+            Logro logro = box!.getAt(11);
+            if (logro.desbloqueado) {
+              print('LOGRO YA DESBLOQUEADO');
+            } else {
+              print('LOGRO NO DESBLOQUEADO');
+              //setLogro(logro, true);
+              actualizarLogro(logro);
+            }
+            break;
+          case 'construidos':
+            Logro logro = box!.getAt(12);
+            if (logro.desbloqueado) {
+              logro = box.getAt(13);
+              if (logro.desbloqueado) {
+                logro = box.getAt(14);
+                if (logro.desbloqueado) {
+                  break;
+                } else {
+                  actualizarLogro(logro);
+                  break;
+                }
+              } else {
+                actualizarLogro(logro);
+                break;
+              }
+            }
+            actualizarLogro(logro);
+            break;
+          case 'modo-noche':
+            Logro logro = box!.getAt(15);
+            if (logro.desbloqueado) {
+              print('LOGRO YA DESBLOQUEADO');
+            } else {
+              print('LOGRO NO DESBLOQUEADO');
+              //setLogro(logro, true);
+              actualizarLogro(logro);
             }
             break;
         }
       }
     });
+  }
+
+  void constancia(Box? box) {
+    Logro logro = box!.getAt(1);
+    if (logro.desbloqueado) {
+      print('PRIMERA VEZ DESBLOQUEADO');
+      logro = box.getAt(2);
+      if (logro.desbloqueado) {
+        print('SEGUNDA VEZ DESBLOQUEADO');
+        logro = box.getAt(3);
+        if (logro.desbloqueado) {
+          print('TERCERA VEZ DESBLOQUEADO');
+        }
+      }
+    }
+    logro.n += 1;
+    print('ACCION REALIZADA ${logro.n}');
+    actualizarLogro(logro);
   }
 
   Future<void> abrirLogros() async {
@@ -70,9 +174,13 @@ class LogroProvider with ChangeNotifier {
     return _localDB.logrosBox!;
   }
 
-  void actualizarLogro(String logro) {
-    // ACA ABRIR BOX CONTADOR. VER CUANTO TIENE
-    // SI TIENE SUFICIENTE, DESBLOQUEAR LOGRO. SINO AUMENTAR
+  void actualizarLogro(Logro logro) {
+    if (logro.n == logro.maximo) {
+      setLogro(logro, true);
+      mostrarMensaje(logro);
+    } else {
+      setLogro(logro, false);
+    }
   }
 
   void mostrarMensaje(Logro logro) {

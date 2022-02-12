@@ -1,7 +1,6 @@
 import 'package:bienaventurados/src/data/models/avioncito_model.dart';
 import 'package:bienaventurados/src/views/pages/comenzar/bienaventurados_page.dart';
 import 'package:bienaventurados/src/views/pages/comenzar/iniciar_aventura_page.dart';
-import 'package:bienaventurados/src/views/pages/compartir/compartir_avioncito.dart';
 import 'package:bienaventurados/src/views/pages/configuraciones/cuenta/actualizar_contrasena_page.dart';
 import 'package:bienaventurados/src/views/pages/configuraciones/cuenta/actualizar_correo_page.dart';
 import 'package:bienaventurados/src/views/pages/configuraciones/cuenta/actualizar_nombre_page.dart';
@@ -62,13 +61,6 @@ class Routes {
         Avioncito avioncito = args as Avioncito;
         return SlideUpTransitionRoute(
             widget: AvioncitoPage(avioncito: avioncito));
-      case (compartirPage):
-        final args = settings.arguments;
-        Avioncito avioncito = args as Avioncito;
-        return SlideUpTransitionRoute(
-            widget: CompartirPage(avioncito: avioncito));
-      // case (guardadosPage):
-      //   return SlideLeftTransitionRoute(widget: GuardadosPage());
       case (editarPage):
         final args = settings.arguments;
         Avioncito avioncito = args as Avioncito;

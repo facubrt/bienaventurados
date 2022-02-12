@@ -16,6 +16,10 @@ class Logro {
   String descripcion;
   @HiveField(5)
   bool desbloqueado;
+  @HiveField(6)
+  int n;
+  @HiveField(7)
+  int maximo;
 
   Logro({
     required this.id,
@@ -24,5 +28,7 @@ class Logro {
     required this.img,
     required this.descripcion,
     required this.desbloqueado,
+    required this.n,
+    required this.maximo,
   });
 }

@@ -35,20 +35,8 @@ class _PerfilPageState extends State<PerfilPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
-            //   child: Text(
-            //     'Hola, ${authProvider.usuario.nombre ?? ''}',
-            //     style: Theme.of(context).textTheme.headline1!.copyWith(
-            //           fontSize: MediaQuery.of(context).size.width * 0.08,
-            //         ),
-            //   ),
-            // ),
             PerfilWidget(),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: ComparteWidget(),
-            ),
+            ComparteWidget(),
             ListTile(
               contentPadding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.08,

@@ -15,10 +15,11 @@ class _PerfilWidgetState extends State<PerfilWidget> {
   late String? nombre;
 
   List images = [
-    'perfil-0',
-    'perfil-1',
-    'perfil-2',
-    'perfil-3',
+    'perfil-01',
+    'perfil-02',
+    'perfil-03',
+    'perfil-04',
+    'perfil-05',
   ];
 
   @override
@@ -41,7 +42,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
             splashColor: Colors.transparent,
             onTap: () {
               setState(() {
-                if (_imagenPerfil < 3) {
+                if (_imagenPerfil < (images.length - 1)) {
                   _imagenPerfil += 1;
                 } else {
                   _imagenPerfil = 0;
@@ -52,18 +53,15 @@ class _PerfilWidgetState extends State<PerfilWidget> {
             child: Container(
               height: MediaQuery.of(context).size.width * 0.2,
               width: MediaQuery.of(context).size.width * 0.2,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18),
-                  border: Border.all(
-                      width: 2, color: Theme.of(context).primaryColorDark)),
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Image.asset(
-                    'assets/images/${images[_imagenPerfil]}.png',
-                    fit: BoxFit.cover,
-                  ),
+              // decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(18),
+              //     border: Border.all(
+              //         width: 4, color: Theme.of(context).primaryColorDark)),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  'assets/images/perfil/${images[_imagenPerfil]}.png',
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -84,12 +82,12 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                         ),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.04,
+                    height: MediaQuery.of(context).size.width * 0.02,
                   ),
                   Text(
-                    'Bienaventurado seas',
+                    '¡Bienaventurado seas!',
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                          fontSize: MediaQuery.of(context).size.width * 0.03,
                         ),
                   ),
                 ],
