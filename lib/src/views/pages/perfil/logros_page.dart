@@ -70,15 +70,21 @@ class LogrosPage extends StatelessWidget {
                                 box.getAt(index).img,
                               ),
                             ))
-                        : ColorFiltered(
-                            colorFilter: greyscaleFilter,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: Image.asset(
-                                box.getAt(index).img,
-                              ),
-                            ),
-                          );
+                        : Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColorDark.withOpacity(0.2),
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40), bottomLeft: Radius.circular(100), bottomRight: Radius.circular(100)),
+                          ),
+                        );
+                    // ColorFiltered(
+                    //     colorFilter: greyscaleFilter,
+                    //     child: ClipRRect(
+                    //       borderRadius: BorderRadius.circular(16),
+                    //       child: Image.asset(
+                    //         box.getAt(index).img,
+                    //       ),
+                    //     ),
+                    //   );
                   },
                   childCount: box.values.length,
                 ),

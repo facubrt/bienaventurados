@@ -52,8 +52,8 @@ class _InicioPageState extends State<InicioPage> {
         _coleccionDesbloqueada = prefs.coleccionDesbloqueada;
         await avioncitoProvider.mismoAvioncito();
         await coleccionesProvider.getColeccionDesbloqueada();
-        //logroProvider.abrirLogros();
-        //await coleccionesProvider.abrirColecciones();
+        logroProvider.abrirLogros();
+        await coleccionesProvider.abrirColecciones();
       } else {
         print('NUEVO DIA');
         final ultimoDia = DateTime(
@@ -69,8 +69,8 @@ class _InicioPageState extends State<InicioPage> {
         }
         prefs.ultimaConexion = _actualConexion;
         await avioncitoProvider.nuevoAvioncito();
-        //coleccionesProvider.abrirColecciones();
-        //logroProvider.abrirLogros();
+        coleccionesProvider.abrirColecciones();
+        logroProvider.abrirLogros();
         coleccionesProvider.comprobacionColecciones();
       }
     } else {

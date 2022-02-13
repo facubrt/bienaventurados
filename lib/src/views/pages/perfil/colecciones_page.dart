@@ -72,15 +72,21 @@ class ColeccionesPage extends StatelessWidget {
                                 box.getAt(index).img,
                               ),
                             ))
-                        : ColorFiltered(
-                            colorFilter: greyscaleFilter,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: Image.asset(
-                                box.getAt(index).img,
-                              ),
-                            ),
-                          );
+                        : Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColorDark.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        );
+                    // ColorFiltered(
+                    //     colorFilter: greyscaleFilter,
+                    //     child: ClipRRect(
+                    //       borderRadius: BorderRadius.circular(16),
+                    //       child: Image.asset(
+                    //         box.getAt(index).img,
+                    //       ),
+                    //     ),
+                    //   );
                   },
                   childCount: box.values.length,
                 ),

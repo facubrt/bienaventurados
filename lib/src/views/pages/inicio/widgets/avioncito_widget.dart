@@ -44,18 +44,18 @@ class AvioncitoWidget extends StatelessWidget {
                   ],
                 ),
                 Spacer(),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Chip(
-                    visualDensity: VisualDensity.comfortable,
-                    label: Text(avioncitoProvider.avioncito!.tag!.toUpperCase(),
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            fontSize: MediaQuery.of(context).size.width * 0.025,
-                            fontWeight: FontWeight.bold,
-                            color: Colores.acento)),
-                    backgroundColor: Colores.primarioDay.withOpacity(0.9),
-                  ),
-                ),
+                // Container(
+                //   alignment: Alignment.centerLeft,
+                //   child: Chip(
+                //     visualDensity: VisualDensity.comfortable,
+                //     label: Text(avioncitoProvider.avioncito!.tag!.toUpperCase(),
+                //         style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                //             fontSize: MediaQuery.of(context).size.width * 0.025,
+                //             fontWeight: FontWeight.bold,
+                //             color: Colores.acento)),
+                //     backgroundColor: Colores.primarioDay.withOpacity(0.9),
+                //   ),
+                // ),
                 SizedBox(height: MediaQuery.of(context).size.width * 0.04,),
                 Row(
                   children: [
