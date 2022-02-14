@@ -78,8 +78,23 @@ class ColeccionesWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 20.0),
+                padding: const EdgeInsets.only(top: 20.0, right: 20.0),
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    padding: EdgeInsets.all(0),
+                    icon: Icon(
+                      Iconsax.close_square,
+                      size: MediaQuery.of(context).size.width * 0.06,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
                   children: [
                     Container(
@@ -93,47 +108,21 @@ class ColeccionesWidget extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.height * 0.04,
+                      width: MediaQuery.of(context).size.width * 0.04,
                     ),
                     Flexible(
-                      child: Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              alignment: Alignment.centerRight,
-                              child: IconButton(
-                                padding: EdgeInsets.all(0),
-                                icon: Icon(
-                                  Iconsax.close_square,
-                                  size:
-                                      MediaQuery.of(context).size.width * 0.06,
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ),
-                            Text(coleccion.titulo,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline6!
-                                    .copyWith(
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.05)),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.02,
-                            ),
-                          ],
-                        ),
+                      child: Text(
+                        coleccion.titulo,
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                            fontSize: MediaQuery.of(context).size.width * 0.06),
                       ),
                     ),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 20.0),
                 child: Row(
                   children: [
                     Text(
@@ -157,15 +146,12 @@ class ColeccionesWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.width * 0.04,
-              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
-                  'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. \n\n¡Paz y Bien!',
+                  coleccion.descripcion,
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.03),
+                      fontSize: MediaQuery.of(context).size.width * 0.036),
                 ),
               ),
               SizedBox(

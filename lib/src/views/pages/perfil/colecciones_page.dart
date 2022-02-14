@@ -10,7 +10,29 @@ import 'package:provider/provider.dart';
 class ColeccionesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    
+    const ColorFilter greyscaleFilter = ColorFilter.matrix(<double>[
+      0.2126,
+      0.7152,
+      0.0722,
+      0,
+      0,
+      0.2126,
+      0.7152,
+      0.0722,
+      0,
+      0,
+      0.2126,
+      0.7152,
+      0.0722,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.5,
+      0,
+    ]);
+
     final coleccionesProvider = Provider.of<ColeccionesProvider>(context);
     Box box = coleccionesProvider.getColeccion();
 
@@ -27,13 +49,27 @@ class ColeccionesPage extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             SliverPadding(
-                padding: const EdgeInsets.all(40.0),
-                sliver: SliverToBoxAdapter(
-                  child: Text('Colecciona momentos especiales',
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: MediaQuery.of(context).size.width * 0.08,
-                          )),
-                )),
+              padding: const EdgeInsets.all(40.0),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'Descubre momentos especiales',
+                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.08,
+                      ),
+                ),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.only(left: 40.0, right: 40.0, bottom: 20.0),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                'Colecciona y aprende sobre los momentos claves de nuestra Fe.',
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      color: Theme.of(context).primaryColorDark,
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                    ),),
+              ),
+            ),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
               sliver: SliverGrid(
@@ -50,23 +86,24 @@ class ColeccionesPage extends StatelessWidget {
                                 box.getAt(index).img,
                               ),
                             ))
-                        : Container(
-                            decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .primaryColorDark
-                                  .withOpacity(0.2),
+                        :
+                        // Container(
+                        //     decoration: BoxDecoration(
+                        //       color: Theme.of(context)
+                        //           .primaryColorDark
+                        //           .withOpacity(0.2),
+                        //       borderRadius: BorderRadius.circular(16),
+                        //     ),
+                        //   );
+                        ColorFiltered(
+                            colorFilter: greyscaleFilter,
+                            child: ClipRRect(
                               borderRadius: BorderRadius.circular(16),
+                              child: Image.asset(
+                                box.getAt(index).img,
+                              ),
                             ),
                           );
-                    // ColorFiltered(
-                    //     colorFilter: greyscaleFilter,
-                    //     child: ClipRRect(
-                    //       borderRadius: BorderRadius.circular(16),
-                    //       child: Image.asset(
-                    //         box.getAt(index).img,
-                    //       ),
-                    //     ),
-                    //   );
                   },
                   childCount: box.values.length,
                 ),
@@ -112,8 +149,7 @@ class ColeccionesPage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
                   children: [
                     Container(
@@ -130,20 +166,18 @@ class ColeccionesPage extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.04,
                     ),
                     Flexible(
-                      child: Text(coleccion.titulo,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(
-                                  fontSize:
-                                      MediaQuery.of(context).size.width *
-                                          0.06),),
+                      child: Text(
+                        coleccion.titulo,
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                            fontSize: MediaQuery.of(context).size.width * 0.06),
+                      ),
                     ),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 20.0),
                 child: Row(
                   children: [
                     Text(

@@ -252,5 +252,37 @@ class LogroProvider with ChangeNotifier {
 
   //void desbloquearLogro(String logro) {}
 
-  //void reiniciarLogros(String logro) {}
+  void reiniciarLogros(String logro) {}
+
+  Future<void> restablecerConstancia() async {
+    await _localDB.openBox().then((iniciado) async {
+      if (iniciado) {
+        Box? box = _localDB.getLogros();
+        Logro logro = box!.getAt(1);
+        if (logro.desbloqueado) {
+          print('PRIMERA VEZ DESBLOQUEADO');
+          logro = box.getAt(2);
+          if (logro.desbloqueado) {
+            print('SEGUNDA VEZ DESBLOQUEADO');
+            logro = box.getAt(3);
+            if (logro.desbloqueado) {
+              print('TERCERA VEZ DESBLOQUEADO');
+            } else {
+              print('TERCER LOGRO RESTABLECIDO');
+              logro.n = Logros.logros[logro.id].n;
+              _localDB.setLogro(logro, false);
+            }
+          } else {
+            print('SEGUNDO LOGRO RESTABLECIDO');
+            logro.n = Logros.logros[logro.id].n;
+            _localDB.setLogro(logro, false);
+          }
+        } else {
+          print('PRIMER LOGRO RESTABLECIDO');
+          logro.n = Logros.logros[logro.id].n;
+          _localDB.setLogro(logro, false);
+        }
+      }
+    });
+  }
 }

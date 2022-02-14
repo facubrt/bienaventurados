@@ -26,6 +26,7 @@ class _InicioPageState extends State<InicioPage> {
   final prefs = PreferenciasUsuario();
   int? _actualConexion;
   int? _ultimaConexion;
+  String? _versionApp;
   bool _coleccionDesbloqueada = false;
 
   @override
@@ -46,7 +47,21 @@ class _InicioPageState extends State<InicioPage> {
     final logroProvider = Provider.of<LogroProvider>(context, listen: false);
     _actualConexion = DateTime.now().day.toInt();
     _ultimaConexion = prefs.ultimaConexion;
+    _versionApp = prefs.versionApp;
+    print(_versionApp);
     if (_ultimaConexion != null) {
+      //NUEVA VERSION DE APP
+      if (_versionApp == '' || _versionApp != '1.4.0') {
+        print('CAMBIANDO DE VERSION');
+        _versionApp = '1.4.0';
+        prefs.versionApp = _versionApp;
+        await avioncitoProvider.primerInicio();
+        coleccionesProvider.crearColecciones();
+        logroProvider.iniciarLogros();
+        coleccionesProvider.comprobacionColecciones();
+        logroProvider.comprobacionLogros('Primer Inicio');
+      }
+      //
       if (_actualConexion == _ultimaConexion) {
         print('MISMO DIA');
         _coleccionDesbloqueada = prefs.coleccionDesbloqueada;
@@ -65,7 +80,10 @@ class _InicioPageState extends State<InicioPage> {
           if (ultimoDia.day + 1 == nuevoDia.day || 1 == nuevoDia.day) {
             print('CONSTANCIA AUMENTADA');
             logroProvider.comprobacionLogros('constancia');
-          } 
+          } else {
+            print('CONSTANCIA RESTABLECIDA');
+            logroProvider.restablecerConstancia();
+          }
         }
         prefs.ultimaConexion = _actualConexion;
         await avioncitoProvider.nuevoAvioncito();

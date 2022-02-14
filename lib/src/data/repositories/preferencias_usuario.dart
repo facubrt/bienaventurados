@@ -54,6 +54,16 @@ class PreferenciasUsuario extends IPreferenciasUsuario {
     _prefs.setInt('ultimaConexion', ultimaConexion!);
   }
 
+  // GET y SET versionApp
+  String? get versionApp {
+    return _prefs.getString('versionApp') ?? '';
+  }
+
+  set versionApp(String? versionApp) {
+    _prefs.setString('versionApp', versionApp!);
+  }
+
+
   // GET y SET imagenPerfil
   int get imagenPerfil {
     return _prefs.getInt('imagenPerfil') ?? 0;

@@ -10,6 +10,16 @@ class LogrosPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    const ColorFilter greyscaleFilter = ColorFilter.matrix(
+      <double>[
+        0.2126,0.7152,0.0722,0,0,
+        0.2126,0.7152,0.0722,0,0,
+        0.2126,0.7152,0.0722,0,0,
+        0,0,0,0.5,0,
+        ]
+    );
+
+
     final logroProvider = Provider.of<LogroProvider>(context, listen: false);
     Box box = logroProvider.getLogros();
 
@@ -28,11 +38,22 @@ class LogrosPage extends StatelessWidget {
             SliverPadding(
                 padding: const EdgeInsets.all(40.0),
                 sliver: SliverToBoxAdapter(
-                  child: Text('Descubre todas las insignias',
+                  child: Text('Consigue todas las insignias',
                       style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: MediaQuery.of(context).size.width * 0.08,
                           )),
-                )),
+                ),),
+                SliverPadding(
+              padding: const EdgeInsets.only(left: 40.0, right: 40.0, bottom: 20.0),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                'Cada pequeño paso, cada simple acción merece ser celebrada.',
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      color: Theme.of(context).primaryColorDark,
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                    ),),
+              ),
+            ),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
               sliver: SliverGrid(
@@ -49,27 +70,28 @@ class LogrosPage extends StatelessWidget {
                                 box.getAt(index).img,
                               ),
                             ))
-                        : Container(
-                            decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .primaryColorDark
-                                  .withOpacity(0.2),
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(40),
-                                  topRight: Radius.circular(40),
-                                  bottomLeft: Radius.circular(100),
-                                  bottomRight: Radius.circular(100)),
-                            ),
-                          );
-                    // ColorFiltered(
-                    //     colorFilter: greyscaleFilter,
-                    //     child: ClipRRect(
-                    //       borderRadius: BorderRadius.circular(16),
-                    //       child: Image.asset(
-                    //         box.getAt(index).img,
-                    //       ),
-                    //     ),
-                    //   );
+                        : 
+                        // Container(
+                        //     decoration: BoxDecoration(
+                        //       color: Theme.of(context)
+                        //           .primaryColorDark
+                        //           .withOpacity(0.2),
+                        //       borderRadius: BorderRadius.only(
+                        //           topLeft: Radius.circular(40),
+                        //           topRight: Radius.circular(40),
+                        //           bottomLeft: Radius.circular(100),
+                        //           bottomRight: Radius.circular(100)),
+                        //     ),
+                        //   );
+                    ColorFiltered(
+                        colorFilter: greyscaleFilter,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.asset(
+                            box.getAt(index).img,
+                          ),
+                        ),
+                      );
                   },
                   childCount: box.values.length,
                 ),
