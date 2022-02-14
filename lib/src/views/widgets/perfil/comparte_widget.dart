@@ -35,7 +35,7 @@ class ComparteWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
-                '¿Estás disfrutando de Bienaventurados? Comparte esta aventura con tus amigos para seguir creciendo en la fe juntos',
+                '¿Estás disfrutando de Bienaventurados? Comparte esta aventura con tus amigos para seguir creciendo en la fe juntos.',
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.03,
                       color: Theme.of(context).primaryColorDark,

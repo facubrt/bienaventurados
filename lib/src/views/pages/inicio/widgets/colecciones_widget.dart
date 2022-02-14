@@ -19,7 +19,7 @@ class ColeccionesWidget extends StatelessWidget {
     return prefs.coleccionDesbloqueada
         ? Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
+                const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 30.0),
             child: InkWell(
               onTap: () {
                 abrirColeccion(context, coleccion);

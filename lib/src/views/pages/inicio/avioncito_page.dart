@@ -170,7 +170,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                     '${widget.avioncito.fecha!.day} de ${MesesData.meses[widget.avioncito.fecha!.month - 1].id}, ${widget.avioncito.fecha!.year}'
                         .toUpperCase(),
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.035,
+                          fontSize: MediaQuery.of(context).size.width * 0.036,
                         )),
                 Spacer(),
                 compartirProvider.capturando
@@ -222,7 +222,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                 visualDensity: VisualDensity.comfortable,
                 label: Text(widget.avioncito.tag!.toUpperCase(),
                     style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.025,
+                        fontSize: MediaQuery.of(context).size.width * 0.03,
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).primaryColor)),
                 backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -235,7 +235,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
             child: Text(
               widget.avioncito.frase!,
               style: Theme.of(context).textTheme.headline1!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.068,
+                    fontSize: MediaQuery.of(context).size.width * 0.08,
                   ),
             ),
           ),
@@ -290,7 +290,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                               .bodyText1!
                               .copyWith(
                                 fontSize:
-                                    MediaQuery.of(context).size.width * 0.032,
+                                    MediaQuery.of(context).size.width * 0.04,
                               ),
                         ),
                         Divider(
@@ -401,28 +401,16 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
               ),
               // ListTile(
               //   onTap: () {
-              //     Navigator.of(context).pushNamed(compartirPage, arguments: widget.avioncito);
+              //     Navigator.of(context).pop();
               //   },
-              //   leading: Icon(Iconsax.export_1,
-              //       size: MediaQuery.of(context).size.width * 0.06,
-              //       color: Theme.of(context).primaryColorDark),
-              //   title: Text('Compartir avioncito',
+              //   leading: Icon(Iconsax.message_text,
+              //       color: Theme.of(context).primaryColorDark,
+              //       size: MediaQuery.of(context).size.width * 0.06),
+              //   title: Text('Solicitar corrección',
               //       style: Theme.of(context).textTheme.headline6!.copyWith(
               //             fontSize: MediaQuery.of(context).size.width * 0.04,
               //           )),
               // ),
-              ListTile(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                leading: Icon(Iconsax.message_text,
-                    color: Theme.of(context).primaryColorDark,
-                    size: MediaQuery.of(context).size.width * 0.06),
-                title: Text('Solicitar corrección',
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.04,
-                        )),
-              ),
               Divider(
                 height: 20,
                 indent: 20,

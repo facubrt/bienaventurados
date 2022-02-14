@@ -70,7 +70,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
                     Text(
                       'Tus avioncitos guardados',
                       style: Theme.of(context).textTheme.headline6!.copyWith(
-                            fontSize: MediaQuery.of(context).size.width * 0.052,
+                            fontSize: MediaQuery.of(context).size.width * 0.06,
                           ),
                       textAlign: TextAlign.center,
                     ),
@@ -127,7 +127,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
         children: [
           Text(avioncitoGuardado.frase!,
               style: Theme.of(context).textTheme.headline6!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.048,
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
                   )),
           SizedBox(
             height: 10,
@@ -148,7 +148,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
                 '${avioncitoGuardado.fecha!.day} de ${MesesData.meses[avioncitoGuardado.fecha!.month - 1].id}, ${avioncitoGuardado.fecha!.year}'
                     .toUpperCase(),
                 style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.028,
+                      fontSize: MediaQuery.of(context).size.width * 0.03,
                     ),
               ),
               Spacer(),
@@ -157,7 +157,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
                   avioncitoProvider.noGuardarAvioncito(avioncitoGuardado);
                 },
                 icon: Icon(Iconsax.archive_slash,
-                    size: MediaQuery.of(context).size.width * 0.052,
+                    size: MediaQuery.of(context).size.width * 0.06,
                     color: Theme.of(context).primaryColorDark),
               ),
             ],

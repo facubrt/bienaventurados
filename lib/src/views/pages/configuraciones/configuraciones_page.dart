@@ -85,9 +85,10 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
           separatorBuilder: (context, index) {
             return Divider(
               height: 0,
-               indent: MediaQuery.of(context).size.width * 0.08,
-                  endIndent: MediaQuery.of(context).size.width * 0.08,
-                  color: Theme.of(context).primaryColorDark,);
+              indent: MediaQuery.of(context).size.width * 0.08,
+              endIndent: MediaQuery.of(context).size.width * 0.08,
+              color: Theme.of(context).primaryColorDark,
+            );
           }),
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
@@ -101,7 +102,8 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
   }
 
   Future<void> navegarHacia(int pagina) async {
-    final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
+    final avioncitoProvider =
+        Provider.of<AvioncitoProvider>(context, listen: false);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final prefs = PreferenciasUsuario();
     switch (_listaOpciones[pagina]) {
@@ -121,97 +123,71 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
           builder: (context) {
             return Container(
               color: Theme.of(context).primaryColor,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('¿Deseas descansar de esta aventura?',
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0, right: 20.0),
+                    child: Container(
+                      alignment: Alignment.centerRight,
+                      child: IconButton(
+                        padding: EdgeInsets.all(0),
+                        icon: Icon(
+                          Iconsax.close_square,
+                          size: MediaQuery.of(context).size.width * 0.06,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text('¿Descansar de esta aventura?',
                         style: Theme.of(context).textTheme.headline6!.copyWith(
                             fontSize:
-                                MediaQuery.of(context).size.width * 0.04)),
-                    SizedBox(height: MediaQuery.of(context).size.width * 0.06),
-                    Text(
+                                MediaQuery.of(context).size.width * 0.06)),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.width * 0.06),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
                       'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. \n\n¡Paz y Bien!',
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.04),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.width * 0.08,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.08,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      avioncitoProvider.eliminarDB();
+                          authProvider.signOut();
+                          prefs.limpiarPrefs();
+                          prefs.modoNoche = false;
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              bienaventuradosPage, (route) => false);
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      color: Theme.of(context).primaryColorDark.withOpacity(0.2),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text('Salir',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width * 0.03,
+                                    color: Theme.of(context).primaryColorDark)),
+                      ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        // InkWell(
-                        //   onTap: () {
-                        //     Navigator.of(context).pop();
-                        //   },
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.symmetric(horizontal: 10),
-                        //     child: Text(
-                        //       'Cancelar',
-                        //       style: Theme.of(context)
-                        //           .textTheme
-                        //           .subtitle1!
-                        //           .copyWith(
-                        //               fontSize:
-                        //                   MediaQuery.of(context).size.width *
-                        //                       0.04,
-                        //               color:
-                        //                   Theme.of(context).primaryColorDark),
-                        //     ),
-                        //   ),
-                        // ),
-                        TextButton(
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(width: 2, color: Theme.of(context).primaryColorDark),
-                            backgroundColor: Theme.of(context).primaryColor,
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('Cancelar',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4!
-                                  .copyWith(
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.04,
-                                      color:
-                                          Theme.of(context).primaryColorDark)),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.02,
-                        ),
-                        TextButton(
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: Theme.of(context).primaryColorDark,
-                          ),
-                          onPressed: () {
-                            avioncitoProvider.eliminarDB();
-                            authProvider.signOut();
-                            prefs.limpiarPrefs();
-                            prefs.modoNoche = false;
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                bienaventuradosPage, (route) => false);
-                          },
-                          child: Text('Salir',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4!
-                                  .copyWith(
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.04,
-                                      color:
-                                          Theme.of(context).primaryColor)),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             );
           },

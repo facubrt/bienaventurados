@@ -19,9 +19,12 @@ Widget qrBottomSheet() {
                 child: prefs.modoNoche
                     ? Image.asset(
                         'assets/images/qr-compartir-claro.png',
-                        height: MediaQuery.of(context).size.width * 0.4,
+                        height: MediaQuery.of(context).size.width * 0.6,
                       )
-                    : Image.asset('assets/images/qr-compartir-claro.png'),
+                    : Image.asset(
+                      'assets/images/qr-compartir-oscuro.png',
+                      height: MediaQuery.of(context).size.width * 0.6,
+                      ),
               ),
             ),
             Center(

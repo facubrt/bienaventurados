@@ -37,7 +37,7 @@ class AvioncitoWidget extends StatelessWidget {
                       '${DateTime.now().day} ${MesesData.meses[DateTime.now().month - 1].id.substring(0, 3)}\n${DateTime.now().year}'
                           .toUpperCase(),
                       style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.035,
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
                           color: Colores.primarioDay),
                       textAlign: TextAlign.end,
                     ),
@@ -56,7 +56,9 @@ class AvioncitoWidget extends StatelessWidget {
                 //     backgroundColor: Colores.primarioDay.withOpacity(0.9),
                 //   ),
                 // ),
-                SizedBox(height: MediaQuery.of(context).size.width * 0.04,),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.04,
+                ),
                 Row(
                   children: [
                     Flexible(
@@ -65,31 +67,46 @@ class AvioncitoWidget extends StatelessWidget {
                         children: [
                           Text(
                             'Esto es para vos',
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                              color: Colores.primarioDay,
-                              fontSize: MediaQuery.of(context).size.width * 0.06,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(
+                                  color: Colores.primarioDay,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.06,
+                                ),
                           ),
-                          SizedBox(height: MediaQuery.of(context).size.width * 0.04,),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.width * 0.04,
+                          ),
                           Text(
                             'Descubre este avioncito y dejate abrazar por sus palabras',
-                            style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              color: Colores.primarioDay,
-                              fontSize: MediaQuery.of(context).size.width * 0.03,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(
+                                  color: Colores.primarioDay,
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.04,
+                                ),
                           ),
                         ],
                       ),
                     ),
-                      IconButton(
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Theme.of(context).primaryColor.withOpacity(0.2),
+                      child: IconButton(
                         icon: Icon(
                           Iconsax.play,
                           color: Colores.primarioDay,
                         ),
                         onPressed: () {
-                          Navigator.of(context).pushNamed(avioncitoPage, arguments: avioncitoProvider.avioncito);
+                          Navigator.of(context).pushNamed(avioncitoPage,
+                              arguments: avioncitoProvider.avioncito);
                         },
-                      )
+                      ),
+                    )
                   ],
                 ),
               ],

@@ -78,7 +78,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                   Text(
                     nombre ?? '',
                     style: Theme.of(context).textTheme.headline1!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          fontSize: MediaQuery.of(context).size.width * 0.08,
                         ),
                   ),
                   SizedBox(
@@ -87,7 +87,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                   Text(
                     '¡Bienaventurado seas!',
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.03,
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
                         ),
                   ),
                 ],

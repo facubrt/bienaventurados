@@ -10,35 +10,13 @@ import 'package:provider/provider.dart';
 class ColeccionesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const ColorFilter greyscaleFilter = ColorFilter.matrix(<double>[
-      0.2126,
-      0.7152,
-      0.0722,
-      0,
-      0,
-      0.2126,
-      0.7152,
-      0.0722,
-      0,
-      0,
-      0.2126,
-      0.7152,
-      0.0722,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0,
-    ]);
+    
     final coleccionesProvider = Provider.of<ColeccionesProvider>(context);
     Box box = coleccionesProvider.getColeccion();
 
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text('Colecciones', style: Theme.of(context).textTheme.headline4),
+        //title: Text('Colecciones', style: Theme.of(context).textTheme.headline4),
         elevation: 0.0,
       ),
       body: NotificationListener<OverscrollIndicatorNotification>(
@@ -73,11 +51,13 @@ class ColeccionesPage extends StatelessWidget {
                               ),
                             ))
                         : Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColorDark.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                        );
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .primaryColorDark
+                                  .withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          );
                     // ColorFiltered(
                     //     colorFilter: greyscaleFilter,
                     //     child: ClipRRect(
@@ -116,8 +96,24 @@ class ColeccionesPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
+                padding: const EdgeInsets.only(top: 20.0, right: 20.0),
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    padding: EdgeInsets.all(0),
+                    icon: Icon(
+                      Iconsax.close_square,
+                      size: MediaQuery.of(context).size.width * 0.06,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+              ),
+              Padding(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 20.0),
+                    horizontal: 20.0),
                 child: Row(
                   children: [
                     Container(
@@ -131,47 +127,23 @@ class ColeccionesPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.height * 0.04,
+                      width: MediaQuery.of(context).size.width * 0.04,
                     ),
                     Flexible(
-                      child: Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              alignment: Alignment.centerRight,
-                              child: IconButton(
-                                padding: EdgeInsets.all(0),
-                                icon: Icon(
-                                  Iconsax.close_square,
-                                  size:
-                                      MediaQuery.of(context).size.width * 0.06,
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ),
-                            Text(coleccion.titulo,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline6!
-                                    .copyWith(
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.05)),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.02,
-                            ),
-                          ],
-                        ),
-                      ),
+                      child: Text(coleccion.titulo,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(
+                                  fontSize:
+                                      MediaQuery.of(context).size.width *
+                                          0.06),),
                     ),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
                 child: Row(
                   children: [
                     Text(
@@ -195,15 +167,12 @@ class ColeccionesPage extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.width * 0.04,
-              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
-                  'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. \n\n¡Paz y Bien!',
+                  coleccion.descripcion,
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.03),
+                      fontSize: MediaQuery.of(context).size.width * 0.036),
                 ),
               ),
               SizedBox(
@@ -211,13 +180,13 @@ class ColeccionesPage extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.center,
-                color: Theme.of(context).primaryColorDark,
+                color: Theme.of(context).primaryColorDark.withOpacity(0.2),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Text('Desbloqueado',
                       style: Theme.of(context).textTheme.headline4!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.03,
-                          color: Theme.of(context).primaryColor)),
+                          color: Theme.of(context).primaryColorDark)),
                 ),
               ),
             ],
