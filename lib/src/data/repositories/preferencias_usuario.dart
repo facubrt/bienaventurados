@@ -63,6 +63,14 @@ class PreferenciasUsuario extends IPreferenciasUsuario {
     _prefs.setString('versionApp', versionApp!);
   }
 
+  // GET y SET CambioVersion
+  bool get cambioVersion {
+    return _prefs.getBool('cambioVersion') ?? true;
+  }
+
+  set cambioVersion(bool cambioVersion) {
+    _prefs.setBool('cambioVersion', cambioVersion);
+  }
 
   // GET y SET imagenPerfil
   int get imagenPerfil {

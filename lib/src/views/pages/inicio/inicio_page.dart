@@ -50,18 +50,6 @@ class _InicioPageState extends State<InicioPage> {
     _versionApp = prefs.versionApp;
     print(_versionApp);
     if (_ultimaConexion != null) {
-      //NUEVA VERSION DE APP
-      if (_versionApp == '' || _versionApp != '1.4.0') {
-        print('CAMBIANDO DE VERSION');
-        _versionApp = '1.4.0';
-        prefs.versionApp = _versionApp;
-        await avioncitoProvider.primerInicio();
-        coleccionesProvider.crearColecciones();
-        logroProvider.iniciarLogros();
-        coleccionesProvider.comprobacionColecciones();
-        logroProvider.comprobacionLogros('Primer Inicio');
-      }
-      //
       if (_actualConexion == _ultimaConexion) {
         print('MISMO DIA');
         _coleccionDesbloqueada = prefs.coleccionDesbloqueada;
