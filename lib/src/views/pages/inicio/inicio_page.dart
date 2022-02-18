@@ -4,7 +4,6 @@ import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
 import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/avioncito_widget.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/colecciones_widget.dart';
-import 'package:bienaventurados/src/views/pages/inicio/widgets/informacion_widget.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/saludo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';

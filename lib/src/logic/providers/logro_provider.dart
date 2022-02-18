@@ -177,6 +177,38 @@ class LogroProvider with ChangeNotifier {
     }
   }
 
+  Future<void> disminuirGuardados() async {
+    await _localDB.openBox().then((iniciado) async {
+      if (iniciado) {
+        Box? box = _localDB.getLogros();
+        Logro logro = box!.getAt(4);
+        if (logro.desbloqueado) {
+          print('PRIMER NIVEL DESBLOQUEADO');
+          logro = box.getAt(5);
+          if (logro.desbloqueado) {
+            print('SEGUNDO NIVEL DESBLOQUEADO');
+            logro = box.getAt(6);
+            if (logro.desbloqueado) {
+              print('TERCER NIVEL DESBLOQUEADO');
+            } else {
+              logro.n -= 1;
+              print('ACCION REALIZADA ${logro.n}');
+              actualizarLogro(logro);
+            }
+          } else {
+            logro.n -= 1;
+            print('ACCION REALIZADA ${logro.n}');
+            actualizarLogro(logro);
+          }
+        } else {
+          logro.n -= 1;
+          print('ACCION REALIZADA ${logro.n}');
+          actualizarLogro(logro);
+        }
+      }
+    });
+  } 
+
   void primerInicio(Box? box) {
     Logro logro = box!.getAt(0);
     if (logro.desbloqueado) {

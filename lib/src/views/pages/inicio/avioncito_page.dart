@@ -352,6 +352,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                     logroProvider.comprobacionLogros('guardados');
                     avioncitoProvider.guardarAvioncito(widget.avioncito);
                   } else {
+                    logroProvider.disminuirGuardados();
                     avioncitoProvider.noGuardarAvioncito(widget.avioncito);
                   }
                   Navigator.of(context).pop();
