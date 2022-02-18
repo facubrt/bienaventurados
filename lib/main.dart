@@ -1,10 +1,14 @@
 import 'dart:convert';
-import 'package:bienaventurados/providers/auth_provider.dart';
-import 'package:bienaventurados/providers/avioncito_provider.dart';
-import 'package:bienaventurados/providers/theme_provider.dart';
-import 'package:bienaventurados/repositories/preferencias_usuario.dart';
-import 'package:bienaventurados/services/messaging_service.dart';
-import 'package:bienaventurados/utils/routes.dart';
+import 'package:bienaventurados/src/core/utils/routes.dart';
+import 'package:bienaventurados/src/data/datasources/local/local_db.dart';
+import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
+import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
+import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
+import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
+import 'package:bienaventurados/src/logic/providers/compartir_provider.dart';
+import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
+import 'package:bienaventurados/src/logic/providers/theme_provider.dart';
+import 'package:bienaventurados/src/logic/services/messaging_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -16,25 +20,37 @@ import 'package:flutter/foundation.dart' show kDebugMode;
 late bool _sesionIniciada;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent)); // statusbar transparente
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,]); // orientacion vertical
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent)); // statusbar transparente
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]); // orientacion vertical
   //await SystemChrome.setEnabledSystemUIOverlays([]); // fullscreen
-  
+
   await Firebase.initializeApp();
   //FirebaseCrashlytics.instance.crash(); // simula una falla para Crashlytics
 
   final prefs = new PreferenciasUsuario();
   await prefs.initPrefs();
-  // final localDB = new LocalData();
-  // await localDB.initLocalData();
-  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  final localDB = new LocalData();
+  await localDB.init();
+  await localDB.openBox();
   _sesionIniciada = prefs.sesionIniciada;
-
   return runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (BuildContext context) => AuthProvider.instance(),),
-      ChangeNotifierProvider(create: (BuildContext context) => ThemeProvider(activarModoNoche: prefs.modoNoche)),
-      ChangeNotifierProvider(create: (BuildContext context) => AvioncitoProvider()),
+      ChangeNotifierProvider(
+        create: (BuildContext context) => AuthProvider.instance(),
+      ),
+      ChangeNotifierProvider(
+          create: (BuildContext context) =>
+              ThemeProvider(activarModoNoche: prefs.modoNoche)),
+      ChangeNotifierProvider(
+          create: (BuildContext context) => AvioncitoProvider()),
+      ChangeNotifierProvider(
+          create: (BuildContext context) => CompartirProvider()),
+      ChangeNotifierProvider(create: (BuildContext context) => LogroProvider()),
+      ChangeNotifierProvider(
+          create: (BuildContext context) => ColeccionesProvider()),
     ],
     child: Bienaventurados(),
   ));
@@ -46,16 +62,11 @@ class Bienaventurados extends StatefulWidget {
 }
 
 class _BienaventuradosState extends State<Bienaventurados> {
-
-
   void _firebaseCrash() async {
-
     if (kDebugMode) {
-      await FirebaseCrashlytics.instance
-          .setCrashlyticsCollectionEnabled(false);
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
     } else {
-      await FirebaseCrashlytics.instance
-          .setCrashlyticsCollectionEnabled(true);
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
     }
   }
 
@@ -81,7 +92,7 @@ class _BienaventuradosState extends State<Bienaventurados> {
   Future onSelectNotification(String? payload) async {
     print(payload);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -89,7 +100,9 @@ class _BienaventuradosState extends State<Bienaventurados> {
       title: 'Ser Eucaristía',
       debugShowCheckedModeBanner: false,
       theme: themeProvider.getTheme,
-      initialRoute: _sesionIniciada ? dashboardPage : bienaventuradosPage, //basePage : bienaventuradosPage,
+      initialRoute: _sesionIniciada
+          ? dashboardPage
+          : bienaventuradosPage, //basePage : bienaventuradosPage,
       onGenerateRoute: Routes.generateRoute,
     );
   }
