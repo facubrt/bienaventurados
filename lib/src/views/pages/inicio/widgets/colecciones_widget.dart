@@ -3,6 +3,7 @@ import 'package:bienaventurados/src/data/models/coleccion_model.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
+import 'package:bienaventurados/src/views/widgets/coleccionable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +23,13 @@ class ColeccionesWidget extends StatelessWidget {
                 const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 30.0),
             child: InkWell(
               onTap: () {
-                abrirColeccion(context, coleccion);
+                showFloatingModalBottomSheet<bool?>(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  context: context,
+                  builder: (context) {
+                    return coleccionableWidget(context, coleccion);
+                  },
+                );
               },
               child: Container(
                 width: MediaQuery.of(context).size.width,

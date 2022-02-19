@@ -24,7 +24,27 @@ class CompartirProvider with ChangeNotifier {
       File imgFile = File('$directory/bienaventurados.png');
       await imgFile.writeAsBytes(pngBytes);
       await Share.shareFiles(['$directory/bienaventurados.png'],
-          text: '"$frase" -$santo');
+          text: '"$frase" -$santo #bienaventurados #avioncitodehoy @sereucaristía');
+    }).catchError((onError) {
+      print(onError);
+    });
+    _capturando = false;
+    notifyListeners();
+  }
+
+    void compartirColeccionable(
+      ScreenshotController controller, String titulo) async {
+    _imageFile = null;
+    await controller
+        .capture(delay: Duration(milliseconds: 310), pixelRatio: 6.0)
+        .then((image) async {
+      _imageFile = image;
+      final directory = (await getApplicationDocumentsDirectory()).path;
+      Uint8List pngBytes = _imageFile!;
+      File imgFile = File('$directory/bienaventurados.png');
+      await imgFile.writeAsBytes(pngBytes);
+      await Share.shareFiles(['$directory/bienaventurados.png'],
+          text: '¡Obtuve el coleccionable "$titulo" en #Bienaventurados la aplicación de Ser Eucaristía!');
     }).catchError((onError) {
       print(onError);
     });
