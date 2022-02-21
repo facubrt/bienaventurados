@@ -253,7 +253,7 @@ class LogroProvider with ChangeNotifier {
     await _localDB.openBox().then((iniciado) async {
       if (iniciado) {
         int _nLogros = _localDB.getLogros()!.length;
-        print('TENES $_nLogros LOGROS');
+        //print('TENES $_nLogros LOGROS');
       }
     });
   }

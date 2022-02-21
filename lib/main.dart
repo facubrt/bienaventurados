@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bienaventurados/src/core/utils/routes.dart';
 import 'package:bienaventurados/src/data/datasources/local/local_db.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
@@ -6,6 +7,7 @@ import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
 import 'package:bienaventurados/src/logic/providers/compartir_provider.dart';
+import 'package:bienaventurados/src/logic/providers/info_provider.dart';
 import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
 import 'package:bienaventurados/src/logic/providers/theme_provider.dart';
 import 'package:bienaventurados/src/logic/services/messaging_service.dart';
@@ -20,15 +22,18 @@ import 'package:flutter/foundation.dart' show kDebugMode;
 late bool _sesionIniciada;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent)); // statusbar transparente
+  // statusbar transparente
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  // orientacion vertical
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-  ]); // orientacion vertical
+  ]);
   //await SystemChrome.setEnabledSystemUIOverlays([]); // fullscreen
 
   await Firebase.initializeApp();
-  //FirebaseCrashlytics.instance.crash(); // simula una falla para Crashlytics
+  // simula una falla para Crashlytics
+  //FirebaseCrashlytics.instance.crash();
 
   final prefs = new PreferenciasUsuario();
   await prefs.initPrefs();
@@ -36,21 +41,31 @@ Future<void> main() async {
   await localDB.init();
   await localDB.openBox();
   _sesionIniciada = prefs.sesionIniciada;
+
   return runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
         create: (BuildContext context) => AuthProvider.instance(),
       ),
       ChangeNotifierProvider(
-          create: (BuildContext context) =>
-              ThemeProvider(activarModoNoche: prefs.modoNoche)),
+        create: (BuildContext context) =>
+            ThemeProvider(activarModoNoche: prefs.modoNoche),
+      ),
       ChangeNotifierProvider(
-          create: (BuildContext context) => AvioncitoProvider()),
+        create: (BuildContext context) => AvioncitoProvider(),
+      ),
       ChangeNotifierProvider(
-          create: (BuildContext context) => CompartirProvider()),
-      ChangeNotifierProvider(create: (BuildContext context) => LogroProvider()),
+        create: (BuildContext context) => CompartirProvider(),
+      ),
       ChangeNotifierProvider(
-          create: (BuildContext context) => ColeccionesProvider()),
+        create: (BuildContext context) => LogroProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (BuildContext context) => ColeccionesProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (BuildContext context) => InfoProvider()..cargarInfoApp(),
+      ),
     ],
     child: Bienaventurados(),
   ));

@@ -5,6 +5,7 @@ import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart'
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/core/theme/colores.dart';
 import 'package:bienaventurados/src/logic/providers/compartir_provider.dart';
+import 'package:bienaventurados/src/logic/providers/info_provider.dart';
 import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
@@ -140,6 +141,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
     final compartirProvider = Provider.of<CompartirProvider>(context);
     final logroProvider = Provider.of<LogroProvider>(context);
+    final infoProvider = Provider.of<InfoProvider>(context, listen: false);
     final prefs = PreferenciasUsuario();
     return Container(
       color: Theme.of(context).primaryColor,
@@ -177,6 +179,9 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                     ? SizedBox.shrink()
                     : IconButton(
                         onPressed: () {
+                          //aumentar contador en base de datos infoApp
+                          infoProvider.actualizarInformacionApp('aumentar');
+                          //
                           logroProvider.comprobacionLogros('compartidos');
                           compartirProvider.capturando = true;
                           compartirProvider.takeScreenshotandShare(

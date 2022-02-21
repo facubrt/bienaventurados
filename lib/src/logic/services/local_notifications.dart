@@ -4,6 +4,8 @@ import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import '../../core/utils/utilities.dart';
+
 class LocalNotifications {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   
@@ -94,8 +96,8 @@ class LocalNotifications {
 
   Future<void> scheduleDaily9AMNotification(int hora) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
-        0,
-        'Bendecido dia!',
+        createUniqueId(),
+        '¡Bendecido día!',
         'Un mensaje de amor está esperándote, ¡ve a descubrirlo!',
         _nextInstanceOf9AM(hora),
         const NotificationDetails(
@@ -109,16 +111,15 @@ class LocalNotifications {
           ),
         ),
         androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
+        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.time);
   }
 
   tz.TZDateTime _nextInstanceOf9AM(int hora) {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, hora);
+    tz.TZDateTime scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, hora, 0, 0);
     if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
+      scheduledDate = scheduledDate.add(const Duration(days: 1, hours: 0, minutes: 0, seconds: 0));
     }
     return scheduledDate;
   }

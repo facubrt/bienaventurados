@@ -1,10 +1,13 @@
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
+import 'package:bienaventurados/src/logic/providers/info_provider.dart';
 import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/avioncito_widget.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/colecciones_widget.dart';
+import 'package:bienaventurados/src/views/pages/inicio/widgets/informacion_widget.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/saludo_widget.dart';
+import 'package:bienaventurados/src/views/widgets/perfil/comparte_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
@@ -39,6 +42,7 @@ class _InicioPageState extends State<InicioPage> {
   }
 
   void comprobacionDia() async {
+    final infoProvider = Provider.of<InfoProvider>(context, listen: false);
     final avioncitoProvider =
         Provider.of<AvioncitoProvider>(context, listen: false);
     final coleccionesProvider =
@@ -47,7 +51,7 @@ class _InicioPageState extends State<InicioPage> {
     _actualConexion = DateTime.now().day.toInt();
     _ultimaConexion = prefs.ultimaConexion;
     _versionApp = prefs.versionApp;
-    print(_versionApp);
+    //print(_versionApp);
     if (_ultimaConexion != null) {
       if (_actualConexion == _ultimaConexion) {
         print('MISMO DIA');
@@ -58,6 +62,7 @@ class _InicioPageState extends State<InicioPage> {
         await coleccionesProvider.abrirColecciones();
       } else {
         print('NUEVO DIA');
+        infoProvider.actualizarInformacionApp('restaurar');
         final ultimoDia = DateTime(
             DateTime.now().year, DateTime.now().month, _ultimaConexion!);
         final nuevoDia = DateTime(
@@ -65,10 +70,10 @@ class _InicioPageState extends State<InicioPage> {
         if (ultimoDia.month == nuevoDia.month ||
             ultimoDia.month + 1 == nuevoDia.month) {
           if (ultimoDia.day + 1 == nuevoDia.day || 1 == nuevoDia.day) {
-            print('CONSTANCIA AUMENTADA');
+            //print('CONSTANCIA AUMENTADA');
             logroProvider.comprobacionLogros('constancia');
           } else {
-            print('CONSTANCIA RESTABLECIDA');
+            //print('CONSTANCIA RESTABLECIDA');
             logroProvider.restablecerConstancia();
           }
         }
@@ -118,7 +123,8 @@ class _InicioPageState extends State<InicioPage> {
               SaludoWidget(),
               AvioncitoWidget(),
               ColeccionesWidget(),
-              //InformacionWidget(),
+              ComparteWidget(),
+              InformacionWidget(),
             ],
           ),
         ),

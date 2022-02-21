@@ -13,6 +13,7 @@ dependencies:
   firebase_core: ^1.7.0
   firebase_crashlytics: ^2.2.3
   firebase_in_app_messaging: ^0.5.0+10
+  awesome_notifications: ^0.6.21
   firebase_messaging: ^10.0.8
   fluttertoast: ^8.0.8
   flutter:
@@ -81,6 +82,7 @@ flutter:
     - assets/images/colecciones/
     - assets/images/logros/
     - assets/images/perfil/
+    - assets/images/versiones/
 
   fonts:
     - family: Gotham

@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/core/theme/colores.dart';
 import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
 import 'package:flutter/material.dart';
@@ -90,12 +91,65 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                           fontSize: MediaQuery.of(context).size.width * 0.04,
                         ),
                   ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.02,
+                  ),
+                  //nivelWidget(),
                 ],
               ),
             ),
           )
         ],
       ),
+    );
+  }
+
+  Widget nivelWidget() {
+    final widthExperience = MediaQuery.of(context).size.width - 300;
+    final experience = widthExperience / 2;
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Nivel 3', 
+          style: Theme.of(context).textTheme.headline4!.copyWith(
+                  fontSize: MediaQuery.of(context).size.width * 0.03,
+                ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Stack(children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: Colores.secundarioDay,
+                    ),
+                    height: 10,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: Colors.green),
+                    height: 10,
+                    width: experience,
+                  ),
+                ]),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                '128 / 500',
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  fontSize: MediaQuery.of(context).size.width * 0.03,
+                ),
+              )
+            ],
+          ),
+        ],
     );
   }
 }

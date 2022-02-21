@@ -1,4 +1,4 @@
-import 'package:bienaventurados/src/logic/providers/local_notifications.dart';
+import 'package:bienaventurados/src/logic/services/local_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';

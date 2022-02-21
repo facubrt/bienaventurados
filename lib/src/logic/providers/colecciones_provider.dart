@@ -41,7 +41,7 @@ class ColeccionesProvider with ChangeNotifier {
     await _localDB.openBox().then((iniciado) async {
       if (iniciado) {
         int _nColecciones = _localDB.getColecciones()!.length;
-        print('TENES $_nColecciones COLECCIONES');
+        //print('TENES $_nColecciones COLECCIONES');
       }
     });
   }
@@ -70,7 +70,7 @@ class ColeccionesProvider with ChangeNotifier {
   Future<bool> getColeccionDesbloqueada() async {
     await _localDB.openBox().then((iniciado) async {
       if (iniciado) {
-        print('OBTENIENDO AVIONCITO DE HOY');
+        //print('OBTENIENDO AVIONCITO DE HOY');
         _coleccion = await _localDB.getColeccionDesbloqueada()!.get(0);
       }
     });

@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
    <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name="${applicationName}"
         android:label="Bienaventurados"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="false"
@@ -20,6 +20,7 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize"
+            android:exported="true"
 
             android:showWhenLocked="true"
             android:turnScreenOn="true">

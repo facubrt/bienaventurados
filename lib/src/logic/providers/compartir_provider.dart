@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -24,7 +25,8 @@ class CompartirProvider with ChangeNotifier {
       File imgFile = File('$directory/bienaventurados.png');
       await imgFile.writeAsBytes(pngBytes);
       await Share.shareFiles(['$directory/bienaventurados.png'],
-          text: '"$frase" -$santo #bienaventurados #avioncitodehoy @sereucaristía');
+          text:
+              '"$frase" -$santo #bienaventurados #avioncitodehoy @sereucaristía');
     }).catchError((onError) {
       print(onError);
     });
@@ -32,7 +34,7 @@ class CompartirProvider with ChangeNotifier {
     notifyListeners();
   }
 
-    void compartirColeccionable(
+  void compartirColeccionable(
       ScreenshotController controller, String titulo) async {
     _imageFile = null;
     await controller
@@ -44,7 +46,8 @@ class CompartirProvider with ChangeNotifier {
       File imgFile = File('$directory/bienaventurados.png');
       await imgFile.writeAsBytes(pngBytes);
       await Share.shareFiles(['$directory/bienaventurados.png'],
-          text: '¡Obtuve el coleccionable "$titulo" en #Bienaventurados la aplicación de Ser Eucaristía!');
+          text:
+              '¡Obtuve el coleccionable "$titulo" en #Bienaventurados la aplicación de Ser Eucaristía!');
     }).catchError((onError) {
       print(onError);
     });

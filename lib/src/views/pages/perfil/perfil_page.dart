@@ -1,7 +1,8 @@
 import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/core/utils/routes.dart';
+import 'package:bienaventurados/src/views/pages/perfil/widgets/estadisticas_widget.dart';
 import 'package:bienaventurados/src/views/widgets/perfil/comparte_widget.dart';
-import 'package:bienaventurados/src/views/widgets/perfil/perfil_widget.dart';
+import 'package:bienaventurados/src/views/pages/perfil/widgets/perfil_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,9 @@ class _PerfilPageState extends State<PerfilPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             PerfilWidget(),
-            ComparteWidget(),
+            EstadisticasWidget(),
+            //MochilaWidget(),
+            
             ListTile(
               contentPadding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.08,
@@ -90,6 +93,7 @@ class _PerfilPageState extends State<PerfilPage> {
                   )
                 : SizedBox.shrink(),
             SizedBox(height: MediaQuery.of(context).size.width * 0.08),
+            
           ],
         ),
       ),

@@ -1,11 +1,11 @@
 import 'package:bienaventurados/src/data/datasources/local/drawer_items.dart';
 import 'package:bienaventurados/src/data/models/drawer_item_model.dart';
+import 'package:bienaventurados/src/logic/services/local_notifications.dart';
 import 'package:bienaventurados/src/views/pages/configuraciones/configuraciones_page.dart';
 import 'package:bienaventurados/src/views/pages/construir/construir_page.dart';
 import 'package:bienaventurados/src/views/pages/inicio/inicio_page.dart';
 import 'package:bienaventurados/src/views/pages/guardados/guardados_page.dart';
 import 'package:bienaventurados/src/views/pages/perfil/perfil_page.dart';
-import 'package:bienaventurados/src/logic/providers/local_notifications.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/src/views/widgets/inicio/drawer_widget.dart';
 import 'package:flutter/material.dart';
@@ -33,11 +33,11 @@ class _DashboardPageState extends State<DashboardPage> {
     _paginasCargadas = false;
     closeDrawer();
     noti.init();
-    // if (prefs.momentoNotificaciones != 0) {
-    //   noti.scheduleDaily9AMNotification(prefs.momentoNotificaciones);
-    // } else {
-    //   noti.cancelAllNotification();
-    // }
+    if (prefs.momentoNotificaciones != 0) {
+      noti.scheduleDaily9AMNotification(prefs.momentoNotificaciones);
+    } else {
+      noti.cancelAllNotification();
+    }
     super.initState();
   }
 
