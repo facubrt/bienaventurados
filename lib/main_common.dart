@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bienaventurados/src/core/app.dart';
 import 'package:bienaventurados/src/core/app_config.dart';
 import 'package:bienaventurados/src/core/utils/routes.dart';
 import 'package:bienaventurados/src/data/datasources/local/local_db.dart';
@@ -67,61 +68,8 @@ Future<void> mainCommon(AppConfig config) async {
         create: (BuildContext context) => InfoProvider()..cargarInfoApp(),
       ),
     ],
-    child: Bienaventurados(config),
+    child: Bienaventurados(config, _sesionIniciada),
   ));
 }
 
-class Bienaventurados extends StatefulWidget {
-  final AppConfig config;
-  Bienaventurados(this.config);
 
-  @override
-  _BienaventuradosState createState() => _BienaventuradosState();
-}
-
-class _BienaventuradosState extends State<Bienaventurados> {
-  void _firebaseCrash() async {
-    if (kDebugMode) {
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-    } else {
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-    }
-  }
-
-  @override
-  void initState() {
-    _firebaseCrash();
-    MessagingService.initialize(onSelectNotification).then(
-      (value) => firebaseCloudMessagingListeners(),
-    );
-    super.initState();
-  }
-
-  void firebaseCloudMessagingListeners() async {
-    MessagingService.onMessage.listen(MessagingService.invokeLocalNotification);
-    MessagingService.onMessageOpenedApp.listen(_pageOpenForOnLaunch);
-  }
-
-  _pageOpenForOnLaunch(RemoteMessage remoteMessage) {
-    final Map<String, dynamic> message = remoteMessage.data;
-    onSelectNotification(jsonEncode(message));
-  }
-
-  Future onSelectNotification(String? payload) async {
-    print(payload);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    return MaterialApp(
-      title: 'Ser Eucaristía',
-      debugShowCheckedModeBanner: false,
-      theme: themeProvider.getTheme,
-      initialRoute: _sesionIniciada
-          ? dashboardPage
-          : bienaventuradosPage,
-      onGenerateRoute: Routes.generateRoute,
-    );
-  }
-}
