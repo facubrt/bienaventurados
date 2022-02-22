@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:bienaventurados/src/core/app_config.dart';
 import 'package:bienaventurados/src/core/utils/routes.dart';
 import 'package:bienaventurados/src/data/datasources/local/local_db.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
@@ -20,7 +20,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 
 late bool _sesionIniciada;
-Future<void> main() async {
+Future<void> mainCommon(AppConfig config) async {
   WidgetsFlutterBinding.ensureInitialized();
   // statusbar transparente
   SystemChrome.setSystemUIOverlayStyle(
@@ -67,11 +67,14 @@ Future<void> main() async {
         create: (BuildContext context) => InfoProvider()..cargarInfoApp(),
       ),
     ],
-    child: Bienaventurados(),
+    child: Bienaventurados(config),
   ));
 }
 
 class Bienaventurados extends StatefulWidget {
+  final AppConfig config;
+  Bienaventurados(this.config);
+
   @override
   _BienaventuradosState createState() => _BienaventuradosState();
 }
@@ -117,7 +120,7 @@ class _BienaventuradosState extends State<Bienaventurados> {
       theme: themeProvider.getTheme,
       initialRoute: _sesionIniciada
           ? dashboardPage
-          : bienaventuradosPage, //basePage : bienaventuradosPage,
+          : bienaventuradosPage,
       onGenerateRoute: Routes.generateRoute,
     );
   }

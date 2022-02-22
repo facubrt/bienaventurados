@@ -9,7 +9,7 @@
 
    <application
         android:name="${applicationName}"
-        android:label="Bienaventurados"
+        android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="false"
         android:requestLegacyExternalStorage="true">
