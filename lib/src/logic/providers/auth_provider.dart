@@ -12,6 +12,7 @@ class AuthProvider with ChangeNotifier {
   GoogleSignInAccount? _googleUser;
   Usuario _user = Usuario();
   late String _displayName;
+  bool _constanciaRestablecida = false;
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -28,7 +29,7 @@ class AuthProvider with ChangeNotifier {
       _sesionIniciada = false;
     } else {
       await getUsuarioFromLocal(firebaseUser.uid);
-
+      _sesionIniciada = true;
       notifyListeners();
     }
   }
@@ -46,7 +47,6 @@ class AuthProvider with ChangeNotifier {
           print('USUARIO DESDE LOCAL');
           _user = usuarioBox!.getAt(0);
         }
-        _sesionIniciada = true;
       }
     });
     return true;
@@ -305,11 +305,19 @@ class AuthProvider with ChangeNotifier {
     await userRef.set({
       'actual-constancia': _user.actualConstancia,
     }, SetOptions(merge: true));
-
+    _constanciaRestablecida = false;
     notifyListeners();
   }
 
   bool? get sesionIniciada => _sesionIniciada;
+
+  //GETTER AND SETTERS
+  bool get constanciaRestablecida => _constanciaRestablecida;
+
+  set constanciaRestablecida(bool constanciaRestablecida) {
+    _constanciaRestablecida = constanciaRestablecida;
+  }
+
   Usuario get usuario => _user;
   GoogleSignInAccount? get googleUser => _googleUser;
 }

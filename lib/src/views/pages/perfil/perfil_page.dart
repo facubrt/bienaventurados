@@ -19,6 +19,10 @@ class _PerfilPageState extends State<PerfilPage> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
+    if (authProvider.constanciaRestablecida) {
+      authProvider.restablecerConstancia();
+    }
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -38,11 +42,9 @@ class _PerfilPageState extends State<PerfilPage> {
             PerfilWidget(),
             EstadisticasWidget(),
             //MochilaWidget(),
-            
+
             ListTile(
-              contentPadding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.08,
-                  vertical: MediaQuery.of(context).size.width * 0.04),
+              contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
               onTap: () {
                 Navigator.of(context).pushNamed(logrosPage);
               },
@@ -58,9 +60,7 @@ class _PerfilPageState extends State<PerfilPage> {
               color: Theme.of(context).primaryColorDark,
             ),
             ListTile(
-              contentPadding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.08,
-                  vertical: MediaQuery.of(context).size.width * 0.04),
+              contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
               onTap: () {
                 Navigator.of(context).pushNamed(coleccionesPage);
               },
@@ -77,9 +77,8 @@ class _PerfilPageState extends State<PerfilPage> {
             ),
             (authProvider.usuario.clase == 'administrador')
                 ? ListTile(
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.08,
-                        vertical: MediaQuery.of(context).size.width * 0.04),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
                     onTap: () {
                       Navigator.of(context).pushNamed(tallerPage);
                     },
@@ -92,7 +91,6 @@ class _PerfilPageState extends State<PerfilPage> {
                   )
                 : SizedBox.shrink(),
             SizedBox(height: MediaQuery.of(context).size.width * 0.08),
-            
           ],
         ),
       ),
