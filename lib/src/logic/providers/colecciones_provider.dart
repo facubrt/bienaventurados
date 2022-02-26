@@ -52,15 +52,14 @@ class ColeccionesProvider with ChangeNotifier {
     await _localDB.openBox().then((iniciado) async {
       if (iniciado) {
         for (var i = 0; i < Colecciones.colecciones.length - 1; i++) {
-          if ((_dia == Colecciones.colecciones[i].dia) &&
-              (_mes == Colecciones.colecciones[i].mes)) {
-            print(
-                'DESBLOQUEASTE LA COLECCION ${Colecciones.colecciones[i].titulo}');
+          if ((_dia == Colecciones.colecciones[i].dia) && (_mes == Colecciones.colecciones[i].mes)) {
+            print('DESBLOQUEASTE LA COLECCION ${Colecciones.colecciones[i].titulo}');
             //setColeccion(i, Colecciones.colecciones[i], true);
             prefs.coleccionDesbloqueada = true;
             _coleccionDesbloqueada = true;
             _coleccion = Colecciones.colecciones[i];
             _localDB.setColeccionDesbloqueada(_coleccion!);
+            notifyListeners();
           }
         }
       }
@@ -72,6 +71,8 @@ class ColeccionesProvider with ChangeNotifier {
       if (iniciado) {
         //print('OBTENIENDO AVIONCITO DE HOY');
         _coleccion = await _localDB.getColeccionDesbloqueada()!.get(0);
+        _coleccionDesbloqueada = true;
+        notifyListeners();
       }
     });
     return true;

@@ -28,7 +28,8 @@ Widget coleccionableWidget(BuildContext context, Coleccion? coleccion) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  IconButton(
+                  coleccion!.desbloqueado
+                  ? IconButton(
                     padding: EdgeInsets.all(0),
                     icon: Icon(
                       Iconsax.export_1,
@@ -36,9 +37,10 @@ Widget coleccionableWidget(BuildContext context, Coleccion? coleccion) {
                     ),
                     onPressed: () {
                       compartirProvider.compartirColeccionable(
-                          screenshotController, coleccion!.titulo);
+                          screenshotController, coleccion.titulo);
                     },
-                  ),
+                  )
+                  : SizedBox.shrink(),
                   IconButton(
                     padding: EdgeInsets.all(0),
                     icon: Icon(
@@ -63,7 +65,7 @@ Widget coleccionableWidget(BuildContext context, Coleccion? coleccion) {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),
                     child: Image.asset(
-                      coleccion!.img,
+                      coleccion.img,
                     ),
                   ),
                 ),

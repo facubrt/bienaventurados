@@ -38,6 +38,7 @@ class _InicioPageState extends State<InicioPage> {
 
   @override
   Widget build(BuildContext context) {
+    final coleccionesProvider = Provider.of<ColeccionesProvider>(context);
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -63,7 +64,9 @@ class _InicioPageState extends State<InicioPage> {
             children: [
               SaludoWidget(),
               AvioncitoWidget(),
-              ColeccionesWidget(),
+              coleccionesProvider.coleccionDesbloqueada 
+                ? ColeccionesWidget()
+                : SizedBox.shrink(),
               ComparteWidget(),
               //InformacionWidget(),
             ],

@@ -55,14 +55,14 @@ class _InformacionPageState extends State<InformacionPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              alignment: Alignment.center,
-              child: Image.asset(
-                'assets/images/versiones/san-francisco-1-4.png',
-                height: 140,
-              ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.width * 0.04),
+            // Container(
+            //   alignment: Alignment.center,
+            //   child: Image.asset(
+            //     'assets/images/versiones/san-francisco-1-4.png',
+            //     height: 140,
+            //   ),
+            // ),
+            //SizedBox(height: MediaQuery.of(context).size.width * 0.04),
             Container(
               alignment: Alignment.topCenter,
               width: MediaQuery.of(context).size.width,
