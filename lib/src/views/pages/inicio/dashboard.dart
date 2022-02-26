@@ -23,7 +23,6 @@ class _DashboardPageState extends State<DashboardPage> {
   late double scaleFactor;
   bool isDragging = false;
   late bool isDrawerOpen;
-  final LocalNotifications noti = LocalNotifications();
   final prefs = PreferenciasUsuario();
   DrawerItemModel pagina = DrawerItems.inicio;
   late bool _paginasCargadas;
@@ -32,12 +31,6 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     _paginasCargadas = false;
     closeDrawer();
-    noti.init();
-    if (prefs.momentoNotificaciones != 0) {
-      noti.scheduleDaily9AMNotification(prefs.momentoNotificaciones);
-    } else {
-      noti.cancelAllNotification();
-    }
     super.initState();
   }
 

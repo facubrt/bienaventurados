@@ -4,6 +4,7 @@ import 'package:bienaventurados/src/core/utils/routes.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/src/logic/providers/providers.dart';
 import 'package:bienaventurados/src/logic/providers/theme_provider.dart';
+import 'package:bienaventurados/src/logic/services/local_notifications.dart';
 import 'package:bienaventurados/src/logic/services/messaging_service.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -26,6 +27,7 @@ class _BienaventuradosState extends State<Bienaventurados> {
   int? _ultimaConexion;
   String? _versionApp;
   bool _coleccionDesbloqueada = false;
+  final LocalNotifications noti = LocalNotifications();
 
   void _firebaseCrash() async {
     if (kDebugMode) {
@@ -41,6 +43,13 @@ class _BienaventuradosState extends State<Bienaventurados> {
     MessagingService.initialize(onSelectNotification).then(
       (value) => firebaseCloudMessagingListeners(),
     );
+    noti.init();
+    if (prefs.momentoNotificaciones != 0) {
+      print('NOTIFICACIONES A LAS 9AM');
+      noti.scheduleDaily9AMNotification(prefs.momentoNotificaciones);
+    } else {
+      noti.cancelAllNotification();
+    }
     comprobacionDia();
     super.initState();
   }

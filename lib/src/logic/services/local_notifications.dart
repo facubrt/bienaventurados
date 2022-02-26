@@ -4,8 +4,6 @@ import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../../core/utils/utilities.dart';
-
 class LocalNotifications {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   
@@ -96,7 +94,7 @@ class LocalNotifications {
 
   Future<void> scheduleDaily9AMNotification(int hora) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
-        createUniqueId(),
+        0,
         '¡Bendecido día!',
         'Un mensaje de amor está esperándote, ¡ve a descubrirlo!',
         _nextInstanceOf9AM(hora),

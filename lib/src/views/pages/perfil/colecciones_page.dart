@@ -68,6 +68,39 @@ class ColeccionesPage extends StatelessWidget {
                     ),),
               ),
             ),
+            // SliverToBoxAdapter(
+            //     child: Padding(
+            //       padding: const EdgeInsets.only(bottom: 20.0, left: 40.0, right: 40.0),
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.start,
+            //         children: [
+            //           InkWell(
+            //             child: Container(
+            //               decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(100)),
+            //               child: Padding(
+            //                 padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            //                 child: Text('Solemnidades', style: Theme.of(context).textTheme.headline4!.copyWith(
+            //                   fontSize: MediaQuery.of(context).size.width * 0.04,
+            //                 )),
+            //               ),
+            //             ),
+            //             onTap: () {
+            //               print('Solemnidades');
+            //             },
+            //           ),
+            //           SizedBox(width: 10,),
+            //           InkWell(
+            //             child: Text('Muy pronto...', style: Theme.of(context).textTheme.headline4!.copyWith(
+            //               fontSize: MediaQuery.of(context).size.width * 0.04,
+            //             )),
+            //             onTap: () {
+            //               print('Más colecciones');
+            //             },
+            //           )
+            //         ],
+            //       ),
+            //     ),
+            //   ),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
               sliver: SliverGrid(
@@ -91,16 +124,7 @@ class ColeccionesPage extends StatelessWidget {
                                 box.getAt(index).img,
                               ),
                             ))
-                        :
-                        // Container(
-                        //     decoration: BoxDecoration(
-                        //       color: Theme.of(context)
-                        //           .primaryColorDark
-                        //           .withOpacity(0.2),
-                        //       borderRadius: BorderRadius.circular(16),
-                        //     ),
-                        //   );
-                        ColorFiltered(
+                        : ColorFiltered(
                             colorFilter: greyscaleFilter,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(16),
