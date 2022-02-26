@@ -1,11 +1,14 @@
 import 'package:bienaventurados/src/core/theme/colores.dart';
+import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EstadisticasWidget extends StatelessWidget {
   const EstadisticasWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Card(
@@ -27,7 +30,7 @@ class EstadisticasWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '126',
+                      authProvider.usuario.avCompartidos.toString(),
                       style: Theme.of(context).textTheme.headline4!.copyWith(
                             color: Colores.primarioDay,
                             fontSize: MediaQuery.of(context).size.width * 0.06,
@@ -50,7 +53,7 @@ class EstadisticasWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '36',
+                      authProvider.usuario.avConstruidos.toString(),
                       style: Theme.of(context).textTheme.headline4!.copyWith(
                             color: Colores.primarioDay,
                             fontSize: MediaQuery.of(context).size.width * 0.06,
@@ -73,7 +76,7 @@ class EstadisticasWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '36',
+                      authProvider.usuario.actualConstancia.toString(),
                       style: Theme.of(context).textTheme.headline4!.copyWith(
                             color: Colores.primarioDay,
                             fontSize: MediaQuery.of(context).size.width * 0.06,
@@ -96,7 +99,7 @@ class EstadisticasWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '58',
+                      authProvider.usuario.mejorConstancia.toString(),
                       style: Theme.of(context).textTheme.headline4!.copyWith(
                             color: Colores.primarioDay,
                             fontSize: MediaQuery.of(context).size.width * 0.06,

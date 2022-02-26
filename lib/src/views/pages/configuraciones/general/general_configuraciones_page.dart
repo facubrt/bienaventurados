@@ -6,7 +6,6 @@ import 'package:in_app_review/in_app_review.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 
 enum Availability { loading, available, unavailable }
 

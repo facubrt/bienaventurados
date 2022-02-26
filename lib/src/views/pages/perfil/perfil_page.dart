@@ -1,7 +1,6 @@
 import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/core/utils/routes.dart';
 import 'package:bienaventurados/src/views/pages/perfil/widgets/estadisticas_widget.dart';
-import 'package:bienaventurados/src/views/widgets/perfil/comparte_widget.dart';
 import 'package:bienaventurados/src/views/pages/perfil/widgets/perfil_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';

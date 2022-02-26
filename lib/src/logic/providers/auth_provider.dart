@@ -1,12 +1,13 @@
+import 'package:bienaventurados/src/data/datasources/local/local_db.dart';
 import 'package:bienaventurados/src/data/models/usuario_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-class AuthProvider with ChangeNotifier{
-
+class AuthProvider with ChangeNotifier {
   final FirebaseAuth _auth;
   GoogleSignInAccount? _googleUser;
   Usuario _user = Usuario();
@@ -14,26 +15,41 @@ class AuthProvider with ChangeNotifier{
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final LocalData _localDB = LocalData();
   bool? _sesionIniciada;
+  Box? usuarioBox;
 
   AuthProvider.instance({bool? sesionIniciada}) : _auth = FirebaseAuth.instance {
     _auth.authStateChanges().listen(_onAuthStateChanged);
   }
 
-  Future<void> _onAuthStateChanged( auth.User? firebaseUser) async {
+  Future<void> _onAuthStateChanged(auth.User? firebaseUser) async {
     if (firebaseUser == null) {
       _sesionIniciada = false;
     } else {
-      DocumentSnapshot userSnap = await _db
-        .collection('usuarios')
-        .doc(firebaseUser.uid)
-        .get();
+      await getUsuarioFromLocal(firebaseUser.uid);
 
-      _user.setFromFirestore(userSnap);
-      _sesionIniciada = true;
       notifyListeners();
     }
+  }
 
+  Future<bool> getUsuarioFromLocal(String uid) async {
+    await _localDB.openBox().then((iniciado) async {
+      if (iniciado) {
+        usuarioBox = _localDB.getUsuario();
+        if (usuarioBox!.isEmpty) {
+          print('USUARIO DESDE FIREBASE');
+          DocumentSnapshot userSnap = await _db.collection('usuarios').doc(uid).get();
+          _user.setFromFirestore(userSnap);
+          _localDB.setUsuario(_user);
+        } else {
+          print('USUARIO DESDE LOCAL');
+          _user = usuarioBox!.getAt(0);
+        }
+        _sesionIniciada = true;
+      }
+    });
+    return true;
   }
 
   Future<String?> signInWithEmailAndPassword(String email, String password) async {
@@ -42,10 +58,10 @@ class AuthProvider with ChangeNotifier{
       if (authResult.user != null) {
         auth.User user = authResult.user!;
         _sesionIniciada = true;
-        await updateUserData(user);
+        await updateUserData();
         return 'user-found';
       }
-    } on FirebaseAuthException catch(e) {
+    } on FirebaseAuthException catch (e) {
       print(e.code);
       if (e.code == 'user-not-found') {
         return e.code;
@@ -54,7 +70,6 @@ class AuthProvider with ChangeNotifier{
       } else {
         return 'error';
       }
-
     }
     notifyListeners();
   }
@@ -69,7 +84,7 @@ class AuthProvider with ChangeNotifier{
         await createUserData(user);
         return user;
       }
-    } on FirebaseAuthException catch(e) {
+    } on FirebaseAuthException catch (e) {
       print(e.code);
       if (e.code == 'email-already-in-use') {
         return null;
@@ -77,23 +92,22 @@ class AuthProvider with ChangeNotifier{
     }
     notifyListeners();
   }
-  
-    Future<auth.User?> googleSignIn() async {
+
+  Future<auth.User?> googleSignIn() async {
     try {
       GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
       _googleUser = googleUser;
 
-      final AuthCredential credential = GoogleAuthProvider
-        .credential(
-          idToken: googleAuth.idToken,
-          accessToken: googleAuth.accessToken,
-        );
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+        accessToken: googleAuth.accessToken,
+      );
       UserCredential authResult = await _auth.signInWithCredential(credential);
       auth.User user = authResult.user!;
       _sesionIniciada = true;
       _displayName = user.displayName!.split(' ')[0].toString();
-  
+
       await createUserData(user);
       return user;
     } catch (e) {
@@ -103,9 +117,7 @@ class AuthProvider with ChangeNotifier{
   }
 
   Future<DocumentSnapshot> createUserData(auth.User user) async {
-    DocumentReference userRef = _db
-      .collection('usuarios')
-      .doc(user.uid);
+    DocumentReference userRef = _db.collection('usuarios').doc(user.uid);
     final currentUser = _auth.currentUser;
 
     await userRef.set({
@@ -115,6 +127,10 @@ class AuthProvider with ChangeNotifier{
       'ultimaConexion': DateTime.now(),
       'primeraConexion': DateTime.now(),
       'nombre': _displayName,
+      'av-construidos': _user.avConstruidos ?? 0,
+      'av-compartidos': _user.avCompartidos ?? 0,
+      'actual-constancia': _user.actualConstancia ?? 1,
+      'mejor-constancia': _user.mejorConstancia ?? 1,
     }, SetOptions(merge: true));
     currentUser!.updateDisplayName(_displayName);
 
@@ -123,13 +139,16 @@ class AuthProvider with ChangeNotifier{
     return userData;
   }
 
-  Future<DocumentSnapshot> updateUserData(auth.User user) async {
-    DocumentReference userRef = _db
-      .collection('usuarios')
-      .doc(user.uid);
+  Future<DocumentSnapshot> updateUserData() async {
+    final user = _auth.currentUser;
+    DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
 
     await userRef.set({
       'ultimaConexion': DateTime.now(),
+      'av-construidos': _user.avConstruidos ?? 0,
+      'av-compartidos': _user.avCompartidos ?? 0,
+      'actual-constancia': _user.actualConstancia ?? 1,
+      'mejor-constancia': _user.mejorConstancia ?? 1,
     }, SetOptions(merge: true));
 
     DocumentSnapshot userData = await userRef.get();
@@ -144,7 +163,7 @@ class AuthProvider with ChangeNotifier{
     await userRef.set({
       'nombre': nombre,
     }, SetOptions(merge: true));
-    
+
     _user.nombre = nombre;
     currentUser!.updateDisplayName(_displayName);
     notifyListeners();
@@ -156,7 +175,7 @@ class AuthProvider with ChangeNotifier{
     DocumentReference userRef = _db.collection('usuarios').doc(_user.uid);
     final currentUser = _auth.currentUser;
 
-    if(currentUser!.providerData[0].providerId == 'google.com') {
+    if (currentUser!.providerData[0].providerId == 'google.com') {
       print('CUENTA DE GOOGLE');
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
       final credential = auth.GoogleAuthProvider.credential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
@@ -177,7 +196,7 @@ class AuthProvider with ChangeNotifier{
   Future<bool> actualizarContrasena(String contrasenaAnterior, String contrasenaNueva) async {
     final credential;
     final user = _auth.currentUser;
-    if(user!.providerData[0].providerId == 'google.com') {
+    if (user!.providerData[0].providerId == 'google.com') {
       print('CUENTA DE GOOGLE');
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
       credential = auth.GoogleAuthProvider.credential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
@@ -190,7 +209,7 @@ class AuthProvider with ChangeNotifier{
     }
     user.updatePassword(contrasenaNueva).then((result) {
       user.updatePassword(contrasenaNueva);
-    } );
+    });
     user.reload();
     notifyListeners();
 
@@ -201,7 +220,7 @@ class AuthProvider with ChangeNotifier{
     try {
       await _auth.sendPasswordResetEmail(email: correo);
       return true;
-    } on FirebaseAuthException catch(e) {
+    } on FirebaseAuthException catch (e) {
       print(e);
       return false;
     }
@@ -222,6 +241,70 @@ class AuthProvider with ChangeNotifier{
 
   Future<void> signOut() async {
     return await _auth.signOut();
+  }
+
+  // ESTADISTICAS DE USUARIO
+  Future<void> actualizarCompartidos() async {
+    final user = _auth.currentUser;
+    DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
+    
+    _user.avCompartidos = _user.avCompartidos! + 1;
+    _localDB.setUsuario(_user);
+    
+    await userRef.set({
+      'av-compartidos': _user.avCompartidos,
+    }, SetOptions(merge: true));
+
+    notifyListeners();
+  }
+
+  Future<void> actualizarConstruidos() async {
+    final user = _auth.currentUser;
+    DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
+    
+    _user.avConstruidos = _user.avConstruidos! + 1;
+    _localDB.setUsuario(_user);
+
+    await userRef.set({
+      'av-construidos': _user.avConstruidos,
+    }, SetOptions(merge: true));
+    
+    notifyListeners();
+  }
+
+  void actualizarConstancia() async {
+    final user = _auth.currentUser;
+    DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
+
+    _user.actualConstancia = _user.actualConstancia! + 1;
+    _localDB.setUsuario(_user);
+
+    if (_user.actualConstancia! > _user.mejorConstancia!) {
+      await userRef.set({
+      'actual-constancia': _user.actualConstancia,
+      'mejor-constancia': _user.actualConstancia,
+      }, SetOptions(merge: true));
+    } else {
+      await userRef.set({
+      'actual-constancia': _user.actualConstancia,
+      }, SetOptions(merge: true));
+    }
+
+    notifyListeners();
+  }
+
+  void restablecerConstancia() async {
+    final user = _auth.currentUser;
+    DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
+
+    _user.actualConstancia = 0;
+    _localDB.setUsuario(_user);
+
+    await userRef.set({
+      'actual-constancia': _user.actualConstancia,
+    }, SetOptions(merge: true));
+
+    notifyListeners();
   }
 
   bool? get sesionIniciada => _sesionIniciada;

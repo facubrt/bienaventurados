@@ -1,11 +1,8 @@
-import 'package:bienaventurados/src/data/datasources/local/meses_data.dart';
-import 'package:bienaventurados/src/data/models/coleccion_model.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:bienaventurados/src/views/widgets/coleccionable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class ColeccionesPage extends StatelessWidget {

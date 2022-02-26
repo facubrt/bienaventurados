@@ -125,14 +125,14 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      color: Colores.secundarioDay,
+                      color: Theme.of(context).primaryColorDark.withOpacity(0.2),
                     ),
                     height: 10,
                   ),
                   Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: Colors.green),
+                        color: Theme.of(context).colorScheme.secondary),
                     height: 10,
                     width: experience,
                   ),

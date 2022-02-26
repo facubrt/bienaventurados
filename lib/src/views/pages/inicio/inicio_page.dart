@@ -1,4 +1,5 @@
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
+import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
 import 'package:bienaventurados/src/logic/providers/info_provider.dart';
@@ -42,11 +43,10 @@ class _InicioPageState extends State<InicioPage> {
   }
 
   void comprobacionDia() async {
-    final infoProvider = Provider.of<InfoProvider>(context, listen: false);
-    final avioncitoProvider =
-        Provider.of<AvioncitoProvider>(context, listen: false);
-    final coleccionesProvider =
-        Provider.of<ColeccionesProvider>(context, listen: false);
+    //final infoProvider = Provider.of<InfoProvider>(context, listen: false);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
+    final coleccionesProvider = Provider.of<ColeccionesProvider>(context, listen: false);
     final logroProvider = Provider.of<LogroProvider>(context, listen: false);
     _actualConexion = DateTime.now().day.toInt();
     _ultimaConexion = prefs.ultimaConexion;
@@ -62,19 +62,19 @@ class _InicioPageState extends State<InicioPage> {
         await coleccionesProvider.abrirColecciones();
       } else {
         print('NUEVO DIA');
-        infoProvider.actualizarInformacionApp('restaurar');
-        final ultimoDia = DateTime(
-            DateTime.now().year, DateTime.now().month, _ultimaConexion!);
-        final nuevoDia = DateTime(
-            DateTime.now().year, DateTime.now().month, _actualConexion!);
-        if (ultimoDia.month == nuevoDia.month ||
-            ultimoDia.month + 1 == nuevoDia.month) {
+        //authProvider.updateUserData();
+        //infoProvider.actualizarInformacionApp('restaurar');
+        final ultimoDia = DateTime(DateTime.now().year, DateTime.now().month, _ultimaConexion!);
+        final nuevoDia = DateTime(DateTime.now().year, DateTime.now().month, _actualConexion!);
+        if (ultimoDia.month == nuevoDia.month || ultimoDia.month + 1 == nuevoDia.month) {
           if (ultimoDia.day + 1 == nuevoDia.day || 1 == nuevoDia.day) {
             //print('CONSTANCIA AUMENTADA');
             logroProvider.comprobacionLogros('constancia');
+            authProvider.actualizarConstancia();
           } else {
             //print('CONSTANCIA RESTABLECIDA');
             logroProvider.restablecerConstancia();
+            authProvider.restablecerConstancia();
           }
         }
         prefs.ultimaConexion = _actualConexion;
@@ -107,8 +107,7 @@ class _InicioPageState extends State<InicioPage> {
           onPressed: () {
             widget.openDrawer();
           },
-          icon: Icon(Iconsax.category,
-              size: MediaQuery.of(context).size.width * 0.06),
+          icon: Icon(Iconsax.category, size: MediaQuery.of(context).size.width * 0.06),
         ),
       ),
       body: NotificationListener<OverscrollIndicatorNotification>(
@@ -124,7 +123,7 @@ class _InicioPageState extends State<InicioPage> {
               AvioncitoWidget(),
               ColeccionesWidget(),
               ComparteWidget(),
-              InformacionWidget(),
+              //InformacionWidget(),
             ],
           ),
         ),
