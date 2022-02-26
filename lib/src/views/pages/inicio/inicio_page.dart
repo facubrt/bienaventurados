@@ -60,6 +60,7 @@ class _InicioPageState extends State<InicioPage> {
         await coleccionesProvider.getColeccionDesbloqueada();
         logroProvider.abrirLogros();
         await coleccionesProvider.abrirColecciones();
+        authProvider.actualizarConstancia();
       } else {
         print('NUEVO DIA');
         //authProvider.updateUserData();

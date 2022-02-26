@@ -247,10 +247,10 @@ class AuthProvider with ChangeNotifier {
   Future<void> actualizarCompartidos() async {
     final user = _auth.currentUser;
     DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
-    
+
     _user.avCompartidos = _user.avCompartidos! + 1;
     _localDB.setUsuario(_user);
-    
+
     await userRef.set({
       'av-compartidos': _user.avCompartidos,
     }, SetOptions(merge: true));
@@ -261,14 +261,14 @@ class AuthProvider with ChangeNotifier {
   Future<void> actualizarConstruidos() async {
     final user = _auth.currentUser;
     DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
-    
+
     _user.avConstruidos = _user.avConstruidos! + 1;
     _localDB.setUsuario(_user);
 
     await userRef.set({
       'av-construidos': _user.avConstruidos,
     }, SetOptions(merge: true));
-    
+
     notifyListeners();
   }
 
@@ -277,18 +277,20 @@ class AuthProvider with ChangeNotifier {
     DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
 
     _user.actualConstancia = _user.actualConstancia! + 1;
-    _localDB.setUsuario(_user);
 
     if (_user.actualConstancia! > _user.mejorConstancia!) {
+      _user.mejorConstancia = _user.actualConstancia;
       await userRef.set({
-      'actual-constancia': _user.actualConstancia,
-      'mejor-constancia': _user.actualConstancia,
+        'actual-constancia': _user.actualConstancia,
+        'mejor-constancia': _user.mejorConstancia,
       }, SetOptions(merge: true));
     } else {
       await userRef.set({
-      'actual-constancia': _user.actualConstancia,
+        'actual-constancia': _user.actualConstancia,
       }, SetOptions(merge: true));
     }
+
+    _localDB.setUsuario(_user);
 
     notifyListeners();
   }
