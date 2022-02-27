@@ -277,7 +277,7 @@ class LogroProvider with ChangeNotifier {
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.TOP,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colores.acento,
+        backgroundColor: Colores.acentoSecundario,
         textColor: Colores.primarioDay,
         fontSize: 14.0);
   }

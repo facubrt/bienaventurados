@@ -208,12 +208,15 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
               alignment: Alignment.centerLeft,
               child: Chip(
                 visualDensity: VisualDensity.comfortable,
-                label: Text(widget.avioncito.tag!.toUpperCase(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2!
-                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.03, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor)),
-                backgroundColor: Theme.of(context).colorScheme.secondary,
+                label: Text(
+                  widget.avioncito.tag!.toUpperCase(),
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.03, 
+                      fontWeight: FontWeight.bold, 
+                      color: Colores.primarioDay,
+                    ),
+                ),
+                backgroundColor: Colores.acento,
               ),
             ),
           ),

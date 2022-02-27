@@ -189,7 +189,7 @@ class _DashboardPageState extends State<DashboardPage> {
       transform: Matrix4.translationValues(xOffset - 10, yOffset + 26, 0)..scale(scaleFactor - 0.06),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Theme.of(context).shadowColor,
+        color: Theme.of(context).primaryColorDark.withOpacity(0.05),
       ),
     );
   }

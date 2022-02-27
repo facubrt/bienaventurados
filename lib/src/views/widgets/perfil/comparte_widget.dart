@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/core/theme/colores.dart';
 import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
 import 'package:bienaventurados/src/views/pages/perfil/widgets/qr_bottomsheet.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
@@ -14,8 +15,7 @@ class ComparteWidget extends StatelessWidget {
     return Container(
       color: Theme.of(context).primaryColorDark.withOpacity(0.05),
       child: Padding(
-        padding: const EdgeInsets.only(
-            bottom: 20.0, left: 20, right: 20.0, top: 40.0),
+        padding: const EdgeInsets.only(bottom: 20.0, left: 20, right: 20.0, top: 40.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -47,20 +47,19 @@ class ComparteWidget extends StatelessWidget {
             ),
             TextButton(
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 20.0),
-                child: Text('Comparte esta aventura',
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.03,
-                          color: Theme.of(context).primaryColor,
-                        )),
+                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+                child: Text(
+                  'Comparte esta aventura',
+                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    color: Colores.primarioDay,
+                  ),
+                ),
               ),
               onPressed: () async {
-                final logroProvider =
-                    Provider.of<LogroProvider>(context, listen: false);
+                final logroProvider = Provider.of<LogroProvider>(context, listen: false);
                 logroProvider.comprobacionLogros('compartir-app');
-                await Share.share(
-                    'https://play.google.com/store/apps/details?id=com.sereucaristia');
+                await Share.share('https://play.google.com/store/apps/details?id=com.sereucaristia');
               },
             ),
             SizedBox(
@@ -71,8 +70,7 @@ class ComparteWidget extends StatelessWidget {
                 backgroundColor: Colors.transparent,
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                 child: Text('Código QR',
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.03,
