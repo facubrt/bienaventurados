@@ -1,7 +1,7 @@
 import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/core/utils/routes.dart';
-import 'package:bienaventurados/src/views/widgets/perfil/comparte_widget.dart';
-import 'package:bienaventurados/src/views/widgets/perfil/perfil_widget.dart';
+import 'package:bienaventurados/src/views/pages/perfil/widgets/estadisticas_widget.dart';
+import 'package:bienaventurados/src/views/pages/perfil/widgets/perfil_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +19,10 @@ class _PerfilPageState extends State<PerfilPage> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
+    if (authProvider.constanciaRestablecida) {
+      authProvider.restablecerConstancia();
+    }
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -36,11 +40,11 @@ class _PerfilPageState extends State<PerfilPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             PerfilWidget(),
-            ComparteWidget(),
+            EstadisticasWidget(),
+            //MochilaWidget(),
+
             ListTile(
-              contentPadding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.08,
-                  vertical: MediaQuery.of(context).size.width * 0.04),
+              contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
               onTap: () {
                 Navigator.of(context).pushNamed(logrosPage);
               },
@@ -56,9 +60,7 @@ class _PerfilPageState extends State<PerfilPage> {
               color: Theme.of(context).primaryColorDark,
             ),
             ListTile(
-              contentPadding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.08,
-                  vertical: MediaQuery.of(context).size.width * 0.04),
+              contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
               onTap: () {
                 Navigator.of(context).pushNamed(coleccionesPage);
               },
@@ -75,9 +77,8 @@ class _PerfilPageState extends State<PerfilPage> {
             ),
             (authProvider.usuario.clase == 'administrador')
                 ? ListTile(
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.08,
-                        vertical: MediaQuery.of(context).size.width * 0.04),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
                     onTap: () {
                       Navigator.of(context).pushNamed(tallerPage);
                     },

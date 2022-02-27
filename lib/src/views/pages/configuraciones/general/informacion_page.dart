@@ -35,17 +35,17 @@ class _InformacionPageState extends State<InformacionPage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         title: Text('Acerca de'),
         leading: InkWell(
-          onTap: () {Navigator.of(context).pop();},
+          onTap: () {
+            Navigator.of(context).pop();
+          },
           child: Icon(
             Iconsax.arrow_left,
-            
-            ),
+          ),
         ),
       ),
       body: Padding(
@@ -55,6 +55,14 @@ class _InformacionPageState extends State<InformacionPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            // Container(
+            //   alignment: Alignment.center,
+            //   child: Image.asset(
+            //     'assets/images/versiones/san-francisco-1-4.png',
+            //     height: 140,
+            //   ),
+            // ),
+            //SizedBox(height: MediaQuery.of(context).size.width * 0.04),
             Container(
               alignment: Alignment.topCenter,
               width: MediaQuery.of(context).size.width,
@@ -86,61 +94,64 @@ class _InformacionPageState extends State<InformacionPage> {
               alignment: Alignment.center,
               child: versionInfoWidget(),
             ),
-            Spacer(),
             Container(
               width: MediaQuery.of(context).size.width,
               alignment: Alignment.center,
-              child: GestureDetector(
-                onTap: () async {
-                  final String url = 'https://bienaventurados.web.app';
-                  if (await canLaunch(url)) {
-                    await launch(url);
-                  } else {
-                    throw 'Could not launch $url';
-                  }
-                },
-                child: Text('Página web')
-              
-              )
+              child: oracionSanto(),
             ),
-            SizedBox(height: MediaQuery.of(context).size.width * 0.06,),
+            Spacer(),
             Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    onPressed: () async {
-                      final String url = 'https://twitter.com/sereucaristia';
+                width: MediaQuery.of(context).size.width,
+                alignment: Alignment.center,
+                child: GestureDetector(
+                    onTap: () async {
+                      final String url = 'https://bienaventurados.web.app';
                       if (await canLaunch(url)) {
                         await launch(url);
                       } else {
                         throw 'Could not launch $url';
                       }
                     },
-                    icon: Icon(FlutterIcons.twitter_mco),
-                  ),
-                  IconButton(
-                    onPressed: () async {
-                      final String url = 'https://instagram.com/sereucaristia';
-                      if (await canLaunch(url)) {
-                        await launch(url);
-                      } else {
-                        throw 'Could not launch $url';
-                      }
-                    },
-                    icon: Icon(FlutterIcons.instagram_mco),
-                  ),
-                  IconButton(
-                    onPressed: () async {
-                      final String url = 'https://facebook.com/sereucaristia';
-                      if (await canLaunch(url)) {
-                        await launch(url);
-                      } else {
-                        throw 'Could not launch $url';
-                      }
-                    },
-                    icon: Icon(FlutterIcons.facebook_box_mco),
-                  ),
+                    child: Text('Página web'))),
+            SizedBox(
+              height: MediaQuery.of(context).size.width * 0.06,
+            ),
+            Container(
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                IconButton(
+                  onPressed: () async {
+                    final String url = 'https://twitter.com/sereucaristia';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw 'Could not launch $url';
+                    }
+                  },
+                  icon: Icon(FlutterIcons.twitter_mco),
+                ),
+                IconButton(
+                  onPressed: () async {
+                    final String url = 'https://instagram.com/sereucaristia';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw 'Could not launch $url';
+                    }
+                  },
+                  icon: Icon(FlutterIcons.instagram_mco),
+                ),
+                IconButton(
+                  onPressed: () async {
+                    final String url = 'https://facebook.com/sereucaristia';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw 'Could not launch $url';
+                    }
+                  },
+                  icon: Icon(FlutterIcons.facebook_box_mco),
+                ),
               ]),
             )
           ],
@@ -151,11 +162,23 @@ class _InformacionPageState extends State<InformacionPage> {
 
   Widget versionInfoWidget() {
     return Text(
-      '$appName $version + $buildNumber'.toUpperCase(),
+      'San Francisco de Asís $version + $buildNumber'.toUpperCase(),
       style: Theme.of(context).textTheme.bodyText1!.copyWith(
             fontSize: MediaQuery.of(context).size.width * 0.028,
           ),
       textAlign: TextAlign.center,
+    );
+  }
+
+  Widget oracionSanto() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      child: Text(
+        '"Que el Señor te bendiga y te guarde, te muestre su rostro y otorgue su gracia, te mire benignamente y conceda la paz; que el Señor te bendiga."',
+        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              fontSize: MediaQuery.of(context).size.width * 0.04,
+            ),
+      ),
     );
   }
 }

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-
 class MessagingService {
   static final FirebaseMessaging _messaging = FirebaseMessaging.instance;
 
@@ -26,9 +25,9 @@ class MessagingService {
       FirebaseMessaging.onMessageOpenedApp;
 
   static Future<void> initialize(
-    SelectNotificationCallback onSelectNotification,
-  ) async {
-    print(await _messaging.getToken());
+      SelectNotificationCallback onSelectNotification) async {
+    final myToken = await _messaging.getToken();
+    print('Mi token es $myToken');
     await _requestPermission();
 
     await _initializeLocalNotification(onSelectNotification);
@@ -51,7 +50,8 @@ class MessagingService {
           android: AndroidNotificationDetails(
             'BreakingCodeChannel', // id
             'High Importance Notifications', // title
-            channelDescription: 'This channel is used for important notifications.',
+            channelDescription:
+                'This channel is used for important notifications.',
             icon: android.smallIcon,
           ),
         ),
@@ -64,7 +64,8 @@ class MessagingService {
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
       'BreakingCodeChannel', // id
       'High Importance Notifications', // title
-      description: 'This channel is used for important notifications.', // description
+      description:
+          'This channel is used for important notifications.', // description
       importance: Importance.max,
     );
 

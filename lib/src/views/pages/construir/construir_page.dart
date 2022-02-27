@@ -45,8 +45,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
           onPressed: () {
             widget.openDrawer();
           },
-          icon: Icon(Iconsax.category,
-              size: MediaQuery.of(context).size.width * 0.06),
+          icon: Icon(Iconsax.category, size: MediaQuery.of(context).size.width * 0.06),
         ),
       ),
       body: PageView(
@@ -109,11 +108,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   maxLines: 6,
                   decoration: InputDecoration(
                     hintText: 'Frase',
-                    hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                        color: Theme.of(context)
-                            .primaryColorDark
-                            .withOpacity(0.2)),
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
                     errorBorder: InputBorder.none,
@@ -143,11 +141,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Santo, versículo, ...',
-                    hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                        color: Theme.of(context)
-                            .primaryColorDark
-                            .withOpacity(0.2)),
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
                     errorBorder: InputBorder.none,
@@ -178,15 +175,14 @@ class _ConstruirPageState extends State<ConstruirPage> {
               ),
               onPressed: () {
                 if (fraseFormKey.currentState!.validate()) {
-                  _pageController.nextPage(
-                      duration: Duration(milliseconds: 1200),
-                      curve: Curves.fastLinearToSlowEaseIn);
+                  _pageController.nextPage(duration: Duration(milliseconds: 1200), curve: Curves.fastLinearToSlowEaseIn);
                 }
               },
               child: Text('Siguiente',
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.04,
-                      color: Theme.of(context).primaryColor)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4!
+                      .copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor)),
             ),
           ),
         ),
@@ -224,11 +220,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   maxLines: 8,
                   decoration: InputDecoration(
                     hintText: 'Reflexión',
-                    hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                        color: Theme.of(context)
-                            .primaryColorDark
-                            .withOpacity(0.2)),
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
                     errorBorder: InputBorder.none,
@@ -310,15 +305,14 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     _preguntaController.clear();
                     _misionController.clear();
                   });
-                  _pageController.nextPage(
-                      duration: Duration(milliseconds: 1200),
-                      curve: Curves.fastLinearToSlowEaseIn);
+                  _pageController.nextPage(duration: Duration(milliseconds: 1200), curve: Curves.fastLinearToSlowEaseIn);
                 }
               },
               child: Text('Siguiente',
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.04,
-                      color: Theme.of(context).primaryColor)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4!
+                      .copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor)),
             ),
           ),
         ),
@@ -354,11 +348,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Pregunta (opcional)',
-                    hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                        color: Theme.of(context)
-                            .primaryColorDark
-                            .withOpacity(0.2)),
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
                     errorBorder: InputBorder.none,
@@ -381,11 +374,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: 'Misión (opcional)',
-                    hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                        color: Theme.of(context)
-                            .primaryColorDark
-                            .withOpacity(0.2)),
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
                     errorBorder: InputBorder.none,
@@ -429,9 +421,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
                 // }
               },
               child: Text('Continuar',
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.04,
-                      color: Theme.of(context).primaryColor)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4!
+                      .copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor)),
             ),
           ),
         ),
@@ -453,8 +446,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
         ),
         Padding(
           padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
-          child: Text(
-              'Tu avioncito está terminado y pronto empezará a volar por los corazones de todos en Bienaventurados.\n\n¡Muchas gracias por construir!',
+          child: Text('Tu avioncito está terminado y pronto empezará a volar por los corazones de todos en Bienaventurados.\n\n¡Muchas gracias por construir!',
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.04,
                   )),
@@ -471,14 +463,14 @@ class _ConstruirPageState extends State<ConstruirPage> {
             ),
             onPressed: () {
               Navigator.of(context).pushNamed(dashboardPage);
-              final logroProvider =
-                  Provider.of<LogroProvider>(context, listen: false);
+              final logroProvider = Provider.of<LogroProvider>(context, listen: false);
+              final authProvider = Provider.of<AuthProvider>(context, listen: false);
               logroProvider.comprobacionLogros('construidos');
+              authProvider.actualizarConstruidos();
             },
             child: Text('Finalizar',
-                style: Theme.of(context).textTheme.headline4!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.04,
-                    color: Theme.of(context).primaryColor)),
+                style:
+                    Theme.of(context).textTheme.headline4!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor)),
           ),
         ),
       ),

@@ -2,9 +2,11 @@ import 'dart:typed_data';
 import 'package:bienaventurados/src/data/datasources/local/meses_data.dart';
 import 'package:bienaventurados/src/data/models/avioncito_model.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
+import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/core/theme/colores.dart';
 import 'package:bienaventurados/src/logic/providers/compartir_provider.dart';
+import 'package:bienaventurados/src/logic/providers/info_provider.dart';
 import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
@@ -71,21 +73,13 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                       duration: Duration(milliseconds: 300),
                       curve: Curves.linearToEaseOut,
                       transformAlignment: Alignment.center,
-                      transform: Matrix4.identity()
-                        ..scale(compartirProvider.capturando ? 0.72 : 1.0,
-                            compartirProvider.capturando ? 0.72 : 1.0),
+                      transform: Matrix4.identity()..scale(compartirProvider.capturando ? 0.72 : 1.0, compartirProvider.capturando ? 0.72 : 1.0),
                       decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
                         border: compartirProvider.capturando
-                            ? Border.all(
-                                width: 4,
-                                color: Theme.of(context).primaryColorDark)
-                            : Border.all(
-                                width: 0.0,
-                                color: Theme.of(context).primaryColor),
-                        borderRadius: compartirProvider.capturando
-                            ? BorderRadius.circular(16)
-                            : BorderRadius.zero,
+                            ? Border.all(width: 4, color: Theme.of(context).primaryColorDark)
+                            : Border.all(width: 0.0, color: Theme.of(context).primaryColor),
+                        borderRadius: compartirProvider.capturando ? BorderRadius.circular(16) : BorderRadius.zero,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
@@ -118,13 +112,8 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                       child: Center(
                         child: Text(
                           'Preparando tu avioncito...',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4!
-                              .copyWith(
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.05,
-                                  color: Colores.primarioDay),
+                          style:
+                              Theme.of(context).textTheme.headline4!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.05, color: Colores.primarioDay),
                         ),
                       ),
                     )
@@ -140,6 +129,8 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
     final compartirProvider = Provider.of<CompartirProvider>(context);
     final logroProvider = Provider.of<LogroProvider>(context);
+    //final infoProvider = Provider.of<InfoProvider>(context, listen: false);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final prefs = PreferenciasUsuario();
     return Container(
       color: Theme.of(context).primaryColor,
@@ -167,8 +158,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
             child: Row(
               children: [
                 Text(
-                    '${widget.avioncito.fecha!.day} de ${MesesData.meses[widget.avioncito.fecha!.month - 1].id}, ${widget.avioncito.fecha!.year}'
-                        .toUpperCase(),
+                    '${widget.avioncito.fecha!.day} de ${MesesData.meses[widget.avioncito.fecha!.month - 1].id}, ${widget.avioncito.fecha!.year}'.toUpperCase(),
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.036,
                         )),
@@ -177,17 +167,15 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                     ? SizedBox.shrink()
                     : IconButton(
                         onPressed: () {
+                          //aumentar contador en base de datos infoApp
+                          //infoProvider.actualizarInformacionApp('aumentar');
+                          //
                           logroProvider.comprobacionLogros('compartidos');
                           compartirProvider.capturando = true;
-                          compartirProvider.takeScreenshotandShare(
-                              screenshotController,
-                              widget.avioncito.frase!,
-                              widget.avioncito.santo!);
-                          //Navigator.of(context).pushNamed(compartirPage, arguments: widget.avioncito);
+                          compartirProvider.takeScreenshotandShare(screenshotController, widget.avioncito.frase!, widget.avioncito.santo!);
+                          authProvider.actualizarCompartidos();
                         },
-                        icon: Icon(Iconsax.export_1,
-                            size: MediaQuery.of(context).size.width * 0.06,
-                            color: Theme.of(context).primaryColorDark),
+                        icon: Icon(Iconsax.export_1, size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
                         padding: EdgeInsets.all(0),
                       ),
                 compartirProvider.capturando
@@ -221,10 +209,10 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
               child: Chip(
                 visualDensity: VisualDensity.comfortable,
                 label: Text(widget.avioncito.tag!.toUpperCase(),
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.03,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor)),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2!
+                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.03, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor)),
                 backgroundColor: Theme.of(context).colorScheme.secondary,
               ),
             ),
@@ -259,10 +247,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                   padding: const EdgeInsets.only(bottom: 30),
                   child: Icon(
                     Iconsax.arrow_up_2,
-                    color:
-                        (reflexionOpen || avioncitoProvider.compartirAvioncito)
-                            ? Colors.transparent
-                            : Theme.of(context).primaryColorDark,
+                    color: (reflexionOpen || avioncitoProvider.compartirAvioncito) ? Colors.transparent : Theme.of(context).primaryColorDark,
                     size: MediaQuery.of(context).size.width * 0.06,
                   ),
                 ),
@@ -271,8 +256,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
               curve: Curves.easeInOut,
               height: reflexionOpen ? Align().heightFactor : 00.0,
               child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 20.0, right: 20.0, bottom: 20.0),
+                padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -285,12 +269,8 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                       children: [
                         Text(
                           widget.avioncito.reflexion!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.04,
+                          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                                fontSize: MediaQuery.of(context).size.width * 0.04,
                               ),
                         ),
                         Divider(
@@ -300,13 +280,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                             style: Theme.of(context)
                                 .textTheme
                                 .subtitle1!
-                                .copyWith(
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            0.03,
-                                    color: Theme.of(context)
-                                        .primaryColorDark
-                                        .withOpacity(0.2))),
+                                .copyWith(fontSize: MediaQuery.of(context).size.width * 0.03, color: Theme.of(context).primaryColorDark.withOpacity(0.2))),
                       ],
                     ),
                   ),
@@ -318,13 +292,10 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
   }
 
   Widget avioncitoBottomSheet() {
-    final avioncitoProvider =
-        Provider.of<AvioncitoProvider>(context, listen: false);
-    final compartirProvider =
-        Provider.of<CompartirProvider>(context, listen: false);
+    final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
+    final compartirProvider = Provider.of<CompartirProvider>(context, listen: false);
     final logroProvider = Provider.of<LogroProvider>(context, listen: false);
-    return StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) {
+    return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
       return Container(
         color: Theme.of(context).primaryColor,
         child: Padding(
@@ -352,6 +323,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                     logroProvider.comprobacionLogros('guardados');
                     avioncitoProvider.guardarAvioncito(widget.avioncito);
                   } else {
+                    logroProvider.disminuirGuardados();
                     avioncitoProvider.noGuardarAvioncito(widget.avioncito);
                   }
                   Navigator.of(context).pop();
@@ -359,14 +331,10 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                 leading: avioncitoProvider.avioncito!.guardado!
                     ? Icon(Iconsax.archive_slash,
                         size: MediaQuery.of(context).size.width * 0.06,
-                        color: avioncitoProvider.compartirAvioncito
-                            ? Colors.transparent
-                            : Theme.of(context).primaryColorDark)
+                        color: avioncitoProvider.compartirAvioncito ? Colors.transparent : Theme.of(context).primaryColorDark)
                     : Icon(Iconsax.archive_1,
                         size: MediaQuery.of(context).size.width * 0.06,
-                        color: avioncitoProvider.compartirAvioncito
-                            ? Colors.transparent
-                            : Theme.of(context).primaryColorDark),
+                        color: avioncitoProvider.compartirAvioncito ? Colors.transparent : Theme.of(context).primaryColorDark),
                 title: Text('Guardar avioncito',
                     style: Theme.of(context).textTheme.headline6!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.04,
@@ -389,9 +357,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                             color: Theme.of(context).primaryColorDark,
                           ),
                         ))
-                    : Icon(Iconsax.receive_square,
-                        color: Theme.of(context).primaryColorDark,
-                        size: MediaQuery.of(context).size.width * 0.06),
+                    : Icon(Iconsax.receive_square, color: Theme.of(context).primaryColorDark, size: MediaQuery.of(context).size.width * 0.06),
                 title: Text(
                   'Descargar avioncito',
                   style: Theme.of(context).textTheme.headline6!.copyWith(
@@ -418,14 +384,12 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                 color: Theme.of(context).primaryColorDark,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
                 child: Text(
                   '¿Ya recibiste este avioncito? Ayudanos a construir muchos más avioncitos y sacarlos a pasear. ¡Animate a compartir la fe!',
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.03,
-                        color:
-                            Theme.of(context).primaryColorDark.withOpacity(0.4),
+                        color: Theme.of(context).primaryColorDark.withOpacity(0.4),
                       ),
                 ),
               ),

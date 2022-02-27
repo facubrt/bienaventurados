@@ -39,7 +39,7 @@ def keystoreProperties = new Properties()
 /* codigo agregado para hacer release */
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -82,7 +82,28 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
        }
    }
-   /* agregado para release */
+    /* agregado para release */
+    // FlavorDimension "flavor-type"
+    flavorDimensions "app"
+
+    productFlavors {
+        prod {
+            dimension "app"
+            applicationIdSuffix ""
+            resValue "string", "app_name", "Bienaventurados"
+            versionNameSuffix "-prod"
+            //applicationId "com.sereucaristia"
+        }
+        dev {
+            dimension "app"
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "Bienaventurados Dev"
+            versionNameSuffix "-dev"
+            //applicationId "com.sereucaristia.dev"
+        }
+        
+    }
+
 }
 
 flutter {
