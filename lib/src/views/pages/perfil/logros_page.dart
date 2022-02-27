@@ -19,10 +19,9 @@ class LogrosPage extends StatelessWidget {
         ]
     );
 
-
+  
     final logroProvider = Provider.of<LogroProvider>(context, listen: false);
     Box box = logroProvider.getLogros();
-
     return Scaffold(
       appBar: AppBar(
         //title: Text('Logros', style: Theme.of(context).textTheme.headline4),

@@ -47,11 +47,12 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
         elevation: 0,
         title: Text('Comenzar aventura'),
         leading: InkWell(
-          onTap: () {Navigator.of(context).pop();},
+          onTap: () {
+            Navigator.of(context).pop();
+          },
           child: Icon(
             Iconsax.arrow_left,
-            
-            ),
+          ),
         ),
       ),
       body: PageView(
@@ -95,10 +96,10 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                 maxLines: 6,
                 decoration: InputDecoration(
                   hintText: 'correo',
-                  hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
-                      color:
-                          Theme.of(context).primaryColorDark.withOpacity(0.2)),
+                  hintStyle: Theme.of(context)
+                      .textTheme
+                      .headline2!
+                      .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                   focusedBorder: InputBorder.none,
                   border: InputBorder.none,
                   errorBorder: InputBorder.none,
@@ -108,7 +109,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                 ),
                 validator: (value) {
                   if (!value!.contains('@')) {
-                    return 'Debes ingresar un correo para continuar';
+                    return 'Debes ingresar un correo válido para continuar';
                   } else {
                     return null;
                   }
@@ -128,15 +129,14 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
               ),
               onPressed: () {
                 if (emailFormKey.currentState!.validate()) {
-                  _pageController.nextPage(
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.fastLinearToSlowEaseIn);
+                  _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.fastLinearToSlowEaseIn);
                 }
               },
               child: Text('Continuar',
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.04,
-                      color: Theme.of(context).primaryColor)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4!
+                      .copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor)),
             ),
           ),
         ),
@@ -161,61 +161,56 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                 height: MediaQuery.of(context).size.width * 0.04,
               ),
               TextFormField(
-                controller: passwordController,
-                autofocus: false,
-                keyboardType: TextInputType.text,
-                style: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
-                    ),
-                cursorColor: Theme.of(context).primaryColorDark,
-                cursorWidth: 4,
-                obscureText: ocultarPassword,
-                decoration: InputDecoration(
-                  suffixIcon: InkWell(
-                      hoverColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      onTap: () {
-                        setState(() {
-                          ocultarPassword = !ocultarPassword;
-                        });
-                      },
-                      child: ocultarPassword
-                          ? Icon(
-                              Iconsax.eye_slash,
-                              size: MediaQuery.of(context).size.width * 0.06,
-                              color: Theme.of(context)
-                                  .primaryColorDark
-                                  .withOpacity(0.2),
-                            )
-                          : Icon(
-                              Iconsax.eye,
-                              size: MediaQuery.of(context).size.width * 0.06,
-                              color: Theme.of(context)
-                                  .primaryColorDark
-                                  .withOpacity(0.2),
-                            )),
-                  hintText: 'contraseña',
-                  hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
-                      color:
-                          Theme.of(context).primaryColorDark.withOpacity(0.2)),
-                  focusedBorder: InputBorder.none,
-                  border: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                  focusedErrorBorder: InputBorder.none,
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Debes ingresar una contraseña para continuar';
-                  } else if (value.length < 8) {
-                    return 'La contraseña debe contener más de 8 caracteres';
-                  } else {
-                    return null;
-                  }
-                }
-              ),
+                  controller: passwordController,
+                  autofocus: false,
+                  keyboardType: TextInputType.text,
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                      ),
+                  cursorColor: Theme.of(context).primaryColorDark,
+                  cursorWidth: 4,
+                  obscureText: ocultarPassword,
+                  decoration: InputDecoration(
+                    suffixIcon: InkWell(
+                        hoverColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        onTap: () {
+                          setState(() {
+                            ocultarPassword = !ocultarPassword;
+                          });
+                        },
+                        child: ocultarPassword
+                            ? Icon(
+                                Iconsax.eye_slash,
+                                size: MediaQuery.of(context).size.width * 0.06,
+                                color: Theme.of(context).primaryColorDark.withOpacity(0.2),
+                              )
+                            : Icon(
+                                Iconsax.eye,
+                                size: MediaQuery.of(context).size.width * 0.06,
+                                color: Theme.of(context).primaryColorDark.withOpacity(0.2),
+                              )),
+                    hintText: 'contraseña',
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
+                    focusedBorder: InputBorder.none,
+                    border: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    focusedErrorBorder: InputBorder.none,
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Debes ingresar una contraseña para continuar';
+                    } else if (value.length < 8) {
+                      return 'La contraseña debe contener más de 8 caracteres';
+                    } else {
+                      return null;
+                    }
+                  }),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: InkWell(
@@ -233,13 +228,11 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
           child: Container(
             width: double.infinity,
             height: 50,
-
             child: TextButton(
                 style: OutlinedButton.styleFrom(
                   backgroundColor: Theme.of(context).primaryColorDark,
                 ),
                 child: setUpButtonChild(),
-                
                 onPressed: () {
                   FocusScopeNode currentFocus = FocusScope.of(context);
 
@@ -291,10 +284,10 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                 maxLines: 6,
                 decoration: InputDecoration(
                   hintText: 'nombre',
-                  hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
-                      color:
-                          Theme.of(context).primaryColorDark.withOpacity(0.2)),
+                  hintStyle: Theme.of(context)
+                      .textTheme
+                      .headline2!
+                      .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
                   focusedBorder: InputBorder.none,
                   border: InputBorder.none,
                   errorBorder: InputBorder.none,
@@ -332,7 +325,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                   if (nameFormKey.currentState!.validate()) {
                     setState(() {
                       if (_state == 0) {
-                          _state = 1;
+                        _state = 1;
                         registrarCuenta();
                       }
                     });
@@ -359,10 +352,9 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
       );
     } else if (_state == 1) {
       return Center(
-            child: CircularProgressIndicator(
-              color: Theme.of(context).primaryColor,
-            )
-          );
+          child: CircularProgressIndicator(
+        color: Theme.of(context).primaryColor,
+      ));
     } else {
       return Icon(Icons.check, color: Colors.white);
     }
@@ -374,17 +366,15 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
       backgroundColor: Theme.of(context).colorScheme.secondary,
       content: Padding(
         padding: const EdgeInsets.all(10.0),
-        child:
-            Text('¡No te preocupes! Hemos enviado un correo a ${emailController.text} para que puedas restablecer tu contraseña.',
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.04,
-                      color: Theme.of(context).primaryColor,
-                    )),
+        child: Text('¡No te preocupes! Hemos enviado un correo a ${emailController.text} para que puedas restablecer tu contraseña.',
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  fontSize: MediaQuery.of(context).size.width * 0.04,
+                  color: Theme.of(context).primaryColor,
+                )),
       ),
     );
     authProvider.recuperarCuenta(emailController.text);
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
-
   }
 
   void iniciarCuenta() {
@@ -395,17 +385,15 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
       backgroundColor: Theme.of(context).colorScheme.secondary,
       content: Padding(
         padding: const EdgeInsets.all(10.0),
-        child:
-            Text('¡Oh, oh! Parece que algo no salió bien. Intentalo de nuevo.',
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.04,
-                      color: Theme.of(context).primaryColor,
-                    )),
+        child: Text('¡Oh, oh! Parece que algo no salió bien. Intentalo de nuevo.',
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  fontSize: MediaQuery.of(context).size.width * 0.04,
+                  color: Theme.of(context).primaryColor,
+                )),
       ),
     );
 
-    authProvider.signInWithEmailAndPassword(emailController.text, passwordController.text)
-        .then((resultado) {
+    authProvider.signInWithEmailAndPassword(emailController.text, passwordController.text).then((resultado) {
       if (resultado == 'user-found') {
         prefs.sesionIniciada = true;
         Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
@@ -414,13 +402,16 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
         setState(() {
           _state = 0;
         });
+      } else if (resultado == 'invalid-email') {
+        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        setState(() {
+          _state = 0;
+        });
       } else if (resultado == 'user-not-found') {
         setState(() {
           _state = 0;
         });
-        _pageController.nextPage(
-            duration: Duration(milliseconds: 300),
-            curve: Curves.fastLinearToSlowEaseIn);
+        _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.fastLinearToSlowEaseIn);
       }
     });
   }
@@ -433,23 +424,18 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
       backgroundColor: Theme.of(context).colorScheme.secondary,
       content: Padding(
         padding: const EdgeInsets.all(10.0),
-        child:
-            Text('¡Oh, oh! Parece que algo no salió bien. Intentalo de nuevo.',
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.04,
-                      color: Theme.of(context).primaryColor,
-                    )),
+        child: Text('¡Oh, oh! Parece que algo no salió bien. Intentalo de nuevo.',
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  fontSize: MediaQuery.of(context).size.width * 0.04,
+                  color: Theme.of(context).primaryColor,
+                )),
       ),
     );
 
-    authProvider
-        .createUserWithEmailAndPassword(
-            nameController.text, emailController.text, passwordController.text)
-        .then((resultado) {
+    authProvider.createUserWithEmailAndPassword(nameController.text, emailController.text, passwordController.text).then((resultado) {
       if (resultado != null) {
         prefs.sesionIniciada = true;
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil(dashboardPage, (route) => false);
+        Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
       }

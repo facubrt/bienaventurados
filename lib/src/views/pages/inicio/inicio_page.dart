@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/data/datasources/local/local_db.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
@@ -26,14 +27,10 @@ class InicioPage extends StatefulWidget {
 }
 
 class _InicioPageState extends State<InicioPage> {
-  
+
   @override
   void initState() {
     super.initState();
-    // final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
-    // avioncitoProvider.configuracionInicial();
-    // final coleccionesProvider = Provider.of<ColeccionesProvider>(context, listen: false);
-    // coleccionesProvider.configuracionInicial();
   }
 
   @override
@@ -64,9 +61,7 @@ class _InicioPageState extends State<InicioPage> {
             children: [
               SaludoWidget(),
               AvioncitoWidget(),
-              coleccionesProvider.coleccionDesbloqueada 
-                ? ColeccionesWidget()
-                : SizedBox.shrink(),
+              coleccionesProvider.coleccionDesbloqueada ? ColeccionesWidget() : SizedBox.shrink(),
               ComparteWidget(),
               //InformacionWidget(),
             ],

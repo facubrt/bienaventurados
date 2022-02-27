@@ -230,14 +230,13 @@ class LocalData {
   }
 
   Future<void> deleteData() async {
-    // avioncitosBox.close();
-    // avioncitosBox!.clear();
-    // guardadosBox!.clear();
+    print('DATOS ELIMINADOS');
     Hive.deleteBoxFromDisk('avioncitosBox');
     Hive.deleteBoxFromDisk('guardadosBox');
     Hive.deleteBoxFromDisk('hoyBox');
     Hive.deleteBoxFromDisk('coleccionesBox');
     Hive.deleteBoxFromDisk('logrosBox');
+    Hive.deleteBoxFromDisk('usuarioBox');
     Hive.deleteFromDisk();
     initialized = false;
   }

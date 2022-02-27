@@ -165,11 +165,11 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                   InkWell(
                     onTap: () {
                       avioncitoProvider.eliminarDB();
-                          authProvider.signOut();
-                          prefs.limpiarPrefs();
-                          prefs.modoNoche = false;
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              bienaventuradosPage, (route) => false);
+                      authProvider.signOut();
+                      prefs.limpiarPrefs();
+                      prefs.modoNoche = false;
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          bienaventuradosPage, (route) => false);
                     },
                     child: Container(
                       alignment: Alignment.center,
