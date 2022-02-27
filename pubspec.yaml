@@ -1,7 +1,7 @@
 name: bienaventurados
 description: Aplicación católica de Ser Eucaristía.
 publish_to: "none"
-version: 1.4.1+12
+version: 1.4.1+13
 
 environment:
   sdk: ">=2.14.0 <3.0.0"
