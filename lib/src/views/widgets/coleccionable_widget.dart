@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/core/theme/colores.dart';
 import 'package:bienaventurados/src/data/datasources/local/meses_data.dart';
 import 'package:bienaventurados/src/data/models/coleccion_model.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
@@ -122,39 +123,37 @@ Widget coleccionableWidget(BuildContext context, Coleccion? coleccion) {
                   alignment: Alignment.center,
                   color: Theme.of(context).primaryColorDark.withOpacity(0.2),
                   child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Text(
-                          'Desbloqueado',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4!
-                              .copyWith(
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.03,
-                                  color: Theme.of(context).primaryColorDark),
-                        ),
-                      )),
-                )
-              : Container(
-                  alignment: Alignment.center,
-                  color: Theme.of(context).colorScheme.secondary,
-                  child: TextButton(
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      'Desbloqueado',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.03,
+                              color: Theme.of(context).primaryColorDark),
                     ),
-                    onPressed: () {
-                      coleccionesProvider.setColeccionDesbloqueada = false;
-                      coleccionesProvider.setColeccion(coleccion, true);
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('Desbloquear',
-                        style: Theme.of(context).textTheme.headline4!.copyWith(
-                            fontSize: MediaQuery.of(context).size.width * 0.03,
-                            color: Theme.of(context).primaryColor)),
                   ),
-                ),
+                )
+              : InkWell(
+                onTap: () {
+                  coleccionesProvider.setColeccionDesbloqueada = false;
+                        coleccionesProvider.setColeccion(coleccion, true);
+                        Navigator.of(context).pop();
+                },
+                child: Container(
+                    alignment: Alignment.center,
+                    color: Colores.acentoSecundario,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text('Desbloquear',
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                fontSize: MediaQuery.of(context).size.width * 0.03,
+                                color: Theme.of(context).primaryColor)),
+                    ),
+                    ),
+              ),
         ],
       ),
     ),

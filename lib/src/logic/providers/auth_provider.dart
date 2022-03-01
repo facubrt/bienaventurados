@@ -53,31 +53,33 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<String?> signInWithEmailAndPassword(String email, String password) async {
+    String? message = '';
     try {
       final UserCredential authResult = await _auth.signInWithEmailAndPassword(email: email, password: password);
       if (authResult.user != null) {
         auth.User user = authResult.user!;
         _sesionIniciada = true;
         await updateUserData();
-        return 'user-found';
+        message = 'user-found';
       }
     } on FirebaseAuthException catch (e) {
       print(e.code);
       if (e.code == 'user-not-found') {
-        return e.code;
+        message = e.code;
       } else if (e.code == 'wrong-password') {
-        return e.code;
-      }
-      else if (e.code == 'invalid-email') {
-        return e.code;
+        message = e.code;
+      } else if (e.code == 'invalid-email') {
+        message = e.code;
       } else {
-        return 'error';
+        message = 'error';
       }
     }
     notifyListeners();
+    return message;
   }
 
   Future<auth.User?> createUserWithEmailAndPassword(String nombre, String email, String password) async {
+    auth.User? _user;
     try {
       final UserCredential authResult = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       if (authResult.user != null) {
@@ -85,15 +87,16 @@ class AuthProvider with ChangeNotifier {
         _sesionIniciada = true;
         _displayName = nombre;
         await createUserData(user);
-        return user;
+        _user = user;
       }
     } on FirebaseAuthException catch (e) {
       print(e.code);
       if (e.code == 'email-already-in-use') {
-        return null;
+        _user = null;
       }
     }
     notifyListeners();
+    return _user;
   }
 
   Future<auth.User?> googleSignIn() async {
@@ -130,10 +133,6 @@ class AuthProvider with ChangeNotifier {
       'ultimaConexion': DateTime.now(),
       'primeraConexion': DateTime.now(),
       'nombre': _displayName,
-      'av-construidos': 0,
-      'av-compartidos': 0,
-      'actual-constancia': 1,
-      'mejor-constancia': 1,
     }, SetOptions(merge: true));
     currentUser!.updateDisplayName(_displayName);
 
@@ -148,6 +147,7 @@ class AuthProvider with ChangeNotifier {
 
     await userRef.set({
       'ultimaConexion': DateTime.now(),
+      'actual-constancia': 1,
     }, SetOptions(merge: true));
 
     DocumentSnapshot userData = await userRef.get();
@@ -298,7 +298,7 @@ class AuthProvider with ChangeNotifier {
     final user = _auth.currentUser;
     DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
 
-    _user.actualConstancia = 0;
+    _user.actualConstancia = 1;
     _localDB.setUsuario(_user);
 
     await userRef.set({

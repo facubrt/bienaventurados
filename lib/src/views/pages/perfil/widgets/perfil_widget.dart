@@ -1,4 +1,3 @@
-import 'package:bienaventurados/src/core/theme/colores.dart';
 import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
 import 'package:flutter/material.dart';

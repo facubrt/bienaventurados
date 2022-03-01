@@ -71,7 +71,7 @@ class ThemeProvider extends ChangeNotifier {
         style: ButtonStyle(
       foregroundColor: MaterialStateProperty.all<Color>(Colores.primarioNight),
       shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder()),
-      backgroundColor: MaterialStateProperty.all<Color>(Colores.acento),
+      backgroundColor: MaterialStateProperty.all<Color>(Colores.acentoSecundario),
       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
           EdgeInsets.symmetric(horizontal: 20)),
     )),
@@ -168,7 +168,7 @@ class ThemeProvider extends ChangeNotifier {
         style: ButtonStyle(
       foregroundColor: MaterialStateProperty.all<Color>(Colores.primarioDay),
       shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder()),
-      backgroundColor: MaterialStateProperty.all<Color>(Colores.acento),
+      backgroundColor: MaterialStateProperty.all<Color>(Colores.acentoSecundario),
       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
           EdgeInsets.symmetric(horizontal: 20)),
     )),
@@ -190,11 +190,11 @@ class ThemeProvider extends ChangeNotifier {
     scaffoldBackgroundColor: Colores.primarioNight,
     primaryColor: Colores.primarioNight,
     //disabledColor: Colores.secundarioNight,
-    cardColor: Colores.secundarioNight,
+    cardColor: Colores.acentoOscuro,
     //dividerColor: Colores.contrasteNight,
     hoverColor: Colores.contrasteNight,
     hintColor: Colores.contrasteNight,
-    shadowColor: Colores.secundarioNight,
+    shadowColor: Colores.acentoOscuro,
     highlightColor: Colors.transparent,
     dialogBackgroundColor: Colores.primarioNight,
     primaryColorDark: Colores.contrasteNight,

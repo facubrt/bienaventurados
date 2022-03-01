@@ -1,7 +1,6 @@
-import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
-import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/src/core/utils/routes.dart';
+import 'package:bienaventurados/src/logic/providers/providers.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -11,10 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:in_app_review/in_app_review.dart';
 
 class ConfiguracionesPage extends StatefulWidget {
-  final VoidCallback openDrawer;
-
-  const ConfiguracionesPage({Key? key, required this.openDrawer})
-      : super(key: key);
+  const ConfiguracionesPage({Key? key}) : super(key: key);
 
   @override
   State<ConfiguracionesPage> createState() => _ConfiguracionesPageState();
@@ -53,6 +49,7 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final drawerProvider = Provider.of<DrawerProvider>(context);
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -60,19 +57,16 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            widget.openDrawer();
+            drawerProvider.openDrawer();
           },
-          icon: Icon(Iconsax.category,
-              size: MediaQuery.of(context).size.width * 0.06),
+          icon: Icon(Iconsax.category, size: MediaQuery.of(context).size.width * 0.06),
         ),
       ),
       body: ListView.separated(
           itemCount: _listaOpciones.length,
           itemBuilder: (context, index) {
             return ListTile(
-              contentPadding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.08,
-                  vertical: MediaQuery.of(context).size.width * 0.04),
+              contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
               onTap: () {
                 navegarHacia(index);
               },
@@ -102,8 +96,7 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
   }
 
   Future<void> navegarHacia(int pagina) async {
-    final avioncitoProvider =
-        Provider.of<AvioncitoProvider>(context, listen: false);
+    final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final prefs = PreferenciasUsuario();
     switch (_listaOpciones[pagina]) {
@@ -146,17 +139,14 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text('¿Descansar de esta aventura?',
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                            fontSize:
-                                MediaQuery.of(context).size.width * 0.06)),
+                        style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.06)),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.width * 0.06),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
                       'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. \n\n¡Paz y Bien!',
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.04),
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.04),
                     ),
                   ),
                   SizedBox(
@@ -168,8 +158,7 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                       authProvider.signOut();
                       prefs.limpiarPrefs();
                       prefs.modoNoche = false;
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          bienaventuradosPage, (route) => false);
+                      Navigator.of(context).pushNamedAndRemoveUntil(bienaventuradosPage, (route) => false);
                     },
                     child: Container(
                       alignment: Alignment.center,
@@ -180,10 +169,7 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                             style: Theme.of(context)
                                 .textTheme
                                 .headline4!
-                                .copyWith(
-                                    fontSize:
-                                        MediaQuery.of(context).size.width * 0.03,
-                                    color: Theme.of(context).primaryColorDark)),
+                                .copyWith(fontSize: MediaQuery.of(context).size.width * 0.03, color: Theme.of(context).primaryColorDark)),
                       ),
                     ),
                   ),
