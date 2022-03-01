@@ -1,4 +1,5 @@
 import 'package:bienaventurados/src/views/pages/perfil/widgets/coleccion_solemnidades.dart';
+import 'package:bienaventurados/src/views/pages/perfil/widgets/proximamente_widget.dart';
 import 'package:flutter/material.dart';
 
 class ColeccionesPage extends StatefulWidget {
@@ -54,16 +55,18 @@ class _ColeccionesPageState extends State<ColeccionesPage> with TickerProviderSt
               controller: tabController,
               labelColor: Theme.of(context).primaryColor,
               unselectedLabelColor: Theme.of(context).primaryColorDark,
-              indicatorColor: Colors.black,
               tabs: tabs
                   .map(
                     (coleccion) => Tab(
-                      child: Text(
-                        coleccion.toUpperCase(),
-                        style: TextStyle(
-                          fontFamily: 'Gotham',
-                          fontSize: MediaQuery.of(context).size.width * 0.03,
-                          fontWeight: FontWeight.bold,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 5.0),
+                        child: Text(
+                          coleccion.toUpperCase(),
+                          style: TextStyle(
+                            fontFamily: 'Gotham',
+                            fontSize: MediaQuery.of(context).size.width * 0.03,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -76,7 +79,7 @@ class _ColeccionesPageState extends State<ColeccionesPage> with TickerProviderSt
               controller: tabController,
               children: [
                 ColeccionSolemnidades('Solemnidades'),
-                Center(child: Text('MUY PRONTO...')),
+                ProximamenteWidget(),
               ],
             ),
           ),

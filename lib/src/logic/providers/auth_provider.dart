@@ -130,10 +130,6 @@ class AuthProvider with ChangeNotifier {
       'ultimaConexion': DateTime.now(),
       'primeraConexion': DateTime.now(),
       'nombre': _displayName,
-      'av-construidos': 0,
-      'av-compartidos': 0,
-      'actual-constancia': 1,
-      'mejor-constancia': 1,
     }, SetOptions(merge: true));
     currentUser!.updateDisplayName(_displayName);
 
@@ -148,6 +144,7 @@ class AuthProvider with ChangeNotifier {
 
     await userRef.set({
       'ultimaConexion': DateTime.now(),
+      'actual-constancia': 1,
     }, SetOptions(merge: true));
 
     DocumentSnapshot userData = await userRef.get();
