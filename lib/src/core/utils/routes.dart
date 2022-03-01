@@ -15,6 +15,7 @@ import 'package:bienaventurados/src/views/pages/construir/editar_page.dart';
 import 'package:bienaventurados/src/views/pages/inicio/dashboard.dart';
 import 'package:bienaventurados/src/views/pages/perfil/colecciones_page.dart';
 import 'package:bienaventurados/src/views/pages/perfil/logros_page.dart';
+import 'package:bienaventurados/src/views/pages/perfil/perfil_page.dart';
 import 'package:bienaventurados/src/views/pages/taller/taller_page.dart';
 import 'package:bienaventurados/src/core/utils/fade_transition_route.dart';
 import 'package:bienaventurados/src/core/utils/slide_transition_route.dart';
@@ -95,8 +96,10 @@ class Routes {
         return SlideLeftTransitionRoute(widget: BienaventuradosPage());
       // case (configuracionesPage):
       //   return FadeTransitionRoute(widget: ConfiguracionesPage());
-      // case (perfilPage):
-      //   return FadeTransitionRoute(widget: PerfilPage());
+      case (perfilPage):
+        final args = settings.arguments;
+        VoidCallback openDrawer = args as VoidCallback;
+        return FadeTransitionRoute(widget: PerfilPage(openDrawer: openDrawer));
       case (generalConfiguracionPage):
         return SlideLeftTransitionRoute(widget: GeneralConfiguracionesPage());
       case (cuentaConfiguracionPage):

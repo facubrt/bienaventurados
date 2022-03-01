@@ -48,10 +48,10 @@ class EstadisticasWidget extends StatelessWidget {
                   children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          authProvider.usuario.avCompartidos.toString(),
+                          authProvider.usuario.avCompartidos.toString().padLeft(2, '0'),
                           style: Theme.of(context).textTheme.headline4!.copyWith(
                                 color: Colores.primarioDay,
                                 fontSize: MediaQuery.of(context).size.width * 0.06,
@@ -81,10 +81,10 @@ class EstadisticasWidget extends StatelessWidget {
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          authProvider.usuario.avConstruidos.toString(),
+                          authProvider.usuario.avConstruidos.toString().padLeft(2, '0'),
                           style: Theme.of(context).textTheme.headline4!.copyWith(
                                 color: Colores.primarioDay,
                                 fontSize: MediaQuery.of(context).size.width * 0.06,
@@ -114,10 +114,10 @@ class EstadisticasWidget extends StatelessWidget {
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          authProvider.usuario.actualConstancia.toString(),
+                          authProvider.usuario.actualConstancia.toString().padLeft(2, '0'),
                           style: Theme.of(context).textTheme.headline4!.copyWith(
                                 color: Colores.primarioDay,
                                 fontSize: MediaQuery.of(context).size.width * 0.06,
@@ -147,10 +147,10 @@ class EstadisticasWidget extends StatelessWidget {
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          authProvider.usuario.mejorConstancia.toString(),
+                          authProvider.usuario.mejorConstancia.toString().padLeft(2, '0'),
                           style: Theme.of(context).textTheme.headline4!.copyWith(
                                 color: Colores.primarioDay,
                                 fontSize: MediaQuery.of(context).size.width * 0.06,

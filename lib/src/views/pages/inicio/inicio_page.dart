@@ -9,6 +9,7 @@ import 'package:bienaventurados/src/views/pages/inicio/widgets/avioncito_widget.
 import 'package:bienaventurados/src/views/pages/inicio/widgets/colecciones_widget.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/informacion_widget.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/saludo_widget.dart';
+import 'package:bienaventurados/src/views/pages/perfil/perfil_page.dart';
 import 'package:bienaventurados/src/views/widgets/perfil/comparte_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -27,7 +28,6 @@ class InicioPage extends StatefulWidget {
 }
 
 class _InicioPageState extends State<InicioPage> {
-
   @override
   void initState() {
     super.initState();
@@ -36,6 +36,8 @@ class _InicioPageState extends State<InicioPage> {
   @override
   Widget build(BuildContext context) {
     final coleccionesProvider = Provider.of<ColeccionesProvider>(context);
+    final prefs = PreferenciasUsuario();
+    int _imagenPerfil = prefs.imagenPerfil;
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -59,7 +61,32 @@ class _InicioPageState extends State<InicioPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SaludoWidget(),
+              Row(
+                children: [
+                  SaludoWidget(),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 30.0),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      onTap: () {
+                        
+                      },
+                      child: Container(
+                        height: MediaQuery.of(context).size.width * 0.12,
+                        width: MediaQuery.of(context).size.width * 0.12,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.asset(
+                            'assets/images/perfil/perfil-0${_imagenPerfil + 1}.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               AvioncitoWidget(),
               coleccionesProvider.coleccionDesbloqueada ? ColeccionesWidget() : SizedBox.shrink(),
               ComparteWidget(),

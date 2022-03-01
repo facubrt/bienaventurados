@@ -298,7 +298,7 @@ class AuthProvider with ChangeNotifier {
     final user = _auth.currentUser;
     DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
 
-    _user.actualConstancia = 0;
+    _user.actualConstancia = 1;
     _localDB.setUsuario(_user);
 
     await userRef.set({
