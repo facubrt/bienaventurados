@@ -29,7 +29,7 @@ class ColeccionesProvider with ChangeNotifier {
       if (iniciado) {
         print('longitud de Colecciones ${Colecciones.colecciones.length}');
         for (var i = 0; i < Colecciones.colecciones.length; i++) {
-          _localDB.setColecciones(Colecciones.colecciones[i], true);
+          _localDB.setColecciones(Colecciones.colecciones[i], false);
         }
         int _nColecciones = _localDB.getColecciones()!.length;
         print('TENES $_nColecciones COLECCIONES');
