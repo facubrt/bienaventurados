@@ -10,12 +10,10 @@ import 'package:bienaventurados/src/views/pages/configuraciones/general/informac
 import 'package:bienaventurados/src/views/pages/configuraciones/general/notificaciones_configuracion_page.dart';
 import 'package:bienaventurados/src/views/pages/configuraciones/general/tema_configuracion_page.dart';
 import 'package:bienaventurados/src/views/pages/configuraciones/legal/legal_configuraciones_page.dart';
-import 'package:bienaventurados/src/views/pages/construir/construir_page.dart';
 import 'package:bienaventurados/src/views/pages/construir/editar_page.dart';
 import 'package:bienaventurados/src/views/pages/inicio/dashboard.dart';
 import 'package:bienaventurados/src/views/pages/perfil/colecciones_page.dart';
 import 'package:bienaventurados/src/views/pages/perfil/logros_page.dart';
-import 'package:bienaventurados/src/views/pages/perfil/perfil_page.dart';
 import 'package:bienaventurados/src/views/pages/taller/taller_page.dart';
 import 'package:bienaventurados/src/core/utils/fade_transition_route.dart';
 import 'package:bienaventurados/src/core/utils/slide_transition_route.dart';
@@ -82,11 +80,11 @@ class Routes {
         return SlideLeftTransitionRoute(widget: ColeccionesPage());
       case (logrosPage):
         return SlideLeftTransitionRoute(widget: LogrosPage());
-      case (construirPage):
-        final args = settings.arguments;
-        VoidCallback openDrawer = args as VoidCallback;
-        return SlideLeftTransitionRoute(
-            widget: ConstruirPage(openDrawer: openDrawer));
+      // case (construirPage):
+      //   final args = settings.arguments;
+      //   VoidCallback openDrawer = args as VoidCallback;
+      //   return SlideLeftTransitionRoute(
+      //       widget: ConstruirPage(openDrawer: openDrawer));
       case (temaConfiguracionPage):
         return SlideLeftTransitionRoute(widget: TemaConfiguracionPage());
       case (notificacionesConfiguracionPage):
@@ -96,10 +94,10 @@ class Routes {
         return SlideLeftTransitionRoute(widget: BienaventuradosPage());
       // case (configuracionesPage):
       //   return FadeTransitionRoute(widget: ConfiguracionesPage());
-      case (perfilPage):
-        final args = settings.arguments;
-        VoidCallback openDrawer = args as VoidCallback;
-        return FadeTransitionRoute(widget: PerfilPage(openDrawer: openDrawer));
+      // case (perfilPage):
+      //   final args = settings.arguments;
+      //   VoidCallback openDrawer = args as VoidCallback;
+      //   return FadeTransitionRoute(widget: PerfilPage(openDrawer: openDrawer));
       case (generalConfiguracionPage):
         return SlideLeftTransitionRoute(widget: GeneralConfiguracionesPage());
       case (cuentaConfiguracionPage):

@@ -1,15 +1,14 @@
-import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/core/utils/routes.dart';
-import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
+import 'package:bienaventurados/src/logic/providers/providers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class ConstruirPage extends StatefulWidget {
-  final VoidCallback openDrawer;
-
-  const ConstruirPage({Key? key, required this.openDrawer}) : super(key: key);
+  const ConstruirPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _ConstruirPageState createState() => _ConstruirPageState();
@@ -36,14 +35,15 @@ class _ConstruirPageState extends State<ConstruirPage> {
 
   @override
   Widget build(BuildContext context) {
+    final drawerProvider = Provider.of<DrawerProvider>(context);
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: drawerProvider.isDrawerOpen ? Colors.transparent : Theme.of(context).primaryColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {
-            widget.openDrawer();
+            drawerProvider.openDrawer();
           },
           icon: Icon(Iconsax.category, size: MediaQuery.of(context).size.width * 0.06),
         ),

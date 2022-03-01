@@ -1,8 +1,6 @@
 import 'package:bienaventurados/src/data/datasources/local/drawer_items.dart';
-import 'package:bienaventurados/src/data/datasources/local/local_db.dart';
 import 'package:bienaventurados/src/data/models/drawer_item_model.dart';
 import 'package:bienaventurados/src/logic/providers/providers.dart';
-import 'package:bienaventurados/src/logic/services/local_notifications.dart';
 import 'package:bienaventurados/src/views/pages/configuraciones/configuraciones_page.dart';
 import 'package:bienaventurados/src/views/pages/construir/construir_page.dart';
 import 'package:bienaventurados/src/views/pages/inicio/inicio_page.dart';
@@ -21,14 +19,9 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  late double xOffset;
-  late double yOffset;
-  late double scaleFactor;
   bool isDragging = false;
-  late bool isDrawerOpen;
   final prefs = PreferenciasUsuario();
   DrawerItemModel pagina = DrawerItems.inicio;
-  late bool _paginasCargadas;
   int? _actualConexion;
   int? _ultimaConexion;
   String? _versionApp;
@@ -36,13 +29,12 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   void initState() {
-    _paginasCargadas = false;
-    closeDrawer();
-    comprobacionDia();
     super.initState();
+    //drawerProvider.closeDrawer();
+    comprobacionDia();
   }
 
-    void comprobacionDia() async {
+  void comprobacionDia() async {
     //final infoProvider = Provider.of<InfoProvider>(context, listen: false);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
@@ -95,25 +87,26 @@ class _DashboardPageState extends State<DashboardPage> {
     }
   }
 
-  void openDrawer() => setState(() {
-        xOffset = 280;
-        yOffset = 80;
-        scaleFactor = 0.8;
-        isDrawerOpen = true;
-      });
+  // void openDrawer() => setState(() {
+  //       xOffset = 280;
+  //       yOffset = 80;
+  //       scaleFactor = 0.8;
+  //       isDrawerOpen = true;
+  //     });
 
-  void closeDrawer() => setState(() {
-        xOffset = 0;
-        yOffset = 0;
-        scaleFactor = 1;
-        isDrawerOpen = false;
-      });
+  // void closeDrawer() => setState(() {
+  //       xOffset = 0;
+  //       yOffset = 0;
+  //       scaleFactor = 1;
+  //       isDrawerOpen = false;
+  //     });
 
   @override
   Widget build(BuildContext context) {
+    final drawerProvider = Provider.of<DrawerProvider>(context);
     return Scaffold(
       body: Stack(children: [
-        _paginasCargadas ? buildDrawer() : CircularProgressIndicator(),
+        drawerProvider.paginasCargadas ? buildDrawer() : CircularProgressIndicator(),
         buildShadow(),
         buildPage(),
       ]),
@@ -121,36 +114,42 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget buildDrawer() {
-    return SafeArea(child: DrawerWidget(onSelectedItem: (pagina) {
-      setState(() => this.pagina = pagina);
-      closeDrawer();
-    }));
+    final drawerProvider = Provider.of<DrawerProvider>(context);
+    pagina = drawerProvider.pagina;
+    return SafeArea(
+      child: DrawerWidget(
+        onSelectedItem: (pagina) {
+          drawerProvider.pagina = pagina;
+          setState(() => this.pagina = pagina);
+          drawerProvider.closeDrawer();
+        },
+      ),
+    );
   }
 
   Widget buildPage() {
-    setState(() {
-      _paginasCargadas = true;
-    });
+    final drawerProvider = Provider.of<DrawerProvider>(context);
+    drawerProvider.paginasCargadas = true;
     return WillPopScope(
       onWillPop: () async {
-        if (isDrawerOpen) {
-          closeDrawer();
+        if (drawerProvider.isDrawerOpen) {
+          drawerProvider.closeDrawer();
           return false;
         } else {
           return true;
         }
       },
       child: GestureDetector(
-        onTap: closeDrawer,
+        onTap: drawerProvider.closeDrawer,
         onHorizontalDragStart: (details) => isDragging = true,
         onHorizontalDragUpdate: (details) {
           if (!isDragging) return;
 
           const delta = 7;
           if (details.delta.dx > delta) {
-            openDrawer();
+            drawerProvider.openDrawer();
           } else if (details.delta.dx < -delta) {
-            closeDrawer();
+            drawerProvider.closeDrawer();
           }
 
           isDragging = false;
@@ -158,13 +157,13 @@ class _DashboardPageState extends State<DashboardPage> {
         child: AnimatedContainer(
           duration: Duration(milliseconds: 200),
           curve: Curves.easeInOut,
-          transform: Matrix4.translationValues(xOffset, yOffset, 0)..scale(scaleFactor),
+          transform: Matrix4.translationValues(drawerProvider.xOffset, drawerProvider.yOffset, 0)..scale(drawerProvider.scaleFactor),
           child: AbsorbPointer(
-              absorbing: isDrawerOpen,
+              absorbing: drawerProvider.isDrawerOpen,
               child: AnimatedContainer(
                 curve: Curves.easeInOut,
                 duration: Duration(milliseconds: 200),
-                decoration: isDrawerOpen
+                decoration: drawerProvider.isDrawerOpen
                     ? BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Theme.of(context).primaryColor,
@@ -180,13 +179,12 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget buildShadow() {
-    setState(() {
-      _paginasCargadas = true;
-    });
+    final drawerProvider = Provider.of<DrawerProvider>(context);
+    drawerProvider.paginasCargadas = true;
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       curve: Curves.easeInOut,
-      transform: Matrix4.translationValues(xOffset - 10, yOffset + 26, 0)..scale(scaleFactor - 0.06),
+      transform: Matrix4.translationValues(drawerProvider.xOffset - 10, drawerProvider.yOffset + 26, 0)..scale(drawerProvider.scaleFactor - 0.06),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Theme.of(context).primaryColorDark.withOpacity(0.05),
@@ -195,19 +193,20 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget getDrawerPage() {
-    switch (pagina) {
+    final drawerProvider = Provider.of<DrawerProvider>(context, listen: false);
+    switch (drawerProvider.pagina) {
       case DrawerItems.inicio:
-        return InicioPage(openDrawer: openDrawer);
+        return InicioPage();
       case DrawerItems.guardados:
-        return GuardadosPage(openDrawer: openDrawer);
+        return GuardadosPage();
       case DrawerItems.construir:
-        return ConstruirPage(openDrawer: openDrawer);
+        return ConstruirPage();
       case DrawerItems.perfil:
-        return PerfilPage(openDrawer: openDrawer);
+        return PerfilPage();
       case DrawerItems.configuraciones:
-        return ConfiguracionesPage(openDrawer: openDrawer);
+        return ConfiguracionesPage();
       default:
-        return InicioPage(openDrawer: openDrawer);
+        return InicioPage();
     }
   }
 }

@@ -207,7 +207,7 @@ class LogroProvider with ChangeNotifier {
         }
       }
     });
-  } 
+  }
 
   void primerInicio(Box? box) {
     Logro logro = box!.getAt(0);
@@ -249,13 +249,14 @@ class LogroProvider with ChangeNotifier {
 
   //
 
-  Future<void> abrirLogros() async {
+  Future<bool> abrirLogros() async {
+    bool result = false;
     await _localDB.openBox().then((iniciado) async {
       if (iniciado) {
-        int _nLogros = _localDB.getLogros()!.length;
-        //print('TENES $_nLogros LOGROS');
+        result = true;
       }
     });
+    return result;
   }
 
   Box getLogros() {

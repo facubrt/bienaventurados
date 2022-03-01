@@ -1,5 +1,6 @@
 import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/core/utils/routes.dart';
+import 'package:bienaventurados/src/logic/providers/drawer_provider.dart';
 import 'package:bienaventurados/src/views/pages/perfil/widgets/estadisticas_widget.dart';
 import 'package:bienaventurados/src/views/pages/perfil/widgets/perfil_widget.dart';
 import 'package:flutter/material.dart';
@@ -7,32 +8,33 @@ import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class PerfilPage extends StatefulWidget {
-  final VoidCallback openDrawer;
 
-  const PerfilPage({Key? key, required this.openDrawer}) : super(key: key);
+  const PerfilPage({Key? key,}) : super(key: key);
 
   @override
   State<PerfilPage> createState() => _PerfilPageState();
 }
 
 class _PerfilPageState extends State<PerfilPage> {
+  
   @override
   Widget build(BuildContext context) {
+    final drawerProvider = Provider.of<DrawerProvider>(context);
     final authProvider = Provider.of<AuthProvider>(context);
     if (authProvider.constanciaRestablecida) {
       authProvider.restablecerConstancia();
     }
 
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: drawerProvider.isDrawerOpen ? Colors.transparent : Theme.of(context).primaryColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            widget.openDrawer();
+            drawerProvider.openDrawer();
           },
-          icon: Icon(Iconsax.category, size: 22),
+          icon: Icon(Iconsax.category, size: MediaQuery.of(context).size.width * 0.06),
         ),
       ),
       body: SingleChildScrollView(
@@ -42,7 +44,7 @@ class _PerfilPageState extends State<PerfilPage> {
             PerfilWidget(),
             EstadisticasWidget(),
             //MochilaWidget(),
-
+    
             ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
               onTap: () {

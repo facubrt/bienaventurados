@@ -6,7 +6,7 @@ import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
 import 'package:bienaventurados/src/logic/providers/compartir_provider.dart';
-import 'package:bienaventurados/src/logic/providers/info_provider.dart';
+import 'package:bienaventurados/src/logic/providers/drawer_provider.dart';
 import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
 import 'package:bienaventurados/src/logic/providers/theme_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -54,6 +54,9 @@ Future<void> mainCommon(AppConfig config) async {
         ),
         ChangeNotifierProvider(
           create: (BuildContext context) => ColeccionesProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (BuildContext context) => DrawerProvider(),
         ),
         // ChangeNotifierProvider(
         //   create: (BuildContext context) => InfoProvider()..cargarInfoApp(),

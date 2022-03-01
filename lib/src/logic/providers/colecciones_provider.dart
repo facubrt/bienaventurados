@@ -37,13 +37,14 @@ class ColeccionesProvider with ChangeNotifier {
     });
   }
 
-  Future<void> abrirColecciones() async {
+  Future<bool> abrirColecciones() async {
+    bool result = false;
     await _localDB.openBox().then((iniciado) async {
       if (iniciado) {
-        int _nColecciones = _localDB.getColecciones()!.length;
-        //print('TENES $_nColecciones COLECCIONES');
-      }
+        result = true;
+      } 
     });
+    return result;
   }
 
   Future<void> comprobacionColecciones() async {

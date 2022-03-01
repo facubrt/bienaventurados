@@ -1,26 +1,20 @@
-import 'package:bienaventurados/src/data/datasources/local/local_db.dart';
+import 'package:bienaventurados/src/core/utils/routes.dart';
+import 'package:bienaventurados/src/data/datasources/local/drawer_items.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
-import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
-import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
-import 'package:bienaventurados/src/logic/providers/info_provider.dart';
-import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
+import 'package:bienaventurados/src/logic/providers/drawer_provider.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/avioncito_widget.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/colecciones_widget.dart';
-import 'package:bienaventurados/src/views/pages/inicio/widgets/informacion_widget.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/saludo_widget.dart';
-import 'package:bienaventurados/src/views/pages/perfil/perfil_page.dart';
 import 'package:bienaventurados/src/views/widgets/perfil/comparte_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class InicioPage extends StatefulWidget {
-  final VoidCallback openDrawer;
 
   const InicioPage({
     Key? key,
-    required this.openDrawer,
   }) : super(key: key);
 
   @override
@@ -36,6 +30,7 @@ class _InicioPageState extends State<InicioPage> {
   @override
   Widget build(BuildContext context) {
     final coleccionesProvider = Provider.of<ColeccionesProvider>(context);
+    final drawerProvider = Provider.of<DrawerProvider>(context, listen: false);
     final prefs = PreferenciasUsuario();
     int _imagenPerfil = prefs.imagenPerfil;
     return Scaffold(
@@ -47,7 +42,7 @@ class _InicioPageState extends State<InicioPage> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            widget.openDrawer();
+            drawerProvider.openDrawer();
           },
           icon: Icon(Iconsax.category, size: MediaQuery.of(context).size.width * 0.06),
         ),
@@ -70,7 +65,8 @@ class _InicioPageState extends State<InicioPage> {
                     child: InkWell(
                       splashColor: Colors.transparent,
                       onTap: () {
-                        
+                        drawerProvider.pagina = DrawerItems.perfil;
+                        Navigator.of(context).pushReplacementNamed(dashboardPage);
                       },
                       child: Container(
                         height: MediaQuery.of(context).size.width * 0.12,

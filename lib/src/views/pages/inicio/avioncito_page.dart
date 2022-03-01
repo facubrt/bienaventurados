@@ -6,7 +6,6 @@ import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/core/theme/colores.dart';
 import 'package:bienaventurados/src/logic/providers/compartir_provider.dart';
-import 'package:bienaventurados/src/logic/providers/info_provider.dart';
 import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';

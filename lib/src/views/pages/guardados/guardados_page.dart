@@ -1,19 +1,15 @@
-import 'package:bienaventurados/src/data/datasources/local/local_db.dart';
 import 'package:bienaventurados/src/data/datasources/local/meses_data.dart';
 import 'package:bienaventurados/src/data/models/avioncito_model.dart';
-import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/core/utils/routes.dart';
+import 'package:bienaventurados/src/logic/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class GuardadosPage extends StatefulWidget {
-  final VoidCallback openDrawer;
-
   const GuardadosPage({
     Key? key,
-    required this.openDrawer,
   }) : super(key: key);
 
   @override
@@ -22,13 +18,9 @@ class GuardadosPage extends StatefulWidget {
 
 class _GuardadosPageState extends State<GuardadosPage> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
+    final drawerProvider = Provider.of<DrawerProvider>(context);
     return Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -36,7 +28,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
           elevation: 0,
           leading: IconButton(
             onPressed: () {
-              widget.openDrawer();
+              drawerProvider.openDrawer();
             },
             icon: Icon(Iconsax.category, size: 22),
           ),
