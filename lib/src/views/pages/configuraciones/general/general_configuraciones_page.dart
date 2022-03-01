@@ -13,12 +13,10 @@ class GeneralConfiguracionesPage extends StatefulWidget {
   const GeneralConfiguracionesPage({Key? key}) : super(key: key);
 
   @override
-  _GeneralConfiguracionesPageState createState() =>
-      _GeneralConfiguracionesPageState();
+  _GeneralConfiguracionesPageState createState() => _GeneralConfiguracionesPageState();
 }
 
-class _GeneralConfiguracionesPageState
-    extends State<GeneralConfiguracionesPage> {
+class _GeneralConfiguracionesPageState extends State<GeneralConfiguracionesPage> {
   late SharedPreferences prefs;
   final InAppReview _inAppReview = InAppReview.instance;
   Availability _availability = Availability.loading;
@@ -37,12 +35,12 @@ class _GeneralConfiguracionesPageState
 
   // void _setMicrosoftStoreId(String id) => _microsoftStoreId = id;
 
-  // Future<void> _requestReview() => _inAppReview.requestReview();
+  Future<void> _requestReview() => _inAppReview.requestReview();
 
-  Future<void> _openStoreListing() => _inAppReview.openStoreListing(
-        appStoreId: _appStoreId,
-        microsoftStoreId: _microsoftStoreId,
-      );
+  // Future<void> _openStoreListing() => _inAppReview.openStoreListing(
+  //       appStoreId: _appStoreId,
+  //       microsoftStoreId: _microsoftStoreId,
+  //     );
 
   @override
   void initState() {
@@ -52,9 +50,7 @@ class _GeneralConfiguracionesPageState
         final isAvailable = await _inAppReview.isAvailable();
 
         setState(() {
-          _availability = isAvailable && !Platform.isAndroid
-              ? Availability.available
-              : Availability.unavailable;
+          _availability = isAvailable && !Platform.isAndroid ? Availability.available : Availability.unavailable;
         });
       } catch (e) {
         setState(() => _availability = Availability.unavailable);
@@ -81,9 +77,7 @@ class _GeneralConfiguracionesPageState
           itemCount: _listaOpciones.length,
           itemBuilder: (context, index) {
             return ListTile(
-              contentPadding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.08,
-                  vertical: MediaQuery.of(context).size.width * 0.04),
+              contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
               onTap: () {
                 navegarHacia(index);
               },
@@ -112,17 +106,17 @@ class _GeneralConfiguracionesPageState
         Navigator.of(context).pushNamed(temaConfiguracionPage);
         break;
       case 'Calificanos':
-        final logroProvider =
-            Provider.of<LogroProvider>(context, listen: false);
+        final logroProvider = Provider.of<LogroProvider>(context, listen: false);
         logroProvider.comprobacionLogros('calificar-app');
 
-        // if (await _inAppReview.isAvailable()) {
-        //   print('CALIFICAR');
-        //   _inAppReview.requestReview();
-        // }
         if (await _inAppReview.isAvailable()) {
-          _openStoreListing();
+          print('CALIFICAR');
+          _requestReview();
+          //_inAppReview.requestReview();
         }
+        // if (await _inAppReview.isAvailable()) {
+        //   _openStoreListing();
+        // }
         break;
       case 'Acerca de':
         Navigator.of(context).pushNamed(informacionPage);

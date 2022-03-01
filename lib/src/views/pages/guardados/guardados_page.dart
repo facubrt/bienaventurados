@@ -30,7 +30,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
             onPressed: () {
               drawerProvider.openDrawer();
             },
-            icon: Icon(Iconsax.category, size: 22),
+            icon: Icon(Iconsax.category, size: MediaQuery.of(context).size.width * 0.06),
           ),
         ),
         body: ValueListenableBuilder(

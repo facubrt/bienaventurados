@@ -1,12 +1,11 @@
 import 'dart:typed_data';
+import 'package:bienaventurados/src/core/utils/routes.dart';
+import 'package:bienaventurados/src/data/datasources/local/drawer_items.dart';
 import 'package:bienaventurados/src/data/datasources/local/meses_data.dart';
 import 'package:bienaventurados/src/data/models/avioncito_model.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
-import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
-import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
 import 'package:bienaventurados/src/core/theme/colores.dart';
-import 'package:bienaventurados/src/logic/providers/compartir_provider.dart';
-import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
+import 'package:bienaventurados/src/logic/providers/providers.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -212,7 +211,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.03, 
                       fontWeight: FontWeight.bold, 
-                      color: Colores.primarioDay,
+                      color: Theme.of(context).primaryColor,
                     ),
                 ),
                 backgroundColor: Colores.acento,
@@ -297,6 +296,7 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
     final compartirProvider = Provider.of<CompartirProvider>(context, listen: false);
     final logroProvider = Provider.of<LogroProvider>(context, listen: false);
+    final drawerProvider = Provider.of<DrawerProvider>(context, listen: false);
     return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
       return Container(
         color: Theme.of(context).primaryColor,
@@ -387,12 +387,33 @@ class _AvioncitoPageState extends State<AvioncitoPage> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+                child: Column(
+                  children: [
+                    Text(
+                      '¿Ya recibiste este avioncito? Ayudanos a construir muchos más avioncitos y sacarlos a pasear. ¡Animate a compartir la fe!',
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            fontSize: MediaQuery.of(context).size.width * 0.03,
+                            color: Theme.of(context).primaryColorDark.withOpacity(0.4),
+                          ),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.width * 0.04),
+                    TextButton(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
                 child: Text(
-                  '¿Ya recibiste este avioncito? Ayudanos a construir muchos más avioncitos y sacarlos a pasear. ¡Animate a compartir la fe!',
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.03,
-                        color: Theme.of(context).primaryColorDark.withOpacity(0.4),
-                      ),
+                  'Construye un avioncito de papel',
+                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    color: Colores.primarioDay,
+                  ),
+                ),
+              ),
+              onPressed: () async {
+                drawerProvider.pagina = DrawerItems.construir;
+                Navigator.of(context).pushReplacementNamed(dashboardPage);
+              },
+            ),
+                  ],
                 ),
               ),
             ],
