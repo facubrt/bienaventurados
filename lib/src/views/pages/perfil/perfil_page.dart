@@ -8,21 +8,25 @@ import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class PerfilPage extends StatefulWidget {
-
-  const PerfilPage({Key? key,}) : super(key: key);
+  const PerfilPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<PerfilPage> createState() => _PerfilPageState();
 }
 
 class _PerfilPageState extends State<PerfilPage> {
-  
   @override
   Widget build(BuildContext context) {
     final drawerProvider = Provider.of<DrawerProvider>(context);
     final authProvider = Provider.of<AuthProvider>(context);
     if (authProvider.constanciaRestablecida) {
       authProvider.restablecerConstancia();
+      authProvider.constanciaRestablecida = false;
+    } else if (authProvider.constanciaAumentada) {
+      authProvider.actualizarConstancia();
+      authProvider.constanciaAumentada = false;
     }
 
     return Scaffold(
@@ -44,7 +48,7 @@ class _PerfilPageState extends State<PerfilPage> {
             PerfilWidget(),
             EstadisticasWidget(),
             //MochilaWidget(),
-    
+
             ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
               onTap: () {

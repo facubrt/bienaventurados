@@ -61,11 +61,12 @@ class _DashboardPageState extends State<DashboardPage> {
         final nuevoDia = DateTime(DateTime.now().year, DateTime.now().month, _actualConexion!);
         if (ultimoDia.month == nuevoDia.month || ultimoDia.month + 1 == nuevoDia.month) {
           if (ultimoDia.day + 1 == nuevoDia.day || 1 == nuevoDia.day) {
-            //print('CONSTANCIA AUMENTADA');
+            print('CONSTANCIA AUMENTADA');
             logroProvider.comprobacionLogros('constancia');
-            authProvider.actualizarConstancia();
+            authProvider.constanciaAumentada = true;
+            //authProvider.actualizarConstancia();
           } else {
-            //print('CONSTANCIA RESTABLECIDA');
+            print('CONSTANCIA RESTABLECIDA');
             logroProvider.restablecerConstancia();
             authProvider.constanciaRestablecida = true;
           }
