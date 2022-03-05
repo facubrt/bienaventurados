@@ -3,16 +3,16 @@ import 'package:bienaventurados/src/data/models/coleccion_model.dart';
 class Colecciones {
   static final colecciones = [
     // COLECCION DE PRUEBA
-    Coleccion(
-      id: 0,
-      dia: DateTime.now().day,
-      mes: DateTime.now().month,
-      titulo: 'Coleccion de PRUEBA',
-      img: 'assets/images/colecciones/solemnidad-01.png',
-      tipo: 'Fiesta',
-      descripcion: 'descripcion',
-      desbloqueado: false,
-    ),
+    // Coleccion(
+    //   id: 0,
+    //   dia: DateTime.now().day,
+    //   mes: DateTime.now().month,
+    //   titulo: 'Coleccion de PRUEBA',
+    //   img: 'assets/images/colecciones/solemnidad-01.png',
+    //   tipo: 'Fiesta',
+    //   descripcion: 'descripcion',
+    //   desbloqueado: false,
+    // ),
     //
     Coleccion(
       id: 1,
@@ -255,36 +255,36 @@ class Colecciones {
       desbloqueado: false,
     ),
     //COLECCION FIESTAS
-    Coleccion(
-      id: 23,
-      dia: DateTime.now().day,
-      mes: DateTime.now().month,
-      titulo: 'Coleccion de PRUEBA',
-      img: 'assets/images/colecciones/solemnidad-01.png',
-      tipo: 'Fiesta',
-      descripcion: 'descripcion',
-      desbloqueado: false,
-    ),
-    Coleccion(
-      id: 24,
-      dia: DateTime.now().day,
-      mes: DateTime.now().month,
-      titulo: 'Coleccion de PRUEBA',
-      img: 'assets/images/colecciones/solemnidad-01.png',
-      tipo: 'Fiesta',
-      descripcion: 'descripcion',
-      desbloqueado: false,
-    ),
-    Coleccion(
-      id: 25,
-      dia: DateTime.now().day,
-      mes: DateTime.now().month,
-      titulo: 'Coleccion de PRUEBA',
-      img: 'assets/images/colecciones/solemnidad-01.png',
-      tipo: 'Fiesta',
-      descripcion: 'descripcion',
-      desbloqueado: false,
-    ),
+    // Coleccion(
+    //   id: 23,
+    //   dia: DateTime.now().day,
+    //   mes: DateTime.now().month,
+    //   titulo: 'Coleccion de PRUEBA',
+    //   img: 'assets/images/colecciones/solemnidad-01.png',
+    //   tipo: 'Fiesta',
+    //   descripcion: 'descripcion',
+    //   desbloqueado: false,
+    // ),
+    // Coleccion(
+    //   id: 24,
+    //   dia: DateTime.now().day,
+    //   mes: DateTime.now().month,
+    //   titulo: 'Coleccion de PRUEBA',
+    //   img: 'assets/images/colecciones/solemnidad-01.png',
+    //   tipo: 'Fiesta',
+    //   descripcion: 'descripcion',
+    //   desbloqueado: false,
+    // ),
+    // Coleccion(
+    //   id: 25,
+    //   dia: DateTime.now().day,
+    //   mes: DateTime.now().month,
+    //   titulo: 'Coleccion de PRUEBA',
+    //   img: 'assets/images/colecciones/solemnidad-01.png',
+    //   tipo: 'Fiesta',
+    //   descripcion: 'descripcion',
+    //   desbloqueado: false,
+    // ),
     //
   ];
 }

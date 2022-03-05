@@ -430,6 +430,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
+                    color: tag == 'Oración' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
                   )),
           selected: tag == 'Oración' ? true : false,
           onSelected: (selected) {
@@ -443,6 +444,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
+                    color: tag == 'Acción' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
                   )),
           selected: tag == 'Acción' ? true : false,
           onSelected: (selected) {
@@ -456,6 +458,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
+                    color: tag == 'Formación' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
                   )),
           selected: tag == 'Formación' ? true : false,
           onSelected: (selected) {
@@ -469,6 +472,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
+                    color: tag == 'Entrega' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
                   )),
           selected: tag == 'Entrega' ? true : false,
           onSelected: (selected) {
@@ -482,6 +486,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
+                    color: tag == 'Santidad' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
                   )),
           selected: tag == 'Santidad' ? true : false,
           onSelected: (selected) {
@@ -495,6 +500,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
+                    color: tag == 'Amor' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
                   )),
           selected: tag == 'Amor' ? true : false,
           onSelected: (selected) {
@@ -508,6 +514,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
+                    color: tag == 'Reflexión' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
                   )),
           selected: tag == 'Reflexión' ? true : false,
           onSelected: (selected) {

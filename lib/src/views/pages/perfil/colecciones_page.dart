@@ -9,7 +9,7 @@ class ColeccionesPage extends StatefulWidget {
 }
 
 class _ColeccionesPageState extends State<ColeccionesPage> with TickerProviderStateMixin {
-  final tabs = ['Solemnidades', 'Fiestas', 'Muy pronto...'];
+  final tabs = ['Solemnidades', 'Muy pronto...'];
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +80,7 @@ class _ColeccionesPageState extends State<ColeccionesPage> with TickerProviderSt
               controller: tabController,
               children: [
                 ColeccionSolemnidades('Solemnidades'),
-                ColeccionFiestas('Fiestas'),
+                //ColeccionFiestas('Fiestas'),
                 ProximamenteWidget(),
               ],
             ),

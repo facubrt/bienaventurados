@@ -43,6 +43,12 @@ class _DashboardPageState extends State<DashboardPage> {
     _actualConexion = DateTime.now().day.toInt();
     _ultimaConexion = prefs.ultimaConexion;
     _versionApp = prefs.versionApp;
+    if (_versionApp != '1.4.1') {
+      prefs.versionApp = '1.4.1';
+      _versionApp = prefs.versionApp;
+      print('ESTAS USANDO LA VERSION ${_versionApp}');
+      //logroProvider.iniciarLogros();
+    }
     //print(_versionApp);
     if (_ultimaConexion != null) {
       if (_actualConexion == _ultimaConexion) {
