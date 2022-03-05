@@ -16,8 +16,9 @@ Widget coleccionableWidget(BuildContext context, Coleccion? coleccion) {
   return Screenshot(
     controller: screenshotController,
     child: Container(
+      color: Theme.of(context).primaryColor,
+      child: Container(
       decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(16)),
-      
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,6 +157,7 @@ Widget coleccionableWidget(BuildContext context, Coleccion? coleccion) {
               ),
         ],
       ),
+      ),
     ),
-  );
+    );
 }

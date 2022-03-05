@@ -12,53 +12,20 @@ class ThemeProvider extends ChangeNotifier {
     ),
     textTheme: TextTheme(
       // ESTILO DE FUENTE PARA FRASE
-      headline1: TextStyle(
-          fontSize: 38,
-          fontWeight: FontWeight.w900,
-          fontFamily: 'Gotham',
-          fontStyle: FontStyle.normal,
-          color: Colores.primarioNight),
+      headline1: TextStyle(fontSize: 38, fontWeight: FontWeight.w900, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
       // ESTILO DE FUENTE PARA SANTOS Y ENCABEZADOS
-      headline2: TextStyle(
-          fontSize: 32,
-          fontWeight: FontWeight.w700,
-          fontFamily: 'Gotham',
-          fontStyle: FontStyle.normal,
-          color: Colores.primarioNight),
+      headline2: TextStyle(fontSize: 32, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
       // utilizados en appbar y encabezados pequeños
-      headline4: TextStyle(
-          fontSize: 22,
-          fontWeight: FontWeight.w700,
-          fontFamily: 'Gotham',
-          fontStyle: FontStyle.normal,
-          color: Colores.primarioNight),
+      headline4: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
       // headline5: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight.withOpacity(0.6)),
       // // utilizado para la firma Bienanventurados en HoyPage
-      headline6: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
-          fontFamily: 'Gotham',
-          fontStyle: FontStyle.normal,
-          color: Colores.primarioNight),
+      headline6: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
 
       bodyText1: TextStyle(
-          fontSize: 18.0,
-          fontWeight: FontWeight.normal,
-          fontFamily: 'Gotham',
-          fontStyle: FontStyle.normal,
-          color: Colores.primarioNight.withOpacity(0.8)),
+          fontSize: 18.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight.withOpacity(0.8)),
       bodyText2: TextStyle(
-          fontSize: 16.0,
-          fontWeight: FontWeight.normal,
-          fontFamily: 'Gotham',
-          fontStyle: FontStyle.normal,
-          color: Colores.primarioNight.withOpacity(0.8)),
-      subtitle1: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w700,
-          fontFamily: 'Gotham',
-          fontStyle: FontStyle.normal,
-          color: Colores.acento),
+          fontSize: 16.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight.withOpacity(0.8)),
+      subtitle1: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
       // subtitle2: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
       // caption: TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
       // button: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
@@ -72,8 +39,7 @@ class ThemeProvider extends ChangeNotifier {
       foregroundColor: MaterialStateProperty.all<Color>(Colores.primarioNight),
       shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder()),
       backgroundColor: MaterialStateProperty.all<Color>(Colores.acentoSecundario),
-      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-          EdgeInsets.symmetric(horizontal: 20)),
+      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(horizontal: 20)),
     )),
     colorScheme: ColorScheme(
       primary: Colores.primarioDay,
@@ -89,6 +55,15 @@ class ThemeProvider extends ChangeNotifier {
       onPrimary: Colores.primarioNight,
       onSecondary: Colors.green,
       onSurface: Colores.primarioNight,
+    ),
+    chipTheme: ChipThemeData(
+      selectedColor: Colores.acento,
+      backgroundColor: Colores.acentoOscuro.withOpacity(0.05),
+      shadowColor: Colors.transparent,
+      disabledColor: Colores.acentoOscuro.withOpacity(0.05),
+      checkmarkColor: Colors.yellow,
+      selectedShadowColor: Colors.transparent,
+      deleteIconColor: Colors.transparent,
     ),
     scaffoldBackgroundColor: Colores.primarioDay,
     primaryColor: Colores.primarioDay,
@@ -108,34 +83,14 @@ class ThemeProvider extends ChangeNotifier {
     ),
     textTheme: TextTheme(
       // ESTILO DE FUENTE PARA FRASE
-      headline1: TextStyle(
-          fontSize: 38,
-          fontWeight: FontWeight.w900,
-          fontFamily: 'Gotham',
-          fontStyle: FontStyle.normal,
-          color: Colores.primarioDay),
+      headline1: TextStyle(fontSize: 38, fontWeight: FontWeight.w900, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
       // ESTILO DE FUENTE PARA SANTOS Y ENCABEZADOS
-      headline2: TextStyle(
-          fontSize: 32,
-          fontWeight: FontWeight.w700,
-          fontFamily: 'Gotham',
-          fontStyle: FontStyle.normal,
-          color: Colores.primarioDay),
+      headline2: TextStyle(fontSize: 32, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
       // utilizados en appbar y encabezados pequeños
-      headline4: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.w700,
-          fontFamily: 'Gotham',
-          fontStyle: FontStyle.normal,
-          color: Colores.primarioDay),
+      headline4: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
       // headline5: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight.withOpacity(0.6)),
       // // utilizado para la firma Bienanventurados en HoyPage
-      headline6: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
-          fontFamily: 'Gotham',
-          fontStyle: FontStyle.normal,
-          color: Colores.primarioDay),
+      headline6: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
 
       bodyText1: TextStyle(
         fontSize: 18.0,
@@ -145,17 +100,8 @@ class ThemeProvider extends ChangeNotifier {
         color: Colores.primarioDay.withOpacity(0.8),
       ),
       bodyText2: TextStyle(
-          fontSize: 16.0,
-          fontWeight: FontWeight.normal,
-          fontFamily: 'Gotham',
-          fontStyle: FontStyle.normal,
-          color: Colores.primarioDay.withOpacity(0.8)),
-      subtitle1: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w700,
-          fontFamily: 'Gotham',
-          fontStyle: FontStyle.normal,
-          color: Colores.acento),
+          fontSize: 16.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay.withOpacity(0.8)),
+      subtitle1: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
       // subtitle2: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
       // caption: TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
       // button: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
@@ -169,8 +115,7 @@ class ThemeProvider extends ChangeNotifier {
       foregroundColor: MaterialStateProperty.all<Color>(Colores.primarioDay),
       shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder()),
       backgroundColor: MaterialStateProperty.all<Color>(Colores.acentoSecundario),
-      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-          EdgeInsets.symmetric(horizontal: 20)),
+      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(horizontal: 20)),
     )),
     colorScheme: ColorScheme(
       primary: Colores.primarioNight,
@@ -180,12 +125,22 @@ class ThemeProvider extends ChangeNotifier {
       background: Colors.deepOrange,
       error: Colors.greenAccent,
       secondaryVariant: Colores.primarioDay,
+      tertiary: Colores.acentoSecundario,
       brightness: Brightness.dark,
       onBackground: Colors.red,
       onError: Colors.blue,
       onPrimary: Colores.primarioDay,
       onSecondary: Colors.green,
       onSurface: Colores.primarioDay,
+    ),
+    chipTheme: ChipThemeData(
+      selectedColor: Colores.acento,
+      backgroundColor: Colores.acentoOscuro,
+      shadowColor: Colors.transparent,
+      disabledColor: Colores.acentoOscuro.withOpacity(0.05),
+      checkmarkColor: Colors.yellow,
+      selectedShadowColor: Colors.transparent,
+      deleteIconColor: Colors.transparent,
     ),
     scaffoldBackgroundColor: Colores.primarioNight,
     primaryColor: Colores.primarioNight,

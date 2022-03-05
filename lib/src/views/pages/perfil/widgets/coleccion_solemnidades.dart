@@ -35,33 +35,39 @@ class ColeccionSolemnidades extends StatelessWidget {
       0.5,
       0,
     ]);
-
+    List coleccionables = [];
+    box.values.where((coleccionable) => coleccionable.tipo == 'Solemnidad').forEach(
+      (coleccionable) {
+        coleccionables.add(coleccionable);
+      },
+    );
     return Padding(
       padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
       child: GridView.builder(
+        padding: const EdgeInsets.symmetric(vertical: 30),
         key: PageStorageKey(scrollKey),
-        itemCount: box.values.length,
+        itemCount: coleccionables.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
           crossAxisSpacing: 20,
           mainAxisSpacing: 20,
           childAspectRatio: 1,
         ),
-        itemBuilder: (context, index) => box.getAt(index).desbloqueado
+        itemBuilder: (context, index) => coleccionables[index].desbloqueado
             ? InkWell(
                 onTap: () {
                   showFloatingModalBottomSheet<bool?>(
                       backgroundColor: Theme.of(context).primaryColor,
                       context: context,
                       builder: (context) {
-                        return coleccionableWidget(context, box.getAt(index));
+                        return coleccionableWidget(context, coleccionables[index]);
                       });
-                  //abrirColeccion(context, box.getAt(index));
+                  //abrirColeccion(context, coleccionables[index]);
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: Image.asset(
-                    box.getAt(index).img,
+                    coleccionables[index].img,
                   ),
                 ))
             : ColorFiltered(
@@ -69,7 +75,7 @@ class ColeccionSolemnidades extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: Image.asset(
-                    box.getAt(index).img,
+                    coleccionables[index].img,
                   ),
                 ),
               ),

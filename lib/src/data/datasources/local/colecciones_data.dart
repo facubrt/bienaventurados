@@ -9,7 +9,7 @@ class Colecciones {
     //   mes: DateTime.now().month,
     //   titulo: 'Coleccion de PRUEBA',
     //   img: 'assets/images/colecciones/solemnidad-01.png',
-    //   tipo: 'Solemnidad',
+    //   tipo: 'Fiesta',
     //   descripcion: 'descripcion',
     //   desbloqueado: false,
     // ),
@@ -254,5 +254,37 @@ class Colecciones {
           'Esto es lo que podemos pedir a Jesús para Navidad: la gracia de la pequeñez. "Señor, enséñanos a amar la pequeñez. Ayúdanos a comprender que es el camino para la verdadera grandeza". (Papa Francisco, Homilía de la Santa Misa, 24 de diciembre del 2021\n\nEn esta fecha muy especial todos estamos invitados a acercarnos al pesebre para ver al recién nacido. Su presencia tiene que hacernos reflexionar. En este Niño, Dios nos está diciendo que nos ama, nos está diciendo cuánto nos ama. Nos está pidiendo que salgamos de nuestro egoísmo y nuestra indiferencia, que nos abramos a Él y a los demás hombres.',
       desbloqueado: false,
     ),
+    //COLECCION FIESTAS
+    // Coleccion(
+    //   id: 23,
+    //   dia: DateTime.now().day,
+    //   mes: DateTime.now().month,
+    //   titulo: 'Coleccion de PRUEBA',
+    //   img: 'assets/images/colecciones/solemnidad-01.png',
+    //   tipo: 'Fiesta',
+    //   descripcion: 'descripcion',
+    //   desbloqueado: false,
+    // ),
+    // Coleccion(
+    //   id: 24,
+    //   dia: DateTime.now().day,
+    //   mes: DateTime.now().month,
+    //   titulo: 'Coleccion de PRUEBA',
+    //   img: 'assets/images/colecciones/solemnidad-01.png',
+    //   tipo: 'Fiesta',
+    //   descripcion: 'descripcion',
+    //   desbloqueado: false,
+    // ),
+    // Coleccion(
+    //   id: 25,
+    //   dia: DateTime.now().day,
+    //   mes: DateTime.now().month,
+    //   titulo: 'Coleccion de PRUEBA',
+    //   img: 'assets/images/colecciones/solemnidad-01.png',
+    //   tipo: 'Fiesta',
+    //   descripcion: 'descripcion',
+    //   desbloqueado: false,
+    // ),
+    //
   ];
 }

@@ -13,6 +13,7 @@ class AuthProvider with ChangeNotifier {
   Usuario _user = Usuario();
   late String _displayName;
   bool _constanciaRestablecida = false;
+  bool _constanciaAumentada = false;
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -274,6 +275,7 @@ class AuthProvider with ChangeNotifier {
   void actualizarConstancia() async {
     final user = _auth.currentUser;
     DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
+    print('ACTUALIZANDO CONSTANCIA');
 
     _user.actualConstancia = _user.actualConstancia! + 1;
 
@@ -288,7 +290,7 @@ class AuthProvider with ChangeNotifier {
         'actual-constancia': _user.actualConstancia,
       }, SetOptions(merge: true));
     }
-
+    _constanciaAumentada = false;
     _localDB.setUsuario(_user);
 
     notifyListeners();
@@ -312,9 +314,14 @@ class AuthProvider with ChangeNotifier {
 
   //GETTER AND SETTERS
   bool get constanciaRestablecida => _constanciaRestablecida;
+  bool get constanciaAumentada => _constanciaAumentada;
 
   set constanciaRestablecida(bool constanciaRestablecida) {
     _constanciaRestablecida = constanciaRestablecida;
+  }
+
+  set constanciaAumentada(bool constanciaAumentada) {
+    _constanciaAumentada = constanciaAumentada;
   }
 
   Usuario get usuario => _user;

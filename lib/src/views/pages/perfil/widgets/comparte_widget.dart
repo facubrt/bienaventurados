@@ -13,7 +13,6 @@ class ComparteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // final authProvider = Provider.of<AuthProvider>(context);
     return Container(
-      color: Theme.of(context).primaryColorDark.withOpacity(0.05),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20.0, left: 20, right: 20.0, top: 40.0),
         child: Column(

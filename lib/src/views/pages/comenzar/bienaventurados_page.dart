@@ -1,3 +1,5 @@
+import 'package:bienaventurados/src/data/datasources/local/drawer_items.dart';
+import 'package:bienaventurados/src/data/models/drawer_item_model.dart';
 import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
 import 'package:bienaventurados/src/logic/providers/theme_provider.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
@@ -5,6 +7,8 @@ import 'package:bienaventurados/src/core/utils/routes.dart';
 import 'package:bienaventurados/src/views/pages/comenzar/widgets/header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../logic/providers/providers.dart';
 
 class BienaventuradosPage extends StatefulWidget {
   const BienaventuradosPage({Key? key}) : super(key: key);
@@ -27,6 +31,7 @@ class _BienaventuradosPageState extends State<BienaventuradosPage> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final drawerProvider = Provider.of<DrawerProvider>(context, listen: false);
     final prefs = PreferenciasUsuario();
     return Scaffold(
       appBar: AppBar(
@@ -56,6 +61,7 @@ class _BienaventuradosPageState extends State<BienaventuradosPage> {
                       authProvider.googleSignIn().then((result) {
                         if (result != null) {
                           prefs.sesionIniciada = true;
+                          drawerProvider.pagina = DrawerItems.inicio;
                           Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
                         }
                       });
@@ -74,6 +80,7 @@ class _BienaventuradosPageState extends State<BienaventuradosPage> {
                   backgroundColor: Theme.of(context).primaryColorDark,
                 ),
                 onPressed: () {
+                  drawerProvider.pagina = DrawerItems.inicio;
                   Navigator.of(context).pushNamed(iniciarAventuraPage);
                 },
                 child: Text('Continuar con Correo',

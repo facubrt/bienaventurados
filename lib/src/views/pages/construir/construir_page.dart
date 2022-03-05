@@ -18,12 +18,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
   final TextEditingController _fraseController = TextEditingController();
   final TextEditingController _santoController = TextEditingController();
   final TextEditingController _reflexionController = TextEditingController();
-  final TextEditingController _tagController = TextEditingController();
-  final TextEditingController _preguntaController = TextEditingController();
-  final TextEditingController _misionController = TextEditingController();
   final fraseFormKey = GlobalKey<FormState>();
   final reflexionFormKey = GlobalKey<FormState>();
   final preguntaFormKey = GlobalKey<FormState>();
+  String tag = 'Oración';
 
   final PageController _pageController = PageController(initialPage: 0);
 
@@ -54,7 +52,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
         children: [
           fraseWidget(),
           reflexionWidget(),
-          // preguntaWidget(),
+          tagWidget(),
           avioncitoListoWidget(),
         ],
       ),
@@ -69,9 +67,9 @@ class _ConstruirPageState extends State<ConstruirPage> {
       'frase': _fraseController.text,
       'santo': _santoController.text,
       'reflexion': _reflexionController.text,
-      'tag': _tagController.text,
-      'pregunta': _preguntaController.text,
-      'mision': _misionController.text,
+      'tag': tag,
+      'pregunta': '',
+      'mision': '',
       'usuario': usuario,
     });
   }
@@ -166,24 +164,43 @@ class _ConstruirPageState extends State<ConstruirPage> {
         ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(30.0),
-          child: Container(
-            width: double.infinity,
-            height: 50,
-            child: TextButton(
-              style: OutlinedButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColorDark,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Página 1 de 3',
+                style: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.03,
+                    ),
               ),
-              onPressed: () {
-                if (fraseFormKey.currentState!.validate()) {
-                  _pageController.nextPage(duration: Duration(milliseconds: 1200), curve: Curves.fastLinearToSlowEaseIn);
-                }
-              },
-              child: Text('Siguiente',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor)),
-            ),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.04,
+              ),
+              Container(
+                width: double.infinity,
+                height: 50,
+                child: TextButton(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColorDark,
+                  ),
+                  onPressed: () {
+                    if (fraseFormKey.currentState!.validate()) {
+                      FocusScopeNode currentFocus = FocusScope.of(context);
+
+                      if (!currentFocus.hasPrimaryFocus) {
+                        currentFocus.unfocus();
+                      }
+                      _pageController.nextPage(duration: Duration(milliseconds: 1200), curve: Curves.fastLinearToSlowEaseIn);
+                    }
+                  },
+                  child: Text('Siguiente',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4!
+                          .copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor)),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -191,7 +208,6 @@ class _ConstruirPageState extends State<ConstruirPage> {
   }
 
   Widget reflexionWidget() {
-    final authProvider = Provider.of<AuthProvider>(context);
     return Form(
       key: reflexionFormKey,
       child: Scaffold(
@@ -239,194 +255,121 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     }
                   },
                 ),
-                // SizedBox(
-                //   height: MediaQuery.of(context).size.width * 0.04,
-                // ),
-                // TextFormField(
-                //   controller: _tagController,
-                //   autofocus: false,
-                //   keyboardType: TextInputType.text,
-                //   style: Theme.of(context).textTheme.headline2!.copyWith(
-                //         fontSize: MediaQuery.of(context).size.width * 0.06,
-                //       ),
-                //   cursorColor: Theme.of(context).primaryColorDark,
-                //   cursorWidth: 4,
-                //   decoration: InputDecoration(
-                //     hintText: 'Tag',
-                //     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                //         fontSize: MediaQuery.of(context).size.width * 0.06,
-                //         color: Theme.of(context)
-                //             .primaryColorDark
-                //             .withOpacity(0.2)),
-                //     focusedBorder: InputBorder.none,
-                //     border: InputBorder.none,
-                //     errorBorder: InputBorder.none,
-                //     enabledBorder: InputBorder.none,
-                //     disabledBorder: InputBorder.none,
-                //     focusedErrorBorder: InputBorder.none,
-                //   ),
-                //   validator: (value) {
-                //     if (value!.isEmpty) {
-                //       return 'Debes ingresar un nombre para continuar';
-                //     } else {
-                //       return null;
-                //     }
-                //   },
-                // ),
               ],
             ),
           ),
         ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(30.0),
-          child: Container(
-            width: double.infinity,
-            height: 50,
-            child: TextButton(
-              style: OutlinedButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColorDark,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Página 2 de 3',
+                style: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.03,
+                    ),
               ),
-              onPressed: () {
-                if (reflexionFormKey.currentState!.validate()) {
-                  // _pageController.nextPage(
-                  //     duration: Duration(milliseconds: 1200),
-                  //     curve: Curves.fastLinearToSlowEaseIn);
-                  FocusScopeNode currentFocus = FocusScope.of(context);
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.04,
+              ),
+              Container(
+                width: double.infinity,
+                height: 50,
+                child: TextButton(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColorDark,
+                  ),
+                  onPressed: () {
+                    if (reflexionFormKey.currentState!.validate()) {
+                      FocusScopeNode currentFocus = FocusScope.of(context);
 
-                  if (!currentFocus.hasPrimaryFocus) {
-                    currentFocus.unfocus();
-                  }
-                  setState(() {
-                    _construirNuevoAvioncito(authProvider.usuario.nombre);
-                    _fraseController.clear();
-                    _santoController.clear();
-                    _reflexionController.clear();
-                    _tagController.clear();
-                    _preguntaController.clear();
-                    _misionController.clear();
-                  });
-                  _pageController.nextPage(duration: Duration(milliseconds: 1200), curve: Curves.fastLinearToSlowEaseIn);
-                }
-              },
-              child: Text('Siguiente',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor)),
-            ),
+                      if (!currentFocus.hasPrimaryFocus) {
+                        currentFocus.unfocus();
+                      }
+                      _pageController.nextPage(duration: Duration(milliseconds: 1200), curve: Curves.fastLinearToSlowEaseIn);
+                    }
+                  },
+                  child: Text(
+                    'Siguiente',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget preguntaWidget() {
-    //final authProvider = Provider.of<AuthProvider>(context);
-    return Form(
-      key: preguntaFormKey,
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Column(
-              children: [
-                Text('Un último paso antes de hacer volar tu avioncito',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.06,
-                        )),
-                SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.04,
-                ),
-                TextFormField(
-                  controller: _preguntaController,
-                  autofocus: false,
-                  keyboardType: TextInputType.text,
+  Widget tagWidget() {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            children: [
+              Text('¡Casi está listo! Selecciona una categoría para tu avioncito',
                   style: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
-                      ),
-                  cursorColor: Theme.of(context).primaryColorDark,
-                  cursorWidth: 4,
-                  decoration: InputDecoration(
-                    hintText: 'Pregunta (opcional)',
-                    hintStyle: Theme.of(context)
-                        .textTheme
-                        .headline2!
-                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
-                    focusedBorder: InputBorder.none,
-                    border: InputBorder.none,
-                    errorBorder: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    disabledBorder: InputBorder.none,
-                    focusedErrorBorder: InputBorder.none,
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.04,
-                ),
-                TextFormField(
-                  controller: _misionController,
-                  autofocus: false,
-                  keyboardType: TextInputType.text,
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                      ),
-                  cursorColor: Theme.of(context).primaryColorDark,
-                  cursorWidth: 4,
-                  decoration: InputDecoration(
-                    hintText: 'Misión (opcional)',
-                    hintStyle: Theme.of(context)
-                        .textTheme
-                        .headline2!
-                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
-                    focusedBorder: InputBorder.none,
-                    border: InputBorder.none,
-                    errorBorder: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    disabledBorder: InputBorder.none,
-                    focusedErrorBorder: InputBorder.none,
-                  ),
-                ),
-              ],
-            ),
+                      )),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.04,
+              ),
+              buildChoiceChip(),
+            ],
           ),
         ),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(40.0),
-          child: Container(
-            width: double.infinity,
-            height: 50,
-            child: TextButton(
-              style: OutlinedButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColorDark,
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(40.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+                'Página 3 de 3',
+                style: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.03,
+                    ),
               ),
-              onPressed: () {
-                // if (preguntaFormKey.currentState!.validate()) {
-                //   FocusScopeNode currentFocus = FocusScope.of(context);
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.04,
+              ),
+            Container(
+              width: double.infinity,
+              height: 50,
+              child: TextButton(
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColorDark,
+                ),
+                onPressed: () {
+                 
+                    FocusScopeNode currentFocus = FocusScope.of(context);
 
-                //   if (!currentFocus.hasPrimaryFocus) {
-                //     currentFocus.unfocus();
-                //   }
-                //   setState(() {
-                //     _construirNuevoAvioncito(authProvider.usuario.nombre);
-                //     _fraseController.clear();
-                //     _santoController.clear();
-                //     _reflexionController.clear();
-                //     _tagController.clear();
-                //     _preguntaController.clear();
-                //     _misionController.clear();
-                //   });
-                //   _pageController.nextPage(
-                //       duration: Duration(milliseconds: 1200),
-                //       curve: Curves.fastLinearToSlowEaseIn);
-                // }
-              },
-              child: Text('Continuar',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor)),
+                    if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
+                    }
+                    setState(() {
+                      _construirNuevoAvioncito(authProvider.usuario.nombre);
+                      _fraseController.clear();
+                      _santoController.clear();
+                      _reflexionController.clear();
+                    });
+                    _pageController.nextPage(
+                        duration: Duration(milliseconds: 1200),
+                        curve: Curves.fastLinearToSlowEaseIn);
+                  },
+                child: Text('Siguiente',
+                    style:
+                        Theme.of(context).textTheme.headline4!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor),),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -474,6 +417,113 @@ class _ConstruirPageState extends State<ConstruirPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildChoiceChip() {
+    return Wrap(
+      runSpacing: MediaQuery.of(context).size.width * 0.01,
+      spacing: MediaQuery.of(context).size.width * 0.04,
+      children: [
+        ChoiceChip(
+          label: Text('Oración',
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                    color: tag == 'Oración' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                  )),
+          selected: tag == 'Oración' ? true : false,
+          onSelected: (selected) {
+            setState(() {
+              tag = 'Oración';
+            });
+          },
+        ),
+        ChoiceChip(
+          label: Text('Acción',
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                    color: tag == 'Acción' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                  )),
+          selected: tag == 'Acción' ? true : false,
+          onSelected: (selected) {
+            setState(() {
+              tag = 'Acción';
+            });
+          },
+        ),
+        ChoiceChip(
+          label: Text('Formación',
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                    color: tag == 'Formación' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
+                  )),
+          selected: tag == 'Formación' ? true : false,
+          onSelected: (selected) {
+            setState(() {
+              tag = 'Formación';
+            });
+          },
+        ),
+        ChoiceChip(
+          label: Text('Entrega',
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                    color: tag == 'Entrega' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
+                  )),
+          selected: tag == 'Entrega' ? true : false,
+          onSelected: (selected) {
+            setState(() {
+              tag = 'Entrega';
+            });
+          },
+        ),
+        ChoiceChip(
+          label: Text('Santidad',
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                    color: tag == 'Santidad' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
+                  )),
+          selected: tag == 'Santidad' ? true : false,
+          onSelected: (selected) {
+            setState(() {
+              tag = 'Santidad';
+            });
+          },
+        ),
+        ChoiceChip(
+          label: Text('Amor',
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                    color: tag == 'Amor' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
+                  )),
+          selected: tag == 'Amor' ? true : false,
+          onSelected: (selected) {
+            setState(() {
+              tag = 'Amor';
+            });
+          },
+        ),
+        ChoiceChip(
+          label: Text('Reflexión',
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                    color: tag == 'Reflexión' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
+                  )),
+          selected: tag == 'Reflexión' ? true : false,
+          onSelected: (selected) {
+            setState(() {
+              tag = 'Reflexión';
+            });
+          },
+        )
+      ],
     );
   }
 }

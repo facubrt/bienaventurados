@@ -154,6 +154,7 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                   ),
                   InkWell(
                     onTap: () {
+                      authProvider.restablecerConstancia();
                       avioncitoProvider.eliminarDB();
                       authProvider.signOut();
                       prefs.limpiarPrefs();

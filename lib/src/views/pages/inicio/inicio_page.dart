@@ -3,16 +3,18 @@ import 'package:bienaventurados/src/data/datasources/local/drawer_items.dart';
 import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
 import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
 import 'package:bienaventurados/src/logic/providers/drawer_provider.dart';
+import 'package:bienaventurados/src/views/pages/inicio/widgets/avatar_widget.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/avioncito_widget.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/colecciones_widget.dart';
+import 'package:bienaventurados/src/views/pages/inicio/widgets/evangelio_widget.dart';
+import 'package:bienaventurados/src/views/pages/inicio/widgets/instrucciones_widget.dart';
 import 'package:bienaventurados/src/views/pages/inicio/widgets/saludo_widget.dart';
-import 'package:bienaventurados/src/views/widgets/perfil/comparte_widget.dart';
+import 'package:bienaventurados/src/views/pages/perfil/widgets/comparte_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class InicioPage extends StatefulWidget {
-
   const InicioPage({
     Key? key,
   }) : super(key: key);
@@ -31,8 +33,6 @@ class _InicioPageState extends State<InicioPage> {
   Widget build(BuildContext context) {
     final coleccionesProvider = Provider.of<ColeccionesProvider>(context);
     final drawerProvider = Provider.of<DrawerProvider>(context, listen: false);
-    final prefs = PreferenciasUsuario();
-    int _imagenPerfil = prefs.imagenPerfil;
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -60,32 +60,13 @@ class _InicioPageState extends State<InicioPage> {
                 children: [
                   SaludoWidget(),
                   Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 30.0),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      onTap: () {
-                        drawerProvider.pagina = DrawerItems.perfil;
-                        Navigator.of(context).pushReplacementNamed(dashboardPage);
-                      },
-                      child: Container(
-                        height: MediaQuery.of(context).size.width * 0.12,
-                        width: MediaQuery.of(context).size.width * 0.12,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.asset(
-                            'assets/images/perfil/perfil-0${_imagenPerfil + 1}.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  AvatarWidget(),
                 ],
               ),
+              //EvangelioWidget(),
               AvioncitoWidget(),
               coleccionesProvider.coleccionDesbloqueada ? ColeccionesWidget() : SizedBox.shrink(),
-              ComparteWidget(),
+              //InstruccionesWidget(),
               //InformacionWidget(),
             ],
           ),
