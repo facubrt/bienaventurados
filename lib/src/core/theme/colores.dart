@@ -9,7 +9,7 @@ class Colores {
   static const Color acento = Color(0xFF7394FF);
   //static const Color acento = Color(0xFF8AA9FF);
   //static const Color acentoOscuro = Color(0xFF202778);
-  static const Color acentoOscuro = Color(0xFF1A2064);
+  static const Color acentoOscuro = Color(0xFF0F1343);
   static const Color acentoSecundario = Color(0xFFACC27E);
   static const Color contrasteDay = Color(0xFF070928);
   static const Color contrasteNight = Color(0xFFFFFFFF);

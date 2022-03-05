@@ -3,6 +3,7 @@ import 'package:bienaventurados/src/core/utils/routes.dart';
 import 'package:bienaventurados/src/logic/providers/drawer_provider.dart';
 import 'package:bienaventurados/src/views/pages/perfil/widgets/estadisticas_widget.dart';
 import 'package:bienaventurados/src/views/pages/perfil/widgets/perfil_widget.dart';
+import 'package:bienaventurados/src/views/pages/perfil/widgets/comparte_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
@@ -96,7 +97,8 @@ class _PerfilPageState extends State<PerfilPage> {
                     ),
                   )
                 : SizedBox.shrink(),
-            SizedBox(height: MediaQuery.of(context).size.width * 0.08),
+            SizedBox(height: MediaQuery.of(context).size.width * 0.1),
+            ComparteWidget(),
           ],
         ),
       ),

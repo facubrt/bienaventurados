@@ -116,6 +116,7 @@ class ThemeProvider extends ChangeNotifier {
       background: Colors.deepOrange,
       error: Colors.greenAccent,
       secondaryVariant: Colores.primarioDay,
+      tertiary: Colores.acentoSecundario,
       brightness: Brightness.dark,
       onBackground: Colors.red,
       onError: Colors.blue,

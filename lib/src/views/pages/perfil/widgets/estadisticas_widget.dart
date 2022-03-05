@@ -34,7 +34,7 @@ class EstadisticasWidget extends StatelessWidget {
           ),
           Card(
             elevation: 0,
-            color: Theme.of(context).primaryColorDark.withOpacity(0.1),
+            color: Colores.acentoOscuro,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),

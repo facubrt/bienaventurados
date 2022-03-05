@@ -55,8 +55,8 @@ class ColeccionesWidget extends StatelessWidget {
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColorDark.withOpacity(0.05),
-                      
-                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(width: 2, color: Theme.of(context).colorScheme.secondary),
+                      borderRadius: BorderRadius.circular(16),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
