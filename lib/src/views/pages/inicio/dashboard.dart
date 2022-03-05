@@ -50,7 +50,7 @@ class _DashboardPageState extends State<DashboardPage> {
       //logroProvider.iniciarLogros();
     }
     //print(_versionApp);
-    if (_ultimaConexion == null) {
+    if (_ultimaConexion != null) {
       if (_actualConexion == _ultimaConexion) {
         print('MISMO DIA');
         _coleccionDesbloqueada = prefs.coleccionDesbloqueada;
