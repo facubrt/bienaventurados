@@ -1,4 +1,4 @@
-import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
+import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';

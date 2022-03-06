@@ -1,5 +1,5 @@
-import 'package:bienaventurados/src/logic/services/local_notifications.dart';
-import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
+import 'package:bienaventurados/src/services/local_notifications.dart';
+import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -25,7 +25,7 @@ class _NotificacionesConfiguracionPageState
   @override
   Widget build(BuildContext context) {
     final LocalNotifications noti = LocalNotifications();
-    final prefs = PreferenciasUsuario();
+    final prefs = UserPreferences();
     _opcion = prefs.momentoNotificaciones;
 
     return Scaffold(

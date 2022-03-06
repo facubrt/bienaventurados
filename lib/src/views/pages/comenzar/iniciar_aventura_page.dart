@@ -1,6 +1,6 @@
-import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
-import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
-import 'package:bienaventurados/src/core/utils/routes.dart';
+import 'package:bienaventurados/src/services/user_preferences.dart';
+import 'package:bienaventurados/src/providers/providers.dart';
+import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
@@ -379,7 +379,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
 
   void iniciarCuenta() {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final prefs = PreferenciasUsuario();
+    final prefs = UserPreferences();
 
     final snackbar = SnackBar(
       backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -418,7 +418,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
 
   void registrarCuenta() {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final prefs = PreferenciasUsuario();
+    final prefs = UserPreferences();
 
     final snackbar = SnackBar(
       backgroundColor: Theme.of(context).colorScheme.secondary,

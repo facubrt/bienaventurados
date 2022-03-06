@@ -1,4 +1,3 @@
-import 'package:bienaventurados/src/views/pages/perfil/widgets/coleccion_fiestas.dart';
 import 'package:bienaventurados/src/views/pages/perfil/widgets/coleccion_solemnidades.dart';
 import 'package:bienaventurados/src/views/pages/perfil/widgets/proximamente_widget.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +21,7 @@ class _ColeccionesPageState extends State<ColeccionesPage> with TickerProviderSt
       ),
       body: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (overScroll) {
-          overScroll.disallowGlow();
+          overScroll.disallowIndicator();
           return true;
         },
         child: Column(children: [

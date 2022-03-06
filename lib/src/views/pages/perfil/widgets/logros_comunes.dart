@@ -1,6 +1,5 @@
-import 'package:bienaventurados/src/data/models/coleccion_model.dart';
-import 'package:bienaventurados/src/data/models/logro_model.dart';
-import 'package:bienaventurados/src/logic/providers/providers.dart';
+import 'package:bienaventurados/src/models/logro_model.dart';
+import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';

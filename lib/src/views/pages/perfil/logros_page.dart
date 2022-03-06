@@ -1,6 +1,5 @@
-import 'package:bienaventurados/src/data/models/logro_model.dart';
-import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
-import 'package:bienaventurados/src/views/pages/perfil/widgets/proximamente_widget.dart';
+import 'package:bienaventurados/src/models/logro_model.dart';
+import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -18,7 +17,7 @@ class _LogrosPageState extends State<LogrosPage> with TickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
-    TabController tabController = TabController(initialIndex: 0, vsync: this, length: tabs.length);
+    //TabController tabController = TabController(initialIndex: 0, vsync: this, length: tabs.length);
     const ColorFilter greyscaleFilter = ColorFilter.matrix(<double>[
       0.2126,
       0.7152,
@@ -51,7 +50,7 @@ class _LogrosPageState extends State<LogrosPage> with TickerProviderStateMixin{
       ),
       body: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (overScroll) {
-          overScroll.disallowGlow();
+          overScroll.disallowIndicator();
           return true;
         },
         child: 

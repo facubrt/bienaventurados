@@ -1,6 +1,5 @@
-import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
-import 'package:bienaventurados/src/core/utils/routes.dart';
-import 'package:bienaventurados/src/logic/providers/drawer_provider.dart';
+import 'package:bienaventurados/src/providers/providers.dart';
+import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:bienaventurados/src/views/pages/perfil/widgets/estadisticas_widget.dart';
 import 'package:bienaventurados/src/views/pages/perfil/widgets/perfil_widget.dart';
 import 'package:bienaventurados/src/views/pages/perfil/widgets/comparte_widget.dart';

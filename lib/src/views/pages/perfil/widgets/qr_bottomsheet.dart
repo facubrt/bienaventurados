@@ -1,8 +1,8 @@
-import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
+import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:flutter/material.dart';
 
 Widget qrBottomSheet() {
-  final prefs = PreferenciasUsuario();
+  final prefs = UserPreferences();
   return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
     return Container(
       color: Theme.of(context).primaryColor,

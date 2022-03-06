@@ -1,20 +1,13 @@
-import 'package:bienaventurados/src/core/app.dart';
-import 'package:bienaventurados/src/core/app_config.dart';
-import 'package:bienaventurados/src/data/datasources/local/local_db.dart';
-import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
-import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
-import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
-import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
-import 'package:bienaventurados/src/logic/providers/compartir_provider.dart';
-import 'package:bienaventurados/src/logic/providers/drawer_provider.dart';
-import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
-import 'package:bienaventurados/src/logic/providers/theme_provider.dart';
+import 'package:bienaventurados/src/app.dart';
+import 'package:bienaventurados/src/app_config.dart';
+import 'package:bienaventurados/src/data/local/local_db.dart';
+import 'package:bienaventurados/src/services/user_preferences.dart';
+import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-late bool _sesionIniciada;
 Future<void> mainCommon(AppConfig config) async {
   WidgetsFlutterBinding.ensureInitialized();
   // statusbar transparente
@@ -27,12 +20,11 @@ Future<void> mainCommon(AppConfig config) async {
   // simula una falla para Crashlytics
   //FirebaseCrashlytics.instance.crash();
 
-  final prefs = new PreferenciasUsuario();
+  final prefs = new UserPreferences();
   await prefs.initPrefs();
   final localDB = new LocalData();
   await localDB.init();
   await localDB.openBox();
-  _sesionIniciada = prefs.sesionIniciada;
 
   return runApp(
     MultiProvider(
@@ -62,7 +54,7 @@ Future<void> mainCommon(AppConfig config) async {
         //   create: (BuildContext context) => InfoProvider()..cargarInfoApp(),
         // ),
       ],
-      child: Bienaventurados(config, _sesionIniciada),
+      child: Bienaventurados(config),
     ),
   );
 }

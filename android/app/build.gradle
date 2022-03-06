@@ -89,16 +89,16 @@ android {
     productFlavors {
         prod {
             dimension "app"
-            applicationIdSuffix ""
+            //applicationIdSuffix ""
             resValue "string", "app_name", "Bienaventurados"
-            versionNameSuffix "-prod"
+            //versionNameSuffix "-prod"
             //applicationId "com.sereucaristia"
         }
         dev {
             dimension "app"
             applicationIdSuffix ".dev"
             resValue "string", "app_name", "Bienaventurados Dev"
-            versionNameSuffix "-dev"
+            //versionNameSuffix "-dev"
             //applicationId "com.sereucaristia.dev"
         }
         

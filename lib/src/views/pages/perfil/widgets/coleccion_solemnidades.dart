@@ -1,4 +1,4 @@
-import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
+import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/views/widgets/coleccionable_widget.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';

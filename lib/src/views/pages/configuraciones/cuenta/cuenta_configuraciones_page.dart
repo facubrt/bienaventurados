@@ -1,7 +1,6 @@
-import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
-import 'package:bienaventurados/src/logic/providers/avioncito_provider.dart';
-import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
-import 'package:bienaventurados/src/core/utils/routes.dart';
+import 'package:bienaventurados/src/services/user_preferences.dart';
+import 'package:bienaventurados/src/providers/providers.dart';
+import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -71,7 +70,7 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
   Future<void> navegarHacia(int pagina) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
-    final prefs = PreferenciasUsuario();
+    final prefs = UserPreferences();
     switch (_listaOpciones[pagina]) {
       case 'Actualizar Nombre':
         Navigator.of(context).pushNamed(actualizarNombrePage);
@@ -140,7 +139,7 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
                           onPressed: () {
                             Navigator.of(context).pop();
                             avioncitoProvider.eliminarDB();
-                            prefs.limpiarPrefs();
+                            prefs.cleanPrefs();
                             prefs.modoNoche = false;
                             authProvider.deleteUser();
                             Navigator.of(context).pushNamedAndRemoveUntil(

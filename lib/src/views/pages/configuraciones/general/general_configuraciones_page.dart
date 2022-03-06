@@ -1,11 +1,10 @@
-import 'package:bienaventurados/src/core/utils/routes.dart';
-import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
+import 'package:bienaventurados/src/providers/providers.dart';
+import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:io';
 
 enum Availability { loading, available, unavailable }
 
@@ -19,7 +18,7 @@ class GeneralConfiguracionesPage extends StatefulWidget {
 class _GeneralConfiguracionesPageState extends State<GeneralConfiguracionesPage> {
   late SharedPreferences prefs;
   final InAppReview _inAppReview = InAppReview.instance;
-  Availability _availability = Availability.loading;
+  //Availability _availability = Availability.loading;
   String _appStoreId = '';
   String _microsoftStoreId = '';
 
@@ -35,27 +34,27 @@ class _GeneralConfiguracionesPageState extends State<GeneralConfiguracionesPage>
 
   // void _setMicrosoftStoreId(String id) => _microsoftStoreId = id;
 
-  Future<void> _requestReview() => _inAppReview.requestReview();
+  //Future<void> _requestReview() => _inAppReview.requestReview();
 
-  // Future<void> _openStoreListing() => _inAppReview.openStoreListing(
-  //       appStoreId: _appStoreId,
-  //       microsoftStoreId: _microsoftStoreId,
-  //     );
+  Future<void> _openStoreListing() => _inAppReview.openStoreListing(
+        appStoreId: _appStoreId,
+        microsoftStoreId: _microsoftStoreId,
+      );
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) async {
-      try {
-        final isAvailable = await _inAppReview.isAvailable();
+    // WidgetsBinding.instance!.addPostFrameCallback((_) async {
+    //   try {
+    //     final isAvailable = await _inAppReview.isAvailable();
 
-        setState(() {
-          _availability = isAvailable && !Platform.isAndroid ? Availability.available : Availability.unavailable;
-        });
-      } catch (e) {
-        setState(() => _availability = Availability.unavailable);
-      }
-    });
+    //     setState(() {
+    //       _availability = isAvailable && !Platform.isAndroid ? Availability.available : Availability.unavailable;
+    //     });
+    //   } catch (e) {
+    //     setState(() => _availability = Availability.unavailable);
+    //   }
+    // });
   }
 
   @override
@@ -109,14 +108,15 @@ class _GeneralConfiguracionesPageState extends State<GeneralConfiguracionesPage>
         final logroProvider = Provider.of<LogroProvider>(context, listen: false);
         logroProvider.comprobacionLogros('calificar-app');
 
-        if (await _inAppReview.isAvailable()) {
-          print('CALIFICAR');
-          _requestReview();
-          //_inAppReview.requestReview();
-        }
-        // if (await _inAppReview.isAvailable()) {
-        //   _openStoreListing();
+        //if (await _inAppReview.isAvailable()) {
+        //if (_availability == Availability.available) {
+        //  print('CALIFICAR');
+          //_requestReview();
+        //   _inAppReview.requestReview();
         // }
+        if (await _inAppReview.isAvailable()) {
+          _openStoreListing();
+        }
         break;
       case 'Acerca de':
         Navigator.of(context).pushNamed(informacionPage);

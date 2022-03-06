@@ -1,5 +1,5 @@
-import 'package:bienaventurados/src/logic/providers/auth_provider.dart';
-import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
+import 'package:bienaventurados/src/services/user_preferences.dart';
+import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +29,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final prefs = PreferenciasUsuario();
+    final prefs = UserPreferences();
     final authProvider = Provider.of<AuthProvider>(context);
     nombre = authProvider.usuario.nombre;
     // final authProvider = Provider.of<AuthProvider>(context);

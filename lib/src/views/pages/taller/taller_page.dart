@@ -1,5 +1,5 @@
-import 'package:bienaventurados/src/data/models/avioncito_model.dart';
-import 'package:bienaventurados/src/core/utils/routes.dart';
+import 'package:bienaventurados/src/models/avioncito_model.dart';
+import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';

@@ -1,8 +1,7 @@
-import 'package:bienaventurados/src/core/theme/colores.dart';
-import 'package:bienaventurados/src/data/datasources/local/meses_data.dart';
-import 'package:bienaventurados/src/data/models/coleccion_model.dart';
-import 'package:bienaventurados/src/logic/providers/colecciones_provider.dart';
-import 'package:bienaventurados/src/logic/providers/compartir_provider.dart';
+import 'package:bienaventurados/src/providers/providers.dart';
+import 'package:bienaventurados/src/theme/colores.dart';
+import 'package:bienaventurados/src/data/local/meses_data.dart';
+import 'package:bienaventurados/src/models/coleccion_model.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';

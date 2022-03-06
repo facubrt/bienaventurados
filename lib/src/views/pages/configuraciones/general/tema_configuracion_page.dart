@@ -1,6 +1,5 @@
-import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
-import 'package:bienaventurados/src/logic/providers/theme_provider.dart';
-import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
+import 'package:bienaventurados/src/services/user_preferences.dart';
+import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +24,7 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
 
   @override
   Widget build(BuildContext context) {
-    final prefs = PreferenciasUsuario();
+    final prefs = UserPreferences();
     if (prefs.modoNoche) {
       _opcion = 1;
     } else {

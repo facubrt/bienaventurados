@@ -1,4 +1,4 @@
-import 'package:bienaventurados/src/core/theme/colores.dart';
+import 'package:bienaventurados/src/theme/colores.dart';
 import 'package:flutter/material.dart';
 
 class EstadisticasWidget extends StatelessWidget {

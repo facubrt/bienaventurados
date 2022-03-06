@@ -1,5 +1,5 @@
-import 'package:bienaventurados/src/core/theme/colores.dart';
-import 'package:bienaventurados/src/logic/providers/logro_provider.dart';
+import 'package:bienaventurados/src/providers/providers.dart';
+import 'package:bienaventurados/src/theme/colores.dart';
 import 'package:bienaventurados/src/views/pages/perfil/widgets/qr_bottomsheet.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';

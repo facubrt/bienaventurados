@@ -1,6 +1,6 @@
-import 'package:bienaventurados/src/data/repositories/preferencias_usuario.dart';
-import 'package:bienaventurados/src/core/utils/routes.dart';
-import 'package:bienaventurados/src/logic/providers/providers.dart';
+import 'package:bienaventurados/src/services/user_preferences.dart';
+import 'package:bienaventurados/src/utils/routes.dart';
+import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -98,7 +98,7 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
   Future<void> navegarHacia(int pagina) async {
     final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final prefs = PreferenciasUsuario();
+    final prefs = UserPreferences();
     switch (_listaOpciones[pagina]) {
       case 'General':
         Navigator.of(context).pushNamed(generalConfiguracionPage);
@@ -157,7 +157,7 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                       authProvider.restablecerConstancia();
                       avioncitoProvider.eliminarDB();
                       authProvider.signOut();
-                      prefs.limpiarPrefs();
+                      prefs.cleanPrefs();
                       prefs.modoNoche = false;
                       Navigator.of(context).pushNamedAndRemoveUntil(bienaventuradosPage, (route) => false);
                     },
