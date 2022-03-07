@@ -1,4 +1,4 @@
-import 'package:bienaventurados/src/views/pages/perfil/widgets/coleccion_solemnidades.dart';
+import 'package:bienaventurados/src/views/pages/perfil/widgets/collection_solemnities.dart';
 import 'package:bienaventurados/src/views/pages/perfil/widgets/proximamente_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -78,7 +78,7 @@ class _ColeccionesPageState extends State<ColeccionesPage> with TickerProviderSt
             child: TabBarView(
               controller: tabController,
               children: [
-                ColeccionSolemnidades('Solemnidades'),
+                CollectionSolemnities('Solemnidades'),
                 //ColeccionFiestas('Fiestas'),
                 ProximamenteWidget(),
               ],

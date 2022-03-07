@@ -1,14 +1,14 @@
 import 'package:bienaventurados/src/models/avioncito_model.dart';
-import 'package:bienaventurados/src/views/pages/avioncito/avioncito_page.dart';
+import 'package:bienaventurados/src/views/pages/paperplane/paperplane_page.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class RedescubrePage extends StatefulWidget {
-  final Avioncito avioncitoGuardado;
+  final Avioncito paperplaneSaved;
 
   const RedescubrePage({
     Key? key,
-    required this.avioncitoGuardado,
+    required this.paperplaneSaved,
   }) : super(key: key);
 
   @override
@@ -39,7 +39,7 @@ class _RedescubrePageState extends State<RedescubrePage> {
           ),
         ],
       ),
-      body: AvioncitoPage(avioncito: widget.avioncitoGuardado),
+      body: PaperplanePage(paperplane: widget.paperplaneSaved),
     );
   }
 }

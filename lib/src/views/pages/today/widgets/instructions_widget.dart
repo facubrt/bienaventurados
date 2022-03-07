@@ -1,8 +1,9 @@
+import 'package:bienaventurados/src/utils/constants.dart';
 import 'package:bienaventurados/src/views/widgets/section_widget.dart';
 import 'package:flutter/material.dart';
 
-class InstruccionesWidget extends StatelessWidget {
-  const InstruccionesWidget({Key? key}) : super(key: key);
+class InstructionsWidget extends StatelessWidget {
+  const InstructionsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,13 +12,13 @@ class InstruccionesWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SectionWidget(title: 'Instrucciones'),
+          SectionWidget(title: INSTRUCTIONS_SECTION),
           Container(
             height: MediaQuery.of(context).size.width * 0.6,
             child: ListView(scrollDirection: Axis.horizontal, children: [
-              instruccionesHacerVolar(context),
-              instruccionesConstruir(context),
-              instruccionesCompartir(context),
+              instructionsForFlying(context),
+              instructionsForBuilding(context),
+              instructionsForSharing(context),
             ]),
           ),
         ],
@@ -25,7 +26,7 @@ class InstruccionesWidget extends StatelessWidget {
     );
   }
 
-  Widget instruccionesHacerVolar(BuildContext context) {
+  Widget instructionsForFlying(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Padding(
@@ -40,16 +41,16 @@ class InstruccionesWidget extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'Instrucciones para hacer volar',
+                    INSTRUCTIONS_FOR_SHARING_TITLE,
                     style: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                         ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.width * 0.04),
+                  SizedBox(height: MediaQuery.of(context).size.width * SPACE_SECTION),
                   Text(
-                    '(o de cómo sacar a pasear los avioncitos por muchos corazones y lugares)',
+                    INSTRUCTIONS_FOR_FLYING_SUBTITLE,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.03,
+                          fontSize: MediaQuery.of(context).size.width * SCALE_BODY,
                         ),
                   ),
                 ],
@@ -57,7 +58,7 @@ class InstruccionesWidget extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColorDark.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(BORDER_RADIUS),
             ),
           ),
         ),
@@ -65,7 +66,7 @@ class InstruccionesWidget extends StatelessWidget {
     );
   }
 
-  Widget instruccionesConstruir(BuildContext context) {
+  Widget instructionsForBuilding(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Padding(
@@ -80,16 +81,16 @@ class InstruccionesWidget extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'Instrucciones para construir',
+                    INSTRUCTIONS_FOR_BUILDING_TITLE,
                     style: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                         ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.width * 0.04),
                   Text(
-                    '(o de cómo encender un corazón y abrazar al otro construyendo un mundo de esperanza)',
+                    INSTRUCTIONS_FOR_BUILDING_SUBTITLE,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.03,
+                          fontSize: MediaQuery.of(context).size.width * SCALE_BODY,
                         ),
                   ),
                 ],
@@ -97,7 +98,7 @@ class InstruccionesWidget extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColorDark.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(BORDER_RADIUS),
             ),
           ),
         ),
@@ -105,7 +106,7 @@ class InstruccionesWidget extends StatelessWidget {
     );
   }
 
-  Widget instruccionesCompartir(BuildContext context) {
+  Widget instructionsForSharing(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Padding(
@@ -120,16 +121,16 @@ class InstruccionesWidget extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'Instrucciones para compartir',
+                    INSTRUCTIONS_FOR_SHARING_TITLE,
                     style: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                         ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.width * 0.04),
+                  SizedBox(height: MediaQuery.of(context).size.width * SPACE_SECTION),
                   Text(
-                    '(o de cómo ser luz y compartir la fe para que el amor de Dios llegue a todas partes)',
+                    INSTRUCTIONS_FOR_SHARING_SUBTITLE,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.03,
+                          fontSize: MediaQuery.of(context).size.width * SCALE_BODY,
                         ),
                   ),
                 ],
@@ -137,7 +138,7 @@ class InstruccionesWidget extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColorDark.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(BORDER_RADIUS),
             ),
           ),
         ),

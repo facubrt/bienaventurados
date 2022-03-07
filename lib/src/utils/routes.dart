@@ -16,7 +16,7 @@ import 'package:bienaventurados/src/views/pages/perfil/colecciones_page.dart';
 import 'package:bienaventurados/src/views/pages/perfil/logros_page.dart';
 import 'package:bienaventurados/src/views/pages/taller/taller_page.dart';
 import 'package:bienaventurados/src/utils/transitions.dart';
-import 'package:bienaventurados/src/views/pages/avioncito/avioncito_page.dart';
+import 'package:bienaventurados/src/views/pages/paperplane/paperplane_page.dart';
 import 'package:flutter/material.dart';
 
 const String dashboardPage = 'dashboardPage';
@@ -67,9 +67,9 @@ class Routes {
         return SlideLeftTransitionRoute(widget: TallerPage());
       case (avioncitoPage):
         final args = settings.arguments;
-        Avioncito avioncito = args as Avioncito;
+        Avioncito paperplane = args as Avioncito;
         return SlideUpTransitionRoute(
-            widget: AvioncitoPage(avioncito: avioncito));
+            widget: PaperplanePage(paperplane: paperplane));
       case (editarPage):
         final args = settings.arguments;
         Avioncito avioncito = args as Avioncito;

@@ -3,7 +3,7 @@ import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/utils/constants.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
-import 'package:bienaventurados/src/views/widgets/coleccionable_widget.dart';
+import 'package:bienaventurados/src/views/widgets/collectible_widget.dart';
 import 'package:bienaventurados/src/views/widgets/section_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -31,7 +31,7 @@ class CollectionsWidget extends StatelessWidget {
                       backgroundColor: Theme.of(context).primaryColor,
                       context: context,
                       builder: (context) {
-                        return coleccionableWidget(context, collection);
+                        return collectibleWidget(context, collection);
                       },
                     );
                   },
@@ -56,7 +56,7 @@ class CollectionsWidget extends StatelessWidget {
                           ),
                           Flexible(
                             child: Text(
-                              COLLECTIONABLE_UNLOCKED_TEXT,
+                              COLLECTIBLE_UNLOCKED_TEXT,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!

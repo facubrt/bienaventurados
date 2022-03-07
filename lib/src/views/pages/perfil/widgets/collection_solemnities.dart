@@ -1,13 +1,13 @@
 import 'package:bienaventurados/src/providers/providers.dart';
-import 'package:bienaventurados/src/views/widgets/coleccionable_widget.dart';
+import 'package:bienaventurados/src/views/widgets/collectible_widget.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
-class ColeccionSolemnidades extends StatelessWidget {
+class CollectionSolemnities extends StatelessWidget {
   final String scrollKey;
-  const ColeccionSolemnidades(this.scrollKey, {Key? key}) : super(key: key);
+  const CollectionSolemnities(this.scrollKey, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class ColeccionSolemnidades extends StatelessWidget {
                       backgroundColor: Theme.of(context).primaryColor,
                       context: context,
                       builder: (context) {
-                        return coleccionableWidget(context, coleccionables[index]);
+                        return collectibleWidget(context, coleccionables[index]);
                       });
                   //abrirColeccion(context, coleccionables[index]);
                 },

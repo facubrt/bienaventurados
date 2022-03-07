@@ -2,22 +2,22 @@ import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/theme/colores.dart';
 import 'package:bienaventurados/src/data/local/meses_data.dart';
 import 'package:bienaventurados/src/models/coleccion_model.dart';
+import 'package:bienaventurados/src/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
-Widget coleccionableWidget(BuildContext context, Coleccion? coleccion) {
-  final coleccionesProvider = Provider.of<ColeccionesProvider>(context);
+Widget collectibleWidget(BuildContext context, Coleccion? collection) {
+  final collectionProvider = Provider.of<ColeccionesProvider>(context);
   ScreenshotController screenshotController = ScreenshotController();
-  final compartirProvider =
-      Provider.of<CompartirProvider>(context, listen: false);
+  final shareProvider = Provider.of<CompartirProvider>(context, listen: false);
   return Screenshot(
     controller: screenshotController,
     child: Container(
       color: Theme.of(context).primaryColor,
       child: Container(
-      decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(16)),
+      decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(BORDER_RADIUS)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,16 +29,16 @@ Widget coleccionableWidget(BuildContext context, Coleccion? coleccion) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  coleccion!.desbloqueado
+                  collection!.desbloqueado
                   ? IconButton(
                     padding: EdgeInsets.all(0),
                     icon: Icon(
                       Iconsax.export_1,
-                      size: MediaQuery.of(context).size.width * 0.06,
+                      size: MediaQuery.of(context).size.width * DIMENSION_ICON,
                     ),
                     onPressed: () {
-                      compartirProvider.compartirColeccionable(
-                          screenshotController, coleccion.titulo);
+                      shareProvider.compartirColeccionable(
+                          screenshotController, collection.titulo);
                     },
                   )
                   : SizedBox.shrink(),
@@ -46,7 +46,7 @@ Widget coleccionableWidget(BuildContext context, Coleccion? coleccion) {
                     padding: EdgeInsets.all(0),
                     icon: Icon(
                       Iconsax.close_square,
-                      size: MediaQuery.of(context).size.width * 0.06,
+                      size: MediaQuery.of(context).size.width * DIMENSION_ICON,
                     ),
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -64,20 +64,20 @@ Widget coleccionableWidget(BuildContext context, Coleccion? coleccion) {
                   height: MediaQuery.of(context).size.height * 0.1,
                   width: MediaQuery.of(context).size.height * 0.1,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(BORDER_RADIUS),
                     child: Image.asset(
-                      coleccion.img,
+                      collection.img,
                     ),
                   ),
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.04,
+                  width: MediaQuery.of(context).size.width * SPACE_SECTION,
                 ),
                 Flexible(
                   child: Text(
-                    coleccion.titulo,
+                    collection.titulo,
                     style: Theme.of(context).textTheme.headline6!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06),
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3),
                   ),
                 ),
               ],
@@ -89,17 +89,17 @@ Widget coleccionableWidget(BuildContext context, Coleccion? coleccion) {
             child: Row(
               children: [
                 Text(
-                  '${coleccion.dia} de ${MesesData.meses[coleccion.mes - 1].id}, ${DateTime.now().year}',
+                  '${collection.dia} de ${MesesData.meses[collection.mes - 1].id}, ${DateTime.now().year}',
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.03,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_BODY,
                         color:
                             Theme.of(context).primaryColorDark.withOpacity(0.4),
                       ),
                 ),
                 Text(
-                  ' - ${coleccion.tipo}',
+                  ' - ${collection.tipo}',
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.03,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_BODY,
                         color:
                             Theme.of(context).primaryColorDark.withOpacity(0.4),
                       ),
@@ -110,36 +110,36 @@ Widget coleccionableWidget(BuildContext context, Coleccion? coleccion) {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Text(
-              coleccion.descripcion,
+              collection.descripcion,
               style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                  fontSize: MediaQuery.of(context).size.width * 0.036),
+                  fontSize: MediaQuery.of(context).size.width * SCALE_BODY),
             ),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.width * 0.06,
+            height: MediaQuery.of(context).size.width * SPACE_SECTION,
           ),
-          coleccion.desbloqueado
+          collection.desbloqueado
               ? Container(
                   alignment: Alignment.center,
                   color: Theme.of(context).primaryColorDark.withOpacity(0.2),
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Text(
-                      'Desbloqueado',
+                      COLLECTIBLE_UNLOCKED_BTN,
                       style: Theme.of(context)
                           .textTheme
                           .headline4!
                           .copyWith(
                               fontSize:
-                                  MediaQuery.of(context).size.width * 0.03,
+                                  MediaQuery.of(context).size.width * SCALE_BODY,
                               color: Theme.of(context).primaryColorDark),
                     ),
                   ),
                 )
               : InkWell(
                 onTap: () {
-                  coleccionesProvider.setColeccionDesbloqueada = false;
-                        coleccionesProvider.setColeccion(coleccion, true);
+                  collectionProvider.setColeccionDesbloqueada = false;
+                        collectionProvider.setColeccion(collection, true);
                         Navigator.of(context).pop();
                 },
                 child: Container(
@@ -147,9 +147,9 @@ Widget coleccionableWidget(BuildContext context, Coleccion? coleccion) {
                     color: Colores.acentoSecundario,
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
-                      child: Text('Desbloquear',
+                      child: Text(COLLECTIBLE_LOCKED_BTN,
                             style: Theme.of(context).textTheme.headline4!.copyWith(
-                                fontSize: MediaQuery.of(context).size.width * 0.03,
+                                fontSize: MediaQuery.of(context).size.width * SCALE_BODY,
                                 color: Theme.of(context).primaryColor)),
                     ),
                     ),
