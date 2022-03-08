@@ -1,4 +1,5 @@
-import 'package:bienaventurados/src/theme/colores.dart';
+import 'package:bienaventurados/src/theme/color_palette.dart';
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -30,7 +31,7 @@ class LocalNotifications {
       priority: Priority.max,
       importance: Importance.max,
       // largeIcon: DrawableResourceAndroidBitmap('notificacion_icono'),
-      color: Colores.acento,
+      color: ColorPalette.accent,
     );
     // IOS NO IMPLEMENTADO
     const NotificationDetails platformChannelSpecifics = NotificationDetails(
@@ -92,20 +93,20 @@ class LocalNotifications {
 
   }
 
-  Future<void> scheduleDaily9AMNotification(int hora) async {
+  Future<void> scheduleDaily9AMNotification(int hour) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
         0,
-        '¡Bendecido día!',
-        'Un mensaje de amor está esperándote, ¡ve a descubrirlo!',
-        _nextInstanceOf9AM(hora),
+        DAILY_NOTIFICATION_TITLE,
+        DAILY_NOTIFICATION_TEXT,
+        _nextInstanceOf9AM(hour),
         const NotificationDetails(
           android: AndroidNotificationDetails(
-              'Daily',
-              'Bienaventurados Daily',
-              channelDescription: 'Pequeños detalles de amor',
+              DAILY_CHANNEL_ID,
+              DAILY_CHANNEL_NAME,
+              channelDescription: DAILY_CHANNEL_DESCRIPTION,
               priority: Priority.max,
               importance: Importance.max,
-              color: Colores.acento,
+              color: ColorPalette.accent,
           ),
         ),
         androidAllowWhileIdle: true,
@@ -113,9 +114,9 @@ class LocalNotifications {
         matchDateTimeComponents: DateTimeComponents.time);
   }
 
-  tz.TZDateTime _nextInstanceOf9AM(int hora) {
+  tz.TZDateTime _nextInstanceOf9AM(int hour) {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, hora, 0, 0);
+    tz.TZDateTime scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, 0, 0);
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1, hours: 0, minutes: 0, seconds: 0));
     }
@@ -151,17 +152,17 @@ class LocalNotifications {
 
   Future<void> repeatNotification() async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'Bienaventurados Repeat',
-      'Bienaventurados Repeat',
-      channelDescription: 'Repetiremos sin cansancio que Dios te ama!',
+      REPEAT_CHANNEL_ID,
+      REPEAT_CHANNEL_NAME,
+      channelDescription: REPEAT_CHANNEL_DESCRIPTION,
     );
     const NotificationDetails platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics
     );
     await flutterLocalNotificationsPlugin.periodicallyShow(
-      0, 
-      'Bienaventurado seas!',
-      'Dios te ama, no te olvides nunca.',
+      1, 
+      REPEAT_NOTIFICATION_TITLE,
+      REPEAT_NOTIFICATION_TEXT,
       RepeatInterval.hourly,
       platformChannelSpecifics,
       androidAllowWhileIdle: true

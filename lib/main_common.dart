@@ -33,19 +33,19 @@ Future<void> mainCommon(AppConfig config) async {
           create: (BuildContext context) => AuthProvider.instance(),
         ),
         ChangeNotifierProvider(
-          create: (BuildContext context) => ThemeProvider(activarModoNoche: prefs.modoNoche),
+          create: (BuildContext context) => ThemeProvider(activarModoNoche: prefs.darkMode),
         ),
         ChangeNotifierProvider(
-          create: (BuildContext context) => AvioncitoProvider(),
+          create: (BuildContext context) => PaperplaneProvider(),
         ),
         ChangeNotifierProvider(
-          create: (BuildContext context) => CompartirProvider(),
+          create: (BuildContext context) => ShareProvider(),
         ),
         ChangeNotifierProvider(
-          create: (BuildContext context) => LogroProvider(),
+          create: (BuildContext context) => AchievementProvider(),
         ),
         ChangeNotifierProvider(
-          create: (BuildContext context) => ColeccionesProvider(),
+          create: (BuildContext context) => CollectionProvider(),
         ),
         ChangeNotifierProvider(
           create: (BuildContext context) => DrawerProvider(),

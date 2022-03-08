@@ -1,42 +1,36 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/models/avioncito_model.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-class TallerPage extends StatefulWidget {
-  const TallerPage({Key? key}) : super(key: key);
+class StudioPage extends StatefulWidget {
+  const StudioPage({Key? key}) : super(key: key);
 
   @override
-  _TallerPageState createState() => _TallerPageState();
+  _StudioPageState createState() => _StudioPageState();
 }
 
-class _TallerPageState extends State<TallerPage> {
+class _StudioPageState extends State<StudioPage> {
 
-  final Stream<QuerySnapshot> avioncitos = FirebaseFirestore.instance.collection('datosUsuarios').snapshots();
+  final Stream<QuerySnapshot> paperplanes = FirebaseFirestore.instance.collection(COLLECTION_USERDATA).snapshots();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('Taller'),
-        leading: InkWell(
-          onTap: () {Navigator.of(context).pop();},
-          child: Icon(
-            Iconsax.arrow_left,
-            
-            ),
-        ),
+        //title: Text('Taller'),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: avioncitos,
+        stream: paperplanes,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if(snapshot.hasError) {
-            return Text('¡Oh, oh! Algo ha salido mal. Intentalo de nuevo más tarde');
+            return Text(ERROR_TEXT);
           } 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: Text('Cargando avioncitos...'));
+            return Center(child: Text(LOADING_TEXT));
           }
           final data = snapshot.requireData;
           if (data.size == 0) {
@@ -54,9 +48,9 @@ class _TallerPageState extends State<TallerPage> {
                     ),
                   ),
                   SizedBox(height: 40),
-                  Text('Tus avioncitos por construir', style: Theme.of(context).textTheme.headline6, textAlign: TextAlign.center,),
+                  Text(STUDIO_PAGE_TITLE, style: Theme.of(context).textTheme.headline6, textAlign: TextAlign.center,),
                   SizedBox(height: 20),
-                  Text('Aún no hay avioncitos para hacer volar. Los avioncitos que se construyan llegarán hasta acá para tomar vuelo y comenzar su aventura.', style: Theme.of(context).textTheme.bodyText2, textAlign: TextAlign.center),
+                  Text(STUDIO_PAGE_TEXT, style: Theme.of(context).textTheme.bodyText2, textAlign: TextAlign.center),
                 ],
             ),
               ));
@@ -69,7 +63,14 @@ class _TallerPageState extends State<TallerPage> {
               },
               itemCount: data.size,
               itemBuilder: (context, index) {
-                return avioncitoCarta(data.docs[index].id, data.docs[index]['frase'], data.docs[index]['santo'], data.docs[index]['reflexion'], data.docs[index]['usuario'], data.docs[index]['tag']);
+                return cardPaperplane(
+                  data.docs[index].id, 
+                  data.docs[index]['frase'], 
+                  data.docs[index]['santo'], 
+                  data.docs[index]['reflexion'], 
+                  data.docs[index]['usuario'], 
+                  data.docs[index]['tag']
+                );
               }
             ),
           );
@@ -78,15 +79,15 @@ class _TallerPageState extends State<TallerPage> {
     );
   }
 
-  Widget avioncitoCarta(String id, String frase, String santo, String reflexion, String usuario, String tag) {
-    Avioncito avioncito = Avioncito(id: id, frase: frase, santo: santo, reflexion: reflexion, tag: tag, usuario: usuario);
+  Widget cardPaperplane(String id, String quote, String saint, String reflexion, String user, String tag) {
+    Avioncito paperplane = Avioncito(id: id, frase: quote, santo: saint, reflexion: reflexion, tag: tag, usuario: user);
     return Container(
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-                frase,
+                quote,
                 style: Theme.of(context).textTheme.headline4),
             SizedBox(
               height: 10,
@@ -94,7 +95,7 @@ class _TallerPageState extends State<TallerPage> {
             Container(
               alignment: Alignment.centerRight,
               child: Text(
-                santo,
+                saint,
                 style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Theme.of(context).primaryColorDark),
                 textAlign: TextAlign.end,
               ),
@@ -109,27 +110,24 @@ class _TallerPageState extends State<TallerPage> {
             SizedBox(height: 20,),
             Row(
               children: [
-                Text(usuario, style:Theme.of(context).textTheme.subtitle1),
+                Text(user, style:Theme.of(context).textTheme.subtitle1),
                 Spacer(),
                 IconButton(
                 onPressed: () {
-                  // _deleteAvioncitoUsuario(avioncito.id);
-                  Navigator.of(context).pushNamed(editarPage, arguments: avioncito);
+                  Navigator.of(context).pushNamed(editPage, arguments: paperplane);
                 },
                 icon: Icon(
                   Iconsax.tick_square,
-                  size: 22,
+                  size: MediaQuery.of(context).size.width * DIMENSION_ICON,
                   color: Theme.of(context).colorScheme.secondary),
               ),
-                
-                SizedBox(width: 10,),
                 IconButton(
                 onPressed: () {
-                  _deleteAvioncitoUsuario(avioncito.id);
+                  _deletePaperplaneUser(paperplane.id);
                 },
                 icon: Icon(
                   Iconsax.close_square,
-                  size: 22,
+                  size: MediaQuery.of(context).size.width * DIMENSION_ICON,
                   color: Theme.of(context).primaryColorDark),
               ),
               ],
@@ -140,10 +138,9 @@ class _TallerPageState extends State<TallerPage> {
     );
   }
 
-  void _deleteAvioncitoUsuario(String? id) {
+  void _deletePaperplaneUser(String? id) {
     final FirebaseFirestore _db = FirebaseFirestore.instance;
-    DocumentReference avioncitoRef = _db.collection('datosUsuarios').doc(id);
-    print('avioncito ${avioncitoRef.id} eliminado de datosUsuarios');
-    avioncitoRef.delete();
+    DocumentReference paperplaneRef = _db.collection(COLLECTION_USERDATA).doc(id);
+    paperplaneRef.delete();
   }
 }

@@ -1,5 +1,5 @@
 import 'package:bienaventurados/src/providers/providers.dart';
-import 'package:bienaventurados/src/utils/constants.dart';
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/views/pages/today/widgets/avatar_widget.dart';
 import 'package:bienaventurados/src/views/pages/today/widgets/instructions_widget.dart';
 import 'package:bienaventurados/src/views/pages/today/widgets/paperplane_widget.dart';
@@ -22,7 +22,7 @@ class _TodayPageState extends State<TodayPage> {
 
   @override
   Widget build(BuildContext context) {
-    final collectionProvider = Provider.of<ColeccionesProvider>(context);
+    final collectionProvider = Provider.of<CollectionProvider>(context);
     final drawerProvider = Provider.of<DrawerProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -56,7 +56,7 @@ class _TodayPageState extends State<TodayPage> {
               ),
               //GospelWidget(),
               PaperplaneWidget(),
-              collectionProvider.coleccionDesbloqueada ? CollectionsWidget() : SizedBox.shrink(),
+              collectionProvider.collectibleUnlocked ? CollectionsWidget() : SizedBox.shrink(),
               InstructionsWidget(),
               //InformacionWidget(),
             ],

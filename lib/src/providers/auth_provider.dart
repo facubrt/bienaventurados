@@ -1,5 +1,6 @@
 import 'package:bienaventurados/src/data/local/local_db.dart';
 import 'package:bienaventurados/src/models/usuario_model.dart';
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,41 +13,41 @@ class AuthProvider with ChangeNotifier {
   GoogleSignInAccount? _googleUser;
   Usuario _user = Usuario();
   late String _displayName;
-  bool constanciaRestablecida = false;
-  bool constanciaAumentada = false;
+  bool restartConstancy = false;
+  bool increaseConstancy = false;
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final LocalData _localDB = LocalData();
-  bool? _sesionIniciada;
-  Box? usuarioBox;
+  bool? _isLoggedIn;
+  Box? usersBox;
 
-  AuthProvider.instance({bool? sesionIniciada}) : _auth = FirebaseAuth.instance {
+  AuthProvider.instance({bool? isLoggedIn}) : _auth = FirebaseAuth.instance {
     _auth.authStateChanges().listen(_onAuthStateChanged);
   }
 
   Future<void> _onAuthStateChanged(auth.User? firebaseUser) async {
     if (firebaseUser == null) {
-      _sesionIniciada = false;
+      _isLoggedIn = false;
     } else {
       await getUsuarioFromLocal(firebaseUser.uid);
-      _sesionIniciada = true;
+      _isLoggedIn = true;
       notifyListeners();
     }
   }
 
   Future<bool> getUsuarioFromLocal(String uid) async {
-    await _localDB.openBox().then((iniciado) async {
-      if (iniciado) {
-        usuarioBox = _localDB.getUsuario();
-        if (usuarioBox!.isEmpty) {
+    await _localDB.openBox().then((result) async {
+      if (result) {
+        usersBox = _localDB.getUsuario();
+        if (usersBox!.isEmpty) {
           print('USUARIO DESDE FIREBASE');
           DocumentSnapshot userSnap = await _db.collection('usuarios').doc(uid).get();
           _user.setFromFirestore(userSnap);
           _localDB.setUsuario(_user);
         } else {
           print('USUARIO DESDE LOCAL');
-          _user = usuarioBox!.getAt(0);
+          _user = usersBox!.getAt(0);
         }
       }
     });
@@ -59,7 +60,7 @@ class AuthProvider with ChangeNotifier {
       final UserCredential authResult = await _auth.signInWithEmailAndPassword(email: email, password: password);
       if (authResult.user != null) {
         //auth.User user = authResult.user!;
-        _sesionIniciada = true;
+        _isLoggedIn = true;
         await updateUserData();
         message = 'user-found';
       }
@@ -79,14 +80,14 @@ class AuthProvider with ChangeNotifier {
     return message;
   }
 
-  Future<auth.User?> createUserWithEmailAndPassword(String nombre, String email, String password) async {
+  Future<auth.User?> createUserWithEmailAndPassword(String name, String email, String password) async {
     auth.User? _user;
     try {
       final UserCredential authResult = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       if (authResult.user != null) {
         auth.User user = authResult.user!;
-        _sesionIniciada = true;
-        _displayName = nombre;
+        _isLoggedIn = true;
+        _displayName = name;
         await createUserData(user);
         _user = user;
       }
@@ -112,7 +113,7 @@ class AuthProvider with ChangeNotifier {
       );
       UserCredential authResult = await _auth.signInWithCredential(credential);
       auth.User user = authResult.user!;
-      _sesionIniciada = true;
+      _isLoggedIn = true;
       _displayName = user.displayName!.split(' ')[0].toString();
 
       await createUserData(user);
@@ -156,60 +157,56 @@ class AuthProvider with ChangeNotifier {
     return userData;
   }
 
-  Future<bool> actualizarNombre(String nombre) async {
-    DocumentReference userRef = _db.collection('usuarios').doc(_user.uid);
+  Future<bool> updateName(String name) async {
+    DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(_user.uid);
     final currentUser = _auth.currentUser;
 
     await userRef.set({
-      'nombre': nombre,
+      'nombre': name,
     }, SetOptions(merge: true));
 
-    _user.nombre = nombre;
+    _user.nombre = name;
     currentUser!.updateDisplayName(_displayName);
     notifyListeners();
 
     return true;
   }
 
-  Future<bool> actualizarCorreo(String correo) async {
-    DocumentReference userRef = _db.collection('usuarios').doc(_user.uid);
+  Future<bool> updateEmail(String email) async {
+    DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(_user.uid);
     final currentUser = _auth.currentUser;
 
-    if (currentUser!.providerData[0].providerId == 'google.com') {
-      print('CUENTA DE GOOGLE');
+    if (currentUser!.providerData[0].providerId == GOOGLE_DOMAIN) {
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
       final credential = auth.GoogleAuthProvider.credential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
-      //UserCredential authResult = 
       await _auth.signInWithCredential(credential);
-      //final currentUser = authResult.user;
     }
 
     await userRef.set({
-      'correo': correo,
+      'correo': email,
     }, SetOptions(merge: true));
-    _user.correo = correo;
-    currentUser.updateEmail(correo);
+    _user.correo = email;
+    currentUser.updateEmail(email);
     notifyListeners();
 
     return true;
   }
 
-  Future<bool> actualizarContrasena(String contrasenaAnterior, String contrasenaNueva) async {
+  Future<bool> updatePassword(String password, String newPassword) async {
     final credential;
     final user = _auth.currentUser;
-    if (user!.providerData[0].providerId == 'google.com') {
-      print('CUENTA DE GOOGLE');
+    if (user!.providerData[0].providerId == GOOGLE_DOMAIN) {
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
       credential = auth.GoogleAuthProvider.credential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
       user.reauthenticateWithCredential(credential);
       //UserCredential authResult = await _auth.signInWithCredential(credential);
       //final currentUser = authResult.user;
-    } else if (user.providerData[0].providerId == 'email') {
-      credential = EmailAuthProvider.credential(email: user.email!, password: contrasenaAnterior);
+    } else if (user.providerData[0].providerId == EMAIL_DOMAIN) {
+      credential = EmailAuthProvider.credential(email: user.email!, password: password);
       user.reauthenticateWithCredential(credential);
     }
-    user.updatePassword(contrasenaNueva).then((result) {
-      user.updatePassword(contrasenaNueva);
+    user.updatePassword(newPassword).then((result) {
+      user.updatePassword(newPassword);
     });
     user.reload();
     notifyListeners();
@@ -217,9 +214,9 @@ class AuthProvider with ChangeNotifier {
     return true;
   }
 
-  Future<bool> recuperarCuenta(String correo) async {
+  Future<bool> restorePassword(String email) async {
     try {
-      await _auth.sendPasswordResetEmail(email: correo);
+      await _auth.sendPasswordResetEmail(email: email);
       return true;
     } on FirebaseAuthException catch (e) {
       print(e);
@@ -229,10 +226,10 @@ class AuthProvider with ChangeNotifier {
 
   Future<bool> deleteUser() async {
     try {
-      auth.User usuario = _auth.currentUser!;
-      DocumentReference userRef = _db.collection('usuarios').doc(usuario.uid);
+      auth.User user = _auth.currentUser!;
+      DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(user.uid);
       userRef.delete();
-      usuario.delete();
+      user.delete();
       return true;
     } catch (e) {
       print(e.toString());
@@ -245,9 +242,9 @@ class AuthProvider with ChangeNotifier {
   }
 
   // ESTADISTICAS DE USUARIO
-  Future<void> actualizarCompartidos() async {
+  Future<void> updatePaperplanesShared() async {
     final user = _auth.currentUser;
-    DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
+    DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(user!.uid);
 
     _user.avCompartidos = _user.avCompartidos! + 1;
     _localDB.setUsuario(_user);
@@ -259,9 +256,9 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> actualizarConstruidos() async {
+  Future<void> updatePaperplanesBuilded() async {
     final user = _auth.currentUser;
-    DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
+    DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(user!.uid);
 
     _user.avConstruidos = _user.avConstruidos! + 1;
     _localDB.setUsuario(_user);
@@ -273,10 +270,9 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void actualizarConstancia() async {
+  void updateConstancy() async {
     final user = _auth.currentUser;
-    DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
-    print('ACTUALIZANDO CONSTANCIA');
+    DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(user!.uid);
 
     _user.actualConstancia = _user.actualConstancia! + 1;
 
@@ -291,15 +287,15 @@ class AuthProvider with ChangeNotifier {
         'actual-constancia': _user.actualConstancia,
       }, SetOptions(merge: true));
     }
-    constanciaAumentada = false;
+    increaseConstancy = false;
     _localDB.setUsuario(_user);
 
     notifyListeners();
   }
 
-  void restablecerConstancia() async {
+  void restoreConstancy() async {
     final user = _auth.currentUser;
-    DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
+    DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(user!.uid);
 
     _user.actualConstancia = 1;
     _localDB.setUsuario(_user);
@@ -307,12 +303,12 @@ class AuthProvider with ChangeNotifier {
     await userRef.set({
       'actual-constancia': _user.actualConstancia,
     }, SetOptions(merge: true));
-    constanciaRestablecida = false;
+    restartConstancy = false;
     notifyListeners();
   }
 
-  bool? get sesionIniciada => _sesionIniciada;
+  bool? get isLoggedIn => _isLoggedIn;
 
-  Usuario get usuario => _user;
+  Usuario get user => _user;
   GoogleSignInAccount? get googleUser => _googleUser;
 }

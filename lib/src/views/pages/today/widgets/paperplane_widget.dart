@@ -1,6 +1,6 @@
 import 'package:bienaventurados/src/providers/providers.dart';
-import 'package:bienaventurados/src/theme/colores.dart';
-import 'package:bienaventurados/src/utils/constants.dart';
+import 'package:bienaventurados/src/theme/color_palette.dart';
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:bienaventurados/src/data/local/meses_data.dart';
 import 'package:bienaventurados/src/views/widgets/section_widget.dart';
@@ -13,7 +13,7 @@ class PaperplaneWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final paperplaneProvider = Provider.of<AvioncitoProvider>(context);
+    final paperplaneProvider = Provider.of<PaperplaneProvider>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30.0),
       child: Column(
@@ -46,7 +46,7 @@ class PaperplaneWidget extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .subtitle1!
-                                .copyWith(fontSize: MediaQuery.of(context).size.width * SCALE_H4, color: Colores.primarioDay),
+                                .copyWith(fontSize: MediaQuery.of(context).size.width * SCALE_H4, color: ColorPalette.primaryLight),
                             textAlign: TextAlign.end,
                           ),
                         ],
@@ -76,7 +76,7 @@ class PaperplaneWidget extends StatelessWidget {
                                 Text(
                                   DISCOVERY_TITLE,
                                   style: Theme.of(context).textTheme.headline4!.copyWith(
-                                        color: Colores.primarioDay,
+                                        color: ColorPalette.primaryLight,
                                         fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                                       ),
                                 ),
@@ -86,7 +86,7 @@ class PaperplaneWidget extends StatelessWidget {
                                 Text(
                                   DISCOVERY_TEXT,
                                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                        color: Colores.primarioDay,
+                                        color: ColorPalette.primaryLight,
                                         fontSize: MediaQuery.of(context).size.width * SCALE_H4,
                                       ),
                                 ),
@@ -99,10 +99,10 @@ class PaperplaneWidget extends StatelessWidget {
                             child: IconButton(
                               icon: Icon(
                                 Iconsax.play,
-                                color: Colores.primarioDay,
+                                color: ColorPalette.primaryLight,
                               ),
                               onPressed: () {
-                                Navigator.of(context).pushNamed(avioncitoPage, arguments: paperplaneProvider.avioncito);
+                                Navigator.of(context).pushNamed(paperplanePage, arguments: paperplaneProvider.paperplane);
                               },
                             ),
                           )

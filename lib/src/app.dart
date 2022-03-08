@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:bienaventurados/src/app_config.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
-import 'package:bienaventurados/src/utils/constants.dart';
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:bienaventurados/src/services/local_notifications.dart';
@@ -69,7 +69,7 @@ class _BienaventuradosState extends State<Bienaventurados> {
       title: TITLE_APP,
       debugShowCheckedModeBanner: false,
       theme: themeProvider.getTheme,
-      initialRoute: prefs.sesionIniciada ? dashboardPage : bienaventuradosPage,
+      initialRoute: prefs.isLoggedIn ? dashboardPage : bienaventuradosPage,
       onGenerateRoute: Routes.generateRoute,
     );
   }

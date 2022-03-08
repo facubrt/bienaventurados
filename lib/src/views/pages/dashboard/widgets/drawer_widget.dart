@@ -1,6 +1,6 @@
 import 'package:bienaventurados/src/data/local/drawer_items.dart';
 import 'package:bienaventurados/src/models/drawer_item_model.dart';
-import 'package:bienaventurados/src/utils/constants.dart';
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class DrawerWidget extends StatelessWidget {

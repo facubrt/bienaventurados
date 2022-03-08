@@ -1,5 +1,5 @@
 import 'package:bienaventurados/src/providers/providers.dart';
-import 'package:bienaventurados/src/theme/colores.dart';
+import 'package:bienaventurados/src/theme/color_palette.dart';
 import 'package:bienaventurados/src/views/pages/perfil/widgets/qr_bottomsheet.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
@@ -51,13 +51,13 @@ class ComparteWidget extends StatelessWidget {
                   'Comparte esta aventura',
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
-                    color: Colores.primarioDay,
+                    color: ColorPalette.primaryLight,
                   ),
                 ),
               ),
               onPressed: () async {
-                final logroProvider = Provider.of<LogroProvider>(context, listen: false);
-                logroProvider.comprobacionLogros('compartir-app');
+                final logroProvider = Provider.of<AchievementProvider>(context, listen: false);
+                logroProvider.achievementsCheck('compartir-app');
                 await Share.share('https://play.google.com/store/apps/details?id=com.sereucaristia');
               },
             ),

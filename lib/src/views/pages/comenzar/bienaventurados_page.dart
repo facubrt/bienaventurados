@@ -56,7 +56,7 @@ class _BienaventuradosPageState extends State<BienaventuradosPage> {
                         _state = 1;
                       authProvider.googleSignIn().then((result) {
                         if (result != null) {
-                          prefs.sesionIniciada = true;
+                          prefs.isLoggedIn = true;
                           drawerProvider.page = DrawerItems.todayPage;
                           Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
                         }
@@ -77,7 +77,7 @@ class _BienaventuradosPageState extends State<BienaventuradosPage> {
                 ),
                 onPressed: () {
                   drawerProvider.page = DrawerItems.todayPage;
-                  Navigator.of(context).pushNamed(iniciarAventuraPage);
+                  Navigator.of(context).pushNamed(getStartedPage);
                 },
                 child: Text('Continuar con Correo',
                     style: Theme.of(context).textTheme.headline4!.copyWith(

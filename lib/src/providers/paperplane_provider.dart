@@ -7,33 +7,32 @@ import 'package:hive_flutter/hive_flutter.dart';
 // import 'package:http/http.dart' as http;
 // import 'package:webfeed/webfeed.dart';
 
-class AvioncitoProvider with ChangeNotifier {
-  late Avioncito _avioncito;
-  List<Avioncito> _avioncitosGuardados = [];
-  List<Avioncito> _avioncitos = [];
-  // late int _dia;
-  bool _avioncitoListo = false;
-  bool _nuevoDia = false;
-  late int nAvioncito;
-  Box? avioncitosBox;
+class PaperplaneProvider with ChangeNotifier {
+  late Avioncito _paperplane;
+  List<Avioncito> _paperplanesSaved = [];
+  List<Avioncito> _paperplanes = [];
+  bool _isPaperplane = false;
+  bool _newDay = false;
+  late int nPaperplane;
+  Box? paperplanesBox;
   // compartir avioncito
-  bool _compartirAvioncito = false;
-  String _tiempoLiturgico = '';
-  String _lectura = '';
-  String _tituloLectura = '';
+  bool _sharePaperplane = false;
+  String _liturgicalTime = '';
+  String _gospel = '';
+  String _gospelTitle = '';
 
   final FirebaseFirestore _fireDB = FirebaseFirestore.instance;
   final LocalData _localDB = LocalData();
   final prefs = UserPreferences();
 
-  Future<void> primerInicio() async {
-    await _localDB.openBox().then((iniciado) async {
-      if (iniciado) {
-        await getAvioncitoFromLocal().then((avioncitosListos) async {
-          if (avioncitosListos) {
-            await getAvioncitoHoy().then((listo) {
-              if (listo) {
-                _avioncitoListo = true;
+  Future<void> firstTime() async {
+    await _localDB.openBox().then((isOpenBox) async {
+      if (isOpenBox) {
+        await getPaperplanesFromLocal().then((isPaperplanes) async {
+          if (isPaperplanes) {
+            await getPaperplaneToday().then((result) {
+              if (result) {
+                _isPaperplane = true;
                 notifyListeners();
               }
             });
@@ -43,12 +42,12 @@ class AvioncitoProvider with ChangeNotifier {
     });
   }
 
-  Future<void> mismoAvioncito() async {
-    await _localDB.openBox().then((iniciado) async {
-      if (iniciado) {
-        await getAvioncitoHoy().then((listo) {
-          if (listo) {
-            _avioncitoListo = true;
+  Future<void> isToday() async {
+    await _localDB.openBox().then((isOpenBox) async {
+      if (isOpenBox) {
+        await getPaperplaneToday().then((result) {
+          if (result) {
+            _isPaperplane = true;
             notifyListeners();
           }
         });
@@ -56,14 +55,14 @@ class AvioncitoProvider with ChangeNotifier {
     });
   }
 
-  Future<void> nuevoAvioncito() async {
-    await _localDB.openBox().then((iniciado) async {
-      if (iniciado) {
-        await getAvioncitoFromLocal().then((avioncitosListos) async {
-          if (avioncitosListos) {
-            await getAvioncitoHoy().then((listo) {
-              if (listo) {
-                _avioncitoListo = true;
+  Future<void> isNewDay() async {
+    await _localDB.openBox().then((isOpenBox) async {
+      if (isOpenBox) {
+        await getPaperplanesFromLocal().then((isPaperplanes) async {
+          if (isPaperplanes) {
+            await getPaperplaneToday().then((result) {
+              if (result) {
+                _isPaperplane = true;
                 notifyListeners();
               }
             });
@@ -73,31 +72,31 @@ class AvioncitoProvider with ChangeNotifier {
     });
   }
 
-  Future<bool> getAvioncitoFromLocal() async {
-    avioncitosBox = _localDB.getAvioncitos();
-    if (avioncitosBox!.isEmpty) {
-      await getAvioncitosFromFirestore().then((listo) {
+  Future<bool> getPaperplanesFromLocal() async {
+    paperplanesBox = _localDB.getAvioncitos();
+    if (paperplanesBox!.isEmpty) {
+      await getPaperplanesFromFirestore().then((listo) {
         if (listo) {
           // nAvioncito = Random().nextInt(_avioncitos.length);
-          _avioncito = _localDB.getAvioncitoHoy();
-          _avioncito.fecha = DateTime.now();
-          _localDB.setAvioncitoHoy(_avioncito);
+          _paperplane = _localDB.getAvioncitoHoy();
+          _paperplane.fecha = DateTime.now();
+          _localDB.setAvioncitoHoy(_paperplane);
           _localDB.deleteAvioncitoHoy();
           return true;
         }
       });
     } else {
-      _avioncito = _localDB.getAvioncitoHoy();
-      _avioncito.fecha = DateTime.now();
-      _avioncito.visto = true;
-      _localDB.setAvioncitoHoy(_avioncito);
+      _paperplane = _localDB.getAvioncitoHoy();
+      _paperplane.fecha = DateTime.now();
+      _paperplane.visto = true;
+      _localDB.setAvioncitoHoy(_paperplane);
       _localDB.deleteAvioncitoHoy();
     }
     return true;
   }
 
-  Future<bool> getAvioncitosFromFirestore() async {
-    _avioncitos.clear();
+  Future<bool> getPaperplanesFromFirestore() async {
+    _paperplanes.clear();
     bool retVal = false;
     await _fireDB
         .collection('datosApp')
@@ -113,46 +112,46 @@ class AvioncitoProvider with ChangeNotifier {
       }
       for (var i = 0; i < _lenght; i++) {
         Avioncito av = Avioncito.fromFirestore(snapshot.docs[i]);
-        _avioncitos.add(av);
+        _paperplanes.add(av);
       }
-      _avioncitos.shuffle();
-      _localDB.setAvioncitos(_avioncitos);
+      _paperplanes.shuffle();
+      _localDB.setAvioncitos(_paperplanes);
       retVal = true;
     });
     return retVal;
   }
 
-  Future<bool> getAvioncitoHoy() async {
-    _avioncito = await _localDB.getHoy()!.get(0);
+  Future<bool> getPaperplaneToday() async {
+    _paperplane = await _localDB.getHoy()!.get(0);
     return true;
   }
 
-  Box getGuardadosFromLocal() {
+  Box getSavedFromLocal() {
     return _localDB.guardadosBox!;
   }
 
-  Future<bool> guardarAvioncito(Avioncito avioncitoGuardado) async {
-    if (avioncitoGuardado.id == _avioncito.id) {
+  Future<bool> savePaperplane(Avioncito paperplane) async {
+    if (paperplane.id == _paperplane.id) {
       _localDB.guardarAvioncito(true);
     }
-    avioncitoGuardado.guardado = true;
-    _localDB.setGuardados(avioncitoGuardado.id, avioncitoGuardado);
+    paperplane.guardado = true;
+    _localDB.setGuardados(paperplane.id, paperplane);
     notifyListeners();
     return true;
   }
 
-  Future<bool> noGuardarAvioncito(Avioncito avioncitoGuardado) async {
-    if (avioncitoGuardado.id == _avioncito.id) {
-      _avioncito.guardado = false;
+  Future<bool> dontSavePaperplane(Avioncito paperplane) async {
+    if (paperplane.id == _paperplane.id) {
+      _paperplane.guardado = false;
       _localDB.guardarAvioncito(false);
     }
-    avioncitoGuardado.guardado = false;
-    _localDB.deleteGuardado(avioncitoGuardado.id);
+    paperplane.guardado = false;
+    _localDB.deleteGuardado(paperplane.id);
     notifyListeners();
     return true;
   }
 
-  Future<bool> eliminarDB() async {
+  Future<bool> deleteAllData() async {
     await _localDB.deleteData();
     return true;
   }
@@ -198,18 +197,18 @@ class AvioncitoProvider with ChangeNotifier {
   */
 
   set compartirAvioncito(bool compartirAvioncito) {
-    _compartirAvioncito = compartirAvioncito;
+    _sharePaperplane = compartirAvioncito;
     notifyListeners();
   }
-  bool get compartirAvioncito => _compartirAvioncito;
-  Avioncito? get avioncito => _avioncito;
-  String get tiepoLiturgico => _tiempoLiturgico;
-  String get lectura => _lectura;
-  String get tituloLectura => _tituloLectura;
-  List<Avioncito> get avioncitosGuardados => _avioncitosGuardados;
-  bool get avioncitoListo => _avioncitoListo;
-  bool get nuevoDia => _nuevoDia;
-  set setNuevoDia(bool estado) {
-    _nuevoDia = estado;
+  bool get compartirAvioncito => _sharePaperplane;
+  Avioncito? get paperplane => _paperplane;
+  String get liturgicalTime => _liturgicalTime;
+  String get gospel => _gospel;
+  String get gospelTitle => _gospelTitle;
+  List<Avioncito> get paperplanesSaved => _paperplanesSaved;
+  bool get isPaperplane => _isPaperplane;
+  bool get newDay => _newDay;
+  set setNewDay(bool state) {
+    _newDay = state;
   }
 }

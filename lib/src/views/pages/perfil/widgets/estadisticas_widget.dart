@@ -1,5 +1,5 @@
 import 'package:bienaventurados/src/providers/providers.dart';
-import 'package:bienaventurados/src/theme/colores.dart';
+import 'package:bienaventurados/src/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +34,7 @@ class EstadisticasWidget extends StatelessWidget {
           ),
           Card(
             elevation: 0,
-            color: Colores.acentoOscuro,
+            color: ColorPalette.accentDark,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
@@ -51,9 +51,9 @@ class EstadisticasWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          authProvider.usuario.avCompartidos.toString().padLeft(2, '0'),
+                          authProvider.user.avCompartidos.toString().padLeft(2, '0'),
                           style: Theme.of(context).textTheme.headline4!.copyWith(
-                                color: Colores.primarioDay,
+                                color: ColorPalette.primaryLight,
                                 fontSize: MediaQuery.of(context).size.width * 0.06,
                               ),
                         ),
@@ -70,7 +70,7 @@ class EstadisticasWidget extends StatelessWidget {
                             child: Text(
                               'Avioncitos\ncompartidos'.toUpperCase(),
                               style: Theme.of(context).textTheme.headline5!.copyWith(
-                                    color: Colores.primarioDay,
+                                    color: ColorPalette.primaryLight,
                                     fontSize: MediaQuery.of(context).size.width * 0.02,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -84,9 +84,9 @@ class EstadisticasWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          authProvider.usuario.avConstruidos.toString().padLeft(2, '0'),
+                          authProvider.user.avConstruidos.toString().padLeft(2, '0'),
                           style: Theme.of(context).textTheme.headline4!.copyWith(
-                                color: Colores.primarioDay,
+                                color: ColorPalette.primaryLight,
                                 fontSize: MediaQuery.of(context).size.width * 0.06,
                               ),
                         ),
@@ -103,7 +103,7 @@ class EstadisticasWidget extends StatelessWidget {
                             child: Text(
                               'Avioncitos\nconstruidos'.toUpperCase(),
                               style: Theme.of(context).textTheme.headline5!.copyWith(
-                                    color: Colores.primarioDay,
+                                    color: ColorPalette.primaryLight,
                                     fontSize: MediaQuery.of(context).size.width * 0.02,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -117,9 +117,9 @@ class EstadisticasWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          authProvider.usuario.actualConstancia.toString().padLeft(2, '0'),
+                          authProvider.user.actualConstancia.toString().padLeft(2, '0'),
                           style: Theme.of(context).textTheme.headline4!.copyWith(
-                                color: Colores.primarioDay,
+                                color: ColorPalette.primaryLight,
                                 fontSize: MediaQuery.of(context).size.width * 0.06,
                               ),
                         ),
@@ -136,7 +136,7 @@ class EstadisticasWidget extends StatelessWidget {
                             child: Text(
                               'Constancia\nactual'.toUpperCase(),
                               style: Theme.of(context).textTheme.headline5!.copyWith(
-                                    color: Colores.primarioDay,
+                                    color: ColorPalette.primaryLight,
                                     fontSize: MediaQuery.of(context).size.width * 0.02,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -150,9 +150,9 @@ class EstadisticasWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          authProvider.usuario.mejorConstancia.toString().padLeft(2, '0'),
+                          authProvider.user.mejorConstancia.toString().padLeft(2, '0'),
                           style: Theme.of(context).textTheme.headline4!.copyWith(
-                                color: Colores.primarioDay,
+                                color: ColorPalette.primaryLight,
                                 fontSize: MediaQuery.of(context).size.width * 0.06,
                               ),
                         ),
@@ -169,7 +169,7 @@ class EstadisticasWidget extends StatelessWidget {
                             child: Text(
                               'Tu mejor\nconstancia'.toUpperCase(),
                               style: Theme.of(context).textTheme.headline5!.copyWith(
-                                    color: Colores.primarioDay,
+                                    color: ColorPalette.primaryLight,
                                     fontSize: MediaQuery.of(context).size.width * 0.02,
                                     fontWeight: FontWeight.bold,
                                   ),

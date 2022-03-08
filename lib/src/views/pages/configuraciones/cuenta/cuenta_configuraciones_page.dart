@@ -69,17 +69,17 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
 
   Future<void> navegarHacia(int pagina) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
+    final avioncitoProvider = Provider.of<PaperplaneProvider>(context, listen: false);
     final prefs = UserPreferences();
     switch (_listaOpciones[pagina]) {
       case 'Actualizar Nombre':
-        Navigator.of(context).pushNamed(actualizarNombrePage);
+        Navigator.of(context).pushNamed(updateNamePage);
         break;
       case 'Actualizar Correo':
-        Navigator.of(context).pushNamed(actualizarCorreoPage);
+        Navigator.of(context).pushNamed(updateEmailPage);
         break;
       case 'Actualizar Contraseña':
-        Navigator.of(context).pushNamed(actualizarContrasenaPage);
+        Navigator.of(context).pushNamed(updatePasswordPage);
         break;
       case 'Eliminar Cuenta':
         showFloatingModalBottomSheet(
@@ -138,9 +138,9 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
                           ),
                           onPressed: () {
                             Navigator.of(context).pop();
-                            avioncitoProvider.eliminarDB();
+                            avioncitoProvider.deleteAllData();
                             prefs.cleanPrefs();
-                            prefs.modoNoche = false;
+                            prefs.darkMode = false;
                             authProvider.deleteUser();
                             Navigator.of(context).pushNamedAndRemoveUntil(
                               bienaventuradosPage, (route) => false

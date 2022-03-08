@@ -19,7 +19,7 @@ class GuardadosPage extends StatefulWidget {
 class _GuardadosPageState extends State<GuardadosPage> {
   @override
   Widget build(BuildContext context) {
-    final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
+    final avioncitoProvider = Provider.of<PaperplaneProvider>(context);
     final drawerProvider = Provider.of<DrawerProvider>(context);
     return Scaffold(
         backgroundColor: Colors.transparent,
@@ -34,7 +34,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
           ),
         ),
         body: ValueListenableBuilder(
-          valueListenable: avioncitoProvider.getGuardadosFromLocal().listenable(),
+          valueListenable: avioncitoProvider.getSavedFromLocal().listenable(),
           builder: (BuildContext context, Box box, _) {
             if (box.values.isEmpty) {
               return Center(
@@ -95,7 +95,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
                   return InkWell(
                     onTap: () {
                       // Navigator.of(context).pushNamed(avioncitoPage, arguments: avioncitoGuardado);
-                      Navigator.of(context).pushNamed(avioncitoPage, arguments: avioncitoGuardado);
+                      Navigator.of(context).pushNamed(paperplanePage, arguments: avioncitoGuardado);
                     },
                     child: avioncitoCarta(
                       context,
@@ -108,7 +108,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
   }
 
   Widget avioncitoCarta(BuildContext context, Avioncito avioncitoGuardado) {
-    final avioncitoProvider = Provider.of<AvioncitoProvider>(context);
+    final avioncitoProvider = Provider.of<PaperplaneProvider>(context);
     return Padding(
       padding: const EdgeInsets.only(left: 30.0, right: 30, top: 20, bottom: 10),
       child: Column(
@@ -142,7 +142,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
               Spacer(),
               IconButton(
                 onPressed: () {
-                  avioncitoProvider.noGuardarAvioncito(avioncitoGuardado);
+                  avioncitoProvider.dontSavePaperplane(avioncitoGuardado);
                 },
                 icon: Icon(Iconsax.archive_slash, size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
               ),

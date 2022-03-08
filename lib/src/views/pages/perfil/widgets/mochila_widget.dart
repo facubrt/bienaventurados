@@ -1,4 +1,4 @@
-import 'package:bienaventurados/src/theme/colores.dart';
+import 'package:bienaventurados/src/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -49,7 +49,7 @@ class _MochilaWidgetState extends State<MochilaWidget> {
           width: 60,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colores.primarioNight)),
+              border: Border.all(color: ColorPalette.primaryDark)),
         ),
         Icon(Iconsax.element_plus),
       ]),

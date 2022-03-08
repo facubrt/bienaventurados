@@ -1,7 +1,7 @@
 import 'package:bienaventurados/src/models/coleccion_model.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
-import 'package:bienaventurados/src/utils/constants.dart';
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:bienaventurados/src/views/widgets/collectible_widget.dart';
 import 'package:bienaventurados/src/views/widgets/section_widget.dart';
@@ -14,10 +14,10 @@ class CollectionsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final collectionProvider = Provider.of<ColeccionesProvider>(context);
-    Coleccion? collection = collectionProvider.coleccion ?? null;
+    final collectionProvider = Provider.of<CollectionProvider>(context);
+    Coleccion? collection = collectionProvider.collectible ?? null;
     final prefs = UserPreferences();
-    return prefs.coleccionDesbloqueada
+    return prefs.collectionUnlocked
         ? Padding(
             padding:
                 const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 30.0),

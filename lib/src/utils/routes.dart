@@ -14,34 +14,34 @@ import 'package:bienaventurados/src/views/pages/construir/editar_page.dart';
 import 'package:bienaventurados/src/views/pages/dashboard/dashboard.dart';
 import 'package:bienaventurados/src/views/pages/perfil/colecciones_page.dart';
 import 'package:bienaventurados/src/views/pages/perfil/logros_page.dart';
-import 'package:bienaventurados/src/views/pages/taller/taller_page.dart';
+import 'package:bienaventurados/src/views/pages/studio/studio_page.dart';
 import 'package:bienaventurados/src/utils/transitions.dart';
 import 'package:bienaventurados/src/views/pages/paperplane/paperplane_page.dart';
 import 'package:flutter/material.dart';
 
 const String dashboardPage = 'dashboardPage';
-const String inicioPage = 'inicioPage';
+const String todayPage = 'todayPage';
 const String bienaventuradosPage = 'bienaventuradosPage';
-const String iniciarAventuraPage = 'iniciarAventuraPage';
-const String construirPage = 'construirPage';
-const String coleccionesPage = 'coleccionesPage';
-const String logrosPage = 'logrosPage';
-const String informacionPage = 'informacionPage';
-const String tallerPage = 'tallerPage';
-const String editarPage = 'editarPage';
-const String configuracionesPage = 'configuracionesPage';
-const String perfilPage = 'perfilPage';
-const String redescubrePage = 'redescubrePage';
-const String avioncitoPage = 'avioncitoPage';
-const String guardadosPage = 'guardadosPage';
-const String temaConfiguracionPage = 'temaConfiguracionPage';
-const String notificacionesConfiguracionPage = 'notificacionesConfiguracionPage';
-const String generalConfiguracionPage = 'generalConfiguracionPage';
-const String cuentaConfiguracionPage = 'cuentaConfiguracionPage';
-const String legalConfiguracionPage = 'legalConfiguracionPage';
-const String actualizarNombrePage = 'actualizarNombrePage';
-const String actualizarContrasenaPage = 'actualizarContrasenaPage';
-const String actualizarCorreoPage = 'actualizarCorreoPage';
+const String getStartedPage = 'getStartedPage';
+const String buildPage = 'buildPage';
+const String collectionsPage = 'collectionsPage';
+const String achievementsPage = 'achievementsPage';
+const String informationPage = 'informationPage';
+const String studioPage = 'studioPage';
+const String editPage = 'editPage';
+const String configPage = 'configPage';
+const String profilePage = 'profilePage';
+const String rediscoverPage = 'rediscoverPage';
+const String paperplanePage = 'paperplanePage';
+const String savedPage = 'savedPage';
+const String themeConfigPage = 'themeConfigPage';
+const String notiConfigPage = 'notiConfigPage';
+const String generalConfigPage = 'generalConfigPage';
+const String accountConfigPage = 'accountConfigPage';
+const String legalPage = 'legalPage';
+const String updateNamePage = 'updateNamePage';
+const String updatePasswordPage = 'updatePasswordPage';
+const String updateEmailPage = 'updateEmailPage';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -51,26 +51,27 @@ class Routes {
         return SlideLeftTransitionRoute(widget: BienaventuradosPage());
       case (dashboardPage):
         return FadeTransitionRoute(widget: DashboardPage());
-      // case (construirPage):
+      // case (buildPage):
       //   final args = settings.arguments;
       //   VoidCallback openDrawer = args as VoidCallback;
       //   return SlideLeftTransitionRoute(
-      //       widget: ConstruirPage(openDrawer: openDrawer));
-      // case (configuracionesPage):
-      //   return FadeTransitionRoute(widget: ConfiguracionesPage());
+      //       widget: buildPage(openDrawer: openDrawer));
+      // case (configPage):
+      //   return FadeTransitionRoute(widget: configPage());
       // case (perfilPage):
       //   final args = settings.arguments;
       //   VoidCallback openDrawer = args as VoidCallback;
       //   return FadeTransitionRoute(widget: PerfilPage(openDrawer: openDrawer));
+      
       // OTHERS PAGES
-      case (tallerPage):
-        return SlideLeftTransitionRoute(widget: TallerPage());
-      case (avioncitoPage):
+      case (studioPage):
+        return SlideLeftTransitionRoute(widget: StudioPage());
+      case (paperplanePage):
         final args = settings.arguments;
         Avioncito paperplane = args as Avioncito;
         return SlideUpTransitionRoute(
             widget: PaperplanePage(paperplane: paperplane));
-      case (editarPage):
+      case (editPage):
         final args = settings.arguments;
         Avioncito avioncito = args as Avioncito;
         return FadeTransitionRoute(
@@ -82,30 +83,30 @@ class Routes {
           tag: avioncito.tag,
           usuario: avioncito.usuario,
         ));
-      case (informacionPage):
+      case (informationPage):
         return SlideLeftTransitionRoute(widget: InformacionPage());
-      case (iniciarAventuraPage):
+      case (getStartedPage):
         return SlideLeftTransitionRoute(widget: IniciarAventuraPage());
-      case (coleccionesPage):
+      case (collectionsPage):
         return SlideLeftTransitionRoute(widget: ColeccionesPage());
-      case (logrosPage):
+      case (achievementsPage):
         return SlideLeftTransitionRoute(widget: LogrosPage());
-      case (temaConfiguracionPage):
+      case (themeConfigPage):
         return SlideLeftTransitionRoute(widget: TemaConfiguracionPage());
-      case (notificacionesConfiguracionPage):
+      case (notiConfigPage):
         return SlideLeftTransitionRoute(
             widget: NotificacionesConfiguracionPage());
-      case (generalConfiguracionPage):
+      case (generalConfigPage):
         return SlideLeftTransitionRoute(widget: GeneralConfiguracionesPage());
-      case (cuentaConfiguracionPage):
+      case (accountConfigPage):
         return SlideLeftTransitionRoute(widget: CuentaConfiguracionesPage());
-      case (actualizarCorreoPage):
+      case (updateEmailPage):
         return SlideLeftTransitionRoute(widget: ActualizarCorreoPage());
-      case (actualizarNombrePage):
+      case (updateNamePage):
         return SlideLeftTransitionRoute(widget: ActualizarNombrePage());
-      case (actualizarContrasenaPage):
+      case (updatePasswordPage):
         return SlideLeftTransitionRoute(widget: ActualizarContrasenaPage());
-      case (legalConfiguracionPage):
+      case (legalPage):
         return SlideLeftTransitionRoute(widget: LegalConfiguracionesPage());
       default:
         return FadeTransitionRoute(widget: DashboardPage());

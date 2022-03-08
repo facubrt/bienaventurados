@@ -12,8 +12,8 @@ class LogrosComunes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final logroProvider = Provider.of<LogroProvider>(context);
-    Box box = logroProvider.getLogros();
+    final logroProvider = Provider.of<AchievementProvider>(context);
+    Box box = logroProvider.getAchievements();
     const ColorFilter greyscaleFilter = ColorFilter.matrix(<double>[
       0.2126,
       0.7152,

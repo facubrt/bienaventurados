@@ -1,10 +1,10 @@
-import 'package:bienaventurados/src/utils/constants.dart';
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:bienaventurados/src/data/local/drawer_items.dart';
 import 'package:bienaventurados/src/data/local/meses_data.dart';
 import 'package:bienaventurados/src/models/avioncito_model.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
-import 'package:bienaventurados/src/theme/colores.dart';
+import 'package:bienaventurados/src/theme/color_palette.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
 
   @override
   Widget build(BuildContext context) {
-    final shareProvider = Provider.of<CompartirProvider>(context);
+    final shareProvider = Provider.of<ShareProvider>(context);
     return GestureDetector(
       onVerticalDragUpdate: (details) {
         if (details.primaryDelta! < -7) {
@@ -70,13 +70,13 @@ class _PaperplanePageState extends State<PaperplanePage> {
                       duration: Duration(milliseconds: 300),
                       curve: Curves.linearToEaseOut,
                       transformAlignment: Alignment.center,
-                      transform: Matrix4.identity()..scale(shareProvider.capturando ? 0.72 : 1.0, shareProvider.capturando ? 0.72 : 1.0),
+                      transform: Matrix4.identity()..scale(shareProvider.takeScreenshot ? 0.72 : 1.0, shareProvider.takeScreenshot ? 0.72 : 1.0),
                       decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
-                        border: shareProvider.capturando
+                        border: shareProvider.takeScreenshot
                             ? Border.all(width: BORDER_WIDTH, color: Theme.of(context).primaryColorDark)
                             : Border.all(width: 0.0, color: Theme.of(context).primaryColor),
-                        borderRadius: shareProvider.capturando ? BorderRadius.circular(BORDER_RADIUS) : BorderRadius.zero,
+                        borderRadius: shareProvider.takeScreenshot ? BorderRadius.circular(BORDER_RADIUS) : BorderRadius.zero,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
@@ -103,14 +103,14 @@ class _PaperplanePageState extends State<PaperplanePage> {
                   ],
                 ),
               ),
-              shareProvider.capturando
+              shareProvider.takeScreenshot
                   ? Container(
-                      color: Colores.contrasteDay.withOpacity(0.9),
+                      color: ColorPalette.primaryDark.withOpacity(0.9),
                       child: Center(
                         child: Text(
                           PREPARING_PAPERPLANE,
                           style:
-                              Theme.of(context).textTheme.headline4!.copyWith(fontSize: MediaQuery.of(context).size.width * SCALE_H3, color: Colores.primarioDay),
+                              Theme.of(context).textTheme.headline4!.copyWith(fontSize: MediaQuery.of(context).size.width * SCALE_H3, color: ColorPalette.primaryLight),
                         ),
                       ),
                     )
@@ -123,9 +123,9 @@ class _PaperplanePageState extends State<PaperplanePage> {
   }
 
   Widget paperplaneWidget() {
-    final paperplaneProvider = Provider.of<AvioncitoProvider>(context);
-    final shareProvider = Provider.of<CompartirProvider>(context);
-    final achievementProvider = Provider.of<LogroProvider>(context);
+    final paperplaneProvider = Provider.of<PaperplaneProvider>(context);
+    final shareProvider = Provider.of<ShareProvider>(context);
+    final achievementProvider = Provider.of<AchievementProvider>(context);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final prefs = UserPreferences();
     return Container(
@@ -134,10 +134,10 @@ class _PaperplanePageState extends State<PaperplanePage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          shareProvider.capturando
+          shareProvider.takeScreenshot
               ? Padding(
                   padding: const EdgeInsets.only(top: 20.0),
-                  child: prefs.modoNoche
+                  child: prefs.darkMode
                       ? Image.asset(
                           ISOTYPE_LARGE_LIGHT,
                           height: 60,
@@ -159,22 +159,22 @@ class _PaperplanePageState extends State<PaperplanePage> {
                           fontSize: MediaQuery.of(context).size.width * 0.036,
                         )),
                 Spacer(),
-                shareProvider.capturando
+                shareProvider.takeScreenshot
                     ? SizedBox.shrink()
                     : IconButton(
                         onPressed: () {
                           //aumentar contador en base de datos infoApp
                           //infoProvider.actualizarInformacionApp('aumentar');
                           //
-                          achievementProvider.comprobacionLogros('compartidos');
-                          shareProvider.capturando = true;
+                          achievementProvider.achievementsCheck('compartidos');
+                          shareProvider.takeScreenshot = true;
                           shareProvider.takeScreenshotandShare(screenshotController, widget.paperplane.frase!, widget.paperplane.santo!);
-                          authProvider.actualizarCompartidos();
+                          authProvider.updatePaperplanesShared();
                         },
                         icon: Icon(Iconsax.export_1, size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
                         padding: EdgeInsets.all(0),
                       ),
-                shareProvider.capturando
+                shareProvider.takeScreenshot
                     ? SizedBox.shrink()
                     : IconButton(
                         icon: Icon(Iconsax.more),
@@ -204,7 +204,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
                       color: Theme.of(context).primaryColor,
                     ),
                 ),
-                backgroundColor: Colores.acento,
+                backgroundColor: ColorPalette.accent,
               ),
             ),
           ),
@@ -283,9 +283,9 @@ class _PaperplanePageState extends State<PaperplanePage> {
   }
 
   Widget paperplaneBottomSheet() {
-    final paperplaneProvider = Provider.of<AvioncitoProvider>(context, listen: false);
-    final shareProvider = Provider.of<CompartirProvider>(context, listen: false);
-    final achievementProvider = Provider.of<LogroProvider>(context, listen: false);
+    final paperplaneProvider = Provider.of<PaperplaneProvider>(context, listen: false);
+    final shareProvider = Provider.of<ShareProvider>(context, listen: false);
+    final achievementProvider = Provider.of<AchievementProvider>(context, listen: false);
     final drawerProvider = Provider.of<DrawerProvider>(context, listen: false);
     return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
       return Container(
@@ -312,15 +312,15 @@ class _PaperplanePageState extends State<PaperplanePage> {
               ListTile(
                 onTap: () {
                   if (!widget.paperplane.guardado!) {
-                    achievementProvider.comprobacionLogros('guardados');
-                    paperplaneProvider.guardarAvioncito(widget.paperplane);
+                    achievementProvider.achievementsCheck('guardados');
+                    paperplaneProvider.savePaperplane(widget.paperplane);
                   } else {
-                    achievementProvider.disminuirGuardados();
-                    paperplaneProvider.noGuardarAvioncito(widget.paperplane);
+                    achievementProvider.decreaseSaved();
+                    paperplaneProvider.dontSavePaperplane(widget.paperplane);
                   }
                   Navigator.of(context).pop();
                 },
-                leading: paperplaneProvider.avioncito!.guardado!
+                leading: paperplaneProvider.paperplane!.guardado!
                     ? Icon(Iconsax.archive_slash,
                         size: MediaQuery.of(context).size.width * 0.06,
                         color: paperplaneProvider.compartirAvioncito ? Colors.transparent : Theme.of(context).primaryColorDark)
@@ -335,7 +335,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
               ListTile(
                 onTap: () {
                   Navigator.of(context).pop();
-                  shareProvider.capturando = true;
+                  shareProvider.takeScreenshot = true;
                   shareProvider.takeScreenshotandSave(screenshotController);
                 },
                 leading: donwloadPaperplane
@@ -394,7 +394,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
                   BUILD_YOUR_PAPERPLANE_BTN,
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * SCALE_BODY,
-                    color: Colores.primarioDay,
+                    color: ColorPalette.primaryLight,
                   ),
                 ),
               ),

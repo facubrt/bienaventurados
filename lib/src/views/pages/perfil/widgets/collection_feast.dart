@@ -11,8 +11,8 @@ class CollectionFeasts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final coleccionesProvider = Provider.of<ColeccionesProvider>(context);
-    Box box = coleccionesProvider.getColeccion();
+    final coleccionesProvider = Provider.of<CollectionProvider>(context);
+    Box box = coleccionesProvider.getCollections();
     const ColorFilter greyscaleFilter = ColorFilter.matrix(<double>[
       0.2126,
       0.7152,

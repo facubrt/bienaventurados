@@ -170,7 +170,7 @@ class _ActualizarContrasenaPageState extends State<ActualizarContrasenaPage> {
                     currentFocus.unfocus();
                   }
                   setState(() {
-                    authProvider.actualizarContrasena(_contrasenaAnteriorController.text, _contrasenaNuevaController.text);
+                    authProvider.updatePassword(_contrasenaAnteriorController.text, _contrasenaNuevaController.text);
                     _contrasenaNuevaController.clear();
                     _contrasenaAnteriorController.clear();
                     Navigator.of(context).pop();

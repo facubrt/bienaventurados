@@ -57,3 +57,44 @@ const double BORDER_RADIUS = 16;
 const double BORDER_RADIUS_AVATAR = 12;
 const double BORDER_WIDTH = 4;
 const int DURATION_MS = 300;
+
+// Firebase DB COLLECTIONS
+const String COLLECTION_USERS = 'usuarios';
+const String COLLECTION_APPDATA = 'datosApp';
+const String COLLECTION_USERDATA = 'datosUsuarios';
+const String COLLECTION_APPINFO = 'infoApp';
+
+// MESSAGES NOTIFICATIONS
+const String DAILY_CHANNEL_ID = 'Notificaciones diarias';
+const String DAILY_CHANNEL_NAME = 'Avioncitos diarios para vos';
+const String DAILY_CHANNEL_DESCRIPTION = 'Pequeños detalles de amor';
+const String DAILY_NOTIFICATION_TITLE = '¡Bendecido día!';
+const String DAILY_NOTIFICATION_TEXT = 'Un mensaje de amor está esperándote, ¡ve a descubrirlo!';
+const String REPEAT_CHANNEL_ID = 'Notificaciones constantes';
+const String REPEAT_CHANNEL_NAME = 'Notificaciones para tu corazón';
+const String REPEAT_CHANNEL_DESCRIPTION = 'Repetiremos incansablemente que Dios te ama';
+const String REPEAT_NOTIFICATION_TITLE = 'Es hora de recordarlo';
+const String REPEAT_NOTIFICATION_TEXT = '¡Dios te ama!';
+
+// DOMAINS
+const String GOOGLE_DOMAIN = 'google.com';
+const String EMAIL_DOMAIN = 'email';
+
+// ACHIEVEMENTS
+const String ACHIEVEMENT_FIST_TIME = 'primer-inicio';
+const String ACHIEVEMENT_CONSTANCY = 'constancia';
+const String ACHIEVEMENT_SAVED = 'guardados';
+const String ACHIEVEMENT_RATING_APP = 'calificar-app';
+const String ACHIEVEMENT_SHARED = 'compartidos';
+const String ACHIEVEMENT_SHARE_APP = 'compartir-app';
+const String ACHIEVEMENT_BUILDED = 'construidos';
+const String ACHIEVEMENT_DARK_MODE = 'modo-noche';
+
+//PAGES MESSAGES
+const String STUDIO_PAGE_TITLE = 'Tus avioncitos por construir';
+const String STUDIO_PAGE_TEXT =
+    'Aún no hay avioncitos para hacer volar. Los avioncitos que se construyan llegarán hasta acá para tomar vuelo y comenzar su aventura.';
+
+// STATUS TEXT
+const String ERROR_TEXT = '¡Oh, oh! Algo ha salido mal. Intentalo de nuevo más tarde';
+const String LOADING_TEXT = 'Cargando avioncitos...';

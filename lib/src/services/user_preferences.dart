@@ -17,85 +17,67 @@ class UserPreferences{
   }
 
   // GET y SET del momento de las notificaciones
-  int get momentoNotificaciones {
+  int get notificationsHour {
     return _prefs.getInt('momentoNotificaciones') ?? 9;
   }
 
-  set momentoNotificaciones(int momento) {
+  set notificationsHour(int momento) {
     _prefs.setInt('momentoNotificaciones', momento);
   }
 
   // GET y SET del tema
-  bool get modoNoche {
+  bool get darkMode {
     return _prefs.getBool('modoNoche') ?? false;
   }
 
-  set modoNoche(bool modo) {
-    _prefs.setBool('modoNoche', modo);
+  set darkMode(bool mode) {
+    _prefs.setBool('modoNoche', mode);
   }
 
   // GET y SET de sesionIniciada
 
-  bool get sesionIniciada {
+  bool get isLoggedIn {
     return _prefs.getBool('sesionIniciada') ?? false;
   }
 
-  set sesionIniciada(bool sesionIniciada) {
-    _prefs.setBool('sesionIniciada', sesionIniciada);
+  set isLoggedIn(bool isLoggedIn) {
+    _prefs.setBool('sesionIniciada', isLoggedIn);
   }
 
   // GET y SET ultimaConexion
-  int? get ultimaConexion {
+  int? get lastConnection {
     return _prefs.getInt('ultimaConexion') ?? null;
   }
 
-  set ultimaConexion(int? ultimaConexion) {
-    _prefs.setInt('ultimaConexion', ultimaConexion!);
+  set lastConnection(int? lastConnection) {
+    _prefs.setInt('ultimaConexion', lastConnection!);
   }
 
   // GET y SET versionApp
-  String? get versionApp {
+  String? get appVersion {
     return _prefs.getString('versionApp') ?? '';
   }
 
-  set versionApp(String? versionApp) {
-    _prefs.setString('versionApp', versionApp!);
-  }
-
-  // GET y SET CambioVersion
-  bool get cambioVersion {
-    return _prefs.getBool('cambioVersion') ?? true;
-  }
-
-  set cambioVersion(bool cambioVersion) {
-    _prefs.setBool('cambioVersion', cambioVersion);
+  set appVersion(String? appVersion) {
+    _prefs.setString('versionApp', appVersion!);
   }
 
   // GET y SET imagenPerfil
-  int get imagenPerfil {
+  int get imgProfile {
     return _prefs.getInt('imagenPerfil') ?? 0;
   }
 
-  set imagenPerfil(int imagenPerfil) {
-    _prefs.setInt('imagenPerfil', imagenPerfil);
+  set imgProfile(int imgProfile) {
+    _prefs.setInt('imagenPerfil', imgProfile);
   }
 
   // GET y SET coleccionDesbloqueada
-  bool get coleccionDesbloqueada {
+  bool get collectionUnlocked {
     return _prefs.getBool('coleccionDesbloqueada') ?? false;
   }
 
-  set coleccionDesbloqueada(bool desbloqueada) {
-    _prefs.setBool('coleccionDesbloqueada', desbloqueada);
-  }
-
-  // GET y SET databaseIniciada
-  bool get databaseIniciada {
-    return _prefs.getBool('databaseIniciada') ?? false;
-  }
-
-  set databaseIniciada(bool iniciada) {
-    _prefs.setBool('databaseIniciada', iniciada);
+  set collectionUnlocked(bool unlocked) {
+    _prefs.setBool('coleccionDesbloqueada', unlocked);
   }
 
   Future<bool> cleanPrefs() async {

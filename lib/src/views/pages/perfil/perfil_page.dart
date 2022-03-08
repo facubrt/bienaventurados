@@ -21,12 +21,12 @@ class _PerfilPageState extends State<PerfilPage> {
   Widget build(BuildContext context) {
     final drawerProvider = Provider.of<DrawerProvider>(context);
     final authProvider = Provider.of<AuthProvider>(context);
-    if (authProvider.constanciaRestablecida) {
-      authProvider.restablecerConstancia();
-      authProvider.constanciaRestablecida = false;
-    } else if (authProvider.constanciaAumentada) {
-      authProvider.actualizarConstancia();
-      authProvider.constanciaAumentada = false;
+    if (authProvider.restartConstancy) {
+      authProvider.restoreConstancy();
+      authProvider.restartConstancy = false;
+    } else if (authProvider.increaseConstancy) {
+      authProvider.updateConstancy();
+      authProvider.increaseConstancy = false;
     }
 
     return Scaffold(
@@ -52,7 +52,7 @@ class _PerfilPageState extends State<PerfilPage> {
             ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
               onTap: () {
-                Navigator.of(context).pushNamed(logrosPage);
+                Navigator.of(context).pushNamed(achievementsPage);
               },
               title: Text('Logros',
                   style: Theme.of(context).textTheme.headline1!.copyWith(
@@ -68,7 +68,7 @@ class _PerfilPageState extends State<PerfilPage> {
             ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
               onTap: () {
-                Navigator.of(context).pushNamed(coleccionesPage);
+                Navigator.of(context).pushNamed(collectionsPage);
               },
               title: Text('Colecciones',
                   style: Theme.of(context).textTheme.headline1!.copyWith(
@@ -81,12 +81,12 @@ class _PerfilPageState extends State<PerfilPage> {
               endIndent: MediaQuery.of(context).size.width * 0.08,
               color: Theme.of(context).primaryColorDark,
             ),
-            (authProvider.usuario.clase == 'administrador')
+            (authProvider.user.clase == 'administrador')
                 ? ListTile(
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
                     onTap: () {
-                      Navigator.of(context).pushNamed(tallerPage);
+                      Navigator.of(context).pushNamed(studioPage);
                     },
                     title: Text(
                       'Taller',

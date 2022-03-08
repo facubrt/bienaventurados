@@ -1,5 +1,5 @@
 import 'package:bienaventurados/src/providers/providers.dart';
-import 'package:bienaventurados/src/utils/constants.dart';
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +28,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                 ),
           ),
           Text(
-            '${authProvider.usuario.nombre ?? ''}',
+            '${authProvider.user.nombre ?? ''}',
             style: Theme.of(context).textTheme.headline1!.copyWith(
                   fontSize: MediaQuery.of(context).size.width * SCALE_H2,
                 ),

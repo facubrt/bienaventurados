@@ -373,7 +373,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                 )),
       ),
     );
-    authProvider.recuperarCuenta(emailController.text);
+    authProvider.restorePassword(emailController.text);
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
@@ -395,7 +395,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
 
     authProvider.signInWithEmailAndPassword(emailController.text, passwordController.text).then((resultado) {
       if (resultado == 'user-found') {
-        prefs.sesionIniciada = true;
+        prefs.isLoggedIn = true;
         Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
       } else if (resultado == 'wrong-password') {
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
@@ -434,7 +434,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
 
     authProvider.createUserWithEmailAndPassword(nameController.text, emailController.text, passwordController.text).then((resultado) {
       if (resultado != null) {
-        prefs.sesionIniciada = true;
+        prefs.isLoggedIn = true;
         Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(snackbar);

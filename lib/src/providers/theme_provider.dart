@@ -1,4 +1,4 @@
-import 'package:bienaventurados/src/theme/colores.dart';
+import 'package:bienaventurados/src/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,20 +12,20 @@ class ThemeProvider extends ChangeNotifier {
     ),
     textTheme: TextTheme(
       // ESTILO DE FUENTE PARA FRASE
-      headline1: TextStyle(fontSize: 38, fontWeight: FontWeight.w900, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
+      headline1: TextStyle(fontSize: 38, fontWeight: FontWeight.w900, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: ColorPalette.primaryDark),
       // ESTILO DE FUENTE PARA SANTOS Y ENCABEZADOS
-      headline2: TextStyle(fontSize: 32, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
+      headline2: TextStyle(fontSize: 32, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: ColorPalette.primaryDark),
       // utilizados en appbar y encabezados pequeños
-      headline4: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
+      headline4: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: ColorPalette.primaryDark),
       // headline5: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight.withOpacity(0.6)),
       // // utilizado para la firma Bienanventurados en HoyPage
-      headline6: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
+      headline6: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: ColorPalette.primaryDark),
 
       bodyText1: TextStyle(
-          fontSize: 18.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight.withOpacity(0.8)),
+          fontSize: 18.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: ColorPalette.primaryDark.withOpacity(0.8)),
       bodyText2: TextStyle(
-          fontSize: 16.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight.withOpacity(0.8)),
-      subtitle1: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
+          fontSize: 16.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: ColorPalette.primaryDark.withOpacity(0.8)),
+      subtitle1: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: ColorPalette.accent),
       // subtitle2: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
       // caption: TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
       // button: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
@@ -33,48 +33,48 @@ class ThemeProvider extends ChangeNotifier {
     ),
     fontFamily: 'Gotham',
     //accentColor: Colores.acento,
-    textSelectionTheme: TextSelectionThemeData(cursorColor: Colores.acento),
+    textSelectionTheme: TextSelectionThemeData(cursorColor: ColorPalette.accent),
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-      foregroundColor: MaterialStateProperty.all<Color>(Colores.primarioNight),
+      foregroundColor: MaterialStateProperty.all<Color>(ColorPalette.primaryDark),
       shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder()),
-      backgroundColor: MaterialStateProperty.all<Color>(Colores.acentoSecundario),
+      backgroundColor: MaterialStateProperty.all<Color>(ColorPalette.accentSecondary),
       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(horizontal: 20)),
     )),
     colorScheme: ColorScheme(
-      primary: Colores.primarioDay,
+      primary: ColorPalette.primaryLight,
       //primaryVariant: Colores.primarioNight,
-      secondary: Colores.acento,
-      surface: Colores.primarioDay,
+      secondary: ColorPalette.accent,
+      surface: ColorPalette.primaryLight,
       background: Colors.deepOrange,
       error: Colors.greenAccent,
       //secondaryVariant: Colors.yellowAccent,
       brightness: Brightness.light,
       onBackground: Colors.red,
       onError: Colors.blue,
-      onPrimary: Colores.primarioNight,
+      onPrimary: ColorPalette.primaryDark,
       onSecondary: Colors.green,
-      onSurface: Colores.primarioNight,
+      onSurface: ColorPalette.primaryDark,
     ),
     chipTheme: ChipThemeData(
-      selectedColor: Colores.acento,
-      backgroundColor: Colores.acentoOscuro.withOpacity(0.05),
+      selectedColor: ColorPalette.accent,
+      backgroundColor: ColorPalette.accentDark.withOpacity(0.05),
       shadowColor: Colors.transparent,
-      disabledColor: Colores.acentoOscuro.withOpacity(0.05),
+      disabledColor: ColorPalette.accentDark.withOpacity(0.05),
       checkmarkColor: Colors.yellow,
       selectedShadowColor: Colors.transparent,
       deleteIconColor: Colors.transparent,
     ),
-    scaffoldBackgroundColor: Colores.primarioDay,
-    primaryColor: Colores.primarioDay,
-    shadowColor: Colores.secundarioDay,
+    scaffoldBackgroundColor: ColorPalette.primaryLight,
+    primaryColor: ColorPalette.primaryLight,
+    shadowColor: ColorPalette.secondaryLight,
     // disabledColor: Colores.secundarioDay,
     // cardColor: Colores.secundarioDay,
-    // dividerColor: Colores.contrasteDay,
-    hoverColor: Colores.contrasteDay, // color de contraste
+    // dividerColor: Colores.primaryDark,
+    hoverColor: ColorPalette.primaryDark, // color de contraste
     highlightColor: Colors.transparent, // resaltados y tabs
-    dialogBackgroundColor: Colores.primarioDay,
-    primaryColorDark: Colores.contrasteDay,
+    dialogBackgroundColor: ColorPalette.primaryLight,
+    primaryColorDark: ColorPalette.primaryDark,
   );
 
   ThemeData night = ThemeData(
@@ -83,25 +83,25 @@ class ThemeProvider extends ChangeNotifier {
     ),
     textTheme: TextTheme(
       // ESTILO DE FUENTE PARA FRASE
-      headline1: TextStyle(fontSize: 38, fontWeight: FontWeight.w900, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
+      headline1: TextStyle(fontSize: 38, fontWeight: FontWeight.w900, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: ColorPalette.primaryLight),
       // ESTILO DE FUENTE PARA SANTOS Y ENCABEZADOS
-      headline2: TextStyle(fontSize: 32, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
+      headline2: TextStyle(fontSize: 32, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: ColorPalette.primaryLight),
       // utilizados en appbar y encabezados pequeños
-      headline4: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
+      headline4: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: ColorPalette.primaryLight),
       // headline5: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight.withOpacity(0.6)),
       // // utilizado para la firma Bienanventurados en HoyPage
-      headline6: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
+      headline6: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: ColorPalette.primaryLight),
 
       bodyText1: TextStyle(
         fontSize: 18.0,
         fontWeight: FontWeight.normal,
         fontFamily: 'Gotham',
         fontStyle: FontStyle.normal,
-        color: Colores.primarioDay.withOpacity(0.8),
+        color: ColorPalette.primaryLight.withOpacity(0.8),
       ),
       bodyText2: TextStyle(
-          fontSize: 16.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay.withOpacity(0.8)),
-      subtitle1: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
+          fontSize: 16.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: ColorPalette.primaryLight.withOpacity(0.8)),
+      subtitle1: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: ColorPalette.accent),
       // subtitle2: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.acento),
       // caption: TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioNight),
       // button: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, fontFamily: 'Gotham', fontStyle: FontStyle.normal, color: Colores.primarioDay),
@@ -109,50 +109,50 @@ class ThemeProvider extends ChangeNotifier {
     ),
     fontFamily: 'Montserrat',
     //accentColor: Colores.acento,
-    textSelectionTheme: TextSelectionThemeData(cursorColor: Colores.acento),
+    textSelectionTheme: TextSelectionThemeData(cursorColor: ColorPalette.accent),
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-      foregroundColor: MaterialStateProperty.all<Color>(Colores.primarioDay),
+      foregroundColor: MaterialStateProperty.all<Color>(ColorPalette.primaryLight),
       shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder()),
-      backgroundColor: MaterialStateProperty.all<Color>(Colores.acentoSecundario),
+      backgroundColor: MaterialStateProperty.all<Color>(ColorPalette.accentSecondary),
       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(horizontal: 20)),
     )),
     colorScheme: ColorScheme(
-      primary: Colores.primarioNight,
+      primary: ColorPalette.primaryDark,
       //primaryVariant: Colores.primarioDay,
-      secondary: Colores.acento,
-      surface: Colores.primarioNight,
+      secondary: ColorPalette.accent,
+      surface: ColorPalette.primaryDark,
       background: Colors.deepOrange,
       error: Colors.greenAccent,
       //secondaryVariant: Colores.primarioDay,
-      tertiary: Colores.acentoSecundario,
+      tertiary: ColorPalette.accentSecondary,
       brightness: Brightness.dark,
       onBackground: Colors.red,
       onError: Colors.blue,
-      onPrimary: Colores.primarioDay,
+      onPrimary: ColorPalette.primaryLight,
       onSecondary: Colors.green,
-      onSurface: Colores.primarioDay,
+      onSurface: ColorPalette.primaryLight,
     ),
     chipTheme: ChipThemeData(
-      selectedColor: Colores.acento,
-      backgroundColor: Colores.acentoOscuro,
+      selectedColor: ColorPalette.accent,
+      backgroundColor: ColorPalette.accentDark,
       shadowColor: Colors.transparent,
-      disabledColor: Colores.acentoOscuro.withOpacity(0.05),
+      disabledColor: ColorPalette.accentDark.withOpacity(0.05),
       checkmarkColor: Colors.yellow,
       selectedShadowColor: Colors.transparent,
       deleteIconColor: Colors.transparent,
     ),
-    scaffoldBackgroundColor: Colores.primarioNight,
-    primaryColor: Colores.primarioNight,
+    scaffoldBackgroundColor: ColorPalette.primaryDark,
+    primaryColor: ColorPalette.primaryDark,
     //disabledColor: Colores.secundarioNight,
-    cardColor: Colores.acentoOscuro,
-    //dividerColor: Colores.contrasteNight,
-    hoverColor: Colores.contrasteNight,
-    hintColor: Colores.contrasteNight,
-    shadowColor: Colores.acentoOscuro,
+    cardColor: ColorPalette.accentDark,
+    //dividerColor: Colores.primaryLight,
+    hoverColor: ColorPalette.primaryLight,
+    hintColor: ColorPalette.primaryLight,
+    shadowColor: ColorPalette.accentDark,
     highlightColor: Colors.transparent,
-    dialogBackgroundColor: Colores.primarioNight,
-    primaryColorDark: Colores.contrasteNight,
+    dialogBackgroundColor: ColorPalette.primaryDark,
+    primaryColorDark: ColorPalette.primaryLight,
   );
 
   ThemeProvider({required bool activarModoNoche}) {

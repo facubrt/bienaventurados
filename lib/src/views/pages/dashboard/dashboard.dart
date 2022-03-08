@@ -1,7 +1,7 @@
 import 'package:bienaventurados/src/data/local/drawer_items.dart';
 import 'package:bienaventurados/src/models/models.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
-import 'package:bienaventurados/src/utils/constants.dart';
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/utils/utilities.dart';
 import 'package:bienaventurados/src/views/pages/configuraciones/configuraciones_page.dart';
 import 'package:bienaventurados/src/views/pages/construir/construir_page.dart';
@@ -37,24 +37,24 @@ class _DashboardPageState extends State<DashboardPage> {
 
   void conectionCheck() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
-    final coleccionesProvider = Provider.of<ColeccionesProvider>(context, listen: false);
-    final logroProvider = Provider.of<LogroProvider>(context, listen: false);
+    final avioncitoProvider = Provider.of<PaperplaneProvider>(context, listen: false);
+    final coleccionesProvider = Provider.of<CollectionProvider>(context, listen: false);
+    final logroProvider = Provider.of<AchievementProvider>(context, listen: false);
     appVersion = await getAppVersion();
     conection = DateTime.now().day.toInt();
-    lastConection = prefs.ultimaConexion;
-    if (prefs.versionApp != appVersion) {
-      prefs.versionApp = appVersion;
-      print('ESTAS USANDO LA VERSION ${prefs.versionApp}');
+    lastConection = prefs.lastConnection;
+    if (prefs.appVersion != appVersion) {
+      prefs.appVersion = appVersion;
+      print('ESTAS USANDO LA VERSION ${prefs.appVersion}');
     }
     if (lastConection != null) {
       if (conection == lastConection) {
         print('MISMO DIA');
         //_coleccionDesbloqueada = prefs.coleccionDesbloqueada;
-        await avioncitoProvider.mismoAvioncito();
-        await coleccionesProvider.getColeccionDesbloqueada();
-        logroProvider.abrirLogros();
-        await coleccionesProvider.abrirColecciones();
+        await avioncitoProvider.isToday();
+        await coleccionesProvider.getCollectibleUnlocked();
+        logroProvider.openAchievements();
+        await coleccionesProvider.openCollectionsBox();
         //authProvider.actualizarConstancia(); // PARA PROBAR CONSTANCIA
       } else {
         print('NUEVO DIA');
@@ -65,29 +65,29 @@ class _DashboardPageState extends State<DashboardPage> {
         if (ultimoDia.month == nuevoDia.month || ultimoDia.month + 1 == nuevoDia.month) {
           if (ultimoDia.day + 1 == nuevoDia.day || 1 == nuevoDia.day) {
             print('CONSTANCIA AUMENTADA');
-            logroProvider.comprobacionLogros('constancia');
-            authProvider.constanciaAumentada = true;
+            logroProvider.achievementsCheck('constancia');
+            authProvider.increaseConstancy = true;
             //authProvider.actualizarConstancia();
           } else {
             print('CONSTANCIA RESTABLECIDA');
-            logroProvider.restablecerConstancia();
-            authProvider.constanciaRestablecida = true;
+            logroProvider.restoreConstancy();
+            authProvider.restartConstancy = true;
           }
         }
-        prefs.ultimaConexion = conection;
-        await avioncitoProvider.nuevoAvioncito();
-        coleccionesProvider.abrirColecciones();
-        logroProvider.abrirLogros();
-        coleccionesProvider.comprobacionColecciones();
+        prefs.lastConnection = conection;
+        await avioncitoProvider.isNewDay();
+        coleccionesProvider.openCollectionsBox();
+        logroProvider.openAchievements();
+        coleccionesProvider.collectionsCheck();
       }
     } else {
       print('PRIMERA VEZ');
-      prefs.ultimaConexion = conection;
-      await avioncitoProvider.primerInicio();
-      coleccionesProvider.crearColecciones();
+      prefs.lastConnection = conection;
+      await avioncitoProvider.firstTime();
+      coleccionesProvider.getAllCollections();
       logroProvider.iniciarLogros();
-      coleccionesProvider.comprobacionColecciones();
-      logroProvider.comprobacionLogros('Primer Inicio');
+      coleccionesProvider.collectionsCheck();
+      logroProvider.achievementsCheck('primer-inicio');
     }
   }
 

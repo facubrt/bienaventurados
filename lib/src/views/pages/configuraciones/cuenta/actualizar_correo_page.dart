@@ -96,7 +96,7 @@ class _ActualizarCorreoPageState extends State<ActualizarCorreoPage> {
                     currentFocus.unfocus();
                   }
                   setState(() {
-                    authProvider.actualizarCorreo(_correoController.text);
+                    authProvider.updateEmail(_correoController.text);
                     _correoController.clear();
                     Navigator.of(context).pop();
                   });

@@ -1,17 +1,17 @@
 import 'package:bienaventurados/src/providers/providers.dart';
-import 'package:bienaventurados/src/theme/colores.dart';
+import 'package:bienaventurados/src/theme/color_palette.dart';
 import 'package:bienaventurados/src/data/local/meses_data.dart';
 import 'package:bienaventurados/src/models/coleccion_model.dart';
-import 'package:bienaventurados/src/utils/constants.dart';
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
 Widget collectibleWidget(BuildContext context, Coleccion? collection) {
-  final collectionProvider = Provider.of<ColeccionesProvider>(context);
+  final collectionProvider = Provider.of<CollectionProvider>(context);
   ScreenshotController screenshotController = ScreenshotController();
-  final shareProvider = Provider.of<CompartirProvider>(context, listen: false);
+  final shareProvider = Provider.of<ShareProvider>(context, listen: false);
   return Screenshot(
     controller: screenshotController,
     child: Container(
@@ -37,7 +37,7 @@ Widget collectibleWidget(BuildContext context, Coleccion? collection) {
                       size: MediaQuery.of(context).size.width * DIMENSION_ICON,
                     ),
                     onPressed: () {
-                      shareProvider.compartirColeccionable(
+                      shareProvider.shareCollectible(
                           screenshotController, collection.titulo);
                     },
                   )
@@ -138,13 +138,13 @@ Widget collectibleWidget(BuildContext context, Coleccion? collection) {
                 )
               : InkWell(
                 onTap: () {
-                  collectionProvider.setColeccionDesbloqueada = false;
-                        collectionProvider.setColeccion(collection, true);
+                  collectionProvider.setCollectibleUnlocked = false;
+                        collectionProvider.setCollectible(collection, true);
                         Navigator.of(context).pop();
                 },
                 child: Container(
                     alignment: Alignment.center,
-                    color: Colores.acentoSecundario,
+                    color: ColorPalette.accentSecondary,
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Text(COLLECTIBLE_LOCKED_BTN,

@@ -25,7 +25,7 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
   @override
   Widget build(BuildContext context) {
     final prefs = UserPreferences();
-    if (prefs.modoNoche) {
+    if (prefs.darkMode) {
       _opcion = 1;
     } else {
       _opcion = 2;
@@ -35,7 +35,7 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
       listen: false,
     );
 
-    final logroProvider = Provider.of<LogroProvider>(context, listen: false);
+    final logroProvider = Provider.of<AchievementProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -92,7 +92,7 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
                 if (_opcion != 2) {
                   _opcion = 2;
                   themeProvider.swapTheme();
-                  prefs.modoNoche = false;
+                  prefs.darkMode = false;
                 }
               });
             },
@@ -130,13 +130,13 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
                 value: 1,
                 onChanged: (int? value) {}),
             onTap: () {
-              logroProvider.comprobacionLogros('modo-noche');
+              logroProvider.achievementsCheck('modo-noche');
               setState(() {
                 if (_opcion != 1) {
                   _opcion = 1;
                   themeProvider.swapTheme();
                   // _activarModoNoche = true;
-                  prefs.modoNoche = true;
+                  prefs.darkMode = true;
                 }
               });
             },

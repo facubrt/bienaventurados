@@ -96,7 +96,7 @@ class _ActualizarNombrePageState extends State<ActualizarNombrePage> {
                     currentFocus.unfocus();
                   }
                   setState(() {
-                    authProvider.actualizarNombre(_nombreController.text);
+                    authProvider.updateName(_nombreController.text);
                     _nombreController.clear();
                     Navigator.of(context).pop();
                   });

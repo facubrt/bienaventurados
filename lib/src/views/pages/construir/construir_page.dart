@@ -355,7 +355,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                       currentFocus.unfocus();
                     }
                     setState(() {
-                      _construirNuevoAvioncito(authProvider.usuario.nombre);
+                      _construirNuevoAvioncito(authProvider.user.nombre);
                       _fraseController.clear();
                       _santoController.clear();
                       _reflexionController.clear();
@@ -406,10 +406,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
             ),
             onPressed: () {
               Navigator.of(context).pushNamed(dashboardPage);
-              final logroProvider = Provider.of<LogroProvider>(context, listen: false);
+              final logroProvider = Provider.of<AchievementProvider>(context, listen: false);
               final authProvider = Provider.of<AuthProvider>(context, listen: false);
-              logroProvider.comprobacionLogros('construidos');
-              authProvider.actualizarConstruidos();
+              logroProvider.achievementsCheck('construidos');
+              authProvider.updatePaperplanesBuilded();
             },
             child: Text('Finalizar',
                 style:

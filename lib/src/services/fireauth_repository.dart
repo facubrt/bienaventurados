@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class FireauthRepository {
   final FirebaseAuth _auth;
-  bool _sesionIniciada = false;
+  bool isLoggedIn = false;
 
   FireauthRepository.instance() : _auth = FirebaseAuth.instance {
     _auth.authStateChanges().listen(_onAuthStateChanged);
@@ -11,10 +11,10 @@ class FireauthRepository {
 
   Future<bool> _onAuthStateChanged(auth.User? firebaseUser) async {
     if (firebaseUser == null) {
-      _sesionIniciada = false;
+      isLoggedIn = false;
     } else {
-      _sesionIniciada = true;
+      isLoggedIn = true;
     }
-    return _sesionIniciada;
+    return isLoggedIn;
   }
 }

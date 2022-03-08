@@ -99,14 +99,14 @@ class _GeneralConfiguracionesPageState extends State<GeneralConfiguracionesPage>
   Future<void> navegarHacia(int pagina) async {
     switch (_listaOpciones[pagina]) {
       case 'Notificaciones':
-        Navigator.of(context).pushNamed(notificacionesConfiguracionPage);
+        Navigator.of(context).pushNamed(notiConfigPage);
         break;
       case 'Cambiar tema':
-        Navigator.of(context).pushNamed(temaConfiguracionPage);
+        Navigator.of(context).pushNamed(themeConfigPage);
         break;
       case 'Calificanos':
-        final logroProvider = Provider.of<LogroProvider>(context, listen: false);
-        logroProvider.comprobacionLogros('calificar-app');
+        final logroProvider = Provider.of<AchievementProvider>(context, listen: false);
+        logroProvider.achievementsCheck('calificar-app');
 
         //if (await _inAppReview.isAvailable()) {
         //if (_availability == Availability.available) {
@@ -119,7 +119,7 @@ class _GeneralConfiguracionesPageState extends State<GeneralConfiguracionesPage>
         }
         break;
       case 'Acerca de':
-        Navigator.of(context).pushNamed(informacionPage);
+        Navigator.of(context).pushNamed(informationPage);
         break;
       default:
         break;

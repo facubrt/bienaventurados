@@ -16,7 +16,7 @@ Widget qrBottomSheet() {
               padding: const EdgeInsets.all(20.0),
               child: Container(
                 alignment: Alignment.center,
-                child: prefs.modoNoche
+                child: prefs.darkMode
                     ? Image.asset(
                         'assets/images/qr-compartir-claro.png',
                         height: MediaQuery.of(context).size.width * 0.6,

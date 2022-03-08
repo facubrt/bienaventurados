@@ -26,7 +26,7 @@ class _NotificacionesConfiguracionPageState
   Widget build(BuildContext context) {
     final LocalNotifications noti = LocalNotifications();
     final prefs = UserPreferences();
-    _opcion = prefs.momentoNotificaciones;
+    _opcion = prefs.notificationsHour;
 
     return Scaffold(
       appBar: AppBar(
@@ -85,7 +85,7 @@ class _NotificacionesConfiguracionPageState
               setState((){
                 if (_opcion != 9) {
                   _opcion = 9;
-                  prefs.momentoNotificaciones = 9;
+                  prefs.notificationsHour = 9;
                   noti.scheduleDaily9AMNotification(9);
                 }
               });
@@ -129,7 +129,7 @@ class _NotificacionesConfiguracionPageState
               setState(() {
                 if (_opcion != 0) {
                   _opcion = 0;
-                  prefs.momentoNotificaciones = 0;
+                  prefs.notificationsHour = 0;
                   noti.cancelAllNotification();
                 }
               });

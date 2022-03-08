@@ -96,18 +96,18 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
   }
 
   Future<void> navegarHacia(int pagina) async {
-    final avioncitoProvider = Provider.of<AvioncitoProvider>(context, listen: false);
+    final avioncitoProvider = Provider.of<PaperplaneProvider>(context, listen: false);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final prefs = UserPreferences();
     switch (_listaOpciones[pagina]) {
       case 'General':
-        Navigator.of(context).pushNamed(generalConfiguracionPage);
+        Navigator.of(context).pushNamed(generalConfigPage);
         break;
       case 'Cuenta':
-        Navigator.of(context).pushNamed(cuentaConfiguracionPage);
+        Navigator.of(context).pushNamed(accountConfigPage);
         break;
       case 'Legal':
-        Navigator.of(context).pushNamed(legalConfiguracionPage);
+        Navigator.of(context).pushNamed(legalPage);
         break;
       case 'Salir':
         showFloatingModalBottomSheet(
@@ -154,11 +154,11 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      authProvider.restablecerConstancia();
-                      avioncitoProvider.eliminarDB();
+                      authProvider.restoreConstancy();
+                      avioncitoProvider.deleteAllData();
                       authProvider.signOut();
                       prefs.cleanPrefs();
-                      prefs.modoNoche = false;
+                      prefs.darkMode = false;
                       Navigator.of(context).pushNamedAndRemoveUntil(bienaventuradosPage, (route) => false);
                     },
                     child: Container(

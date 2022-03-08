@@ -9,11 +9,11 @@ class DateProvider with ChangeNotifier {
   void comprobacionDia() async {
     final prefs = UserPreferences();
     _conection = DateTime.now().day.toInt();
-    _lastConection = prefs.ultimaConexion;
-    _versionApp = prefs.versionApp;
+    _lastConection = prefs.lastConnection;
+    _versionApp = prefs.appVersion;
     if (_versionApp != '1.4.1') {
-      prefs.versionApp = '1.4.1';
-      _versionApp = prefs.versionApp;
+      prefs.appVersion = '1.4.1';
+      _versionApp = prefs.appVersion;
       print('ESTAS USANDO LA VERSION $_versionApp');
       //logroProvider.iniciarLogros();
     }
@@ -32,11 +32,11 @@ class DateProvider with ChangeNotifier {
             print('CONSTANCIA RESTABLECIDA');
           }
         }
-        prefs.ultimaConexion = _conection;
+        prefs.lastConnection = _conection;
       }
     } else {
       print('PRIMERA VEZ');
-      prefs.ultimaConexion = _conection;
+      prefs.lastConnection = _conection;
     }
   }
 }

@@ -1,4 +1,4 @@
-import 'package:bienaventurados/src/theme/colores.dart';
+import 'package:bienaventurados/src/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 
 class EstadisticasWidget extends StatelessWidget {
@@ -10,7 +10,7 @@ class EstadisticasWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Card(
         elevation: 0,
-        color: Colores.secundarioNight,
+        color: ColorPalette.secondaryDark,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -29,7 +29,7 @@ class EstadisticasWidget extends StatelessWidget {
                     Text(
                       '126',
                       style: Theme.of(context).textTheme.headline4!.copyWith(
-                            color: Colores.primarioDay,
+                            color: ColorPalette.primaryLight,
                             fontSize: MediaQuery.of(context).size.width * 0.06,
                           ),
                     ),
@@ -39,7 +39,7 @@ class EstadisticasWidget extends StatelessWidget {
                     Text(
                       'Oración',
                       style: Theme.of(context).textTheme.headline5!.copyWith(
-                            color: Colores.primarioDay,
+                            color: ColorPalette.primaryLight,
                             fontSize: MediaQuery.of(context).size.width * 0.03,
                           ),
                     ),
@@ -52,7 +52,7 @@ class EstadisticasWidget extends StatelessWidget {
                     Text(
                       '36',
                       style: Theme.of(context).textTheme.headline4!.copyWith(
-                            color: Colores.primarioDay,
+                            color: ColorPalette.primaryLight,
                             fontSize: MediaQuery.of(context).size.width * 0.06,
                           ),
                     ),
@@ -62,7 +62,7 @@ class EstadisticasWidget extends StatelessWidget {
                     Text(
                       'Acción',
                       style: Theme.of(context).textTheme.headline5!.copyWith(
-                            color: Colores.primarioDay,
+                            color: ColorPalette.primaryLight,
                             fontSize: MediaQuery.of(context).size.width * 0.03,
                           ),
                     ),
@@ -75,7 +75,7 @@ class EstadisticasWidget extends StatelessWidget {
                     Text(
                       '36',
                       style: Theme.of(context).textTheme.headline4!.copyWith(
-                            color: Colores.primarioDay,
+                            color: ColorPalette.primaryLight,
                             fontSize: MediaQuery.of(context).size.width * 0.06,
                           ),
                     ),
@@ -85,7 +85,7 @@ class EstadisticasWidget extends StatelessWidget {
                     Text(
                       'Formación',
                       style: Theme.of(context).textTheme.headline5!.copyWith(
-                            color: Colores.primarioDay,
+                            color: ColorPalette.primaryLight,
                             fontSize: MediaQuery.of(context).size.width * 0.03,
                           ),
                     ),
@@ -98,7 +98,7 @@ class EstadisticasWidget extends StatelessWidget {
                     Text(
                       '58',
                       style: Theme.of(context).textTheme.headline4!.copyWith(
-                            color: Colores.primarioDay,
+                            color: ColorPalette.primaryLight,
                             fontSize: MediaQuery.of(context).size.width * 0.06,
                           ),
                     ),
@@ -108,7 +108,7 @@ class EstadisticasWidget extends StatelessWidget {
                     Text(
                       'Entrega',
                       style: Theme.of(context).textTheme.headline5!.copyWith(
-                            color: Colores.primarioDay,
+                            color: ColorPalette.primaryLight,
                             fontSize: MediaQuery.of(context).size.width * 0.03,
                           ),
                     ),

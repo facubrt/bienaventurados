@@ -41,8 +41,8 @@ class _LogrosPageState extends State<LogrosPage> with TickerProviderStateMixin{
       0,
     ]);
 
-    final logroProvider = Provider.of<LogroProvider>(context, listen: false);
-    Box box = logroProvider.getLogros();
+    final logroProvider = Provider.of<AchievementProvider>(context, listen: false);
+    Box box = logroProvider.getAchievements();
     return Scaffold(
       appBar: AppBar(
         //title: Text('Logros', style: Theme.of(context).textTheme.headline4),

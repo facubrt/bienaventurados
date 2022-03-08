@@ -1,4 +1,4 @@
-import 'package:bienaventurados/src/utils/constants.dart';
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class SectionWidget extends StatelessWidget {

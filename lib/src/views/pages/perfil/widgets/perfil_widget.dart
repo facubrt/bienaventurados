@@ -31,9 +31,9 @@ class _PerfilWidgetState extends State<PerfilWidget> {
   Widget build(BuildContext context) {
     final prefs = UserPreferences();
     final authProvider = Provider.of<AuthProvider>(context);
-    nombre = authProvider.usuario.nombre;
+    nombre = authProvider.user.nombre;
     // final authProvider = Provider.of<AuthProvider>(context);
-    _imagenPerfil = prefs.imagenPerfil;
+    _imagenPerfil = prefs.imgProfile;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30),
       child: Row(
@@ -47,7 +47,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                 } else {
                   _imagenPerfil = 0;
                 }
-                prefs.imagenPerfil = _imagenPerfil;
+                prefs.imgProfile = _imagenPerfil;
               });
             },
             child: Container(
