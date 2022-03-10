@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/data/local/meses_data.dart';
 import 'package:bienaventurados/src/models/avioncito_model.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
@@ -7,19 +8,19 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
-class GuardadosPage extends StatefulWidget {
-  const GuardadosPage({
+class SavedPage extends StatefulWidget {
+  const SavedPage({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<GuardadosPage> createState() => _GuardadosPageState();
+  State<SavedPage> createState() => _SavedPageState();
 }
 
-class _GuardadosPageState extends State<GuardadosPage> {
+class _SavedPageState extends State<SavedPage> {
   @override
   Widget build(BuildContext context) {
-    final avioncitoProvider = Provider.of<PaperplaneProvider>(context);
+    final paperplaneProvider = Provider.of<PaperplaneProvider>(context);
     final drawerProvider = Provider.of<DrawerProvider>(context);
     return Scaffold(
         backgroundColor: Colors.transparent,
@@ -34,7 +35,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
           ),
         ),
         body: ValueListenableBuilder(
-          valueListenable: avioncitoProvider.getSavedFromLocal().listenable(),
+          valueListenable: paperplaneProvider.getSavedFromLocal().listenable(),
           builder: (BuildContext context, Box box, _) {
             if (box.values.isEmpty) {
               return Center(
@@ -59,7 +60,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
                     ),
                     SizedBox(height: MediaQuery.of(context).size.width * 0.08),
                     Text(
-                      'Tus avioncitos guardados',
+                      SAVED_PAGE_TITLE,
                       style: Theme.of(context).textTheme.headline6!.copyWith(
                             fontSize: MediaQuery.of(context).size.width * 0.06,
                           ),
@@ -69,7 +70,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
                       height: MediaQuery.of(context).size.width * 0.06,
                     ),
                     Text(
-                      'Aún no has guardado ningún avioncito. Colecciona tus favoritos y visitalos más tarde para redescubrir su mensaje con un corazón renovado.',
+                      SAVED_PAGE_TEXT,
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
                             fontSize: MediaQuery.of(context).size.width * 0.04,
                           ),
@@ -90,16 +91,15 @@ class _GuardadosPageState extends State<GuardadosPage> {
                 },
                 itemCount: box.values.length,
                 itemBuilder: (context, index) {
-                  Avioncito avioncitoGuardado = box.getAt(index);
+                  Avioncito savedPaperplane = box.getAt(index);
 
                   return InkWell(
                     onTap: () {
-                      // Navigator.of(context).pushNamed(avioncitoPage, arguments: avioncitoGuardado);
-                      Navigator.of(context).pushNamed(paperplanePage, arguments: avioncitoGuardado);
+                      Navigator.of(context).pushNamed(paperplanePage, arguments: savedPaperplane);
                     },
-                    child: avioncitoCarta(
+                    child: cardPaperplane(
                       context,
-                      avioncitoGuardado,
+                      savedPaperplane,
                     ),
                   );
                 });
@@ -107,14 +107,14 @@ class _GuardadosPageState extends State<GuardadosPage> {
         ));
   }
 
-  Widget avioncitoCarta(BuildContext context, Avioncito avioncitoGuardado) {
-    final avioncitoProvider = Provider.of<PaperplaneProvider>(context);
+  Widget cardPaperplane(BuildContext context, Avioncito savedPaperplane) {
+    final paperplaneProvider = Provider.of<PaperplaneProvider>(context);
     return Padding(
       padding: const EdgeInsets.only(left: 30.0, right: 30, top: 20, bottom: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(avioncitoGuardado.frase!,
+          Text(savedPaperplane.frase!,
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.06,
                   )),
@@ -122,7 +122,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
             height: 10,
           ),
           Text(
-            avioncitoGuardado.santo!,
+            savedPaperplane.santo!,
             style: Theme.of(context).textTheme.subtitle1!.copyWith(
                   fontSize: MediaQuery.of(context).size.width * 0.04,
                 ),
@@ -134,7 +134,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
           Row(
             children: [
               Text(
-                '${avioncitoGuardado.fecha!.day} de ${MesesData.meses[avioncitoGuardado.fecha!.month - 1].id}, ${avioncitoGuardado.fecha!.year}'.toUpperCase(),
+                '${savedPaperplane.fecha!.day} de ${MesesData.meses[savedPaperplane.fecha!.month - 1].id}, ${savedPaperplane.fecha!.year}'.toUpperCase(),
                 style: Theme.of(context).textTheme.bodyText2!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.03,
                     ),
@@ -142,7 +142,7 @@ class _GuardadosPageState extends State<GuardadosPage> {
               Spacer(),
               IconButton(
                 onPressed: () {
-                  avioncitoProvider.dontSavePaperplane(avioncitoGuardado);
+                  paperplaneProvider.dontSavePaperplane(savedPaperplane);
                 },
                 icon: Icon(Iconsax.archive_slash, size: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark),
               ),

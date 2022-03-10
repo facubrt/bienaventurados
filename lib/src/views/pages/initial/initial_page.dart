@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
@@ -5,21 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
-class IniciarAventuraPage extends StatefulWidget {
-  const IniciarAventuraPage({Key? key}) : super(key: key);
+class InitialPage extends StatefulWidget {
+  const InitialPage({Key? key}) : super(key: key);
 
   @override
-  State<IniciarAventuraPage> createState() => _IniciarAventuraPageState();
+  State<InitialPage> createState() => _InitialPageState();
 }
 
-class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
+class _InitialPageState extends State<InitialPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final passwordFormKey = GlobalKey<FormState>();
   final nameFormKey = GlobalKey<FormState>();
   final emailFormKey = GlobalKey<FormState>();
-  late bool ocultarPassword;
+  late bool hidePassword;
 
   final PageController _pageController = PageController(initialPage: 0);
 
@@ -29,7 +30,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
   @override
   void initState() {
     super.initState();
-    ocultarPassword = true;
+    hidePassword = true;
   }
 
   @override
@@ -45,7 +46,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('Comenzar aventura'),
+        //title: Text('Comenzar aventura'),
         leading: InkWell(
           onTap: () {
             Navigator.of(context).pop();
@@ -76,7 +77,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('¿Qué correo deseas utilizar?',
+              Text(EMAIL_INPUT,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                       )),
@@ -95,7 +96,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                 minLines: 1,
                 maxLines: 6,
                 decoration: InputDecoration(
-                  hintText: 'correo',
+                  hintText: EMAIL_HINT,
                   hintStyle: Theme.of(context)
                       .textTheme
                       .headline2!
@@ -109,7 +110,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                 ),
                 validator: (value) {
                   if (!value!.contains('@')) {
-                    return 'Debes ingresar un correo válido para continuar';
+                    return EMAIL_ERROR;
                   } else {
                     return null;
                   }
@@ -132,7 +133,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                   _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.fastLinearToSlowEaseIn);
                 }
               },
-              child: Text('Continuar',
+              child: Text(CONTINUE_BUTTON,
                   style: Theme.of(context)
                       .textTheme
                       .headline4!
@@ -153,7 +154,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Ingresa una contraseña',
+              Text(PASSWORD_INPUT,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                       )),
@@ -169,17 +170,17 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                       ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
-                  obscureText: ocultarPassword,
+                  obscureText: hidePassword,
                   decoration: InputDecoration(
                     suffixIcon: InkWell(
                         hoverColor: Colors.transparent,
                         splashColor: Colors.transparent,
                         onTap: () {
                           setState(() {
-                            ocultarPassword = !ocultarPassword;
+                            hidePassword = !hidePassword;
                           });
                         },
-                        child: ocultarPassword
+                        child: hidePassword
                             ? Icon(
                                 Iconsax.eye_slash,
                                 size: MediaQuery.of(context).size.width * 0.06,
@@ -190,7 +191,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                                 size: MediaQuery.of(context).size.width * 0.06,
                                 color: Theme.of(context).primaryColorDark.withOpacity(0.2),
                               )),
-                    hintText: 'contraseña',
+                    hintText: PASSWORD_HINT,
                     hintStyle: Theme.of(context)
                         .textTheme
                         .headline2!
@@ -204,9 +205,9 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Debes ingresar una contraseña para continuar';
+                      return PASSWORD_EMPTY_ERROR;
                     } else if (value.length < 8) {
-                      return 'La contraseña debe contener más de 8 caracteres';
+                      return PASSWORD_LENGTH_ERROR;
                     } else {
                       return null;
                     }
@@ -215,9 +216,9 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                 padding: const EdgeInsets.only(top: 20.0),
                 child: InkWell(
                   onTap: () {
-                    recuperarCuenta();
+                    recoverAccount();
                   },
-                  child: Text('¿Olvidaste tu contraseña?'),
+                  child: Text(FORGOT_YOUR_PASSWORD),
                 ),
               )
             ],
@@ -243,7 +244,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                     setState(() {
                       if (_state == 0) {
                         _state = 1;
-                        iniciarCuenta();
+                        signIn();
                       }
                     });
                   }
@@ -263,7 +264,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Comienza tu aventura,',
+              Text(NAME_INPUT,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                       )),
@@ -283,7 +284,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                 minLines: 1,
                 maxLines: 6,
                 decoration: InputDecoration(
-                  hintText: 'nombre',
+                  hintText: NAME_HINT,
                   hintStyle: Theme.of(context)
                       .textTheme
                       .headline2!
@@ -297,7 +298,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Debes ingresar un nombre para continuar';
+                    return NAME_ERROR;
                   } else {
                     return null;
                   }
@@ -326,7 +327,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
                     setState(() {
                       if (_state == 0) {
                         _state = 1;
-                        registrarCuenta();
+                        signUp();
                       }
                     });
                   }
@@ -344,7 +345,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
   Widget setUpButtonChild() {
     if (_state == 0) {
       return new Text(
-        "Continuar",
+        CONTINUE_BUTTON,
         style: const TextStyle(
           color: Colors.white,
           fontSize: 16.0,
@@ -360,7 +361,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
     }
   }
 
-  void recuperarCuenta() {
+  void recoverAccount() {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final snackbar = SnackBar(
       backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -377,7 +378,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
-  void iniciarCuenta() {
+  void signIn() {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final prefs = UserPreferences();
 
@@ -385,7 +386,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
       backgroundColor: Theme.of(context).colorScheme.secondary,
       content: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Text('¡Oh, oh! Parece que algo no salió bien. Intentalo de nuevo.',
+        child: Text(SIGN_IN_ERROR,
             style: Theme.of(context).textTheme.bodyText2!.copyWith(
                   fontSize: MediaQuery.of(context).size.width * 0.04,
                   color: Theme.of(context).primaryColor,
@@ -393,21 +394,21 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
       ),
     );
 
-    authProvider.signInWithEmailAndPassword(emailController.text, passwordController.text).then((resultado) {
-      if (resultado == 'user-found') {
+    authProvider.signInWithEmailAndPassword(emailController.text, passwordController.text).then((result) {
+      if (result == USER_FOUND_MESSAGE) {
         prefs.isLoggedIn = true;
         Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
-      } else if (resultado == 'wrong-password') {
+      } else if (result == WRONG_PASSWORD_MESSAGE) {
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
         setState(() {
           _state = 0;
         });
-      } else if (resultado == 'invalid-email') {
+      } else if (result == INVALID_EMAIL_MESSAGE) {
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
         setState(() {
           _state = 0;
         });
-      } else if (resultado == 'user-not-found') {
+      } else if (result == USER_NOT_FOUND_MESSAGE) {
         setState(() {
           _state = 0;
         });
@@ -416,7 +417,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
     });
   }
 
-  void registrarCuenta() {
+  void signUp() {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final prefs = UserPreferences();
 
@@ -424,7 +425,7 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
       backgroundColor: Theme.of(context).colorScheme.secondary,
       content: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Text('¡Oh, oh! Parece que algo no salió bien. Intentalo de nuevo.',
+        child: Text(SIGN_IN_ERROR,
             style: Theme.of(context).textTheme.bodyText2!.copyWith(
                   fontSize: MediaQuery.of(context).size.width * 0.04,
                   color: Theme.of(context).primaryColor,
@@ -432,8 +433,8 @@ class _IniciarAventuraPageState extends State<IniciarAventuraPage> {
       ),
     );
 
-    authProvider.createUserWithEmailAndPassword(nameController.text, emailController.text, passwordController.text).then((resultado) {
-      if (resultado != null) {
+    authProvider.createUserWithEmailAndPassword(nameController.text, emailController.text, passwordController.text).then((result) {
+      if (result != null) {
         prefs.isLoggedIn = true;
         Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
       } else {

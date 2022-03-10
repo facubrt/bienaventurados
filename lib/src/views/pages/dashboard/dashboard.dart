@@ -6,7 +6,7 @@ import 'package:bienaventurados/src/utils/utilities.dart';
 import 'package:bienaventurados/src/views/pages/configuraciones/configuraciones_page.dart';
 import 'package:bienaventurados/src/views/pages/construir/construir_page.dart';
 import 'package:bienaventurados/src/views/pages/today/today_page.dart';
-import 'package:bienaventurados/src/views/pages/guardados/guardados_page.dart';
+import 'package:bienaventurados/src/views/pages/saved/saved_page.dart';
 import 'package:bienaventurados/src/views/pages/perfil/perfil_page.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:bienaventurados/src/views/pages/dashboard/widgets/drawer_widget.dart';
@@ -187,7 +187,7 @@ class _DashboardPageState extends State<DashboardPage> {
       case DrawerItems.todayPage:
         return TodayPage();
       case DrawerItems.savedPage:
-        return GuardadosPage();
+        return SavedPage();
       case DrawerItems.buildPage:
         return ConstruirPage();
       case DrawerItems.profilePage:

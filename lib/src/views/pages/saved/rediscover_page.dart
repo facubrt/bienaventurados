@@ -3,23 +3,19 @@ import 'package:bienaventurados/src/views/pages/paperplane/paperplane_page.dart'
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-class RedescubrePage extends StatefulWidget {
+class RediscoverPage extends StatefulWidget {
   final Avioncito paperplaneSaved;
 
-  const RedescubrePage({
+  const RediscoverPage({
     Key? key,
     required this.paperplaneSaved,
   }) : super(key: key);
 
   @override
-  _RedescubrePageState createState() => _RedescubrePageState();
+  _RediscoverPageState createState() => _RediscoverPageState();
 }
 
-class _RedescubrePageState extends State<RedescubrePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
+class _RediscoverPageState extends State<RediscoverPage> {
 
   @override
   Widget build(BuildContext context) {

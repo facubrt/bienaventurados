@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class HeaderWidget extends StatelessWidget {
@@ -12,7 +13,7 @@ class HeaderWidget extends StatelessWidget {
               alignment: Alignment.topCenter,
               width: MediaQuery.of(context).size.width,
               child: Text(
-                'Bienaventurados',
+                TITLE_APP,
                 style: Theme.of(context).textTheme.headline1!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.06,
                     ),
@@ -25,7 +26,7 @@ class HeaderWidget extends StatelessWidget {
               alignment: Alignment.topCenter,
               width: MediaQuery.of(context).size.width,
               child: Text(
-                'Ser Eucaristía',
+                AUTHOR,
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.04,
                     ),

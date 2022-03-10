@@ -1,8 +1,9 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/data/local/drawer_items.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
-import 'package:bienaventurados/src/views/pages/comenzar/widgets/header_widget.dart';
+import 'package:bienaventurados/src/views/pages/initial/widgets/header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -79,7 +80,7 @@ class _BienaventuradosPageState extends State<BienaventuradosPage> {
                   drawerProvider.page = DrawerItems.todayPage;
                   Navigator.of(context).pushNamed(getStartedPage);
                 },
-                child: Text('Continuar con Correo',
+                child: Text(WITH_EMAIL,
                     style: Theme.of(context).textTheme.headline4!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.04,
                       color: Theme.of(context).primaryColor
@@ -96,7 +97,7 @@ class _BienaventuradosPageState extends State<BienaventuradosPage> {
   Widget setUpButtonChild() {
     if (_state == 0) {
       return new Text(
-        'Continuar con Google', style: Theme.of(context).textTheme.headline4!.copyWith(
+        WITH_GOOGLE, style: Theme.of(context).textTheme.headline4!.copyWith(
           fontSize: MediaQuery.of(context).size.width * 0.04,
           color: Theme.of(context).primaryColorDark
         )

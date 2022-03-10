@@ -1,6 +1,6 @@
 import 'package:bienaventurados/src/models/avioncito_model.dart';
-import 'package:bienaventurados/src/views/pages/comenzar/bienaventurados_page.dart';
-import 'package:bienaventurados/src/views/pages/comenzar/iniciar_aventura_page.dart';
+import 'package:bienaventurados/src/views/pages/initial/bienaventurados_page.dart';
+import 'package:bienaventurados/src/views/pages/initial/initial_page.dart';
 import 'package:bienaventurados/src/views/pages/configuraciones/cuenta/actualizar_contrasena_page.dart';
 import 'package:bienaventurados/src/views/pages/configuraciones/cuenta/actualizar_correo_page.dart';
 import 'package:bienaventurados/src/views/pages/configuraciones/cuenta/actualizar_nombre_page.dart';
@@ -86,7 +86,7 @@ class Routes {
       case (informationPage):
         return SlideLeftTransitionRoute(widget: InformacionPage());
       case (getStartedPage):
-        return SlideLeftTransitionRoute(widget: IniciarAventuraPage());
+        return SlideLeftTransitionRoute(widget: InitialPage());
       case (collectionsPage):
         return SlideLeftTransitionRoute(widget: ColeccionesPage());
       case (achievementsPage):

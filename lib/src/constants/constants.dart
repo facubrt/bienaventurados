@@ -6,6 +6,9 @@ const String ISOTYPE_LARGE_DARK = 'assets/images/isotipo-horizontal-oscuro.png';
 
 // TEXTS
 const String TITLE_APP = 'Bienaventurados';
+const String AUTHOR = 'Ser Eucaristía';
+const String WITH_EMAIL = 'Continuar con Correo';
+const String WITH_GOOGLE = 'Continuar con Google';
 const String DASHBOARD_HEADER = 'Bien\naven\ntura\ndos';
 String copyright = '\u00a9 ${DateTime.now().year} Ser Eucaristía'.toUpperCase();
 const String BLESSED_DAY_TITLE = 'Bendecido día,';
@@ -80,6 +83,32 @@ const String REPEAT_NOTIFICATION_TEXT = '¡Dios te ama!';
 const String GOOGLE_DOMAIN = 'google.com';
 const String EMAIL_DOMAIN = 'email';
 
+// LOGIN SIGNUP
+const String EMAIL_INPUT = '¿Qué correo deseas utilizar?';
+const String PASSWORD_INPUT = 'Ingresa una contraseña';
+const String NAME_INPUT = 'Comienza tu aventura,';
+const String NAME_HINT = 'Nombre';
+const String EMAIL_HINT = 'Correo';
+const String PASSWORD_HINT = 'Contraseña';
+
+// LOGIN STATUS
+const String USER_FOUND_MESSAGE = 'user-found';
+const String WRONG_PASSWORD_MESSAGE = 'wrong-password';
+const String INVALID_EMAIL_MESSAGE = 'invalid-email';
+const String USER_NOT_FOUND_MESSAGE = 'user-not-found';
+
+// MESSAGE ERROR
+const String EMAIL_ERROR = 'Debes ingresar un correo válido para continuar';
+const String NAME_ERROR = 'Debes ingresar un nombre para continuar';
+const String PASSWORD_EMPTY_ERROR = 'Debes ingresar una contraseña para continuar';
+const String PASSWORD_LENGTH_ERROR = 'La contraseña debe contener más de 8 caracteres';
+const String FORGOT_YOUR_PASSWORD = '¿Olvidaste tu contraseña?';
+const String SIGN_IN_ERROR = '¡Oh, oh! Parece que algo no salió bien. Intentalo de nuevo.';
+
+// BUTTONS
+const String CONTINUE_BUTTON = 'Continuar';
+const String FINISH_BUTTON = 'Finalizar';
+
 // ACHIEVEMENTS
 const String ACHIEVEMENT_FIST_TIME = 'primer-inicio';
 const String ACHIEVEMENT_CONSTANCY = 'constancia';
@@ -92,8 +121,11 @@ const String ACHIEVEMENT_DARK_MODE = 'modo-noche';
 
 //PAGES MESSAGES
 const String STUDIO_PAGE_TITLE = 'Tus avioncitos por construir';
+const String SAVED_PAGE_TITLE = 'Tus avioncitos guardados';
 const String STUDIO_PAGE_TEXT =
     'Aún no hay avioncitos para hacer volar. Los avioncitos que se construyan llegarán hasta acá para tomar vuelo y comenzar su aventura.';
+const String SAVED_PAGE_TEXT =
+    'Aún no has guardado ningún avioncito. Colecciona tus favoritos y visitalos más tarde para redescubrir su mensaje con un corazón renovado.';
 
 // STATUS TEXT
 const String ERROR_TEXT = '¡Oh, oh! Algo ha salido mal. Intentalo de nuevo más tarde';
