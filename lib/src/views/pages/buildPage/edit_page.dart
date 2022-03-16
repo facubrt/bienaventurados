@@ -1,31 +1,32 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class EditarPage extends StatefulWidget {
-  final String? frase;
-  final String? santo;
+class EditPage extends StatefulWidget {
+  final String? quote;
+  final String? saint;
   final String? reflexion;
   final String? tag;
-  final String? usuario;
+  final String? user;
   final String? id;
 
-  const EditarPage({ Key? key, required this.frase, required this.santo, required this.reflexion, required this.tag, required this.usuario, required this.id }) : super(key: key);
+  const EditPage({ Key? key, required this.quote, required this.saint, required this.reflexion, required this.tag, required this.user, required this.id }) : super(key: key);
 
   @override
-  _EditarPageState createState() => _EditarPageState();
+  _EditPageState createState() => _EditPageState();
 }
 
-class _EditarPageState extends State<EditarPage> {
-  final TextEditingController _fraseController = TextEditingController();
-  final TextEditingController _santoController = TextEditingController();
+class _EditPageState extends State<EditPage> {
+  final TextEditingController _quoteController = TextEditingController();
+  final TextEditingController _saintController = TextEditingController();
   final TextEditingController _reflexionController = TextEditingController();
   final TextEditingController _tagController = TextEditingController();
-  final TextEditingController _usuarioController = TextEditingController();
-  final TextEditingController _preguntaController = TextEditingController();
-  final TextEditingController _misionController = TextEditingController();
-  final fraseFormKey = GlobalKey<FormState>();
+  final TextEditingController _userController = TextEditingController();
+  final TextEditingController _questionController = TextEditingController();
+  final TextEditingController _missionController = TextEditingController();
+  final quoteFormKey = GlobalKey<FormState>();
   final reflexionFormKey = GlobalKey<FormState>();
-  final preguntaFormKey = GlobalKey<FormState>();
+  final questionFormKey = GlobalKey<FormState>();
 
   final PageController _pageController = PageController(initialPage: 0);
 
@@ -37,11 +38,11 @@ class _EditarPageState extends State<EditarPage> {
 
   @override
   void initState() {
-    _fraseController.text = widget.frase as String;
-    _santoController.text = widget.santo as String;
+    _quoteController.text = widget.quote as String;
+    _saintController.text = widget.saint as String;
     _reflexionController.text = widget.reflexion as String;
     _tagController.text = widget.tag as String;
-    _usuarioController.text = widget.usuario as String;
+    _userController.text = widget.user as String;
     super.initState();
   }
 
@@ -55,18 +56,18 @@ class _EditarPageState extends State<EditarPage> {
         physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
         children: [
-          fraseWidget(),
+          quoteWidget(),
           reflexionWidget(),
-          preguntaWidget(),
-          avioncitoListoWidget(),
+          questionWidget(),
+          finishWidget(),
         ],
       ),
     );
   }
 
-  Widget fraseWidget() {
+  Widget quoteWidget() {
     return Form(
-      key: fraseFormKey,
+      key: quoteFormKey,
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
@@ -75,7 +76,7 @@ class _EditarPageState extends State<EditarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('¿Construimos un avioncito juntos?',
+                Text(QUOTE_WIDGET_TITLE,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.06,
                         )),
@@ -83,7 +84,7 @@ class _EditarPageState extends State<EditarPage> {
                   height: MediaQuery.of(context).size.width * 0.04,
                 ),
                 TextFormField(
-                  controller: _fraseController,
+                  controller: _quoteController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
@@ -94,7 +95,7 @@ class _EditarPageState extends State<EditarPage> {
                   minLines: 1,
                   maxLines: 6,
                   decoration: InputDecoration(
-                    hintText: 'Frase',
+                    hintText: QUOTE_HINT,
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
@@ -109,7 +110,7 @@ class _EditarPageState extends State<EditarPage> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Debes ingresar un nombre para continuar';
+                      return QUOTE_EMPTY_ERROR;
                     } else {
                       return null;
                     }
@@ -119,7 +120,7 @@ class _EditarPageState extends State<EditarPage> {
                 height: MediaQuery.of(context).size.width * 0.04,
               ),
                 TextFormField(
-                  controller: _santoController,
+                  controller: _saintController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
@@ -128,7 +129,7 @@ class _EditarPageState extends State<EditarPage> {
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
-                    hintText: 'Santo, versículo, ...',
+                    hintText: SAINT_HINT,
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
@@ -143,7 +144,7 @@ class _EditarPageState extends State<EditarPage> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Debes ingresar un nombre para continuar';
+                      return SAINT_EMPTY_ERROR;
                     } else {
                       return null;
                     }
@@ -163,13 +164,13 @@ class _EditarPageState extends State<EditarPage> {
                 backgroundColor: Theme.of(context).primaryColorDark,
               ),
               onPressed: () {
-                if (fraseFormKey.currentState!.validate()) {
+                if (quoteFormKey.currentState!.validate()) {
                   _pageController.nextPage(
                       duration: Duration(milliseconds: 1200),
                       curve: Curves.fastLinearToSlowEaseIn);
                 }
               },
-              child: Text('Siguiente',
+              child: Text(CONTINUE_BUTTON,
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.04,
                       color: Theme.of(context).primaryColor)),
@@ -189,7 +190,7 @@ class _EditarPageState extends State<EditarPage> {
             padding: const EdgeInsets.all(30.0),
             child: Column(
               children: [
-                Text('¿Qué reflexión te gustaría hacer sobre estas palabras?',
+                Text(REFLEXION_WIDGET_TITLE,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.06,
                         )),
@@ -208,7 +209,7 @@ class _EditarPageState extends State<EditarPage> {
                   minLines: 1,
                   maxLines: 8,
                   decoration: InputDecoration(
-                    hintText: 'Reflexión',
+                    hintText: REFLEXION_HINT,
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
@@ -223,7 +224,7 @@ class _EditarPageState extends State<EditarPage> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Debes ingresar un nombre para continuar';
+                      return REFLEXION_EMPTY_ERROR;
                     } else {
                       return null;
                     }
@@ -242,7 +243,7 @@ class _EditarPageState extends State<EditarPage> {
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
-                    hintText: 'Tag',
+                    hintText: TAG_HINT,
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
@@ -257,7 +258,7 @@ class _EditarPageState extends State<EditarPage> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Debes ingresar un nombre para continuar';
+                      return TAG_EMPTY_ERROR;
                     } else {
                       return null;
                     }
@@ -284,7 +285,7 @@ class _EditarPageState extends State<EditarPage> {
 
                 }
               },
-              child: Text('Siguiente',
+              child: Text(CONTINUE_BUTTON,
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.04,
                       color: Theme.of(context).primaryColor)),
@@ -295,16 +296,16 @@ class _EditarPageState extends State<EditarPage> {
     );
   }
 
-  Widget preguntaWidget() {
+  Widget questionWidget() {
     return Form(
-      key: preguntaFormKey,
+      key: questionFormKey,
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(30.0),
             child: Column(
               children: [
-                Text('Un último paso antes de hacer volar tu avioncito',
+                Text(QUESTION_WIDGET_TITLE,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.06,
                         )),
@@ -312,7 +313,7 @@ class _EditarPageState extends State<EditarPage> {
                   height: MediaQuery.of(context).size.width * 0.04,
                 ),
                 TextFormField(
-                  controller: _preguntaController,
+                  controller: _questionController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
@@ -321,7 +322,7 @@ class _EditarPageState extends State<EditarPage> {
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
-                    hintText: 'Pregunta (opcional)',
+                    hintText: QUESTION_HINT,
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
@@ -339,7 +340,7 @@ class _EditarPageState extends State<EditarPage> {
                   height: MediaQuery.of(context).size.width * 0.04,
                 ),
                 TextFormField(
-                  controller: _misionController,
+                  controller: _missionController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
@@ -348,7 +349,7 @@ class _EditarPageState extends State<EditarPage> {
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
-                    hintText: 'Misión (opcional)',
+                    hintText: MISSION_HINT,
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
@@ -376,28 +377,28 @@ class _EditarPageState extends State<EditarPage> {
                 backgroundColor: Theme.of(context).primaryColorDark,
               ),
               onPressed: () {
-                if (preguntaFormKey.currentState!.validate()) {
+                if (questionFormKey.currentState!.validate()) {
                   FocusScopeNode currentFocus = FocusScope.of(context);
 
                   if (!currentFocus.hasPrimaryFocus) {
                     currentFocus.unfocus();
                   }
                   setState(() {
-                    _construirNuevoAvioncito();
-                    _deleteAvioncitoUsuario(widget.id);
-                    _fraseController.clear();
-                    _santoController.clear();
+                    _buildPaperplane();
+                    _deleteUserData(widget.id);
+                    _quoteController.clear();
+                    _saintController.clear();
                     _reflexionController.clear();
                     _tagController.clear();
-                    _preguntaController.clear();
-                    _misionController.clear();
+                    _questionController.clear();
+                    _missionController.clear();
                   });
                   _pageController.nextPage(
                       duration: Duration(milliseconds: 1200),
                       curve: Curves.fastLinearToSlowEaseIn);
                 }
               },
-              child: Text('Continuar',
+              child: Text(CONTINUE_BUTTON,
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.04,
                       color: Theme.of(context).primaryColor)),
@@ -408,13 +409,13 @@ class _EditarPageState extends State<EditarPage> {
     );
   }
 
-  Widget avioncitoListoWidget() {
+  Widget finishWidget() {
     return Scaffold(
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Padding(
           padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
           child: Text(
-            '¡Todo listo!',
+            FINISH_WIDGET_TITLE,
             style: Theme.of(context).textTheme.headline2!.copyWith(
                   fontSize: MediaQuery.of(context).size.width * 0.08,
                 ),
@@ -423,7 +424,7 @@ class _EditarPageState extends State<EditarPage> {
         Padding(
           padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
           child: Text(
-              'Este avioncito ya salió volando y llegará pronto a muchos corazones!',
+              FINISH_WIDGET_TEXT,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.04,
                   )),
@@ -441,7 +442,7 @@ class _EditarPageState extends State<EditarPage> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text('Finalizar',
+            child: Text(FINISH_BUTTON,
                 style: Theme.of(context).textTheme.headline4!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.04,
                     color: Theme.of(context).primaryColor)),
@@ -451,23 +452,23 @@ class _EditarPageState extends State<EditarPage> {
     );
   }
 
-  void _construirNuevoAvioncito() {
+  void _buildPaperplane() {
     final FirebaseFirestore _db = FirebaseFirestore.instance;
-    DocumentReference avioncitoRef = _db.collection('datosApp').doc();
+    DocumentReference avioncitoRef = _db.collection(COLLECTION_USERDATA).doc();
 
+    // TODO cambiar a inglés (posiblemente requiera migracion)
     avioncitoRef.set({
-      'frase': _fraseController.text,
-      'santo': _santoController.text,
+      'frase': _quoteController.text,
+      'santo': _saintController.text,
       'reflexion': _reflexionController.text,
       'tag': _tagController.text,
-      'usuario': _usuarioController.text,
+      'usuario': _userController.text,
     });
   }
 
-  void _deleteAvioncitoUsuario(String? id) {
+  void _deleteUserData(String? id) {
     final FirebaseFirestore _db = FirebaseFirestore.instance;
-    DocumentReference avioncitoRef = _db.collection('datosUsuarios').doc(id);
-    print('avioncito ${avioncitoRef.id} eliminado de datosUsuarios');
-    avioncitoRef.delete();
+    DocumentReference paperplaneRef = _db.collection(COLLECTION_USERDATA).doc(id);
+    paperplaneRef.delete();
   }
 }

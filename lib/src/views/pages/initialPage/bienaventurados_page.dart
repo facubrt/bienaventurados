@@ -3,7 +3,7 @@ import 'package:bienaventurados/src/data/local/drawer_items.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
-import 'package:bienaventurados/src/views/pages/initial/widgets/header_widget.dart';
+import 'package:bienaventurados/src/views/pages/initialPage/widgets/header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

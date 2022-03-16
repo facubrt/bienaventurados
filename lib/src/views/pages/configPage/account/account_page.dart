@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
@@ -8,23 +9,23 @@ import 'package:in_app_review/in_app_review.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CuentaConfiguracionesPage extends StatefulWidget {
-  const CuentaConfiguracionesPage({Key? key}) : super(key: key);
+class AccountPage extends StatefulWidget {
+  const AccountPage({Key? key}) : super(key: key);
 
   @override
-  _CuentaConfiguracionesPageState createState() =>
-      _CuentaConfiguracionesPageState();
+  _AccountPageState createState() =>
+      _AccountPageState();
 }
 
-class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
+class _AccountPageState extends State<AccountPage> {
   late SharedPreferences prefs;
   final InAppReview inAppReview = InAppReview.instance;
 
-  final _listaOpciones = [
-    'Actualizar Nombre',
-    'Actualizar Correo',
-    // 'Actualizar Contraseña',
-    'Eliminar Cuenta',
+  final _configList = [
+    UPDATE_NAME,
+    UPDATE_EMAIL,
+    // UPDATE_PASSWORD,
+    DELETE_ACCOUNT,
   ];
 
   @override
@@ -32,7 +33,7 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('Cuenta'),
+        //title: Text('Cuenta'),
         leading: InkWell(
           onTap: () {Navigator.of(context).pop();},
           child: Icon(
@@ -42,16 +43,16 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
         ),
       ),
       body: ListView.separated(
-          itemCount: _listaOpciones.length,
+          itemCount: _configList.length,
           itemBuilder: (context, index) {
             return ListTile(
               contentPadding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.08,
                   vertical: MediaQuery.of(context).size.width * 0.04),
               onTap: () {
-                navegarHacia(index);
+                navigateTo(index);
               },
-              title: Text(_listaOpciones[index],
+              title: Text(_configList[index],
                   style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                       )),
@@ -67,21 +68,21 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
     );
   }
 
-  Future<void> navegarHacia(int pagina) async {
+  Future<void> navigateTo(int pagina) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final avioncitoProvider = Provider.of<PaperplaneProvider>(context, listen: false);
+    final paperplaneProvider = Provider.of<PaperplaneProvider>(context, listen: false);
     final prefs = UserPreferences();
-    switch (_listaOpciones[pagina]) {
-      case 'Actualizar Nombre':
+    switch (_configList[pagina]) {
+      case UPDATE_NAME:
         Navigator.of(context).pushNamed(updateNamePage);
         break;
-      case 'Actualizar Correo':
+      case UPDATE_EMAIL:
         Navigator.of(context).pushNamed(updateEmailPage);
         break;
-      case 'Actualizar Contraseña':
+      case UPDATE_PASSWORD:
         Navigator.of(context).pushNamed(updatePasswordPage);
         break;
-      case 'Eliminar Cuenta':
+      case DELETE_ACCOUNT:
         showFloatingModalBottomSheet(
           backgroundColor: Theme.of(context).primaryColor,
           context: context,
@@ -94,13 +95,13 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('¿Es este el final de nuestra aventura?',
+                    Text(DELETE_ACCOUNT_TITLE,
                         style: Theme.of(context).textTheme.headline6!.copyWith(
                             fontSize:
                                 MediaQuery.of(context).size.width * 0.04)),
                     SizedBox(height: MediaQuery.of(context).size.width * 0.06),
                     Text(
-                      'En Bienaventurados estamos muy agradecidos por haber compartido este camino juntos.\n\n¡Hasta Pronto!',
+                      DELETE_ACCOUNT_TEXT,
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.04),
                     ),
@@ -118,7 +119,7 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: Text('Cancelar',
+                          child: Text(CANCEL_BUTTON,
                               style: Theme.of(context)
                                   .textTheme
                                   .headline4!
@@ -138,7 +139,7 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
                           ),
                           onPressed: () {
                             Navigator.of(context).pop();
-                            avioncitoProvider.deleteAllData();
+                            paperplaneProvider.deleteAllData();
                             prefs.cleanPrefs();
                             prefs.darkMode = false;
                             authProvider.deleteUser();
@@ -146,7 +147,7 @@ class _CuentaConfiguracionesPageState extends State<CuentaConfiguracionesPage> {
                               bienaventuradosPage, (route) => false
                             );
                           },
-                          child: Text('Eliminar',
+                          child: Text(DELETE_BUTTON,
                               style: Theme.of(context)
                                   .textTheme
                                   .headline4!

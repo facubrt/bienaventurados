@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -8,26 +9,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 enum Availability { loading, available, unavailable }
 
-class GeneralConfiguracionesPage extends StatefulWidget {
-  const GeneralConfiguracionesPage({Key? key}) : super(key: key);
+class GeneralPage extends StatefulWidget {
+  const GeneralPage({Key? key}) : super(key: key);
 
   @override
-  _GeneralConfiguracionesPageState createState() => _GeneralConfiguracionesPageState();
+  _GeneralPageState createState() => _GeneralPageState();
 }
 
-class _GeneralConfiguracionesPageState extends State<GeneralConfiguracionesPage> {
+class _GeneralPageState extends State<GeneralPage> {
   late SharedPreferences prefs;
   final InAppReview _inAppReview = InAppReview.instance;
   //Availability _availability = Availability.loading;
   String _appStoreId = '';
   String _microsoftStoreId = '';
 
-  final _listaOpciones = [
-    'Notificaciones',
-    'Cambiar tema',
-    'Calificanos',
+  final _configList = [
+    NOTIFICATIONS_CONFIG,
+    THEME_CONFIG,
+    RATINGS_CONFIG,
     //'Reporta un error',
-    'Acerca de',
+    ABOUT_CONFIG,
   ];
 
   // void _setAppStoreId(String id) => _appStoreId = id;
@@ -62,7 +63,7 @@ class _GeneralConfiguracionesPageState extends State<GeneralConfiguracionesPage>
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('General'),
+        //title: Text(GENERAL_CONFIG),
         leading: InkWell(
           onTap: () {
             Navigator.of(context).pop();
@@ -73,14 +74,14 @@ class _GeneralConfiguracionesPageState extends State<GeneralConfiguracionesPage>
         ),
       ),
       body: ListView.separated(
-          itemCount: _listaOpciones.length,
+          itemCount: _configList.length,
           itemBuilder: (context, index) {
             return ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
               onTap: () {
-                navegarHacia(index);
+                navigateTo(index);
               },
-              title: Text(_listaOpciones[index],
+              title: Text(_configList[index],
                   style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                       )),
@@ -96,18 +97,17 @@ class _GeneralConfiguracionesPageState extends State<GeneralConfiguracionesPage>
     );
   }
 
-  Future<void> navegarHacia(int pagina) async {
-    switch (_listaOpciones[pagina]) {
-      case 'Notificaciones':
+  Future<void> navigateTo(int pagina) async {
+    switch (_configList[pagina]) {
+      case NOTIFICATIONS_CONFIG:
         Navigator.of(context).pushNamed(notiConfigPage);
         break;
-      case 'Cambiar tema':
+      case THEME_CONFIG:
         Navigator.of(context).pushNamed(themeConfigPage);
         break;
-      case 'Calificanos':
-        final logroProvider = Provider.of<AchievementProvider>(context, listen: false);
-        logroProvider.achievementsCheck('calificar-app');
-
+      case RATINGS_CONFIG:
+        final achievementProvider = Provider.of<AchievementProvider>(context, listen: false);
+        achievementProvider.achievementsCheck(ACHIEVEMENT_RATING_APP);
         //if (await _inAppReview.isAvailable()) {
         //if (_availability == Availability.available) {
         //  print('CALIFICAR');
@@ -118,7 +118,7 @@ class _GeneralConfiguracionesPageState extends State<GeneralConfiguracionesPage>
           _openStoreListing();
         }
         break;
-      case 'Acerca de':
+      case ABOUT_CONFIG:
         Navigator.of(context).pushNamed(informationPage);
         break;
       default:

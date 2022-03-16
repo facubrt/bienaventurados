@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
@@ -9,14 +10,14 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:in_app_review/in_app_review.dart';
 
-class ConfiguracionesPage extends StatefulWidget {
-  const ConfiguracionesPage({Key? key}) : super(key: key);
+class ConfigPage extends StatefulWidget {
+  const ConfigPage({Key? key}) : super(key: key);
 
   @override
-  State<ConfiguracionesPage> createState() => _ConfiguracionesPageState();
+  State<ConfigPage> createState() => _ConfigPageState();
 }
 
-class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
+class _ConfigPageState extends State<ConfigPage> {
   late SharedPreferences prefs;
   final InAppReview inAppReview = InAppReview.instance;
   late PackageInfo packageInfo;
@@ -25,11 +26,11 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
   String version = '';
   String buildNumber = '';
 
-  final _listaOpciones = [
-    'General',
-    'Cuenta',
-    //'Legal',
-    'Salir',
+  final _configList = [
+    GENERAL_CONFIG,
+    ACCOUNT_CONFIG,
+    //LEGAL_CONFIG,
+    SALIR,
   ];
 
   @override
@@ -63,17 +64,19 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
         ),
       ),
       body: ListView.separated(
-          itemCount: _listaOpciones.length,
+          itemCount: _configList.length,
           itemBuilder: (context, index) {
             return ListTile(
               contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
               onTap: () {
-                navegarHacia(index);
+                navegateTo(index);
               },
-              title: Text(_listaOpciones[index],
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                      )),
+              title: Text(
+                _configList[index],
+                style: Theme.of(context).textTheme.headline1!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                    ),
+              ),
             );
           },
           separatorBuilder: (context, index) {
@@ -95,21 +98,21 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
     );
   }
 
-  Future<void> navegarHacia(int pagina) async {
-    final avioncitoProvider = Provider.of<PaperplaneProvider>(context, listen: false);
+  Future<void> navegateTo(int pagina) async {
+    final paperplaneProvider = Provider.of<PaperplaneProvider>(context, listen: false);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final prefs = UserPreferences();
-    switch (_listaOpciones[pagina]) {
-      case 'General':
+    switch (_configList[pagina]) {
+      case GENERAL_CONFIG:
         Navigator.of(context).pushNamed(generalConfigPage);
         break;
-      case 'Cuenta':
+      case ACCOUNT_CONFIG:
         Navigator.of(context).pushNamed(accountConfigPage);
         break;
-      case 'Legal':
+      case LEGAL_CONFIG:
         Navigator.of(context).pushNamed(legalPage);
         break;
-      case 'Salir':
+      case SALIR:
         showFloatingModalBottomSheet(
           backgroundColor: Theme.of(context).primaryColor,
           context: context,
@@ -136,16 +139,17 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                       ),
                     ),
                   ),
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Text('¿Descansar de esta aventura?',
+                    child: Text(REST_TIME_TITLE,
                         style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.06)),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.width * 0.06),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
-                      'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. \n\n¡Paz y Bien!',
+                      REST_TIME_TEXT,
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.04),
                     ),
                   ),
@@ -155,7 +159,7 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                   InkWell(
                     onTap: () {
                       authProvider.restoreConstancy();
-                      avioncitoProvider.deleteAllData();
+                      paperplaneProvider.deleteAllData();
                       authProvider.signOut();
                       prefs.cleanPrefs();
                       prefs.darkMode = false;
@@ -166,7 +170,7 @@ class _ConfiguracionesPageState extends State<ConfiguracionesPage> {
                       color: Theme.of(context).primaryColorDark.withOpacity(0.2),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: Text('Salir',
+                        child: Text(SALIR,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline4!

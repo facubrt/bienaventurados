@@ -1,17 +1,18 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class InformacionPage extends StatefulWidget {
-  const InformacionPage({Key? key}) : super(key: key);
+class InformationPage extends StatefulWidget {
+  const InformationPage({Key? key}) : super(key: key);
 
   @override
-  State<InformacionPage> createState() => _InformacionPageState();
+  State<InformationPage> createState() => _InformationPageState();
 }
 
-class _InformacionPageState extends State<InformacionPage> {
+class _InformationPageState extends State<InformationPage> {
   late PackageInfo packageInfo;
   String appName = '';
   String packageName = '';
@@ -38,7 +39,7 @@ class _InformacionPageState extends State<InformacionPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('Acerca de'),
+        //title: Text('Acerca de'),
         leading: InkWell(
           onTap: () {
             Navigator.of(context).pop();
@@ -67,7 +68,7 @@ class _InformacionPageState extends State<InformacionPage> {
               alignment: Alignment.topCenter,
               width: MediaQuery.of(context).size.width,
               child: Text(
-                'Bienaventurados',
+                TITLE_APP,
                 style: Theme.of(context).textTheme.headline1!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.06,
                     ),
@@ -80,7 +81,7 @@ class _InformacionPageState extends State<InformacionPage> {
               alignment: Alignment.topCenter,
               width: MediaQuery.of(context).size.width,
               child: Text(
-                'Ser Eucaristía',
+                AUTHOR,
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.04,
                     ),
@@ -97,7 +98,7 @@ class _InformacionPageState extends State<InformacionPage> {
             Container(
               width: MediaQuery.of(context).size.width,
               alignment: Alignment.center,
-              child: oracionSanto(),
+              child: saintPrayer(),
             ),
             Spacer(),
             Container(
@@ -105,14 +106,14 @@ class _InformacionPageState extends State<InformacionPage> {
                 alignment: Alignment.center,
                 child: GestureDetector(
                     onTap: () async {
-                      final String url = 'https://bienaventurados.web.app';
+                      final String url = WEBSITE_LINK;
                       if (await canLaunch(url)) {
                         await launch(url);
                       } else {
                         throw 'Could not launch $url';
                       }
                     },
-                    child: Text('Página web'))),
+                    child: Text(WEBSITE_TEXT))),
             SizedBox(
               height: MediaQuery.of(context).size.width * 0.06,
             ),
@@ -121,7 +122,7 @@ class _InformacionPageState extends State<InformacionPage> {
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 IconButton(
                   onPressed: () async {
-                    final String url = 'https://twitter.com/sereucaristia';
+                    final String url = TWITTER_LINK;
                     if (await canLaunch(url)) {
                       await launch(url);
                     } else {
@@ -132,7 +133,7 @@ class _InformacionPageState extends State<InformacionPage> {
                 ),
                 IconButton(
                   onPressed: () async {
-                    final String url = 'https://instagram.com/sereucaristia';
+                    final String url = INSTAGRAM_LINK;
                     if (await canLaunch(url)) {
                       await launch(url);
                     } else {
@@ -143,7 +144,7 @@ class _InformacionPageState extends State<InformacionPage> {
                 ),
                 IconButton(
                   onPressed: () async {
-                    final String url = 'https://facebook.com/sereucaristia';
+                    final String url = FACEBOOK_LINK;
                     if (await canLaunch(url)) {
                       await launch(url);
                     } else {
@@ -170,11 +171,11 @@ class _InformacionPageState extends State<InformacionPage> {
     );
   }
 
-  Widget oracionSanto() {
+  Widget saintPrayer() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Text(
-        '"Que el Señor te bendiga y te guarde, te muestre su rostro y otorgue su gracia, te mire benignamente y conceda la paz; que el Señor te bendiga."',
+        SAINT_PRAYER,
         style: Theme.of(context).textTheme.bodyText1!.copyWith(
               fontSize: MediaQuery.of(context).size.width * 0.04,
             ),

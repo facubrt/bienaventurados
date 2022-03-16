@@ -1,10 +1,10 @@
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/constants/constants.dart';
-import 'package:bienaventurados/src/views/pages/today/widgets/avatar_widget.dart';
-import 'package:bienaventurados/src/views/pages/today/widgets/instructions_widget.dart';
-import 'package:bienaventurados/src/views/pages/today/widgets/paperplane_widget.dart';
-import 'package:bienaventurados/src/views/pages/today/widgets/collections_widget.dart';
-import 'package:bienaventurados/src/views/pages/today/widgets/header_widget.dart';
+import 'package:bienaventurados/src/views/pages/todayPage/widgets/avatar_widget.dart';
+import 'package:bienaventurados/src/views/pages/todayPage/widgets/instructions_widget.dart';
+import 'package:bienaventurados/src/views/pages/todayPage/widgets/paperplane_widget.dart';
+import 'package:bienaventurados/src/views/pages/todayPage/widgets/collections_widget.dart';
+import 'package:bienaventurados/src/views/pages/todayPage/widgets/header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';

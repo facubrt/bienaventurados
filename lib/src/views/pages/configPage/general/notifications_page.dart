@@ -1,21 +1,22 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/services/local_notifications.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-class NotificacionesConfiguracionPage extends StatefulWidget {
-  const NotificacionesConfiguracionPage({
+class NotificationsPage extends StatefulWidget {
+  const NotificationsPage({
     Key? key,
   }) : super(key: key);
 
   @override
-  _NotificacionesConfiguracionPageState createState() =>
-      _NotificacionesConfiguracionPageState();
+  _NotificationsPageState createState() =>
+      _NotificationsPageState();
 }
 
-class _NotificacionesConfiguracionPageState
-    extends State<NotificacionesConfiguracionPage> {
-  late int _opcion;
+class _NotificationsPageState
+    extends State<NotificationsPage> {
+  late int _option;
 
   @override
   void initState() {
@@ -26,12 +27,12 @@ class _NotificacionesConfiguracionPageState
   Widget build(BuildContext context) {
     final LocalNotifications noti = LocalNotifications();
     final prefs = UserPreferences();
-    _opcion = prefs.notificationsHour;
+    _option = prefs.notificationsHour;
 
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('Notificaciones'),
+        //title: Text('Notificaciones'),
         leading: InkWell(
           onTap: () {
             Navigator.of(context).pop();
@@ -47,7 +48,7 @@ class _NotificacionesConfiguracionPageState
           Padding(
             padding: const EdgeInsets.all(40.0),
             child: Text(
-                '¿Te gustaría recibir un recordatorio de tu avioncito diario?',
+                NOTI_PAGE_TITLE,
                 style: Theme.of(context).textTheme.headline1!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.08,
                     )),
@@ -60,7 +61,7 @@ class _NotificacionesConfiguracionPageState
                 size: MediaQuery.of(context).size.width * 0.06,
                 color: Theme.of(context).primaryColorDark),
             title: Text(
-              'Recibir notificaciones',
+              NOTI_ON_TITLE,
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.04,
                   ),
@@ -68,7 +69,7 @@ class _NotificacionesConfiguracionPageState
             subtitle: Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Text(
-                'Selecciona esta opción si deseas que te enviemos una notificación cuando tu avioncito diario esté listo.',
+                NOTI_ON_TEXT,
                 style: Theme.of(context).textTheme.bodyText2!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.03,
                       color:
@@ -78,13 +79,13 @@ class _NotificacionesConfiguracionPageState
             ),
             trailing: Radio(
                 activeColor: Theme.of(context).colorScheme.secondary,
-                groupValue: _opcion,
+                groupValue: _option,
                 value: 9,
                 onChanged: (int? value) {}),
             onTap: () async {
               setState((){
-                if (_opcion != 9) {
-                  _opcion = 9;
+                if (_option != 9) {
+                  _option = 9;
                   prefs.notificationsHour = 9;
                   noti.scheduleDaily9AMNotification(9);
                 }
@@ -104,7 +105,7 @@ class _NotificacionesConfiguracionPageState
                 size: MediaQuery.of(context).size.width * 0.06,
                 color: Theme.of(context).primaryColorDark),
             title: Text(
-              'No recibir notificaciones',
+              NOTI_OFF_TITLE,
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.04,
                   ),
@@ -112,7 +113,7 @@ class _NotificacionesConfiguracionPageState
             subtitle: Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Text(
-                'Selecciona esta opción si no deseas recibir notificaciones.',
+                NOTI_OFF_TEXT,
                 style: Theme.of(context).textTheme.bodyText2!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.03,
                       color:
@@ -122,13 +123,13 @@ class _NotificacionesConfiguracionPageState
             ),
             trailing: Radio(
                 activeColor: Theme.of(context).colorScheme.secondary,
-                groupValue: _opcion,
+                groupValue: _option,
                 value: 0,
                 onChanged: (int? value) {}),
             onTap: () {
               setState(() {
-                if (_opcion != 0) {
-                  _opcion = 0;
+                if (_option != 0) {
+                  _option = 0;
                   prefs.notificationsHour = 0;
                   noti.cancelAllNotification();
                 }

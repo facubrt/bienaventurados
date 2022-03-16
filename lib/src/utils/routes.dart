@@ -1,22 +1,22 @@
 import 'package:bienaventurados/src/models/avioncito_model.dart';
-import 'package:bienaventurados/src/views/pages/initial/bienaventurados_page.dart';
-import 'package:bienaventurados/src/views/pages/initial/initial_page.dart';
-import 'package:bienaventurados/src/views/pages/configuraciones/cuenta/actualizar_contrasena_page.dart';
-import 'package:bienaventurados/src/views/pages/configuraciones/cuenta/actualizar_correo_page.dart';
-import 'package:bienaventurados/src/views/pages/configuraciones/cuenta/actualizar_nombre_page.dart';
-import 'package:bienaventurados/src/views/pages/configuraciones/cuenta/cuenta_configuraciones_page.dart';
-import 'package:bienaventurados/src/views/pages/configuraciones/general/general_configuraciones_page.dart';
-import 'package:bienaventurados/src/views/pages/configuraciones/general/informacion_page.dart';
-import 'package:bienaventurados/src/views/pages/configuraciones/general/notificaciones_configuracion_page.dart';
-import 'package:bienaventurados/src/views/pages/configuraciones/general/tema_configuracion_page.dart';
-import 'package:bienaventurados/src/views/pages/configuraciones/legal/legal_configuraciones_page.dart';
-import 'package:bienaventurados/src/views/pages/construir/editar_page.dart';
-import 'package:bienaventurados/src/views/pages/dashboard/dashboard.dart';
-import 'package:bienaventurados/src/views/pages/perfil/colecciones_page.dart';
-import 'package:bienaventurados/src/views/pages/perfil/logros_page.dart';
-import 'package:bienaventurados/src/views/pages/studio/studio_page.dart';
+import 'package:bienaventurados/src/views/pages/initialPage/bienaventurados_page.dart';
+import 'package:bienaventurados/src/views/pages/initialPage/initial_page.dart';
+import 'package:bienaventurados/src/views/pages/configPage/account/update_password_page.dart';
+import 'package:bienaventurados/src/views/pages/configPage/account/update_email_page.dart';
+import 'package:bienaventurados/src/views/pages/configPage/account/update_name_page.dart';
+import 'package:bienaventurados/src/views/pages/configPage/account/account_page.dart';
+import 'package:bienaventurados/src/views/pages/configPage/general/general_page.dart';
+import 'package:bienaventurados/src/views/pages/configPage/general/information_page.dart';
+import 'package:bienaventurados/src/views/pages/configPage/general/notifications_page.dart';
+import 'package:bienaventurados/src/views/pages/configPage/general/theme_page.dart';
+import 'package:bienaventurados/src/views/pages/configPage/legal/legal_page.dart';
+import 'package:bienaventurados/src/views/pages/buildPage/edit_page.dart';
+import 'package:bienaventurados/src/views/pages/dashboardPage/dashboard.dart';
+import 'package:bienaventurados/src/views/pages/profilePage/colecciones_page.dart';
+import 'package:bienaventurados/src/views/pages/profilePage/logros_page.dart';
+import 'package:bienaventurados/src/views/pages/studioPage/studio_page.dart';
 import 'package:bienaventurados/src/utils/transitions.dart';
-import 'package:bienaventurados/src/views/pages/paperplane/paperplane_page.dart';
+import 'package:bienaventurados/src/views/pages/paperplanePage/paperplane_page.dart';
 import 'package:flutter/material.dart';
 
 const String dashboardPage = 'dashboardPage';
@@ -75,16 +75,16 @@ class Routes {
         final args = settings.arguments;
         Avioncito avioncito = args as Avioncito;
         return FadeTransitionRoute(
-            widget: EditarPage(
+            widget: EditPage(
           id: avioncito.id,
-          frase: avioncito.frase,
-          santo: avioncito.santo,
+          quote: avioncito.frase,
+          saint: avioncito.santo,
           reflexion: avioncito.reflexion,
           tag: avioncito.tag,
-          usuario: avioncito.usuario,
+          user: avioncito.usuario,
         ));
       case (informationPage):
-        return SlideLeftTransitionRoute(widget: InformacionPage());
+        return SlideLeftTransitionRoute(widget: InformationPage());
       case (getStartedPage):
         return SlideLeftTransitionRoute(widget: InitialPage());
       case (collectionsPage):
@@ -92,22 +92,22 @@ class Routes {
       case (achievementsPage):
         return SlideLeftTransitionRoute(widget: LogrosPage());
       case (themeConfigPage):
-        return SlideLeftTransitionRoute(widget: TemaConfiguracionPage());
+        return SlideLeftTransitionRoute(widget: ThemePage());
       case (notiConfigPage):
         return SlideLeftTransitionRoute(
-            widget: NotificacionesConfiguracionPage());
+            widget: NotificationsPage());
       case (generalConfigPage):
-        return SlideLeftTransitionRoute(widget: GeneralConfiguracionesPage());
+        return SlideLeftTransitionRoute(widget: GeneralPage());
       case (accountConfigPage):
-        return SlideLeftTransitionRoute(widget: CuentaConfiguracionesPage());
+        return SlideLeftTransitionRoute(widget: AccountPage());
       case (updateEmailPage):
-        return SlideLeftTransitionRoute(widget: ActualizarCorreoPage());
+        return SlideLeftTransitionRoute(widget: UpdateEmailPage());
       case (updateNamePage):
-        return SlideLeftTransitionRoute(widget: ActualizarNombrePage());
+        return SlideLeftTransitionRoute(widget: UpdateNamePage());
       case (updatePasswordPage):
-        return SlideLeftTransitionRoute(widget: ActualizarContrasenaPage());
+        return SlideLeftTransitionRoute(widget: UpdatePasswordPage());
       case (legalPage):
-        return SlideLeftTransitionRoute(widget: LegalConfiguracionesPage());
+        return SlideLeftTransitionRoute(widget: LegalPage());
       default:
         return FadeTransitionRoute(widget: DashboardPage());
     }

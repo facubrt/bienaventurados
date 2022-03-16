@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -5,23 +6,23 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
-class ConstruirPage extends StatefulWidget {
-  const ConstruirPage({
+class BuildPage extends StatefulWidget {
+  const BuildPage({
     Key? key,
   }) : super(key: key);
 
   @override
-  _ConstruirPageState createState() => _ConstruirPageState();
+  _BuildPageState createState() => _BuildPageState();
 }
 
-class _ConstruirPageState extends State<ConstruirPage> {
-  final TextEditingController _fraseController = TextEditingController();
-  final TextEditingController _santoController = TextEditingController();
+class _BuildPageState extends State<BuildPage> {
+  final TextEditingController _quoteController = TextEditingController();
+  final TextEditingController _saintController = TextEditingController();
   final TextEditingController _reflexionController = TextEditingController();
-  final fraseFormKey = GlobalKey<FormState>();
+  final quoteFormKey = GlobalKey<FormState>();
   final reflexionFormKey = GlobalKey<FormState>();
-  final preguntaFormKey = GlobalKey<FormState>();
-  String tag = 'Oración';
+  final questionFormKey = GlobalKey<FormState>();
+  String tag = PRAYER_CHIP;
 
   final PageController _pageController = PageController(initialPage: 0);
 
@@ -50,22 +51,23 @@ class _ConstruirPageState extends State<ConstruirPage> {
         physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
         children: [
-          fraseWidget(),
+          quoteWidget(),
           reflexionWidget(),
           tagWidget(),
-          avioncitoListoWidget(),
+          finishWidget(),
         ],
       ),
     );
   }
 
-  void _construirNuevoAvioncito(String? usuario) {
+  void _buildPaperplane(String? usuario) {
     final FirebaseFirestore _db = FirebaseFirestore.instance;
-    DocumentReference avioncitoRef = _db.collection('datosUsuarios').doc();
+    DocumentReference avioncitoRef = _db.collection(COLLECTION_USERDATA).doc();
 
+    // TODO Cambiar esto al inglés (migracion de datos)
     avioncitoRef.set({
-      'frase': _fraseController.text,
-      'santo': _santoController.text,
+      'frase': _quoteController.text,
+      'santo': _saintController.text,
       'reflexion': _reflexionController.text,
       'tag': tag,
       'pregunta': '',
@@ -74,9 +76,9 @@ class _ConstruirPageState extends State<ConstruirPage> {
     });
   }
 
-  Widget fraseWidget() {
+  Widget quoteWidget() {
     return Form(
-      key: fraseFormKey,
+      key: quoteFormKey,
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SingleChildScrollView(
@@ -86,7 +88,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('¿Construimos un avioncito juntos?',
+                Text(QUOTE_WIDGET_TITLE,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.06,
                         )),
@@ -94,7 +96,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   height: MediaQuery.of(context).size.width * 0.04,
                 ),
                 TextFormField(
-                  controller: _fraseController,
+                  controller: _quoteController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
@@ -105,7 +107,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   minLines: 1,
                   maxLines: 6,
                   decoration: InputDecoration(
-                    hintText: 'Frase',
+                    hintText: QUOTE_HINT,
                     hintStyle: Theme.of(context)
                         .textTheme
                         .headline2!
@@ -119,7 +121,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Debes ingresar un nombre para continuar';
+                      return QUOTE_EMPTY_ERROR;
                     } else {
                       return null;
                     }
@@ -129,7 +131,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   height: MediaQuery.of(context).size.width * 0.04,
                 ),
                 TextFormField(
-                  controller: _santoController,
+                  controller: _saintController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
@@ -138,7 +140,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
-                    hintText: 'Santo, versículo, ...',
+                    hintText: SAINT_HINT,
                     hintStyle: Theme.of(context)
                         .textTheme
                         .headline2!
@@ -152,7 +154,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Debes ingresar un nombre para continuar';
+                      return SAINT_EMPTY_ERROR;
                     } else {
                       return null;
                     }
@@ -176,15 +178,17 @@ class _ConstruirPageState extends State<ConstruirPage> {
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.04,
               ),
+   
+   
               Container(
                 width: double.infinity,
                 height: 50,
                 child: TextButton(
-                  style: OutlinedButton.styleFrom(
+                    style: OutlinedButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColorDark,
                   ),
                   onPressed: () {
-                    if (fraseFormKey.currentState!.validate()) {
+                    if (quoteFormKey.currentState!.validate()) {
                       FocusScopeNode currentFocus = FocusScope.of(context);
 
                       if (!currentFocus.hasPrimaryFocus) {
@@ -193,7 +197,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                       _pageController.nextPage(duration: Duration(milliseconds: 1200), curve: Curves.fastLinearToSlowEaseIn);
                     }
                   },
-                  child: Text('Siguiente',
+                  child: Text(CONTINUE_BUTTON,
                       style: Theme.of(context)
                           .textTheme
                           .headline4!
@@ -216,7 +220,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
             padding: const EdgeInsets.all(30.0),
             child: Column(
               children: [
-                Text('¿Qué reflexión te gustaría hacer sobre estas palabras?',
+                Text(REFLEXION_WIDGET_TITLE,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.06,
                         )),
@@ -235,7 +239,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   minLines: 1,
                   maxLines: 8,
                   decoration: InputDecoration(
-                    hintText: 'Reflexión',
+                    hintText: REFLEXION_HINT,
                     hintStyle: Theme.of(context)
                         .textTheme
                         .headline2!
@@ -249,7 +253,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Debes ingresar un nombre para continuar';
+                      return REFLEXION_EMPTY_ERROR;
                     } else {
                       return null;
                     }
@@ -291,7 +295,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
                     }
                   },
                   child: Text(
-                    'Siguiente',
+                    CONTINUE_BUTTON,
                     style: Theme.of(context)
                         .textTheme
                         .headline4!
@@ -314,7 +318,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              Text('¡Casi está listo! Selecciona una categoría para tu avioncito',
+              Text(TAG_WIDGET_TITLE,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                       )),
@@ -355,16 +359,16 @@ class _ConstruirPageState extends State<ConstruirPage> {
                       currentFocus.unfocus();
                     }
                     setState(() {
-                      _construirNuevoAvioncito(authProvider.user.nombre);
-                      _fraseController.clear();
-                      _santoController.clear();
+                      _buildPaperplane(authProvider.user.nombre);
+                      _quoteController.clear();
+                      _saintController.clear();
                       _reflexionController.clear();
                     });
                     _pageController.nextPage(
                         duration: Duration(milliseconds: 1200),
                         curve: Curves.fastLinearToSlowEaseIn);
                   },
-                child: Text('Siguiente',
+                child: Text(CONTINUE_BUTTON,
                     style:
                         Theme.of(context).textTheme.headline4!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor),),
               ),
@@ -375,13 +379,13 @@ class _ConstruirPageState extends State<ConstruirPage> {
     );
   }
 
-  Widget avioncitoListoWidget() {
+  Widget finishWidget() {
     return Scaffold(
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Padding(
           padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
           child: Text(
-            '¡Todo listo!',
+            FINISH_WIDGET_TITLE,
             style: Theme.of(context).textTheme.headline2!.copyWith(
                   fontSize: MediaQuery.of(context).size.width * 0.08,
                 ),
@@ -389,7 +393,7 @@ class _ConstruirPageState extends State<ConstruirPage> {
         ),
         Padding(
           padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
-          child: Text('Tu avioncito está terminado y pronto empezará a volar por los corazones de todos en Bienaventurados.\n\n¡Muchas gracias por construir!',
+          child: Text(FINISH_WIDGET_TEXT,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.04,
                   )),
@@ -408,10 +412,10 @@ class _ConstruirPageState extends State<ConstruirPage> {
               Navigator.of(context).pushNamed(dashboardPage);
               final logroProvider = Provider.of<AchievementProvider>(context, listen: false);
               final authProvider = Provider.of<AuthProvider>(context, listen: false);
-              logroProvider.achievementsCheck('construidos');
+              logroProvider.achievementsCheck(ACHIEVEMENT_BUILDED);
               authProvider.updatePaperplanesBuilded();
             },
-            child: Text('Finalizar',
+            child: Text(FINISH_BUTTON,
                 style:
                     Theme.of(context).textTheme.headline4!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor)),
           ),
@@ -426,100 +430,100 @@ class _ConstruirPageState extends State<ConstruirPage> {
       spacing: MediaQuery.of(context).size.width * 0.04,
       children: [
         ChoiceChip(
-          label: Text('Oración',
+          label: Text(PRAYER_CHIP,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
-                    color: tag == 'Oración' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                    color: tag == PRAYER_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
                   )),
-          selected: tag == 'Oración' ? true : false,
+          selected: tag == PRAYER_CHIP ? true : false,
           onSelected: (selected) {
             setState(() {
-              tag = 'Oración';
+              tag = PRAYER_CHIP;
             });
           },
         ),
         ChoiceChip(
-          label: Text('Acción',
+          label: Text(ACTION_CHIP,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
-                    color: tag == 'Acción' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                    color: tag == ACTION_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
                   )),
-          selected: tag == 'Acción' ? true : false,
+          selected: tag == ACTION_CHIP ? true : false,
           onSelected: (selected) {
             setState(() {
-              tag = 'Acción';
+              tag = ACTION_CHIP;
             });
           },
         ),
         ChoiceChip(
-          label: Text('Formación',
+          label: Text(FORMATION_CHIP,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
-                    color: tag == 'Formación' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
+                    color: tag == FORMATION_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
                   )),
-          selected: tag == 'Formación' ? true : false,
+          selected: tag == FORMATION_CHIP ? true : false,
           onSelected: (selected) {
             setState(() {
-              tag = 'Formación';
+              tag = FORMATION_CHIP;
             });
           },
         ),
         ChoiceChip(
-          label: Text('Entrega',
+          label: Text(DEVOTION_CHIP,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
-                    color: tag == 'Entrega' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
+                    color: tag == DEVOTION_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
                   )),
-          selected: tag == 'Entrega' ? true : false,
+          selected: tag == DEVOTION_CHIP ? true : false,
           onSelected: (selected) {
             setState(() {
-              tag = 'Entrega';
+              tag = DEVOTION_CHIP;
             });
           },
         ),
         ChoiceChip(
-          label: Text('Santidad',
+          label: Text(HOLINESS_CHIP,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
-                    color: tag == 'Santidad' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
+                    color: tag == HOLINESS_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
                   )),
-          selected: tag == 'Santidad' ? true : false,
+          selected: tag == HOLINESS_CHIP ? true : false,
           onSelected: (selected) {
             setState(() {
-              tag = 'Santidad';
+              tag = HOLINESS_CHIP;
             });
           },
         ),
         ChoiceChip(
-          label: Text('Amor',
+          label: Text(LOVE_CHIP,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
-                    color: tag == 'Amor' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
+                    color: tag == LOVE_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
                   )),
-          selected: tag == 'Amor' ? true : false,
+          selected: tag == LOVE_CHIP ? true : false,
           onSelected: (selected) {
             setState(() {
-              tag = 'Amor';
+              tag = LOVE_CHIP;
             });
           },
         ),
         ChoiceChip(
-          label: Text('Reflexión',
+          label: Text(REFLEXION_CHIP,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
-                    color: tag == 'Reflexión' ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
+                    color: tag == REFLEXION_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
                   )),
-          selected: tag == 'Reflexión' ? true : false,
+          selected: tag == REFLEXION_CHIP ? true : false,
           onSelected: (selected) {
             setState(() {
-              tag = 'Reflexión';
+              tag = REFLEXION_CHIP;
             });
           },
         )

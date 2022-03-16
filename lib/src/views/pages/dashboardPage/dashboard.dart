@@ -3,13 +3,13 @@ import 'package:bienaventurados/src/models/models.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/utils/utilities.dart';
-import 'package:bienaventurados/src/views/pages/configuraciones/configuraciones_page.dart';
-import 'package:bienaventurados/src/views/pages/construir/construir_page.dart';
-import 'package:bienaventurados/src/views/pages/today/today_page.dart';
-import 'package:bienaventurados/src/views/pages/saved/saved_page.dart';
-import 'package:bienaventurados/src/views/pages/perfil/perfil_page.dart';
+import 'package:bienaventurados/src/views/pages/configPage/config_page.dart';
+import 'package:bienaventurados/src/views/pages/buildPage/build_page.dart';
+import 'package:bienaventurados/src/views/pages/todayPage/today_page.dart';
+import 'package:bienaventurados/src/views/pages/savedPage/saved_page.dart';
+import 'package:bienaventurados/src/views/pages/profilePage/perfil_page.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
-import 'package:bienaventurados/src/views/pages/dashboard/widgets/drawer_widget.dart';
+import 'package:bienaventurados/src/views/pages/dashboardPage/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -189,11 +189,11 @@ class _DashboardPageState extends State<DashboardPage> {
       case DrawerItems.savedPage:
         return SavedPage();
       case DrawerItems.buildPage:
-        return ConstruirPage();
+        return BuildPage();
       case DrawerItems.profilePage:
         return PerfilPage();
       case DrawerItems.configPage:
-        return ConfiguracionesPage();
+        return ConfigPage();
       default:
         return TodayPage();
     }

@@ -1,20 +1,21 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ActualizarContrasenaPage extends StatefulWidget {
+class UpdatePasswordPage extends StatefulWidget {
 
-  const ActualizarContrasenaPage({Key? key,}) : super(key: key);
+  const UpdatePasswordPage({Key? key,}) : super(key: key);
 
   @override
-  _ActualizarContrasenaPageState createState() => _ActualizarContrasenaPageState();
+  _UpdatePasswordPageState createState() => _UpdatePasswordPageState();
 }
 
-class _ActualizarContrasenaPageState extends State<ActualizarContrasenaPage> {
-  final TextEditingController _contrasenaAnteriorController = TextEditingController();
-  final TextEditingController _contrasenaNuevaController = TextEditingController();
-  final contrasenaAnteriorformKey = GlobalKey<FormState>();
-  final contrasenaNuevaformKey = GlobalKey<FormState>();
+class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _newPassword = TextEditingController();
+  final passwordFormKey = GlobalKey<FormState>();
+  final newPasswordFormKey = GlobalKey<FormState>();
 
   final PageController _pageController = PageController(initialPage: 0);
 
@@ -29,24 +30,24 @@ class _ActualizarContrasenaPageState extends State<ActualizarContrasenaPage> {
         physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
         children: [
-          confirmarContrasenaWidget(),
-          actualizarContrasenaWidget(),
+          confirmPasswordWidget(),
+          updatePasswordWidget(),
         ]
       
       ),  
     );
   }
 
-    Widget confirmarContrasenaWidget() {
+    Widget confirmPasswordWidget() {
     return Form(
-      key: contrasenaAnteriorformKey,
+      key: passwordFormKey,
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(30.0),
             child: Column(
               children: [
-                Text('Ingresa tu contraseña actual para continuar',
+                Text(CONFIRM_PASSWORD_PAGE_TITLE,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.06,
                         )),
@@ -54,7 +55,7 @@ class _ActualizarContrasenaPageState extends State<ActualizarContrasenaPage> {
                   height: MediaQuery.of(context).size.width * 0.04,
                 ),
                 TextFormField(
-                  controller: _contrasenaAnteriorController,
+                  controller: _password,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
@@ -63,7 +64,7 @@ class _ActualizarContrasenaPageState extends State<ActualizarContrasenaPage> {
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
-                    hintText: 'Contraseña',
+                    hintText: PASSWORD_HINT,
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
@@ -91,13 +92,13 @@ class _ActualizarContrasenaPageState extends State<ActualizarContrasenaPage> {
                 backgroundColor: Theme.of(context).primaryColorDark,
               ),
               onPressed: () {
-                if (contrasenaAnteriorformKey.currentState!.validate()) {
+                if (passwordFormKey.currentState!.validate()) {
                   _pageController.nextPage(
                       duration: Duration(milliseconds: 300),
                       curve: Curves.fastLinearToSlowEaseIn);
                   }
               },
-              child: Text('Continuar',
+              child: Text(CONTINUE_BUTTON,
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.04,
                       color: Theme.of(context).primaryColor)),
@@ -108,17 +109,17 @@ class _ActualizarContrasenaPageState extends State<ActualizarContrasenaPage> {
     );
   }
 
-  Widget actualizarContrasenaWidget() {
+  Widget updatePasswordWidget() {
     final authProvider = Provider.of<AuthProvider>(context);
     return Form(
-      key: contrasenaNuevaformKey,
+      key: newPasswordFormKey,
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(30.0),
             child: Column(
               children: [
-                Text('¿Te gustaría cambiar tu contraseña?',
+                Text(UPDATE_PASSWORD_PAGE_TITLE,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.06,
                         )),
@@ -126,7 +127,7 @@ class _ActualizarContrasenaPageState extends State<ActualizarContrasenaPage> {
                   height: MediaQuery.of(context).size.width * 0.04,
                 ),
                 TextFormField(
-                  controller: _contrasenaNuevaController,
+                  controller: _newPassword,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
@@ -135,7 +136,7 @@ class _ActualizarContrasenaPageState extends State<ActualizarContrasenaPage> {
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
-                    hintText: 'Nueva Contraseña',
+                    hintText: NEW_PASSWORD_HINT,
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
@@ -163,21 +164,21 @@ class _ActualizarContrasenaPageState extends State<ActualizarContrasenaPage> {
                 backgroundColor: Theme.of(context).primaryColorDark,
               ),
               onPressed: () {
-                if (contrasenaNuevaformKey.currentState!.validate()) {
+                if (newPasswordFormKey.currentState!.validate()) {
                   FocusScopeNode currentFocus = FocusScope.of(context);
 
                   if (!currentFocus.hasPrimaryFocus) {
                     currentFocus.unfocus();
                   }
                   setState(() {
-                    authProvider.updatePassword(_contrasenaAnteriorController.text, _contrasenaNuevaController.text);
-                    _contrasenaNuevaController.clear();
-                    _contrasenaAnteriorController.clear();
+                    authProvider.updatePassword(_password.text, _newPassword.text);
+                    _newPassword.clear();
+                    _password.clear();
                     Navigator.of(context).pop();
                   });
                 }
               },
-              child: Text('Guardar',
+              child: Text(SAVE_BUTTON,
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.04,
                       color: Theme.of(context).primaryColor)),

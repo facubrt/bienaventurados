@@ -1,34 +1,29 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
-class TemaConfiguracionPage extends StatefulWidget {
-  const TemaConfiguracionPage({
+class ThemePage extends StatefulWidget {
+  const ThemePage({
     Key? key,
   }) : super(key: key);
 
   @override
-  _TemaConfiguracionPageState createState() => _TemaConfiguracionPageState();
+  _ThemePageState createState() => _ThemePageState();
 }
 
-class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
-  // late bool _activarModoNoche;
-  late int _opcion;
-
-  @override
-  void initState() {
-    super.initState();
-  }
+class _ThemePageState extends State<ThemePage> {
+  late int _option;
 
   @override
   Widget build(BuildContext context) {
     final prefs = UserPreferences();
     if (prefs.darkMode) {
-      _opcion = 1;
+      _option = 1;
     } else {
-      _opcion = 2;
+      _option = 2;
     }
     ThemeProvider themeProvider = Provider.of<ThemeProvider>(
       context,
@@ -40,7 +35,7 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('Tema'),
+        //title: Text('Tema'),
         leading: InkWell(
           onTap: () {
             Navigator.of(context).pop();
@@ -55,7 +50,7 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(40.0),
-            child: Text('Elige el tema que más te guste',
+            child: Text(THEME_PAGE_TITLE,
                 style: Theme.of(context).textTheme.headline1!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.08,
                     )),
@@ -68,7 +63,7 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
                 size: MediaQuery.of(context).size.width * 0.06,
                 color: Theme.of(context).primaryColorDark),
             title: Text(
-              'Claro',
+              THEME_DAY_TITLE,
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.04,
                   ),
@@ -76,7 +71,7 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
             subtitle: Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Text(
-                'Selecciona esta opción para iluminar a otros corazones con tu luz.',
+                THEME_DAY_TEXT,
                 style: Theme.of(context).textTheme.bodyText2!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     color: Theme.of(context).primaryColorDark.withOpacity(0.4)),
@@ -84,13 +79,13 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
             ),
             trailing: Radio(
                 activeColor: Theme.of(context).colorScheme.secondary,
-                groupValue: _opcion,
+                groupValue: _option,
                 value: 2,
                 onChanged: (int? value) {}),
             onTap: () {
               setState(() {
-                if (_opcion != 2) {
-                  _opcion = 2;
+                if (_option != 2) {
+                  _option = 2;
                   themeProvider.swapTheme();
                   prefs.darkMode = false;
                 }
@@ -110,7 +105,7 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
                 size: MediaQuery.of(context).size.width * 0.06,
                 color: Theme.of(context).primaryColorDark),
             title: Text(
-              'Oscuro',
+              THEME_NIGHT_TITLE,
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.04,
                   ),
@@ -118,7 +113,7 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
             subtitle: Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Text(
-                'Selecciona esta opción para aventurarte en el silencio de la noche.',
+                THEME_NIGHT_TEXT,
                 style: Theme.of(context).textTheme.bodyText2!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     color: Theme.of(context).primaryColorDark.withOpacity(0.4)),
@@ -126,16 +121,15 @@ class _TemaConfiguracionPageState extends State<TemaConfiguracionPage> {
             ),
             trailing: Radio(
                 activeColor: Theme.of(context).colorScheme.secondary,
-                groupValue: _opcion,
+                groupValue: _option,
                 value: 1,
                 onChanged: (int? value) {}),
             onTap: () {
-              logroProvider.achievementsCheck('modo-noche');
+              logroProvider.achievementsCheck(ACHIEVEMENT_NIGHT_MODE);
               setState(() {
-                if (_opcion != 1) {
-                  _opcion = 1;
+                if (_option != 1) {
+                  _option = 1;
                   themeProvider.swapTheme();
-                  // _activarModoNoche = true;
                   prefs.darkMode = true;
                 }
               });

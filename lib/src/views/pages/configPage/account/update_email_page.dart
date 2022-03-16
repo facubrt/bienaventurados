@@ -1,18 +1,19 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
-class ActualizarNombrePage extends StatefulWidget {
+class UpdateEmailPage extends StatefulWidget {
 
-  const ActualizarNombrePage({Key? key,}) : super(key: key);
+  const UpdateEmailPage({Key? key,}) : super(key: key);
 
   @override
-  _ActualizarNombrePageState createState() => _ActualizarNombrePageState();
+  _UpdateEmailPageState createState() => _UpdateEmailPageState();
 }
 
-class _ActualizarNombrePageState extends State<ActualizarNombrePage> {
-  final TextEditingController _nombreController = TextEditingController();
+class _UpdateEmailPageState extends State<UpdateEmailPage> {
+  final TextEditingController _emailController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -21,7 +22,7 @@ class _ActualizarNombrePageState extends State<ActualizarNombrePage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        title: Text('Actualizar Nombre'),
+        //title: Text('Actualizar Correo'),
         leading: InkWell(
           onTap: () {Navigator.of(context).pop();},
           child: Icon(
@@ -30,11 +31,11 @@ class _ActualizarNombrePageState extends State<ActualizarNombrePage> {
             ),
         ),
       ),
-      body: actualizarNombreWidget(),
+      body: updateEmailWidget(),
     );
   }
 
-  Widget actualizarNombreWidget() {
+  Widget updateEmailWidget() {
     final authProvider = Provider.of<AuthProvider>(context);
     return Form(
       key: formKey,
@@ -44,7 +45,7 @@ class _ActualizarNombrePageState extends State<ActualizarNombrePage> {
             padding: const EdgeInsets.all(30.0),
             child: Column(
               children: [
-                Text('¿Te gustaría cambiar tu nombre?',
+                Text(UPDATE_EMAIL_PAGE_TITLE,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.06,
                         )),
@@ -52,7 +53,7 @@ class _ActualizarNombrePageState extends State<ActualizarNombrePage> {
                   height: MediaQuery.of(context).size.width * 0.04,
                 ),
                 TextFormField(
-                  controller: _nombreController,
+                  controller: _emailController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
@@ -61,7 +62,7 @@ class _ActualizarNombrePageState extends State<ActualizarNombrePage> {
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
-                    hintText: 'Nuevo Nombre',
+                    hintText: NEW_EMAIL_HINT,
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
@@ -96,13 +97,13 @@ class _ActualizarNombrePageState extends State<ActualizarNombrePage> {
                     currentFocus.unfocus();
                   }
                   setState(() {
-                    authProvider.updateName(_nombreController.text);
-                    _nombreController.clear();
+                    authProvider.updateEmail(_emailController.text);
+                    _emailController.clear();
                     Navigator.of(context).pop();
                   });
                 }
               },
-              child: Text('Guardar',
+              child: Text(SAVE_BUTTON,
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.04,
                       color: Theme.of(context).primaryColor)),

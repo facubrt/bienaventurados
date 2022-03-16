@@ -1,5 +1,5 @@
-import 'package:bienaventurados/src/views/pages/perfil/widgets/collection_solemnities.dart';
-import 'package:bienaventurados/src/views/pages/perfil/widgets/proximamente_widget.dart';
+import 'package:bienaventurados/src/views/pages/profilePage/widgets/collection_solemnities.dart';
+import 'package:bienaventurados/src/views/pages/profilePage/widgets/proximamente_widget.dart';
 import 'package:flutter/material.dart';
 
 class ColeccionesPage extends StatefulWidget {

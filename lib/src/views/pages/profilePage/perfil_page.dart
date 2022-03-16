@@ -1,8 +1,8 @@
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
-import 'package:bienaventurados/src/views/pages/perfil/widgets/estadisticas_widget.dart';
-import 'package:bienaventurados/src/views/pages/perfil/widgets/perfil_widget.dart';
-import 'package:bienaventurados/src/views/pages/perfil/widgets/comparte_widget.dart';
+import 'package:bienaventurados/src/views/pages/profilePage/widgets/estadisticas_widget.dart';
+import 'package:bienaventurados/src/views/pages/profilePage/widgets/perfil_widget.dart';
+import 'package:bienaventurados/src/views/pages/profilePage/widgets/comparte_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';

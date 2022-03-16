@@ -53,7 +53,7 @@ class AchievementProvider with ChangeNotifier {
           case ACHIEVEMENT_BUILDED:
             builded(box);
             break;
-          case ACHIEVEMENT_DARK_MODE:
+          case ACHIEVEMENT_NIGHT_MODE:
             darkMode(box);
             break;
         }

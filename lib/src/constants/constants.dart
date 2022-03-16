@@ -4,9 +4,25 @@ const String ISOTYPE_DARK = 'assets/images/isotipo-oscuro.png';
 const String ISOTYPE_LARGE_LIGHT = 'assets/images/isotipo-horizontal-claro.png';
 const String ISOTYPE_LARGE_DARK = 'assets/images/isotipo-horizontal-oscuro.png';
 
+// SOCIAL LINKS
+const String WEBSITE_LINK = 'https://bienaventurados.web.app';
+const String TWITTER_LINK = 'https://twitter.com/sereucaristia';
+const String FACEBOOK_LINK = 'https://facebook.com/sereucaristia';
+const String INSTAGRAM_LINK = 'https://instagram.com/sereucaristia';
+const String TELEGRAM_LINK = 'https://t.me/sereucaristia';
+const String PRIVACY_POLICY_LINK = 'https://bienaventurados.web.app/privacidad';
+const String TERMS_OF_SERVICE_LINK = 'https://bienaventurados.web.app/terminos';
+
+// VERSIONS
+const String SAINT = 'San Francisco de Asís';
+const String SAINT_PRAYER =
+    '"Que el Señor te bendiga y te guarde, te muestre su rostro y otorgue su gracia, te mire benignamente y conceda la paz; que el Señor te bendiga."';
+
 // TEXTS
 const String TITLE_APP = 'Bienaventurados';
 const String AUTHOR = 'Ser Eucaristía';
+const String WEBSITE_TEXT = 'Página Web';
+
 const String WITH_EMAIL = 'Continuar con Correo';
 const String WITH_GOOGLE = 'Continuar con Google';
 const String DASHBOARD_HEADER = 'Bien\naven\ntura\ndos';
@@ -28,6 +44,9 @@ const String DONWLOAD_PAPERPLANE = 'Descargar avioncito';
 const String BUILD_YOUR_PAPERPLANE_TEXT =
     '¿Ya recibiste este avioncito? Ayudanos a construir muchos más avioncitos y sacarlos a pasear. ¡Animate a compartir la fe!';
 const String BUILD_YOUR_PAPERPLANE_BTN = 'Construye un avioncito de papel';
+const String REST_TIME_TITLE = '¿Descansar de esta aventura?';
+const String REST_TIME_TEXT =
+    'Tener un tiempo de tranquilidad, un tiempo para estar solo y escuchar al corazón es tan importante como el mantenerse en movimiento. \n\n¡Paz y Bien!';
 
 // SECTIONS
 const String PAPERPLANE_SECTION = 'Avioncito de hoy';
@@ -90,6 +109,15 @@ const String NAME_INPUT = 'Comienza tu aventura,';
 const String NAME_HINT = 'Nombre';
 const String EMAIL_HINT = 'Correo';
 const String PASSWORD_HINT = 'Contraseña';
+const String NEW_PASSWORD_HINT = 'Nueva Contraseña';
+const String NEW_EMAIL_HINT = 'Nuevo correo';
+const String NEW_NAME_HINT = 'Nuevo nombre';
+const String QUOTE_HINT = 'Frase';
+const String SAINT_HINT = 'Santo, versículo, ...';
+const String REFLEXION_HINT = 'Reflexión';
+const String TAG_HINT = 'Tag';
+const String QUESTION_HINT = 'Pregunta (opcional)';
+const String MISSION_HINT = 'Misión (opcional)';
 
 // LOGIN STATUS
 const String USER_FOUND_MESSAGE = 'user-found';
@@ -104,9 +132,16 @@ const String PASSWORD_EMPTY_ERROR = 'Debes ingresar una contraseña para continu
 const String PASSWORD_LENGTH_ERROR = 'La contraseña debe contener más de 8 caracteres';
 const String FORGOT_YOUR_PASSWORD = '¿Olvidaste tu contraseña?';
 const String SIGN_IN_ERROR = '¡Oh, oh! Parece que algo no salió bien. Intentalo de nuevo.';
+const String QUOTE_EMPTY_ERROR = 'Debes ingresar una frase para continuar';
+const String SAINT_EMPTY_ERROR = 'Debes ingresar una fuente para continuar';
+const String REFLEXION_EMPTY_ERROR = 'Debes ingresar una reflexión para continuar';
+const String TAG_EMPTY_ERROR = 'Debes ingresar un tag para continuar';
 
 // BUTTONS
 const String CONTINUE_BUTTON = 'Continuar';
+const String SAVE_BUTTON = 'Guardar';
+const String CANCEL_BUTTON = 'Cancelar';
+const String DELETE_BUTTON = 'Eliminar';
 const String FINISH_BUTTON = 'Finalizar';
 
 // ACHIEVEMENTS
@@ -117,7 +152,7 @@ const String ACHIEVEMENT_RATING_APP = 'calificar-app';
 const String ACHIEVEMENT_SHARED = 'compartidos';
 const String ACHIEVEMENT_SHARE_APP = 'compartir-app';
 const String ACHIEVEMENT_BUILDED = 'construidos';
-const String ACHIEVEMENT_DARK_MODE = 'modo-noche';
+const String ACHIEVEMENT_NIGHT_MODE = 'modo-noche';
 
 //PAGES MESSAGES
 const String STUDIO_PAGE_TITLE = 'Tus avioncitos por construir';
@@ -126,7 +161,55 @@ const String STUDIO_PAGE_TEXT =
     'Aún no hay avioncitos para hacer volar. Los avioncitos que se construyan llegarán hasta acá para tomar vuelo y comenzar su aventura.';
 const String SAVED_PAGE_TEXT =
     'Aún no has guardado ningún avioncito. Colecciona tus favoritos y visitalos más tarde para redescubrir su mensaje con un corazón renovado.';
+const String NOTI_PAGE_TITLE = '¿Te gustaría recibir un recordatorio de tu avioncito diario?';
+const String NOTI_ON_TITLE = 'Recibir notificaciones';
+const String NOTI_ON_TEXT = 'Selecciona esta opción si deseas que te enviemos una notificación cuando tu avioncito diario esté listo.';
+const String NOTI_OFF_TITLE = 'No recibir notificaciones';
+const String NOTI_OFF_TEXT = 'Selecciona esta opción si no deseas recibir notificaciones.';
+const String THEME_PAGE_TITLE = 'Elige el tema que más te guste';
+const String THEME_DAY_TITLE = 'Claro';
+const String THEME_DAY_TEXT = 'Selecciona esta opción para iluminar a otros corazones con tu luz.';
+const String THEME_NIGHT_TITLE = 'Oscuro';
+const String THEME_NIGHT_TEXT = 'Selecciona esta opción para aventurarte en el silencio de la noche.';
+const String CONFIRM_PASSWORD_PAGE_TITLE = 'Ingresa tu contraseña actual para continuar';
+const String UPDATE_PASSWORD_PAGE_TITLE = '¿Te gustaría cambiar tu contraseña?';
+const String UPDATE_EMAIL_PAGE_TITLE = '¿Te gustaría actualizar tu correo?';
+const String UPDATE_NAME_PAGE_TITLE = '¿Te gustaría cambiar tu nombre?';
+const String DELETE_ACCOUNT_TITLE = '¿Es este el final de nuestra aventura?';
+const String DELETE_ACCOUNT_TEXT = 'En Bienaventurados estamos muy agradecidos por haber compartido este camino juntos.\n\n¡Hasta Pronto!';
+const String QUOTE_WIDGET_TITLE = '¿Construimos un avioncito juntos?';
+const String REFLEXION_WIDGET_TITLE = '¿Qué reflexión te gustaría hacer sobre estas palabras?';
+const String TAG_WIDGET_TITLE = '¡Casi está listo! Selecciona una categoría para tu avioncito';
+const String FINISH_WIDGET_TITLE = '¡Todo listo!';
+const String FINISH_WIDGET_TEXT =
+    'Tu avioncito está terminado y pronto empezará a volar por los corazones de todos en Bienaventurados.\n\n¡Muchas gracias por construir!';
+const String QUESTION_WIDGET_TITLE = 'Un último paso antes de hacer volar tu avioncito';
+
+// CHIP OPTIONS
+const String PRAYER_CHIP = 'Oración';
+const String ACTION_CHIP = 'Acción';
+const String FORMATION_CHIP = 'Formación';
+const String DEVOTION_CHIP = 'Entrega';
+const String HOLINESS_CHIP = 'Santidad';
+const String LOVE_CHIP = 'Amor';
+const String REFLEXION_CHIP = 'Reflexión';
 
 // STATUS TEXT
 const String ERROR_TEXT = '¡Oh, oh! Algo ha salido mal. Intentalo de nuevo más tarde';
 const String LOADING_TEXT = 'Cargando avioncitos...';
+
+// CONFIG OPTIONS
+const String GENERAL_CONFIG = 'General';
+const String NOTIFICATIONS_CONFIG = 'Notificaciones';
+const String THEME_CONFIG = 'Tema';
+const String RATINGS_CONFIG = 'Calificanos';
+const String ABOUT_CONFIG = 'Acerca de';
+const String ACCOUNT_CONFIG = 'Cuenta';
+const String LEGAL_CONFIG = 'Legal';
+const String SALIR = 'Salir';
+const String PRIVACY_POLICY = 'Políticas de privacidad';
+const String TERMS_OF_SERVICE = 'Términos y Condiciones';
+const String UPDATE_NAME = 'Actualizar nombre';
+const String UPDATE_EMAIL = 'Actualizar correo';
+const String UPDATE_PASSWORD = 'Actualizar contraseña';
+const String DELETE_ACCOUNT = 'Eliminar cuenta';

@@ -1,18 +1,19 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
-class ActualizarCorreoPage extends StatefulWidget {
+class UpdateNamePage extends StatefulWidget {
 
-  const ActualizarCorreoPage({Key? key,}) : super(key: key);
+  const UpdateNamePage({Key? key,}) : super(key: key);
 
   @override
-  _ActualizarCorreoPageState createState() => _ActualizarCorreoPageState();
+  _UpdateNamePageState createState() => _UpdateNamePageState();
 }
 
-class _ActualizarCorreoPageState extends State<ActualizarCorreoPage> {
-  final TextEditingController _correoController = TextEditingController();
+class _UpdateNamePageState extends State<UpdateNamePage> {
+  final TextEditingController _nameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -21,7 +22,7 @@ class _ActualizarCorreoPageState extends State<ActualizarCorreoPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        title: Text('Actualizar Correo'),
+        //title: Text('Actualizar Nombre'),
         leading: InkWell(
           onTap: () {Navigator.of(context).pop();},
           child: Icon(
@@ -30,11 +31,11 @@ class _ActualizarCorreoPageState extends State<ActualizarCorreoPage> {
             ),
         ),
       ),
-      body: actualizarNombreWidget(),
+      body: updateNameWidget(),
     );
   }
 
-  Widget actualizarNombreWidget() {
+  Widget updateNameWidget() {
     final authProvider = Provider.of<AuthProvider>(context);
     return Form(
       key: formKey,
@@ -44,7 +45,7 @@ class _ActualizarCorreoPageState extends State<ActualizarCorreoPage> {
             padding: const EdgeInsets.all(30.0),
             child: Column(
               children: [
-                Text('¿Te gustaría actualizar tu correo?',
+                Text(UPDATE_NAME_PAGE_TITLE,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.06,
                         )),
@@ -52,7 +53,7 @@ class _ActualizarCorreoPageState extends State<ActualizarCorreoPage> {
                   height: MediaQuery.of(context).size.width * 0.04,
                 ),
                 TextFormField(
-                  controller: _correoController,
+                  controller: _nameController,
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
@@ -61,7 +62,7 @@ class _ActualizarCorreoPageState extends State<ActualizarCorreoPage> {
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
-                    hintText: 'Nuevo Correo',
+                    hintText: NEW_NAME_HINT,
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         color: Theme.of(context)
@@ -96,13 +97,13 @@ class _ActualizarCorreoPageState extends State<ActualizarCorreoPage> {
                     currentFocus.unfocus();
                   }
                   setState(() {
-                    authProvider.updateEmail(_correoController.text);
-                    _correoController.clear();
+                    authProvider.updateName(_nameController.text);
+                    _nameController.clear();
                     Navigator.of(context).pop();
                   });
                 }
               },
-              child: Text('Guardar',
+              child: Text(SAVE_BUTTON,
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.04,
                       color: Theme.of(context).primaryColor)),

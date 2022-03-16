@@ -1,5 +1,5 @@
 import 'package:bienaventurados/src/models/avioncito_model.dart';
-import 'package:bienaventurados/src/views/pages/paperplane/paperplane_page.dart';
+import 'package:bienaventurados/src/views/pages/paperplanePage/paperplane_page.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
