@@ -1,7 +1,8 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:flutter/material.dart';
 
-class ProximamenteWidget extends StatelessWidget {
-  const ProximamenteWidget({ Key? key }) : super(key: key);
+class ComingSoonWidget extends StatelessWidget {
+  const ComingSoonWidget({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +17,12 @@ class ProximamenteWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Muy pronto...', style: Theme.of(context).textTheme.headline4!.copyWith(
+              Text(COMING_SOON, style: Theme.of(context).textTheme.headline4!.copyWith(
                 fontSize: MediaQuery.of(context).size.width * 0.04,
               ),
               ),
               SizedBox(height: MediaQuery.of(context).size.width * 0.04,),
-              Text('Muchas más colecciones están en camino. ¡Vuelve pronto!', style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              Text(COMING_SOON_TEXT, style: Theme.of(context).textTheme.bodyText1!.copyWith(
                 fontSize: MediaQuery.of(context).size.width * 0.03,
               ),),
             ],

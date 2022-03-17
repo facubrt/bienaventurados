@@ -1,7 +1,7 @@
 import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/theme/color_palette.dart';
 import 'package:bienaventurados/src/data/local/local_db.dart';
-import 'package:bienaventurados/src/data/local/logros_data.dart';
+import 'package:bienaventurados/src/data/local/achievements_data.dart';
 import 'package:bienaventurados/src/models/logro_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +14,8 @@ class AchievementProvider with ChangeNotifier {
   Future<void> iniciarLogros() async {
     await _localDB.openBox().then((isOpenBox) async {
       if (isOpenBox) {
-        for (var i = 0; i < Logros.logros.length; i++) {
-          _localDB.setLogro(Logros.logros[i], false);
+        for (var i = 0; i < Achievements.allAchievements.length; i++) {
+          _localDB.setLogro(Achievements.allAchievements[i], false);
         }
       }
     });
@@ -294,17 +294,17 @@ class AchievementProvider with ChangeNotifier {
               print('TERCERA VEZ DESBLOQUEADO');
             } else {
               print('TERCER LOGRO RESTABLECIDO');
-              achievement.n = Logros.logros[achievement.id].n;
+              achievement.n = Achievements.allAchievements[achievement.id].n;
               _localDB.setLogro(achievement, false);
             }
           } else {
             print('SEGUNDO LOGRO RESTABLECIDO');
-            achievement.n = Logros.logros[achievement.id].n;
+            achievement.n = Achievements.allAchievements[achievement.id].n;
             _localDB.setLogro(achievement, false);
           }
         } else {
           print('PRIMER LOGRO RESTABLECIDO');
-          achievement.n = Logros.logros[achievement.id].n;
+          achievement.n = Achievements.allAchievements[achievement.id].n;
           _localDB.setLogro(achievement, false);
         }
       }

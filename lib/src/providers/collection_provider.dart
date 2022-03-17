@@ -1,4 +1,4 @@
-import 'package:bienaventurados/src/data/local/colecciones_data.dart';
+import 'package:bienaventurados/src/data/local/collections_data.dart';
 import 'package:bienaventurados/src/data/local/local_db.dart';
 import 'package:bienaventurados/src/models/coleccion_model.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
@@ -18,9 +18,9 @@ class CollectionProvider with ChangeNotifier {
   Future<void> getAllCollections() async {
     await _localDB.openBox().then((result) async {
       if (result) {
-        print('longitud de Colecciones ${Colecciones.colecciones.length}');
-        for (var i = 0; i < Colecciones.colecciones.length; i++) {
-          _localDB.setColecciones(Colecciones.colecciones[i], false);
+        print('longitud de Colecciones ${Collections.allCollections.length}');
+        for (var i = 0; i < Collections.allCollections.length; i++) {
+          _localDB.setColecciones(Collections.allCollections[i], false);
         }
       }
     });
@@ -41,13 +41,13 @@ class CollectionProvider with ChangeNotifier {
     _month = DateTime.now().month;
     await _localDB.openBox().then((result) async {
       if (result) {
-        for (var i = 0; i < Colecciones.colecciones.length - 1; i++) {
-          if ((_day == Colecciones.colecciones[i].dia) && (_month == Colecciones.colecciones[i].mes)) {
-            print('DESBLOQUEASTE LA COLECCION ${Colecciones.colecciones[i].titulo}');
+        for (var i = 0; i < Collections.allCollections.length - 1; i++) {
+          if ((_day == Collections.allCollections[i].dia) && (_month == Collections.allCollections[i].mes)) {
+            print('DESBLOQUEASTE LA COLECCION ${Collections.allCollections[i].titulo}');
             //setColeccion(i, Colecciones.colecciones[i], true);
             prefs.collectionUnlocked = true;
             _collectibleUnlocked = true;
-            _collectible = Colecciones.colecciones[i];
+            _collectible = Collections.allCollections[i];
             _localDB.setColeccionDesbloqueada(_collectible!);
             notifyListeners();
           }

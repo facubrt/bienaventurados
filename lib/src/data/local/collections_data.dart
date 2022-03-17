@@ -1,7 +1,7 @@
 import 'package:bienaventurados/src/models/coleccion_model.dart';
 
-class Colecciones {
-  static final colecciones = [
+class Collections {
+  static final allCollections = [
     // COLECCION DE PRUEBA
     // Coleccion(
     //   id: 0,

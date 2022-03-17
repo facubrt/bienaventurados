@@ -1,5 +1,5 @@
 import 'package:bienaventurados/src/constants/constants.dart';
-import 'package:bienaventurados/src/data/local/meses_data.dart';
+import 'package:bienaventurados/src/data/local/months_data.dart';
 import 'package:bienaventurados/src/models/avioncito_model.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
@@ -134,7 +134,7 @@ class _SavedPageState extends State<SavedPage> {
           Row(
             children: [
               Text(
-                '${savedPaperplane.fecha!.day} de ${MesesData.meses[savedPaperplane.fecha!.month - 1].id}, ${savedPaperplane.fecha!.year}'.toUpperCase(),
+                '${savedPaperplane.fecha!.day} de ${Months.allMonths[savedPaperplane.fecha!.month - 1].id}, ${savedPaperplane.fecha!.year}'.toUpperCase(),
                 style: Theme.of(context).textTheme.bodyText2!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.03,
                     ),

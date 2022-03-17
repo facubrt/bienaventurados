@@ -1,6 +1,6 @@
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/theme/color_palette.dart';
-import 'package:bienaventurados/src/data/local/meses_data.dart';
+import 'package:bienaventurados/src/data/local/months_data.dart';
 import 'package:bienaventurados/src/models/coleccion_model.dart';
 import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +89,7 @@ Widget collectibleWidget(BuildContext context, Coleccion? collection) {
             child: Row(
               children: [
                 Text(
-                  '${collection.dia} de ${MesesData.meses[collection.mes - 1].id}, ${DateTime.now().year}',
+                  '${collection.dia} de ${Months.allMonths[collection.mes - 1].id}, ${DateTime.now().year}',
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * SCALE_BODY,
                         color:

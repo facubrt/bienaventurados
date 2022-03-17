@@ -2,7 +2,7 @@ import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/theme/color_palette.dart';
 import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
-import 'package:bienaventurados/src/data/local/meses_data.dart';
+import 'package:bienaventurados/src/data/local/months_data.dart';
 import 'package:bienaventurados/src/views/widgets/section_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -42,7 +42,7 @@ class PaperplaneWidget extends StatelessWidget {
                           ),
                           Spacer(),
                           Text(
-                            '${DateTime.now().day} ${MesesData.meses[DateTime.now().month - 1].id.substring(0, 3)}\n${DateTime.now().year}'.toUpperCase(),
+                            '${DateTime.now().day} ${Months.allMonths[DateTime.now().month - 1].id.substring(0, 3)}\n${DateTime.now().year}'.toUpperCase(),
                             style: Theme.of(context)
                                 .textTheme
                                 .subtitle1!

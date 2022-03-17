@@ -12,8 +12,8 @@ import 'package:bienaventurados/src/views/pages/configPage/general/theme_page.da
 import 'package:bienaventurados/src/views/pages/configPage/legal/legal_page.dart';
 import 'package:bienaventurados/src/views/pages/buildPage/edit_page.dart';
 import 'package:bienaventurados/src/views/pages/dashboardPage/dashboard.dart';
-import 'package:bienaventurados/src/views/pages/profilePage/colecciones_page.dart';
-import 'package:bienaventurados/src/views/pages/profilePage/logros_page.dart';
+import 'package:bienaventurados/src/views/pages/profilePage/collections_page.dart';
+import 'package:bienaventurados/src/views/pages/profilePage/achievements_page.dart';
 import 'package:bienaventurados/src/views/pages/studioPage/studio_page.dart';
 import 'package:bienaventurados/src/utils/transitions.dart';
 import 'package:bienaventurados/src/views/pages/paperplanePage/paperplane_page.dart';
@@ -88,9 +88,9 @@ class Routes {
       case (getStartedPage):
         return SlideLeftTransitionRoute(widget: InitialPage());
       case (collectionsPage):
-        return SlideLeftTransitionRoute(widget: ColeccionesPage());
+        return SlideLeftTransitionRoute(widget: CollectionsPage());
       case (achievementsPage):
-        return SlideLeftTransitionRoute(widget: LogrosPage());
+        return SlideLeftTransitionRoute(widget: AchievementsPage());
       case (themeConfigPage):
         return SlideLeftTransitionRoute(widget: ThemePage());
       case (notiConfigPage):

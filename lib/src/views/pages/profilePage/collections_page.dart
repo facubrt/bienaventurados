@@ -1,14 +1,15 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/views/pages/profilePage/widgets/collection_solemnities.dart';
-import 'package:bienaventurados/src/views/pages/profilePage/widgets/proximamente_widget.dart';
+import 'package:bienaventurados/src/views/pages/profilePage/widgets/coming_soon_widget.dart';
 import 'package:flutter/material.dart';
 
-class ColeccionesPage extends StatefulWidget {
+class CollectionsPage extends StatefulWidget {
   @override
-  State<ColeccionesPage> createState() => _ColeccionesPageState();
+  State<CollectionsPage> createState() => _CollectionsPageState();
 }
 
-class _ColeccionesPageState extends State<ColeccionesPage> with TickerProviderStateMixin {
-  final tabs = ['Solemnidades', 'Muy pronto...'];
+class _CollectionsPageState extends State<CollectionsPage> with TickerProviderStateMixin {
+  final tabs = [COLLECTION_SOLEMNITIES, COMING_SOON];
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class _ColeccionesPageState extends State<ColeccionesPage> with TickerProviderSt
           Padding(
             padding: const EdgeInsets.all(30.0),
             child: Text(
-              'Descubre momentos especiales',
+              COLLECTIONS_PAGE_TITLE,
               style: Theme.of(context).textTheme.headline1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.08,
                   ),
@@ -37,7 +38,7 @@ class _ColeccionesPageState extends State<ColeccionesPage> with TickerProviderSt
           Padding(
             padding: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 30.0),
             child: Text(
-              'Colecciona y aprende sobre los momentos claves de nuestra Fe.',
+              COLLECTIONS_PAGE_TEXT,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     color: Theme.of(context).primaryColorDark,
                     fontSize: MediaQuery.of(context).size.width * 0.04,
@@ -57,11 +58,11 @@ class _ColeccionesPageState extends State<ColeccionesPage> with TickerProviderSt
               unselectedLabelColor: Theme.of(context).primaryColorDark,
               tabs: tabs
                   .map(
-                    (coleccion) => Tab(
+                    (collection) => Tab(
                       child: Padding(
                         padding: const EdgeInsets.only(top: 5.0),
                         child: Text(
-                          coleccion.toUpperCase(),
+                          collection.toUpperCase(),
                           style: TextStyle(
                             fontFamily: 'Gotham',
                             fontSize: MediaQuery.of(context).size.width * 0.03,
@@ -78,9 +79,9 @@ class _ColeccionesPageState extends State<ColeccionesPage> with TickerProviderSt
             child: TabBarView(
               controller: tabController,
               children: [
-                CollectionSolemnities('Solemnidades'),
+                CollectionSolemnities(COLLECTION_SOLEMNITIES),
                 //ColeccionFiestas('Fiestas'),
-                ProximamenteWidget(),
+                ComingSoonWidget(),
               ],
             ),
           ),

@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/models/logro_model.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
@@ -6,13 +7,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
-class LogrosPage extends StatefulWidget {
+class AchievementsPage extends StatefulWidget {
   @override
-  State<LogrosPage> createState() => _LogrosPageState();
+  State<AchievementsPage> createState() => _AchievementsPageState();
 }
 
-class _LogrosPageState extends State<LogrosPage> with TickerProviderStateMixin{
-  final tabs = ['Comunes', 'Especiales'];
+class _AchievementsPageState extends State<AchievementsPage> with TickerProviderStateMixin{
+  final tabs = [ACHIEVEMENTS_COMMONS, ACHIEVEMENTS_RARES];
 
 
   @override
@@ -41,8 +42,8 @@ class _LogrosPageState extends State<LogrosPage> with TickerProviderStateMixin{
       0,
     ]);
 
-    final logroProvider = Provider.of<AchievementProvider>(context, listen: false);
-    Box box = logroProvider.getAchievements();
+    final achievementProvider = Provider.of<AchievementProvider>(context, listen: false);
+    Box box = achievementProvider.getAchievements();
     return Scaffold(
       appBar: AppBar(
         //title: Text('Logros', style: Theme.of(context).textTheme.headline4),
@@ -60,7 +61,7 @@ class _LogrosPageState extends State<LogrosPage> with TickerProviderStateMixin{
             SliverPadding(
                 padding: const EdgeInsets.all(40.0),
                 sliver: SliverToBoxAdapter(
-                  child: Text('Consigue todas las insignias',
+                  child: Text(ACHIEVEMENTS_PAGE_TITLE,
                       style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: MediaQuery.of(context).size.width * 0.08,
                           )),
@@ -69,7 +70,7 @@ class _LogrosPageState extends State<LogrosPage> with TickerProviderStateMixin{
               padding: const EdgeInsets.only(left: 40.0, right: 40.0, bottom: 20.0),
               sliver: SliverToBoxAdapter(
                 child: Text(
-                'Cada pequeño paso, cada simple acción merece ser celebrada.',
+                ACHIEVEMENTS_PAGE_TEXT,
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       color: Theme.of(context).primaryColorDark,
                       fontSize: MediaQuery.of(context).size.width * 0.04,
@@ -84,7 +85,7 @@ class _LogrosPageState extends State<LogrosPage> with TickerProviderStateMixin{
                     return box.getAt(index).desbloqueado
                       ? InkWell(
                           onTap: () {
-                            abrirLogro(context, box.getAt(index));
+                            openItem(context, box.getAt(index));
                           },
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
@@ -178,7 +179,7 @@ class _LogrosPageState extends State<LogrosPage> with TickerProviderStateMixin{
     // );
   }
 
-  void abrirLogro(BuildContext context, Logro? logro) {
+  void openItem(BuildContext context, Logro? achievement) {
     showFloatingModalBottomSheet(
       backgroundColor: Theme.of(context).primaryColor,
       context: context,
@@ -215,7 +216,7 @@ class _LogrosPageState extends State<LogrosPage> with TickerProviderStateMixin{
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),
                         child: Image.asset(
-                          logro!.img,
+                          achievement!.img,
                         ),
                       ),
                     ),
@@ -228,7 +229,7 @@ class _LogrosPageState extends State<LogrosPage> with TickerProviderStateMixin{
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              logro.titulo,
+                              achievement.titulo,
                               style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.06),
                             ),
                           ],
@@ -241,7 +242,7 @@ class _LogrosPageState extends State<LogrosPage> with TickerProviderStateMixin{
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
                 child: Text(
-                  logro.objetivo,
+                  achievement.objetivo,
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.03,
                         color: Theme.of(context).primaryColorDark.withOpacity(0.4),
@@ -251,7 +252,7 @@ class _LogrosPageState extends State<LogrosPage> with TickerProviderStateMixin{
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
-                  logro.descripcion,
+                  achievement.descripcion,
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.036),
                 ),
               ),
@@ -263,7 +264,7 @@ class _LogrosPageState extends State<LogrosPage> with TickerProviderStateMixin{
                 color: Theme.of(context).primaryColorDark.withOpacity(0.2),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Text('Desbloqueado',
+                  child: Text(ACHIEVEMENT_UNLOCKED_BTN,
                       style: Theme.of(context)
                           .textTheme
                           .headline4!

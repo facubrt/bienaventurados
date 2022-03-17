@@ -1,7 +1,7 @@
 import 'package:bienaventurados/src/models/logro_model.dart';
 
-class Logros {
-  static final logros = [
+class Achievements {
+  static final allAchievements = [
     Logro(
       id: 0,
       titulo: 'Comienza tu aventura',

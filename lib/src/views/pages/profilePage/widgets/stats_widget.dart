@@ -1,10 +1,12 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/theme/color_palette.dart';
+import 'package:bienaventurados/src/views/widgets/section_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EstadisticasWidget extends StatelessWidget {
-  const EstadisticasWidget({Key? key}) : super(key: key);
+class StatsWidget extends StatelessWidget {
+  const StatsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,24 +16,7 @@ class EstadisticasWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Estadísticas'.toUpperCase(),
-            style: Theme.of(context).textTheme.headline4!.copyWith(
-                  fontSize: MediaQuery.of(context).size.width * 0.03,
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.width * 0.01,
-          ),
-          Container(
-            color: Theme.of(context).colorScheme.secondary,
-            height: MediaQuery.of(context).size.width * 0.01,
-            width: MediaQuery.of(context).size.width * 0.1,
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.width * 0.04,
-          ),
+          SectionWidget(title: STATS_SECTION),
           Card(
             elevation: 0,
             color: ColorPalette.accentDark,
@@ -68,7 +53,7 @@ class EstadisticasWidget extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(6.0),
                             child: Text(
-                              'Avioncitos\ncompartidos'.toUpperCase(),
+                              PAPERPLANES_SHARED.toUpperCase(),
                               style: Theme.of(context).textTheme.headline5!.copyWith(
                                     color: ColorPalette.primaryLight,
                                     fontSize: MediaQuery.of(context).size.width * 0.02,
@@ -101,7 +86,7 @@ class EstadisticasWidget extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(6.0),
                             child: Text(
-                              'Avioncitos\nconstruidos'.toUpperCase(),
+                              PAPERPLANES_BUILDED.toUpperCase(),
                               style: Theme.of(context).textTheme.headline5!.copyWith(
                                     color: ColorPalette.primaryLight,
                                     fontSize: MediaQuery.of(context).size.width * 0.02,
@@ -134,7 +119,7 @@ class EstadisticasWidget extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(6.0),
                             child: Text(
-                              'Constancia\nactual'.toUpperCase(),
+                             CONSTANCY.toUpperCase(),
                               style: Theme.of(context).textTheme.headline5!.copyWith(
                                     color: ColorPalette.primaryLight,
                                     fontSize: MediaQuery.of(context).size.width * 0.02,
@@ -167,7 +152,7 @@ class EstadisticasWidget extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(6.0),
                             child: Text(
-                              'Tu mejor\nconstancia'.toUpperCase(),
+                              BEST_CONSTANCY.toUpperCase(),
                               style: Theme.of(context).textTheme.headline5!.copyWith(
                                     color: ColorPalette.primaryLight,
                                     fontSize: MediaQuery.of(context).size.width * 0.02,

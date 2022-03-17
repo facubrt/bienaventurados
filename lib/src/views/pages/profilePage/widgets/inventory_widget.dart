@@ -2,14 +2,14 @@ import 'package:bienaventurados/src/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-class MochilaWidget extends StatefulWidget {
-  const MochilaWidget({Key? key}) : super(key: key);
+class inventoryWidget extends StatefulWidget {
+  const inventoryWidget({Key? key}) : super(key: key);
 
   @override
-  _MochilaWidgetState createState() => _MochilaWidgetState();
+  _inventoryWidgetState createState() => _inventoryWidgetState();
 }
 
-class _MochilaWidgetState extends State<MochilaWidget> {
+class _inventoryWidgetState extends State<inventoryWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(

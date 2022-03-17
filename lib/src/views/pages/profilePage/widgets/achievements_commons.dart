@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/models/logro_model.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
@@ -6,9 +7,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
-class LogrosComunes extends StatelessWidget {
+class AchievementsCommons extends StatelessWidget {
   final String scrollKey;
-  const LogrosComunes(this.scrollKey, {Key? key}) : super(key: key);
+  const AchievementsCommons(this.scrollKey, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +37,10 @@ class LogrosComunes extends StatelessWidget {
       0.5,
       0,
     ]);
-    List logros = [];
-    box.values.where((logro) => logro.tipo == 'Fiesta').forEach(
-      (logro) {
-        logros.add(logro);
+    List achievements = [];
+    box.values.where((achievement) => achievement.tipo == FEAST_TYPE).forEach(
+      (achievement) {
+        achievements.add(achievement);
       },
     );
     return Padding(
@@ -47,29 +48,29 @@ class LogrosComunes extends StatelessWidget {
       child: GridView.builder(
         padding: const EdgeInsets.symmetric(vertical: 30),
         key: PageStorageKey(scrollKey),
-        itemCount: logros.length,
+        itemCount: achievements.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
           crossAxisSpacing: 20,
           mainAxisSpacing: 20,
           childAspectRatio: 1,
         ),
-        itemBuilder: (context, index) => logros[index].tipo == 'Fiesta'
-            ? logros[index].desbloqueado
+        itemBuilder: (context, index) => achievements[index].tipo == FEAST_TYPE
+            ? achievements[index].desbloqueado
                 ? InkWell(
                     onTap: () {
                       showFloatingModalBottomSheet<bool?>(
                           backgroundColor: Theme.of(context).primaryColor,
                           context: context,
                           builder: (context) {
-                            return abrirLogro(context, logros[index]);
+                            return openItem(context, achievements[index]);
                           });
                       //abrirColeccion(context, logros[index]);
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
                       child: Image.asset(
-                        logros[index].img,
+                        achievements[index].img,
                       ),
                     ))
                 : ColorFiltered(
@@ -77,7 +78,7 @@ class LogrosComunes extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
                       child: Image.asset(
-                        logros[index].img,
+                        achievements[index].img,
                       ),
                     ),
                   )
@@ -86,7 +87,7 @@ class LogrosComunes extends StatelessWidget {
     );
   }
 
-    Widget abrirLogro(BuildContext context, Logro? logro) {
+    Widget openItem(BuildContext context, Logro? achievement) {
     return Container(
           color: Theme.of(context).primaryColor,
           child: Column(
@@ -119,7 +120,7 @@ class LogrosComunes extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),
                         child: Image.asset(
-                          logro!.img,
+                          achievement!.img,
                         ),
                       ),
                     ),
@@ -132,7 +133,7 @@ class LogrosComunes extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              logro.titulo,
+                              achievement.titulo,
                               style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.06),
                             ),
                           ],
@@ -145,7 +146,7 @@ class LogrosComunes extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
                 child: Text(
-                  logro.objetivo,
+                  achievement.objetivo,
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.03,
                         color: Theme.of(context).primaryColorDark.withOpacity(0.4),
@@ -155,7 +156,7 @@ class LogrosComunes extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
-                  logro.descripcion,
+                  achievement.descripcion,
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.036),
                 ),
               ),
@@ -167,7 +168,7 @@ class LogrosComunes extends StatelessWidget {
                 color: Theme.of(context).primaryColorDark.withOpacity(0.2),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Text('Desbloqueado',
+                  child: Text(ACHIEVEMENT_UNLOCKED_BTN,
                       style: Theme.of(context)
                           .textTheme
                           .headline4!

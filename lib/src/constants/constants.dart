@@ -4,6 +4,11 @@ const String ISOTYPE_DARK = 'assets/images/isotipo-oscuro.png';
 const String ISOTYPE_LARGE_LIGHT = 'assets/images/isotipo-horizontal-claro.png';
 const String ISOTYPE_LARGE_DARK = 'assets/images/isotipo-horizontal-oscuro.png';
 
+const String BIENAVENTURADO_SEAS = '¡Bienaventurado seas!';
+
+const String FEAST_TYPE = 'Fiesta';
+const String SOLEMNITIES_TYPE = 'Solemnidad';
+
 // SOCIAL LINKS
 const String WEBSITE_LINK = 'https://bienaventurados.web.app';
 const String TWITTER_LINK = 'https://twitter.com/sereucaristia';
@@ -12,6 +17,14 @@ const String INSTAGRAM_LINK = 'https://instagram.com/sereucaristia';
 const String TELEGRAM_LINK = 'https://t.me/sereucaristia';
 const String PRIVACY_POLICY_LINK = 'https://bienaventurados.web.app/privacidad';
 const String TERMS_OF_SERVICE_LINK = 'https://bienaventurados.web.app/terminos';
+const String QR_SHARE_NIGHT = 'assets/images/qr-compartir-claro.png';
+const String QR_SHARE_DAY = 'assets/images/qr-compartir-oscuro.png';
+const String PLAY_STORE_LINK = 'https://play.google.com/store/apps/details?id=com.sereucaristia';
+
+const String QR_SHARE_TITLE = 'Comparte este código QR';
+const String QR_SHARE_TEXT =
+    'Haz que tus amigos y familiares escaneen el código QR de arriba utilizando la cámara de su teléfono para acceder a Bienaventurados';
+const String QR_SHARE_BTN = 'Código QR';
 
 // VERSIONS
 const String SAINT = 'San Francisco de Asís';
@@ -31,6 +44,7 @@ const String BLESSED_DAY_TITLE = 'Bendecido día,';
 const String DISCOVERY_TITLE = 'Esto es para vos';
 const String DISCOVERY_TEXT = 'Descubre este avioncito y dejate abrazar por sus palabras';
 const String COLLECTIBLE_UNLOCKED_TEXT = '¡Bienaventurado seas! Has desbloqueado un nuevo Coleccionable';
+const String ACHIEVEMENT_UNLOCKED_BTN = 'Desbloqueado';
 const String COLLECTIBLE_UNLOCKED_BTN = 'Desbloqueado';
 const String COLLECTIBLE_LOCKED_BTN = 'Desbloquear';
 const String INSTRUCTIONS_FOR_FLYING_TITLE = 'Instrucciones para hacer volar';
@@ -53,6 +67,17 @@ const String PAPERPLANE_SECTION = 'Avioncito de hoy';
 const String COLLECTION_SECTION = 'Colecciones';
 const String GOSPEL_SECTION = 'Evangelio de hoy';
 const String INSTRUCTIONS_SECTION = 'Instrucciones';
+const String STATS_SECTION = 'Estadísticas';
+
+// STATS
+const String PAPERPLANES_BUILDED = 'Avioncitos\nconstruidos';
+const String PAPERPLANES_SHARED = 'Avioncitos\ncompartidos';
+const String CONSTANCY = 'Constancia\nactual';
+const String BEST_CONSTANCY = 'Tu mejor\nconstancia';
+
+const String SHARE_APP_TITLE = 'Llevá la fe a todas partes';
+const String SHARE_APP_TEXT = '¿Estás disfrutando de Bienaventurados? Comparte esta aventura con tus amigos para seguir creciendo en la fe juntos.';
+const String SHARE_APP_BTN = 'Comparte esta aventura';
 
 // TEXT SCALE
 const double SCALE_H1 = 0.16;
@@ -143,6 +168,7 @@ const String SAVE_BUTTON = 'Guardar';
 const String CANCEL_BUTTON = 'Cancelar';
 const String DELETE_BUTTON = 'Eliminar';
 const String FINISH_BUTTON = 'Finalizar';
+const String OK_BUTTON = 'Listo';
 
 // ACHIEVEMENTS
 const String ACHIEVEMENT_FIST_TIME = 'primer-inicio';
@@ -153,6 +179,23 @@ const String ACHIEVEMENT_SHARED = 'compartidos';
 const String ACHIEVEMENT_SHARE_APP = 'compartir-app';
 const String ACHIEVEMENT_BUILDED = 'construidos';
 const String ACHIEVEMENT_NIGHT_MODE = 'modo-noche';
+
+// PAGES
+const String ACHIEVEMENT_PAGE = 'Logros';
+const String COLLECTIONS_PAGE = 'Colecciones';
+const String STUDIO_PAGE = 'LABORATORIO';
+
+// ACHIEVEMENTS TYPE
+const String ACHIEVEMENTS_COMMONS = 'Comunes';
+const String ACHIEVEMENTS_RARES = 'Especiales';
+
+// COLLECTIONS TYPE
+const String COLLECTION_SOLEMNITIES = 'Solemnidades';
+const String COLLECTION_FEASTS = 'Fiestas';
+const String COLLECTION_MEMORIES = 'Memorias';
+const String COLLECTION_OPTIONALS = 'Opcionales';
+const String COMING_SOON = 'Muy pronto...';
+const String COMING_SOON_TEXT = 'Muchas más colecciones están en camino. ¡Vuelve pronto!';
 
 //PAGES MESSAGES
 const String STUDIO_PAGE_TITLE = 'Tus avioncitos por construir';
@@ -184,6 +227,10 @@ const String FINISH_WIDGET_TITLE = '¡Todo listo!';
 const String FINISH_WIDGET_TEXT =
     'Tu avioncito está terminado y pronto empezará a volar por los corazones de todos en Bienaventurados.\n\n¡Muchas gracias por construir!';
 const String QUESTION_WIDGET_TITLE = 'Un último paso antes de hacer volar tu avioncito';
+const String ACHIEVEMENTS_PAGE_TITLE = 'Consigue todas las insignias';
+const String ACHIEVEMENTS_PAGE_TEXT = 'Cada pequeño paso, cada simple acción merece ser celebrada.';
+const String COLLECTIONS_PAGE_TITLE = 'Descubre momentos especiales';
+const String COLLECTIONS_PAGE_TEXT = 'Colecciona y aprende sobre los momentos claves de nuestra Fe.';
 
 // CHIP OPTIONS
 const String PRAYER_CHIP = 'Oración';
@@ -213,3 +260,7 @@ const String UPDATE_NAME = 'Actualizar nombre';
 const String UPDATE_EMAIL = 'Actualizar correo';
 const String UPDATE_PASSWORD = 'Actualizar contraseña';
 const String DELETE_ACCOUNT = 'Eliminar cuenta';
+
+// ROLES
+const String BIENAVENTURADO = 'Bienaventurado';
+const String ADMINISTRADOR = 'Administrador';

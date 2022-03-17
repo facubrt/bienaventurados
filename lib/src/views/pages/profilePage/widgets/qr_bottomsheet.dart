@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:flutter/material.dart';
 
@@ -18,18 +19,18 @@ Widget qrBottomSheet() {
                 alignment: Alignment.center,
                 child: prefs.darkMode
                     ? Image.asset(
-                        'assets/images/qr-compartir-claro.png',
+                        QR_SHARE_NIGHT,
                         height: MediaQuery.of(context).size.width * 0.6,
                       )
                     : Image.asset(
-                      'assets/images/qr-compartir-oscuro.png',
+                      QR_SHARE_DAY,
                       height: MediaQuery.of(context).size.width * 0.6,
                       ),
               ),
             ),
             Center(
               child: Text(
-                'Comparte este código QR',
+                QR_SHARE_TITLE,
                 style: Theme.of(context).textTheme.headline4!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.046,
                       color: Theme.of(context).primaryColorDark,
@@ -41,7 +42,7 @@ Widget qrBottomSheet() {
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
               child: Center(
                 child: Text(
-                  'Haz que tus amigos y familiares escaneen el código QR de arriba utilizando la cámara de su teléfono para acceder a Bienaventurados',
+                  QR_SHARE_TEXT,
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.036,
                         color: Theme.of(context).primaryColorDark,
@@ -58,7 +59,7 @@ Widget qrBottomSheet() {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 10.0, vertical: 10.0),
-                  child: Text('Listo',
+                  child: Text(OK_BUTTON,
                       style: Theme.of(context).textTheme.subtitle1!.copyWith(
                             fontSize: MediaQuery.of(context).size.width * 0.04,
                             color: Theme.of(context).primaryColorDark,

@@ -1,18 +1,19 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PerfilWidget extends StatefulWidget {
-  const PerfilWidget({Key? key}) : super(key: key);
+class ProfileWidget extends StatefulWidget {
+  const ProfileWidget({Key? key}) : super(key: key);
 
   @override
-  _PerfilWidgetState createState() => _PerfilWidgetState();
+  _ProfileWidgetState createState() => _ProfileWidgetState();
 }
 
-class _PerfilWidgetState extends State<PerfilWidget> {
-  late int _imagenPerfil;
-  late String? nombre;
+class _ProfileWidgetState extends State<ProfileWidget> {
+  late int _imgProfile;
+  late String? name;
 
   List images = [
     'perfil-01',
@@ -23,17 +24,12 @@ class _PerfilWidgetState extends State<PerfilWidget> {
   ];
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final prefs = UserPreferences();
     final authProvider = Provider.of<AuthProvider>(context);
-    nombre = authProvider.user.nombre;
+    name = authProvider.user.nombre;
     // final authProvider = Provider.of<AuthProvider>(context);
-    _imagenPerfil = prefs.imgProfile;
+    _imgProfile = prefs.imgProfile;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30),
       child: Row(
@@ -42,12 +38,12 @@ class _PerfilWidgetState extends State<PerfilWidget> {
             splashColor: Colors.transparent,
             onTap: () {
               setState(() {
-                if (_imagenPerfil < (images.length - 1)) {
-                  _imagenPerfil += 1;
+                if (_imgProfile < (images.length - 1)) {
+                  _imgProfile += 1;
                 } else {
-                  _imagenPerfil = 0;
+                  _imgProfile = 0;
                 }
-                prefs.imgProfile = _imagenPerfil;
+                prefs.imgProfile = _imgProfile;
               });
             },
             child: Container(
@@ -60,7 +56,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: Image.asset(
-                  'assets/images/perfil/${images[_imagenPerfil]}.png',
+                  'assets/images/perfil/${images[_imgProfile]}.png',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -76,7 +72,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    nombre ?? '',
+                    name ?? '',
                     style: Theme.of(context).textTheme.headline1!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.08,
                         ),
@@ -85,7 +81,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                     height: MediaQuery.of(context).size.width * 0.02,
                   ),
                   Text(
-                    '¡Bienaventurado seas!',
+                    BIENAVENTURADO_SEAS,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.04,
                         ),
@@ -103,7 +99,7 @@ class _PerfilWidgetState extends State<PerfilWidget> {
     );
   }
 
-  Widget nivelWidget() {
+  Widget levelWidget() {
     final widthExperience = MediaQuery.of(context).size.width - 300;
     final experience = widthExperience / 2;
     return Column(

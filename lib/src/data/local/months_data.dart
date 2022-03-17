@@ -1,8 +1,8 @@
 
 import 'package:bienaventurados/src/models/mes_model.dart';
 
-class MesesData {
-  static final meses = [
+class Months {
+  static final allMonths = [
     Mes(
     id: 'enero',
     numero: 1,
