@@ -84,6 +84,12 @@ flutter:
     - assets/images/logros/
     - assets/images/perfil/
     - assets/images/versiones/
+    - assets/images/paperplanes/
+    - assets/images/paperplanes/background/
+    - assets/images/paperplanes/wings/
+    - assets/images/paperplanes/detail/
+    - assets/images/paperplanes/stamp/
+    - assets/images/paperplanes/base/
 
   fonts:
     - family: Gotham

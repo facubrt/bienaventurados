@@ -183,7 +183,8 @@ const String ACHIEVEMENT_NIGHT_MODE = 'modo-noche';
 // PAGES
 const String ACHIEVEMENT_PAGE = 'Logros';
 const String COLLECTIONS_PAGE = 'Colecciones';
-const String STUDIO_PAGE = 'LABORATORIO';
+const String STUDIO_PAGE = 'Garage SE';
+const String CREATOR_PAGE = 'Lab SE';
 
 // ACHIEVEMENTS TYPE
 const String ACHIEVEMENTS_COMMONS = 'Comunes';
@@ -262,5 +263,12 @@ const String UPDATE_PASSWORD = 'Actualizar contraseña';
 const String DELETE_ACCOUNT = 'Eliminar cuenta';
 
 // ROLES
-const String BIENAVENTURADO = 'Bienaventurado';
-const String ADMINISTRADOR = 'Administrador';
+const String BIENAVENTURADO = 'bienaventurado';
+const String ADMINISTRADOR = 'administrador';
+
+// CREATOR OPTIONS
+const String BACKGROUND = 'fondo';
+const String BASE = 'base';
+const String WINGS = 'alas';
+const String STAMP = 'Sellos';
+const String DETAIL = 'Detalles';

@@ -11,8 +11,8 @@ class CollectionSolemnities extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final coleccionesProvider = Provider.of<CollectionProvider>(context);
-    Box box = coleccionesProvider.getCollections();
+    final collectionProvider = Provider.of<CollectionProvider>(context);
+    Box box = collectionProvider.getCollections();
     const ColorFilter greyscaleFilter = ColorFilter.matrix(<double>[
       0.2126,
       0.7152,
@@ -35,10 +35,10 @@ class CollectionSolemnities extends StatelessWidget {
       0.5,
       0,
     ]);
-    List coleccionables = [];
-    box.values.where((coleccionable) => coleccionable.tipo == 'Solemnidad').forEach(
-      (coleccionable) {
-        coleccionables.add(coleccionable);
+    List collection = [];
+    box.values.where((collectible) => collectible.tipo == 'Solemnidad').forEach(
+      (collectible) {
+        collection.add(collectible);
       },
     );
     return Padding(
@@ -46,28 +46,28 @@ class CollectionSolemnities extends StatelessWidget {
       child: GridView.builder(
         padding: const EdgeInsets.symmetric(vertical: 30),
         key: PageStorageKey(scrollKey),
-        itemCount: coleccionables.length,
+        itemCount: collection.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
           crossAxisSpacing: 20,
           mainAxisSpacing: 20,
           childAspectRatio: 1,
         ),
-        itemBuilder: (context, index) => coleccionables[index].desbloqueado
+        itemBuilder: (context, index) => collection[index].desbloqueado
             ? InkWell(
                 onTap: () {
                   showFloatingModalBottomSheet<bool?>(
                       backgroundColor: Theme.of(context).primaryColor,
                       context: context,
                       builder: (context) {
-                        return collectibleWidget(context, coleccionables[index]);
+                        return collectibleWidget(context, collection[index]);
                       });
                   //abrirColeccion(context, coleccionables[index]);
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: Image.asset(
-                    coleccionables[index].img,
+                    collection[index].img,
                   ),
                 ))
             : ColorFiltered(
@@ -75,7 +75,7 @@ class CollectionSolemnities extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: Image.asset(
-                    coleccionables[index].img,
+                    collection[index].img,
                   ),
                 ),
               ),

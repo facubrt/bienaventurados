@@ -5,14 +5,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-class StudioPage extends StatefulWidget {
-  const StudioPage({Key? key}) : super(key: key);
+class GaragePage extends StatefulWidget {
+  const GaragePage({Key? key}) : super(key: key);
 
   @override
-  _StudioPageState createState() => _StudioPageState();
+  _GaragePageState createState() => _GaragePageState();
 }
 
-class _StudioPageState extends State<StudioPage> {
+class _GaragePageState extends State<GaragePage> {
 
   final Stream<QuerySnapshot> paperplanes = FirebaseFirestore.instance.collection(COLLECTION_USERDATA).snapshots();
 

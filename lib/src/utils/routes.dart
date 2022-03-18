@@ -1,4 +1,5 @@
 import 'package:bienaventurados/src/models/avioncito_model.dart';
+import 'package:bienaventurados/src/views/pages/labPage/lab_page.dart';
 import 'package:bienaventurados/src/views/pages/initialPage/bienaventurados_page.dart';
 import 'package:bienaventurados/src/views/pages/initialPage/initial_page.dart';
 import 'package:bienaventurados/src/views/pages/configPage/account/update_password_page.dart';
@@ -14,7 +15,7 @@ import 'package:bienaventurados/src/views/pages/buildPage/edit_page.dart';
 import 'package:bienaventurados/src/views/pages/dashboardPage/dashboard.dart';
 import 'package:bienaventurados/src/views/pages/profilePage/collections_page.dart';
 import 'package:bienaventurados/src/views/pages/profilePage/achievements_page.dart';
-import 'package:bienaventurados/src/views/pages/studioPage/studio_page.dart';
+import 'package:bienaventurados/src/views/pages/garagePage/garage_page.dart';
 import 'package:bienaventurados/src/utils/transitions.dart';
 import 'package:bienaventurados/src/views/pages/paperplanePage/paperplane_page.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,7 @@ const String legalPage = 'legalPage';
 const String updateNamePage = 'updateNamePage';
 const String updatePasswordPage = 'updatePasswordPage';
 const String updateEmailPage = 'updateEmailPage';
+const String creatorPage = 'creatorPage';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -62,15 +64,16 @@ class Routes {
       //   final args = settings.arguments;
       //   VoidCallback openDrawer = args as VoidCallback;
       //   return FadeTransitionRoute(widget: PerfilPage(openDrawer: openDrawer));
-      
+
       // OTHERS PAGES
+      case (creatorPage):
+        return SlideLeftTransitionRoute(widget: LabPage());
       case (studioPage):
-        return SlideLeftTransitionRoute(widget: StudioPage());
+        return SlideLeftTransitionRoute(widget: GaragePage());
       case (paperplanePage):
         final args = settings.arguments;
         Avioncito paperplane = args as Avioncito;
-        return SlideUpTransitionRoute(
-            widget: PaperplanePage(paperplane: paperplane));
+        return SlideUpTransitionRoute(widget: PaperplanePage(paperplane: paperplane));
       case (editPage):
         final args = settings.arguments;
         Avioncito avioncito = args as Avioncito;
@@ -94,8 +97,7 @@ class Routes {
       case (themeConfigPage):
         return SlideLeftTransitionRoute(widget: ThemePage());
       case (notiConfigPage):
-        return SlideLeftTransitionRoute(
-            widget: NotificationsPage());
+        return SlideLeftTransitionRoute(widget: NotificationsPage());
       case (generalConfigPage):
         return SlideLeftTransitionRoute(widget: GeneralPage());
       case (accountConfigPage):

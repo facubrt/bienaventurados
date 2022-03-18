@@ -63,27 +63,28 @@ class _PaperplanePageState extends State<PaperplanePage> {
           child: Stack(
             children: [
               Screenshot(
-                  controller: screenshotController,
-                  child: Container(
-                    color: Theme.of(context).primaryColorDark,
-                    child: AnimatedContainer(
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.linearToEaseOut,
-                      transformAlignment: Alignment.center,
-                      transform: Matrix4.identity()..scale(shareProvider.takeScreenshot ? 0.72 : 1.0, shareProvider.takeScreenshot ? 0.72 : 1.0),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        border: shareProvider.takeScreenshot
-                            ? Border.all(width: BORDER_WIDTH, color: Theme.of(context).primaryColorDark)
-                            : Border.all(width: 0.0, color: Theme.of(context).primaryColor),
-                        borderRadius: shareProvider.takeScreenshot ? BorderRadius.circular(BORDER_RADIUS) : BorderRadius.zero,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: paperplaneWidget(),
-                      ),
+                controller: screenshotController,
+                child: Container(
+                  color: Theme.of(context).primaryColorDark,
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.linearToEaseOut,
+                    transformAlignment: Alignment.center,
+                    transform: Matrix4.identity()..scale(shareProvider.takeScreenshot ? 0.72 : 1.0, shareProvider.takeScreenshot ? 0.72 : 1.0),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      border: shareProvider.takeScreenshot
+                          ? Border.all(width: BORDER_WIDTH, color: Theme.of(context).primaryColorDark)
+                          : Border.all(width: 0.0, color: Theme.of(context).primaryColor),
+                      borderRadius: shareProvider.takeScreenshot ? BorderRadius.circular(BORDER_RADIUS) : BorderRadius.zero,
                     ),
-                  )),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: paperplaneWidget(),
+                    ),
+                  ),
+                ),
+              ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.1,
                 child: AppBar(
@@ -109,8 +110,10 @@ class _PaperplanePageState extends State<PaperplanePage> {
                       child: Center(
                         child: Text(
                           PREPARING_PAPERPLANE,
-                          style:
-                              Theme.of(context).textTheme.headline4!.copyWith(fontSize: MediaQuery.of(context).size.width * SCALE_H3, color: ColorPalette.primaryLight),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4!
+                              .copyWith(fontSize: MediaQuery.of(context).size.width * SCALE_H3, color: ColorPalette.primaryLight),
                         ),
                       ),
                     )
@@ -154,7 +157,8 @@ class _PaperplanePageState extends State<PaperplanePage> {
             child: Row(
               children: [
                 Text(
-                    '${widget.paperplane.fecha!.day} de ${Months.allMonths[widget.paperplane.fecha!.month - 1].id}, ${widget.paperplane.fecha!.year}'.toUpperCase(),
+                    '${widget.paperplane.fecha!.day} de ${Months.allMonths[widget.paperplane.fecha!.month - 1].id}, ${widget.paperplane.fecha!.year}'
+                        .toUpperCase(),
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
                           fontSize: MediaQuery.of(context).size.width * 0.036,
                         )),
@@ -199,10 +203,10 @@ class _PaperplanePageState extends State<PaperplanePage> {
                 label: Text(
                   widget.paperplane.tag!.toUpperCase(),
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.03, 
-                      fontWeight: FontWeight.bold, 
-                      color: Theme.of(context).primaryColor,
-                    ),
+                        fontSize: MediaQuery.of(context).size.width * 0.03,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryColor,
+                      ),
                 ),
                 backgroundColor: ColorPalette.accent,
               ),
@@ -268,10 +272,8 @@ class _PaperplanePageState extends State<PaperplanePage> {
                           height: 40,
                         ),
                         Text('Construido por ${widget.paperplane.usuario}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1!
-                                .copyWith(fontSize: MediaQuery.of(context).size.width * SCALE_BODY, color: Theme.of(context).primaryColorDark.withOpacity(0.2))),
+                            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                                fontSize: MediaQuery.of(context).size.width * SCALE_BODY, color: Theme.of(context).primaryColorDark.withOpacity(0.2))),
                       ],
                     ),
                   ),
@@ -388,21 +390,21 @@ class _PaperplanePageState extends State<PaperplanePage> {
                     ),
                     SizedBox(height: MediaQuery.of(context).size.width * 0.04),
                     TextButton(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-                child: Text(
-                  BUILD_YOUR_PAPERPLANE_BTN,
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * SCALE_BODY,
-                    color: ColorPalette.primaryLight,
-                  ),
-                ),
-              ),
-              onPressed: () async {
-                drawerProvider.page = DrawerItems.buildPage;
-                Navigator.of(context).pushReplacementNamed(dashboardPage);
-              },
-            ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+                        child: Text(
+                          BUILD_YOUR_PAPERPLANE_BTN,
+                          style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                                fontSize: MediaQuery.of(context).size.width * SCALE_BODY,
+                                color: ColorPalette.primaryLight,
+                              ),
+                        ),
+                      ),
+                      onPressed: () async {
+                        drawerProvider.page = DrawerItems.buildPage;
+                        Navigator.of(context).pushReplacementNamed(dashboardPage);
+                      },
+                    ),
                   ],
                 ),
               ),

@@ -20,6 +20,12 @@ class PaperplaneProvider with ChangeNotifier {
   String _liturgicalTime = '';
   String _gospel = '';
   String _gospelTitle = '';
+  // CREATOR
+  String _background = 'background-01';
+  String _base = 'base-01';
+  String _wings = 'wings-01';
+  String _stamp = 'stamp-01';
+  String _detail = 'detail-01';
 
   final FirebaseFirestore _fireDB = FirebaseFirestore.instance;
   final LocalData _localDB = LocalData();
@@ -98,14 +104,9 @@ class PaperplaneProvider with ChangeNotifier {
   Future<bool> getPaperplanesFromFirestore() async {
     _paperplanes.clear();
     bool retVal = false;
-    await _fireDB
-        .collection('datosApp')
-        .get()
-        .then((QuerySnapshot snapshot) async {
+    await _fireDB.collection('datosApp').get().then((QuerySnapshot snapshot) async {
       print('${snapshot.docs.length} AVIONCITOS ENCONTRADOS EN FIRESTORE');
-      int _diasRestantes = DateTime(DateTime.now().year + 1, 1, 1, 0, 0)
-          .difference(DateTime.now())
-          .inDays;
+      int _diasRestantes = DateTime(DateTime.now().year + 1, 1, 1, 0, 0).difference(DateTime.now()).inDays;
       int _lenght = snapshot.docs.length;
       if (_diasRestantes < snapshot.docs.length) {
         _lenght = _diasRestantes;
@@ -200,6 +201,7 @@ class PaperplaneProvider with ChangeNotifier {
     _sharePaperplane = compartirAvioncito;
     notifyListeners();
   }
+
   bool get compartirAvioncito => _sharePaperplane;
   Avioncito? get paperplane => _paperplane;
   String get liturgicalTime => _liturgicalTime;
@@ -210,5 +212,37 @@ class PaperplaneProvider with ChangeNotifier {
   bool get newDay => _newDay;
   set setNewDay(bool state) {
     _newDay = state;
+  }
+
+  //CREATOR
+
+  String get background => _background;
+  set background(String background) {
+    _background = background;
+    notifyListeners();
+  }
+
+  String get base => _base;
+  set base(String base) {
+    _base = base;
+    notifyListeners();
+  }
+
+  String get wings => _wings;
+  set wings(String wings) {
+    _wings = wings;
+    notifyListeners();
+  }
+
+  String get stamp => _stamp;
+  set stamp(String stamp) {
+    _stamp = stamp;
+    notifyListeners();
+  }
+
+  String get detail => _detail;
+  set detail(String detail) {
+    _detail = detail;
+    notifyListeners();
   }
 }

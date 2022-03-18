@@ -97,6 +97,27 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   )
                 : SizedBox.shrink(),
+                Divider(
+              height: 0,
+              indent: MediaQuery.of(context).size.width * 0.08,
+              endIndent: MediaQuery.of(context).size.width * 0.08,
+              color: Theme.of(context).primaryColorDark,
+            ),
+            (authProvider.user.clase == ADMINISTRADOR)
+                ? ListTile(
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
+                    onTap: () {
+                      Navigator.of(context).pushNamed(creatorPage);
+                    },
+                    title: Text(
+                      CREATOR_PAGE,
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize: MediaQuery.of(context).size.width * 0.06,
+                          ),
+                    ),
+                  )
+                : SizedBox.shrink(),
             SizedBox(height: MediaQuery.of(context).size.width * 0.1),
             ShareAppWidget(),
           ],
