@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:package_info/package_info.dart';
 
 int createUniqueId() {
@@ -34,4 +36,8 @@ Future<String?> getBuildNumber() async {
     buildNumber = packageInfo.buildNumber;
   });
   return buildNumber;
+}
+
+int getRandomInt(int max) {
+  return Random().nextInt(max) + 1;
 }

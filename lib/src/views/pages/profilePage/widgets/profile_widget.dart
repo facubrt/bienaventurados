@@ -20,7 +20,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     'perfil-02',
     'perfil-03',
     'perfil-04',
-    'perfil-05',
   ];
 
   @override

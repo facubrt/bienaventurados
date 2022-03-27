@@ -1,11 +1,10 @@
-import 'dart:math';
 import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
-import 'package:bienaventurados/src/views/pages/creatorPage/widgets/backgrounds.dart';
-import 'package:bienaventurados/src/views/pages/creatorPage/widgets/bases.dart';
-import 'package:bienaventurados/src/views/pages/creatorPage/widgets/details.dart';
-import 'package:bienaventurados/src/views/pages/creatorPage/widgets/stamps.dart';
-import 'package:bienaventurados/src/views/pages/creatorPage/widgets/wings.dart';
+import 'package:bienaventurados/src/views/pages/labPage/widgets/backgrounds.dart';
+import 'package:bienaventurados/src/views/pages/labPage/widgets/bases.dart';
+import 'package:bienaventurados/src/views/pages/labPage/widgets/details.dart';
+import 'package:bienaventurados/src/views/pages/labPage/widgets/stamps.dart';
+import 'package:bienaventurados/src/views/pages/labPage/widgets/wings.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
@@ -36,16 +35,7 @@ class _LabPageState extends State<LabPage> with TickerProviderStateMixin {
         actions: [
           IconButton(
             onPressed: () {
-              int _randBackground = Random().nextInt(5) + 1;
-              int _randBase = Random().nextInt(3) + 1;
-              int _randWings = Random().nextInt(5) + 1;
-              int _randStamp = Random().nextInt(3) + 1;
-              int _randDetail = Random().nextInt(4) + 1;
-              paperplaneProvider.background = 'background-${_randBackground.toString().padLeft(2, '0')}';
-              paperplaneProvider.base = 'base-${_randBase.toString().padLeft(2, '0')}';
-              paperplaneProvider.wings = 'wings-${_randWings.toString().padLeft(2, '0')}';
-              paperplaneProvider.stamp = 'stamp-${_randStamp.toString().padLeft(2, '0')}';
-              paperplaneProvider.detail = 'detail-${_randDetail.toString().padLeft(2, '0')}';
+              paperplaneProvider.generateUniquePaperplane();
             },
             icon: Icon(Iconsax.shuffle, color: Theme.of(context).primaryColorDark, size: MediaQuery.of(context).size.width * DIMENSION_ICON),
           ),

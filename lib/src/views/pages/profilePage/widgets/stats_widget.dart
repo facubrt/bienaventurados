@@ -11,13 +11,13 @@ class StatsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SectionWidget(title: STATS_SECTION),
-          Card(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SectionWidget(title: STATS_SECTION),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Card(
             elevation: 0,
             color: ColorPalette.accentDark,
             shape: RoundedRectangleBorder(
@@ -168,8 +168,8 @@ class StatsWidget extends StatelessWidget {
               ),
             )),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

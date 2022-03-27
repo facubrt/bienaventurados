@@ -2,14 +2,14 @@ import 'package:bienaventurados/src/theme/color_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-class inventoryWidget extends StatefulWidget {
-  const inventoryWidget({Key? key}) : super(key: key);
+class InventoryWidget extends StatefulWidget {
+  const InventoryWidget({Key? key}) : super(key: key);
 
   @override
-  _inventoryWidgetState createState() => _inventoryWidgetState();
+  _InventoryWidgetState createState() => _InventoryWidgetState();
 }
 
-class _inventoryWidgetState extends State<inventoryWidget> {
+class _InventoryWidgetState extends State<InventoryWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -50,6 +50,11 @@ class CollectionProvider with ChangeNotifier {
             _collectible = Collections.allCollections[i];
             _localDB.setColeccionDesbloqueada(_collectible!);
             notifyListeners();
+          } else {
+              print('NO HAY NADA PARA DESBLOQUEAR');
+              prefs.collectionUnlocked = false;
+              _collectibleUnlocked = false;
+              notifyListeners();
           }
         }
       }

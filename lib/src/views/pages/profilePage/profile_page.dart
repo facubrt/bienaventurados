@@ -42,7 +42,12 @@ class _ProfilePageState extends State<ProfilePage> {
           icon: Icon(Iconsax.category, size: MediaQuery.of(context).size.width * 0.06),
         ),
       ),
-      body: SingleChildScrollView(
+      body:  NotificationListener<OverscrollIndicatorNotification>(
+        onNotification: (overScroll) {
+          overScroll.disallowIndicator();
+          return true;
+        },
+        child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -122,7 +127,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ShareAppWidget(),
           ],
         ),
-      ),
+      ),),
     );
   }
 }

@@ -236,6 +236,9 @@ const String COLLECTIONS_PAGE_TEXT = 'Colecciona y aprende sobre los momentos cl
 // CHIP OPTIONS
 const String PRAYER_CHIP = 'Oración';
 const String ACTION_CHIP = 'Acción';
+const String BIBLE_CHIP = 'Biblia';
+const String MARY_CHIP = 'María';
+const String FAITH_CHIP = 'Fe';
 const String FORMATION_CHIP = 'Formación';
 const String DEVOTION_CHIP = 'Entrega';
 const String HOLINESS_CHIP = 'Santidad';

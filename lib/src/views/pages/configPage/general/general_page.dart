@@ -43,22 +43,6 @@ class _GeneralPageState extends State<GeneralPage> {
       );
 
   @override
-  void initState() {
-    super.initState();
-    // WidgetsBinding.instance!.addPostFrameCallback((_) async {
-    //   try {
-    //     final isAvailable = await _inAppReview.isAvailable();
-
-    //     setState(() {
-    //       _availability = isAvailable && !Platform.isAndroid ? Availability.available : Availability.unavailable;
-    //     });
-    //   } catch (e) {
-    //     setState(() => _availability = Availability.unavailable);
-    //   }
-    // });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

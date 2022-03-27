@@ -1,6 +1,7 @@
 import 'package:bienaventurados/src/data/local/local_db.dart';
 import 'package:bienaventurados/src/models/avioncito_model.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
+import 'package:bienaventurados/src/utils/utilities.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -150,6 +151,19 @@ class PaperplaneProvider with ChangeNotifier {
     _localDB.deleteGuardado(paperplane.id);
     notifyListeners();
     return true;
+  }
+
+  void generateUniquePaperplane() {
+    int _randBackground = getRandomInt(6);
+    int _randBase = getRandomInt(6);
+    int _randWings = getRandomInt(6);
+    int _randStamp = getRandomInt(7);
+    int _randDetail = getRandomInt(7);
+    background = 'background-${_randBackground.toString().padLeft(2, '0')}';
+    base = 'base-${_randBase.toString().padLeft(2, '0')}';
+    wings = 'wings-${_randWings.toString().padLeft(2, '0')}';
+    stamp = 'stamp-${_randStamp.toString().padLeft(2, '0')}';
+    detail = 'detail-${_randDetail.toString().padLeft(2, '0')}';
   }
 
   Future<bool> deleteAllData() async {

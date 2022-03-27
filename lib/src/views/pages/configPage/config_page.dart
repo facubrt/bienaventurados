@@ -29,7 +29,7 @@ class _ConfigPageState extends State<ConfigPage> {
   final _configList = [
     GENERAL_CONFIG,
     ACCOUNT_CONFIG,
-    //LEGAL_CONFIG,
+    LEGAL_CONFIG,
     SALIR,
   ];
 

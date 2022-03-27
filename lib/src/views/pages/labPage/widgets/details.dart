@@ -14,6 +14,8 @@ class Details extends StatelessWidget {
       'detail-03',
       'detail-04',
       'detail-05',
+      'detail-06',
+      'detail-07',
     ];
     final paperplaneProvider = Provider.of<PaperplaneProvider>(context);
     return GridView.builder(

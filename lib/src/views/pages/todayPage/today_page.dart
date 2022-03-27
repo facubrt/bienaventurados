@@ -1,7 +1,6 @@
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/views/pages/todayPage/widgets/avatar_widget.dart';
-import 'package:bienaventurados/src/views/pages/todayPage/widgets/instructions_widget.dart';
 import 'package:bienaventurados/src/views/pages/todayPage/widgets/paperplane_widget.dart';
 import 'package:bienaventurados/src/views/pages/todayPage/widgets/collections_widget.dart';
 import 'package:bienaventurados/src/views/pages/todayPage/widgets/header_widget.dart';
@@ -54,10 +53,11 @@ class _TodayPageState extends State<TodayPage> {
                   AvatarWidget(),
                 ],
               ),
+              
               //GospelWidget(),
               PaperplaneWidget(),
               collectionProvider.collectibleUnlocked ? CollectionsWidget() : SizedBox.shrink(),
-              InstructionsWidget(),
+              //InstructionsWidget(),
               //InformacionWidget(),
             ],
           ),

@@ -458,6 +458,48 @@ class _BuildPageState extends State<BuildPage> {
           },
         ),
         ChoiceChip(
+          label: Text(MARY_CHIP,
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                    color: tag == MARY_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                  )),
+          selected: tag == MARY_CHIP ? true : false,
+          onSelected: (selected) {
+            setState(() {
+              tag = MARY_CHIP;
+            });
+          },
+        ),
+        ChoiceChip(
+          label: Text(BIBLE_CHIP,
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                    color: tag == BIBLE_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                  )),
+          selected: tag == BIBLE_CHIP ? true : false,
+          onSelected: (selected) {
+            setState(() {
+              tag = BIBLE_CHIP;
+            });
+          },
+        ),
+        ChoiceChip(
+          label: Text(FAITH_CHIP,
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                    color: tag == FAITH_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                  )),
+          selected: tag == FAITH_CHIP ? true : false,
+          onSelected: (selected) {
+            setState(() {
+              tag = FAITH_CHIP;
+            });
+          },
+        ),
+        ChoiceChip(
           label: Text(FORMATION_CHIP,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,

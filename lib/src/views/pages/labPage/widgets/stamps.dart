@@ -13,6 +13,9 @@ class Stamps extends StatelessWidget {
       'stamp-02',
       'stamp-03',
       'stamp-04',
+      'stamp-05',
+      'stamp-06',
+      'stamp-07',
     ];
     final paperplaneProvider = Provider.of<PaperplaneProvider>(context);
     return GridView.builder(
