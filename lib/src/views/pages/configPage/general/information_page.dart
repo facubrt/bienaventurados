@@ -93,6 +93,14 @@ class _InformationPageState extends State<InformationPage> {
             Container(
               width: MediaQuery.of(context).size.width,
               alignment: Alignment.center,
+              child: aboutSE(),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.width * 0.06,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              alignment: Alignment.center,
               child: versionInfoWidget(),
             ),
             Container(
@@ -157,6 +165,18 @@ class _InformationPageState extends State<InformationPage> {
             )
           ],
         ),
+      ),
+    );
+  }
+
+    Widget aboutSE() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      child: Text(
+        ABOUT_SE,
+        style: Theme.of(context).textTheme.headline4!.copyWith(
+              fontSize: MediaQuery.of(context).size.width * 0.04,
+            ),
       ),
     );
   }

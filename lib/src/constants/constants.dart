@@ -30,6 +30,8 @@ const String QR_SHARE_BTN = 'Código QR';
 const String SAINT = 'San Francisco de Asís';
 const String SAINT_PRAYER =
     '"Que el Señor te bendiga y te guarde, te muestre su rostro y otorgue su gracia, te mire benignamente y conceda la paz; que el Señor te bendiga."';
+const String ABOUT_SE =
+    'Ser Eucaristía es jugar para compartir la Fe, es jugar para acercarnos a Dios desde la mirada del amor, para llevar a todas partes el mensaje de Cristo Vivo.';
 
 // TEXTS
 const String TITLE_APP = 'Bienaventurados';

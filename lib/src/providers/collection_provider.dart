@@ -31,7 +31,7 @@ class CollectionProvider with ChangeNotifier {
     await _localDB.openBox().then((isOpenBox) async {
       if (isOpenBox) {
         result = true;
-      } 
+      }
     });
     return result;
   }
@@ -50,11 +50,12 @@ class CollectionProvider with ChangeNotifier {
             _collectible = Collections.allCollections[i];
             _localDB.setColeccionDesbloqueada(_collectible!);
             notifyListeners();
+            break;
           } else {
-              print('NO HAY NADA PARA DESBLOQUEAR');
-              prefs.collectionUnlocked = false;
-              _collectibleUnlocked = false;
-              notifyListeners();
+            print('NO HAY NADA PARA DESBLOQUEAR');
+            prefs.collectionUnlocked = false;
+            _collectibleUnlocked = false;
+            notifyListeners();
           }
         }
       }

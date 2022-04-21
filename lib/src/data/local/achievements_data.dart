@@ -18,7 +18,7 @@ class Achievements {
       objetivo: 'Mantén una constancia de 3 día',
       img: 'assets/images/logros/logro-constancia-3.png',
       descripcion: '¡Hola de nuevo! Has desbloqueado este logro por tu constancia y tu determinación para dar pequeños pasos en dirección a la santidad. ¡Sigue adelante!',
-      n: 0,
+      n: 1,
       maximo: 3,
       desbloqueado: false,
     ),

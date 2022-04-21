@@ -11,7 +11,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 class AchievementProvider with ChangeNotifier {
   final LocalData _localDB = LocalData();
 
-  Future<void> iniciarLogros() async {
+  Future<void> initAchievements() async {
     await _localDB.openBox().then((isOpenBox) async {
       if (isOpenBox) {
         for (var i = 0; i < Achievements.allAchievements.length; i++) {

@@ -37,9 +37,9 @@ class _DashboardPageState extends State<DashboardPage> {
 
   void conectionCheck() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final avioncitoProvider = Provider.of<PaperplaneProvider>(context, listen: false);
-    final coleccionesProvider = Provider.of<CollectionProvider>(context, listen: false);
-    final logroProvider = Provider.of<AchievementProvider>(context, listen: false);
+    final paperplaneProvider = Provider.of<PaperplaneProvider>(context, listen: false);
+    final collectionProvider = Provider.of<CollectionProvider>(context, listen: false);
+    final achievementProvider = Provider.of<AchievementProvider>(context, listen: false);
     appVersion = await getAppVersion();
     conection = DateTime.now().day.toInt();
     lastConection = prefs.lastConnection;
@@ -51,43 +51,45 @@ class _DashboardPageState extends State<DashboardPage> {
       if (conection == lastConection) {
         print('MISMO DIA');
         //_coleccionDesbloqueada = prefs.coleccionDesbloqueada;
-        await avioncitoProvider.isToday();
-        await coleccionesProvider.getCollectibleUnlocked();
-        logroProvider.openAchievements();
-        await coleccionesProvider.openCollectionsBox();
-        //authProvider.actualizarConstancia(); // PARA PROBAR CONSTANCIA
+        await paperplaneProvider.isToday();
+        await collectionProvider.getCollectibleUnlocked();
+        achievementProvider.openAchievements();
+        await collectionProvider.openCollectionsBox();
+        // print('CONSTANCIA AUMENTADA'); // PARA PROBAR CONSTANCIA
+        // achievementProvider.achievementsCheck('constancia'); // PARA PROBAR CONSTANCIA
+        // authProvider.increaseConstancy = true; // PARA PROBAR CONSTANCIA
       } else {
         print('NUEVO DIA');
         //authProvider.updateUserData();
         //infoProvider.actualizarInformacionApp('restaurar');
-        final ultimoDia = DateTime(DateTime.now().year, DateTime.now().month, lastConection!);
-        final nuevoDia = DateTime(DateTime.now().year, DateTime.now().month, conection!);
-        if (ultimoDia.month == nuevoDia.month || ultimoDia.month + 1 == nuevoDia.month) {
-          if (ultimoDia.day + 1 == nuevoDia.day || 1 == nuevoDia.day) {
+        final lastDay = DateTime(DateTime.now().year, DateTime.now().month, lastConection!);
+        final newDay = DateTime(DateTime.now().year, DateTime.now().month, conection!);
+        if (lastDay.month == newDay.month || lastDay.month + 1 == newDay.month) {
+          if (lastDay.day + 1 == newDay.day || 1 == newDay.day) {
             print('CONSTANCIA AUMENTADA');
-            logroProvider.achievementsCheck('constancia');
+            achievementProvider.achievementsCheck('constancia');
             authProvider.increaseConstancy = true;
             //authProvider.actualizarConstancia();
           } else {
             print('CONSTANCIA RESTABLECIDA');
-            logroProvider.restoreConstancy();
+            achievementProvider.restoreConstancy();
             authProvider.restartConstancy = true;
           }
         }
         prefs.lastConnection = conection;
-        await avioncitoProvider.isNewDay();
-        coleccionesProvider.openCollectionsBox();
-        logroProvider.openAchievements();
-        coleccionesProvider.collectionsCheck();
+        await paperplaneProvider.isNewDay();
+        collectionProvider.openCollectionsBox();
+        achievementProvider.openAchievements();
+        collectionProvider.collectionsCheck();
       }
     } else {
       print('PRIMERA VEZ');
       prefs.lastConnection = conection;
-      await avioncitoProvider.firstTime();
-      coleccionesProvider.getAllCollections();
-      logroProvider.iniciarLogros();
-      coleccionesProvider.collectionsCheck();
-      logroProvider.achievementsCheck('primer-inicio');
+      await paperplaneProvider.firstTime();
+      collectionProvider.getAllCollections();
+      achievementProvider.initAchievements();
+      collectionProvider.collectionsCheck();
+      achievementProvider.achievementsCheck('primer-inicio');
     }
   }
 

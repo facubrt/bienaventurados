@@ -55,8 +55,8 @@ class _TodayPageState extends State<TodayPage> {
               ),
               
               //GospelWidget(),
-              PaperplaneWidget(),
               collectionProvider.collectibleUnlocked ? CollectionsWidget() : SizedBox.shrink(),
+              PaperplaneWidget(),
               //InstructionsWidget(),
               //InformacionWidget(),
             ],

@@ -13,7 +13,7 @@ class Collections {
     //   descripcion: 'descripcion',
     //   desbloqueado: false,
     // ),
-    //
+    
     Coleccion(
       id: 1,
       mes: 01,

@@ -76,15 +76,15 @@ class Routes {
         return SlideUpTransitionRoute(widget: PaperplanePage(paperplane: paperplane));
       case (editPage):
         final args = settings.arguments;
-        Avioncito avioncito = args as Avioncito;
+        Avioncito paperplane = args as Avioncito;
         return FadeTransitionRoute(
             widget: EditPage(
-          id: avioncito.id,
-          quote: avioncito.frase,
-          saint: avioncito.santo,
-          reflexion: avioncito.reflexion,
-          tag: avioncito.tag,
-          user: avioncito.usuario,
+          id: paperplane.id,
+          quote: paperplane.frase,
+          saint: paperplane.santo,
+          reflexion: paperplane.reflexion,
+          tag: paperplane.tag,
+          user: paperplane.usuario,
         ));
       case (informationPage):
         return SlideLeftTransitionRoute(widget: InformationPage());
