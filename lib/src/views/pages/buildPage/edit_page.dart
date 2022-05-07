@@ -10,7 +10,15 @@ class EditPage extends StatefulWidget {
   final String? user;
   final String? id;
 
-  const EditPage({ Key? key, required this.quote, required this.saint, required this.reflexion, required this.tag, required this.user, required this.id }) : super(key: key);
+  const EditPage(
+      {Key? key,
+      required this.quote,
+      required this.saint,
+      required this.reflexion,
+      required this.tag,
+      required this.user,
+      required this.id})
+      : super(key: key);
 
   @override
   _EditPageState createState() => _EditPageState();
@@ -48,7 +56,8 @@ class _EditPageState extends State<EditPage> {
 
   @override
   Widget build(BuildContext context) {
-        return Scaffold(
+    print('ID DEL AVIONCITO ES ${widget.id}');
+    return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
       ),
@@ -117,8 +126,8 @@ class _EditPageState extends State<EditPage> {
                   },
                 ),
                 SizedBox(
-                height: MediaQuery.of(context).size.width * 0.04,
-              ),
+                  height: MediaQuery.of(context).size.width * 0.04,
+                ),
                 TextFormField(
                   controller: _saintController,
                   autofocus: false,
@@ -282,7 +291,6 @@ class _EditPageState extends State<EditPage> {
                   _pageController.nextPage(
                       duration: Duration(milliseconds: 1200),
                       curve: Curves.fastLinearToSlowEaseIn);
-
                 }
               },
               child: Text(CONTINUE_BUTTON,
@@ -423,8 +431,7 @@ class _EditPageState extends State<EditPage> {
         ),
         Padding(
           padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 40.0),
-          child: Text(
-              FINISH_WIDGET_TEXT,
+          child: Text(FINISH_WIDGET_TEXT,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.04,
                   )),
@@ -454,7 +461,7 @@ class _EditPageState extends State<EditPage> {
 
   void _buildPaperplane() {
     final FirebaseFirestore _db = FirebaseFirestore.instance;
-    DocumentReference avioncitoRef = _db.collection(COLLECTION_USERDATA).doc();
+    DocumentReference avioncitoRef = _db.collection(COLLECTION_APPDATA).doc();
 
     // TODO cambiar a inglés (posiblemente requiera migracion)
     avioncitoRef.set({
@@ -468,7 +475,9 @@ class _EditPageState extends State<EditPage> {
 
   void _deleteUserData(String? id) {
     final FirebaseFirestore _db = FirebaseFirestore.instance;
-    DocumentReference paperplaneRef = _db.collection(COLLECTION_USERDATA).doc(id);
+    DocumentReference paperplaneRef =
+        _db.collection(COLLECTION_USERDATA).doc(id);
     paperplaneRef.delete();
+    print('SE ELIMINÓ AVIONCITO $id');
   }
 }
