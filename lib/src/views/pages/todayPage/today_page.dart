@@ -18,7 +18,6 @@ class TodayPage extends StatefulWidget {
 }
 
 class _TodayPageState extends State<TodayPage> {
-
   @override
   Widget build(BuildContext context) {
     final collectionProvider = Provider.of<CollectionProvider>(context);
@@ -34,7 +33,8 @@ class _TodayPageState extends State<TodayPage> {
           onPressed: () {
             drawerProvider.openDrawer();
           },
-          icon: Icon(Iconsax.category, size: MediaQuery.of(context).size.width * DIMENSION_ICON),
+          icon: Icon(Iconsax.category,
+              size: MediaQuery.of(context).size.width * DIMENSION_ICON),
         ),
       ),
       body: NotificationListener<OverscrollIndicatorNotification>(
@@ -53,9 +53,11 @@ class _TodayPageState extends State<TodayPage> {
                   AvatarWidget(),
                 ],
               ),
-              
+
               //GospelWidget(),
-              collectionProvider.collectibleUnlocked ? CollectionsWidget() : SizedBox.shrink(),
+              collectionProvider.collectibleUnlocked
+                  ? CollectionsWidget()
+                  : SizedBox.shrink(),
               PaperplaneWidget(),
               //InstructionsWidget(),
               //InformacionWidget(),

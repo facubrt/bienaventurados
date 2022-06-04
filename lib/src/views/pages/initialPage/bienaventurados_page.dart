@@ -20,7 +20,10 @@ class _BienaventuradosPageState extends State<BienaventuradosPage> {
 
   @override
   void initState() {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false,);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(
+      context,
+      listen: false,
+    );
     themeProvider.activarModoNoche(false);
     super.initState();
   }
@@ -54,12 +57,13 @@ class _BienaventuradosPageState extends State<BienaventuradosPage> {
                 onPressed: () {
                   setState(() {
                     if (_state == 0) {
-                        _state = 1;
+                      _state = 1;
                       authProvider.googleSignIn().then((result) {
                         if (result != null) {
                           prefs.isLoggedIn = true;
                           drawerProvider.page = DrawerItems.todayPage;
-                          Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              dashboardPage, (route) => false);
                         }
                       });
                     }
@@ -78,14 +82,12 @@ class _BienaventuradosPageState extends State<BienaventuradosPage> {
                 ),
                 onPressed: () {
                   drawerProvider.page = DrawerItems.todayPage;
-                  Navigator.of(context).pushNamed(getStartedPage);
+                  Navigator.of(context).pushNamed(initialPage);
                 },
                 child: Text(WITH_EMAIL,
                     style: Theme.of(context).textTheme.headline4!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.04,
-                      color: Theme.of(context).primaryColor
-                    )
-                ),
+                        fontSize: MediaQuery.of(context).size.width * 0.04,
+                        color: Theme.of(context).primaryColor)),
               ),
             ),
           ],
@@ -96,18 +98,15 @@ class _BienaventuradosPageState extends State<BienaventuradosPage> {
 
   Widget setUpButtonChild() {
     if (_state == 0) {
-      return new Text(
-        WITH_GOOGLE, style: Theme.of(context).textTheme.headline4!.copyWith(
-          fontSize: MediaQuery.of(context).size.width * 0.04,
-          color: Theme.of(context).primaryColorDark
-        )
-      );
+      return new Text(WITH_GOOGLE,
+          style: Theme.of(context).textTheme.headline4!.copyWith(
+              fontSize: MediaQuery.of(context).size.width * 0.04,
+              color: Theme.of(context).primaryColorDark));
     } else if (_state == 1) {
       return Center(
-            child: CircularProgressIndicator(
-              color: Theme.of(context).primaryColorDark,
-            )
-          );
+          child: CircularProgressIndicator(
+        color: Theme.of(context).primaryColorDark,
+      ));
     } else {
       return Icon(Icons.check, color: Colors.white);
     }

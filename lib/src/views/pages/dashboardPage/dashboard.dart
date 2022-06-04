@@ -46,9 +46,11 @@ class _DashboardPageState extends State<DashboardPage> {
     appVersion = await getAppVersion();
     conection = DateTime.now().day.toInt();
     lastConection = prefs.lastConnection;
+    print('ESTAS USANDO LA VERSION ${prefs.appVersion}');
     if (prefs.appVersion != appVersion) {
+      //EN ESTAS LINEAS SE MODIFICAN ALGUNOS CAMPOS EN DB Y EL FUNCIONAMIENTO DE USUARIO. SE EJECUTA UNA UNICA VEZ
+      print('COMANDO DE UNA SOLA VEZ');
       prefs.appVersion = appVersion;
-      print('ESTAS USANDO LA VERSION ${prefs.appVersion}');
     }
     if (lastConection != null) {
       if (conection == lastConection) {

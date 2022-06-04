@@ -1,7 +1,6 @@
 import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
-import 'package:bienaventurados/src/views/pages/profilePage/widgets/inventory_widget.dart';
 import 'package:bienaventurados/src/views/pages/profilePage/widgets/stats_widget.dart';
 import 'package:bienaventurados/src/views/pages/profilePage/widgets/profile_widget.dart';
 import 'package:bienaventurados/src/views/pages/profilePage/widgets/share_app_widget.dart';

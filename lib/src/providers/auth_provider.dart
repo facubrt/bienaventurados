@@ -42,7 +42,8 @@ class AuthProvider with ChangeNotifier {
         usersBox = _localDB.getUsuario();
         if (usersBox!.isEmpty) {
           print('USUARIO DESDE FIREBASE');
-          DocumentSnapshot userSnap = await _db.collection('usuarios').doc(uid).get();
+          DocumentSnapshot userSnap =
+              await _db.collection('usuarios').doc(uid).get();
           _user.setFromFirestore(userSnap);
           _localDB.setUsuario(_user);
         } else {
@@ -54,10 +55,12 @@ class AuthProvider with ChangeNotifier {
     return true;
   }
 
-  Future<String?> signInWithEmailAndPassword(String email, String password) async {
+  Future<String?> signInWithEmailAndPassword(
+      String email, String password) async {
     String? message = '';
     try {
-      final UserCredential authResult = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      final UserCredential authResult = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       if (authResult.user != null) {
         //auth.User user = authResult.user!;
         _isLoggedIn = true;
@@ -80,10 +83,12 @@ class AuthProvider with ChangeNotifier {
     return message;
   }
 
-  Future<auth.User?> createUserWithEmailAndPassword(String name, String email, String password) async {
+  Future<auth.User?> createUserWithEmailAndPassword(
+      String name, String email, String password) async {
     auth.User? _user;
     try {
-      final UserCredential authResult = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      final UserCredential authResult = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
       if (authResult.user != null) {
         auth.User user = authResult.user!;
         _isLoggedIn = true;
@@ -112,11 +117,18 @@ class AuthProvider with ChangeNotifier {
         accessToken: googleAuth.accessToken,
       );
       UserCredential authResult = await _auth.signInWithCredential(credential);
+
       auth.User user = authResult.user!;
       _isLoggedIn = true;
       _displayName = user.displayName!.split(' ')[0].toString();
+      if (authResult.additionalUserInfo!.isNewUser) {
+        print('ESTE USUARIO ES NUEVO');
+        await createUserData(user);
+      } else {
+        print('ESTE USUARIO YA TENIA CUENTA');
+        await updateUserData();
+      }
 
-      await createUserData(user);
       return user;
     } catch (e) {
       print('error $e');
@@ -134,6 +146,10 @@ class AuthProvider with ChangeNotifier {
       'clase': 'bienaventurado',
       'ultimaConexion': DateTime.now(),
       'primeraConexion': DateTime.now(),
+      'actual-constancia': 1,
+      'av-compartidos': 0,
+      'av-construidos': 0,
+      'mejor-constancia': 1,
       'nombre': _displayName,
     }, SetOptions(merge: true));
     currentUser!.updateDisplayName(_displayName);
@@ -178,7 +194,8 @@ class AuthProvider with ChangeNotifier {
 
     if (currentUser!.providerData[0].providerId == GOOGLE_DOMAIN) {
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
-      final credential = auth.GoogleAuthProvider.credential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+      final credential = auth.GoogleAuthProvider.credential(
+          idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
       await _auth.signInWithCredential(credential);
     }
 
@@ -197,12 +214,14 @@ class AuthProvider with ChangeNotifier {
     final user = _auth.currentUser;
     if (user!.providerData[0].providerId == GOOGLE_DOMAIN) {
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
-      credential = auth.GoogleAuthProvider.credential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+      credential = auth.GoogleAuthProvider.credential(
+          idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
       user.reauthenticateWithCredential(credential);
       //UserCredential authResult = await _auth.signInWithCredential(credential);
       //final currentUser = authResult.user;
     } else if (user.providerData[0].providerId == EMAIL_DOMAIN) {
-      credential = EmailAuthProvider.credential(email: user.email!, password: password);
+      credential =
+          EmailAuthProvider.credential(email: user.email!, password: password);
       user.reauthenticateWithCredential(credential);
     }
     user.updatePassword(newPassword).then((result) {
@@ -227,7 +246,8 @@ class AuthProvider with ChangeNotifier {
   Future<bool> deleteUser() async {
     try {
       auth.User user = _auth.currentUser!;
-      DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(user.uid);
+      DocumentReference userRef =
+          _db.collection(COLLECTION_USERS).doc(user.uid);
       userRef.delete();
       user.delete();
       return true;

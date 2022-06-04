@@ -25,6 +25,17 @@ class CollectionProvider with ChangeNotifier {
       }
     });
   }
+  //FUNCION UNICA PARA VERSION 1.4.3 DONDE SE SUBIRAN LAS COLECCIONES A FIREBASE
+  // Future<void> setMapCollections() async {
+  //   await _localDB.openBox().then((result) async {
+  //     if (result) {
+  //       print('longitud de Colecciones ${Collections.allCollections.length}');
+  //       for (var i = 0; i < Collections.allCollections.length; i++) {
+  //         Map mapCollection =
+  //       }
+  //     }
+  //   });
+  // }
 
   Future<bool> openCollectionsBox() async {
     bool result = false;
@@ -42,8 +53,10 @@ class CollectionProvider with ChangeNotifier {
     await _localDB.openBox().then((result) async {
       if (result) {
         for (var i = 0; i < Collections.allCollections.length - 1; i++) {
-          if ((_day == Collections.allCollections[i].dia) && (_month == Collections.allCollections[i].mes)) {
-            print('DESBLOQUEASTE LA COLECCION ${Collections.allCollections[i].titulo}');
+          if ((_day == Collections.allCollections[i].dia) &&
+              (_month == Collections.allCollections[i].mes)) {
+            print(
+                'DESBLOQUEASTE LA COLECCION ${Collections.allCollections[i].titulo}');
             //setColeccion(i, Colecciones.colecciones[i], true);
             prefs.collectionUnlocked = true;
             _collectibleUnlocked = true;

@@ -23,7 +23,7 @@ import 'package:flutter/material.dart';
 const String dashboardPage = 'dashboardPage';
 const String todayPage = 'todayPage';
 const String bienaventuradosPage = 'bienaventuradosPage';
-const String getStartedPage = 'getStartedPage';
+const String initialPage = 'initialPage';
 const String buildPage = 'buildPage';
 const String collectionsPage = 'collectionsPage';
 const String achievementsPage = 'achievementsPage';
@@ -73,7 +73,8 @@ class Routes {
       case (paperplanePage):
         final args = settings.arguments;
         Avioncito paperplane = args as Avioncito;
-        return SlideUpTransitionRoute(widget: PaperplanePage(paperplane: paperplane));
+        return SlideUpTransitionRoute(
+            widget: PaperplanePage(paperplane: paperplane));
       case (editPage):
         final args = settings.arguments;
         Avioncito paperplane = args as Avioncito;
@@ -88,7 +89,7 @@ class Routes {
         ));
       case (informationPage):
         return SlideLeftTransitionRoute(widget: InformationPage());
-      case (getStartedPage):
+      case (initialPage):
         return SlideLeftTransitionRoute(widget: InitialPage());
       case (collectionsPage):
         return SlideLeftTransitionRoute(widget: CollectionsPage());
