@@ -10,12 +10,10 @@ class NotificationsPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _NotificationsPageState createState() =>
-      _NotificationsPageState();
+  _NotificationsPageState createState() => _NotificationsPageState();
 }
 
-class _NotificationsPageState
-    extends State<NotificationsPage> {
+class _NotificationsPageState extends State<NotificationsPage> {
   late int _option;
 
   @override
@@ -47,10 +45,9 @@ class _NotificationsPageState
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(40.0),
-            child: Text(
-                NOTI_PAGE_TITLE,
+            child: Text(NOTI_PAGE_TITLE,
                 style: Theme.of(context).textTheme.headline1!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.08,
+                      fontSize: MediaQuery.of(context).size.width * SCALE_H2,
                     )),
           ),
           ListTile(
@@ -63,7 +60,7 @@ class _NotificationsPageState
             title: Text(
               NOTI_ON_TITLE,
               style: Theme.of(context).textTheme.headline6!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                    fontSize: MediaQuery.of(context).size.width * SCALE_H4,
                   ),
             ),
             subtitle: Padding(
@@ -83,7 +80,7 @@ class _NotificationsPageState
                 value: 9,
                 onChanged: (int? value) {}),
             onTap: () async {
-              setState((){
+              setState(() {
                 if (_option != 9) {
                   _option = 9;
                   prefs.notificationsHour = 9;
@@ -107,7 +104,7 @@ class _NotificationsPageState
             title: Text(
               NOTI_OFF_TITLE,
               style: Theme.of(context).textTheme.headline6!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                    fontSize: MediaQuery.of(context).size.width * SCALE_H4,
                   ),
             ),
             subtitle: Padding(

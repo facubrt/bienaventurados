@@ -12,9 +12,9 @@ class AchievementsPage extends StatefulWidget {
   State<AchievementsPage> createState() => _AchievementsPageState();
 }
 
-class _AchievementsPageState extends State<AchievementsPage> with TickerProviderStateMixin{
+class _AchievementsPageState extends State<AchievementsPage>
+    with TickerProviderStateMixin {
   final tabs = [ACHIEVEMENTS_COMMONS, ACHIEVEMENTS_RARES];
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,8 @@ class _AchievementsPageState extends State<AchievementsPage> with TickerProvider
       0,
     ]);
 
-    final achievementProvider = Provider.of<AchievementProvider>(context, listen: false);
+    final achievementProvider =
+        Provider.of<AchievementProvider>(context, listen: false);
     Box box = achievementProvider.getAchievements();
     return Scaffold(
       appBar: AppBar(
@@ -54,27 +55,29 @@ class _AchievementsPageState extends State<AchievementsPage> with TickerProvider
           overScroll.disallowIndicator();
           return true;
         },
-        child: 
-          
-        CustomScrollView(
+        child: CustomScrollView(
           slivers: [
             SliverPadding(
-                padding: const EdgeInsets.all(40.0),
-                sliver: SliverToBoxAdapter(
-                  child: Text(ACHIEVEMENTS_PAGE_TITLE,
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: MediaQuery.of(context).size.width * 0.08,
-                          )),
-                ),),
-                SliverPadding(
-              padding: const EdgeInsets.only(left: 40.0, right: 40.0, bottom: 20.0),
+              padding: const EdgeInsets.all(40.0),
+              sliver: SliverToBoxAdapter(
+                child: Text(ACHIEVEMENTS_PAGE_TITLE,
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                          fontSize:
+                              MediaQuery.of(context).size.width * SCALE_H2,
+                        )),
+              ),
+            ),
+            SliverPadding(
+              padding:
+                  const EdgeInsets.only(left: 40.0, right: 40.0, bottom: 20.0),
               sliver: SliverToBoxAdapter(
                 child: Text(
-                ACHIEVEMENTS_PAGE_TEXT,
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      color: Theme.of(context).primaryColorDark,
-                      fontSize: MediaQuery.of(context).size.width * 0.04,
-                    ),),
+                  ACHIEVEMENTS_PAGE_TEXT,
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        color: Theme.of(context).primaryColorDark,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H4,
+                      ),
+                ),
               ),
             ),
             SliverPadding(
@@ -83,25 +86,25 @@ class _AchievementsPageState extends State<AchievementsPage> with TickerProvider
                 delegate: SliverChildBuilderDelegate(
                   (contex, index) {
                     return box.getAt(index).desbloqueado
-                      ? InkWell(
-                          onTap: () {
-                            openItem(context, box.getAt(index));
-                          },
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
-                            child: Image.asset(
-                              box.getAt(index).img,
+                        ? InkWell(
+                            onTap: () {
+                              openItem(context, box.getAt(index));
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image.asset(
+                                box.getAt(index).img,
+                              ),
+                            ))
+                        : ColorFiltered(
+                            colorFilter: greyscaleFilter,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image.asset(
+                                box.getAt(index).img,
+                              ),
                             ),
-                          ))
-                      : ColorFiltered(
-                          colorFilter: greyscaleFilter,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
-                            child: Image.asset(
-                              box.getAt(index).img,
-                            ),
-                          ),
-                        );
+                          );
                   },
                   childCount: box.values.length,
                 ),
@@ -230,7 +233,13 @@ class _AchievementsPageState extends State<AchievementsPage> with TickerProvider
                           children: [
                             Text(
                               achievement.titulo,
-                              style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.06),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.06),
                             ),
                           ],
                         ),
@@ -240,12 +249,14 @@ class _AchievementsPageState extends State<AchievementsPage> with TickerProvider
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 20.0),
                 child: Text(
                   achievement.objetivo,
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         fontSize: MediaQuery.of(context).size.width * 0.03,
-                        color: Theme.of(context).primaryColorDark.withOpacity(0.4),
+                        color:
+                            Theme.of(context).primaryColorDark.withOpacity(0.4),
                       ),
                 ),
               ),
@@ -253,7 +264,8 @@ class _AchievementsPageState extends State<AchievementsPage> with TickerProvider
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
                   achievement.descripcion,
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.036),
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.036),
                 ),
               ),
               SizedBox(
@@ -265,10 +277,9 @@ class _AchievementsPageState extends State<AchievementsPage> with TickerProvider
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Text(ACHIEVEMENT_UNLOCKED_BTN,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4!
-                          .copyWith(fontSize: MediaQuery.of(context).size.width * 0.03, color: Theme.of(context).primaryColorDark)),
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.03,
+                          color: Theme.of(context).primaryColorDark)),
                 ),
               ),
             ],

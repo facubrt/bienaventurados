@@ -73,7 +73,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   Text(
                     name ?? '',
                     style: Theme.of(context).textTheme.headline1!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.08,
+                          fontSize: MediaQuery.of(context).size.width * 0.06,
                         ),
                   ),
                   SizedBox(
@@ -85,10 +85,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           fontSize: MediaQuery.of(context).size.width * 0.04,
                         ),
                   ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.02,
-                  ),
-                  //nivelWidget(),
+                  // SizedBox(
+                  //   height: MediaQuery.of(context).size.width * 0.02,
+                  // ),
+                  //levelWidget(),
                 ],
               ),
             ),
@@ -102,48 +102,49 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     final widthExperience = MediaQuery.of(context).size.width - 300;
     final experience = widthExperience / 2;
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Nivel 3', 
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Nivel 3',
           style: Theme.of(context).textTheme.headline4!.copyWith(
-                  fontSize: MediaQuery.of(context).size.width * 0.03,
+                fontSize: MediaQuery.of(context).size.width * 0.03,
+              ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: Stack(children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: Theme.of(context).primaryColorDark.withOpacity(0.2),
+                  ),
+                  height: 10,
                 ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Stack(children: [
-                  Container(
-                    decoration: BoxDecoration(
+                Container(
+                  decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      color: Theme.of(context).primaryColorDark.withOpacity(0.2),
-                    ),
-                    height: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: Theme.of(context).colorScheme.secondary),
-                    height: 10,
-                    width: experience,
-                  ),
-                ]),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                '128 / 500',
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                  fontSize: MediaQuery.of(context).size.width * 0.03,
+                      color: Theme.of(context).colorScheme.secondary),
+                  height: 10,
+                  width: experience,
                 ),
-              )
-            ],
-          ),
-        ],
+              ]),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              '128 / 500',
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                  ),
+            )
+          ],
+        ),
+      ],
     );
   }
 }

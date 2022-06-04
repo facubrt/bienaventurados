@@ -3,6 +3,7 @@ import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/views/pages/labPage/widgets/backgrounds.dart';
 import 'package:bienaventurados/src/views/pages/labPage/widgets/bases.dart';
 import 'package:bienaventurados/src/views/pages/labPage/widgets/details.dart';
+import 'package:bienaventurados/src/views/pages/labPage/widgets/patterns.dart';
 import 'package:bienaventurados/src/views/pages/labPage/widgets/stamps.dart';
 import 'package:bienaventurados/src/views/pages/labPage/widgets/wings.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class LabPage extends StatefulWidget {
 }
 
 class _LabPageState extends State<LabPage> with TickerProviderStateMixin {
-  final tabs = [BACKGROUND, BASE, WINGS, STAMP, DETAIL];
+  final tabs = [BACKGROUND, PATTERN, BASE, WINGS, STAMP, DETAIL];
   int initialIndex = 0;
   bool donwloadPaperplane = false;
   ScreenshotController screenshotController = ScreenshotController();
@@ -28,7 +29,8 @@ class _LabPageState extends State<LabPage> with TickerProviderStateMixin {
     final paperplaneProvider = Provider.of<PaperplaneProvider>(context);
     final shareProvider = Provider.of<ShareProvider>(context);
 
-    TabController tabController = TabController(initialIndex: initialIndex, vsync: this, length: tabs.length);
+    TabController tabController = TabController(
+        initialIndex: initialIndex, vsync: this, length: tabs.length);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -37,7 +39,9 @@ class _LabPageState extends State<LabPage> with TickerProviderStateMixin {
             onPressed: () {
               paperplaneProvider.generateUniquePaperplane();
             },
-            icon: Icon(Iconsax.shuffle, color: Theme.of(context).primaryColorDark, size: MediaQuery.of(context).size.width * DIMENSION_ICON),
+            icon: Icon(Iconsax.shuffle,
+                color: Theme.of(context).primaryColorDark,
+                size: MediaQuery.of(context).size.width * DIMENSION_ICON),
           ),
           IconButton(
             onPressed: () {
@@ -56,7 +60,9 @@ class _LabPageState extends State<LabPage> with TickerProviderStateMixin {
                       ),
                     ),
                   )
-                : Icon(Iconsax.receive_square, color: Theme.of(context).primaryColorDark, size: MediaQuery.of(context).size.width * DIMENSION_ICON),
+                : Icon(Iconsax.receive_square,
+                    color: Theme.of(context).primaryColorDark,
+                    size: MediaQuery.of(context).size.width * DIMENSION_ICON),
           ),
         ],
       ),
@@ -69,6 +75,9 @@ class _LabPageState extends State<LabPage> with TickerProviderStateMixin {
               children: [
                 Image.asset(
                   'assets/images/paperplanes/background/${paperplaneProvider.background}.png',
+                ),
+                Image.asset(
+                  'assets/images/paperplanes/pattern/${paperplaneProvider.pattern}.png',
                 ),
                 Image.asset(
                   'assets/images/paperplanes/base/${paperplaneProvider.base}.png',
@@ -104,11 +113,11 @@ class _LabPageState extends State<LabPage> with TickerProviderStateMixin {
             unselectedLabelColor: Theme.of(context).primaryColorDark,
             tabs: tabs
                 .map(
-                  (collection) => Tab(
+                  (title) => Tab(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
-                        collection.toUpperCase(),
+                        title.toUpperCase(),
                         style: TextStyle(
                           fontFamily: 'Gotham',
                           fontSize: MediaQuery.of(context).size.width * 0.03,
@@ -126,8 +135,8 @@ class _LabPageState extends State<LabPage> with TickerProviderStateMixin {
               child: TabBarView(
                 controller: tabController,
                 children: [
-                  //ColeccionFiestas('Fiestas'),
                   Backgrounds(BACKGROUND),
+                  Patterns(PATTERN),
                   Bases(BASE),
                   Wings(WINGS),
                   Stamps(STAMP),

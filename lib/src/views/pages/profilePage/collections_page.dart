@@ -8,12 +8,14 @@ class CollectionsPage extends StatefulWidget {
   State<CollectionsPage> createState() => _CollectionsPageState();
 }
 
-class _CollectionsPageState extends State<CollectionsPage> with TickerProviderStateMixin {
+class _CollectionsPageState extends State<CollectionsPage>
+    with TickerProviderStateMixin {
   final tabs = [COLLECTION_SOLEMNITIES, COMING_SOON];
 
   @override
   Widget build(BuildContext context) {
-    TabController tabController = TabController(initialIndex: 0, vsync: this, length: tabs.length);
+    TabController tabController =
+        TabController(initialIndex: 0, vsync: this, length: tabs.length);
 
     return Scaffold(
       appBar: AppBar(
@@ -31,17 +33,18 @@ class _CollectionsPageState extends State<CollectionsPage> with TickerProviderSt
             child: Text(
               COLLECTIONS_PAGE_TITLE,
               style: Theme.of(context).textTheme.headline1!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.08,
+                    fontSize: MediaQuery.of(context).size.width * SCALE_H2,
                   ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 30.0),
+            padding:
+                const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 30.0),
             child: Text(
               COLLECTIONS_PAGE_TEXT,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     color: Theme.of(context).primaryColorDark,
-                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                    fontSize: MediaQuery.of(context).size.width * SCALE_H4,
                   ),
             ),
           ),
@@ -85,7 +88,7 @@ class _CollectionsPageState extends State<CollectionsPage> with TickerProviderSt
               ],
             ),
           ),
-          // 
+          //
         ]),
       ),
     );

@@ -23,6 +23,7 @@ class PaperplaneProvider with ChangeNotifier {
   String _gospelTitle = '';
   // CREATOR
   String _background = 'background-01';
+  String _pattern = 'pattern-01';
   String _base = 'base-01';
   String _wings = 'wings-01';
   String _stamp = 'stamp-01';
@@ -80,6 +81,7 @@ class PaperplaneProvider with ChangeNotifier {
   }
 
   Future<bool> getPaperplanesFromLocal() async {
+    generateUniquePaperplane();
     paperplanesBox = _localDB.getAvioncitos();
     if (paperplanesBox!.isEmpty) {
       await getPaperplanesFromFirestore().then((listo) {
@@ -105,9 +107,14 @@ class PaperplaneProvider with ChangeNotifier {
   Future<bool> getPaperplanesFromFirestore() async {
     _paperplanes.clear();
     bool retVal = false;
-    await _fireDB.collection('datosApp').get().then((QuerySnapshot snapshot) async {
+    await _fireDB
+        .collection('datosApp')
+        .get()
+        .then((QuerySnapshot snapshot) async {
       print('${snapshot.docs.length} AVIONCITOS ENCONTRADOS EN FIRESTORE');
-      int _diasRestantes = DateTime(DateTime.now().year + 1, 1, 1, 0, 0).difference(DateTime.now()).inDays;
+      int _diasRestantes = DateTime(DateTime.now().year + 1, 1, 1, 0, 0)
+          .difference(DateTime.now())
+          .inDays;
       int _lenght = snapshot.docs.length;
       if (_diasRestantes < snapshot.docs.length) {
         _lenght = _diasRestantes;
@@ -124,6 +131,7 @@ class PaperplaneProvider with ChangeNotifier {
   }
 
   Future<bool> getPaperplaneToday() async {
+    generateUniquePaperplane();
     _paperplane = await _localDB.getHoy()!.get(0);
     return true;
   }
@@ -155,11 +163,13 @@ class PaperplaneProvider with ChangeNotifier {
 
   void generateUniquePaperplane() {
     int _randBackground = getRandomInt(6);
+    int _randPattern = getRandomInt(7);
     int _randBase = getRandomInt(6);
     int _randWings = getRandomInt(6);
     int _randStamp = getRandomInt(7);
     int _randDetail = getRandomInt(7);
     background = 'background-${_randBackground.toString().padLeft(2, '0')}';
+    pattern = 'pattern-${_randPattern.toString().padLeft(2, '0')}';
     base = 'base-${_randBase.toString().padLeft(2, '0')}';
     wings = 'wings-${_randWings.toString().padLeft(2, '0')}';
     stamp = 'stamp-${_randStamp.toString().padLeft(2, '0')}';
@@ -233,6 +243,12 @@ class PaperplaneProvider with ChangeNotifier {
   String get background => _background;
   set background(String background) {
     _background = background;
+    notifyListeners();
+  }
+
+  String get pattern => _pattern;
+  set pattern(String pattern) {
+    _pattern = pattern;
     notifyListeners();
   }
 

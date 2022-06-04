@@ -36,7 +36,9 @@ class _BuildPageState extends State<BuildPage> {
   Widget build(BuildContext context) {
     final drawerProvider = Provider.of<DrawerProvider>(context);
     return Scaffold(
-      backgroundColor: drawerProvider.isDrawerOpen ? Colors.transparent : Theme.of(context).primaryColor,
+      backgroundColor: drawerProvider.isDrawerOpen
+          ? Colors.transparent
+          : Theme.of(context).primaryColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -44,7 +46,8 @@ class _BuildPageState extends State<BuildPage> {
           onPressed: () {
             drawerProvider.openDrawer();
           },
-          icon: Icon(Iconsax.category, size: MediaQuery.of(context).size.width * 0.06),
+          icon: Icon(Iconsax.category,
+              size: MediaQuery.of(context).size.width * 0.06),
         ),
       ),
       body: PageView(
@@ -100,7 +103,7 @@ class _BuildPageState extends State<BuildPage> {
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                       ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
@@ -108,10 +111,11 @@ class _BuildPageState extends State<BuildPage> {
                   maxLines: 6,
                   decoration: InputDecoration(
                     hintText: QUOTE_HINT,
-                    hintStyle: Theme.of(context)
-                        .textTheme
-                        .headline2!
-                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
+                    hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
+                        color: Theme.of(context)
+                            .primaryColorDark
+                            .withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
                     errorBorder: InputBorder.none,
@@ -135,16 +139,17 @@ class _BuildPageState extends State<BuildPage> {
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                       ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: SAINT_HINT,
-                    hintStyle: Theme.of(context)
-                        .textTheme
-                        .headline2!
-                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
+                    hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
+                        color: Theme.of(context)
+                            .primaryColorDark
+                            .withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
                     errorBorder: InputBorder.none,
@@ -178,13 +183,11 @@ class _BuildPageState extends State<BuildPage> {
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.04,
               ),
-   
-   
               Container(
                 width: double.infinity,
                 height: 50,
                 child: TextButton(
-                    style: OutlinedButton.styleFrom(
+                  style: OutlinedButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColorDark,
                   ),
                   onPressed: () {
@@ -194,14 +197,15 @@ class _BuildPageState extends State<BuildPage> {
                       if (!currentFocus.hasPrimaryFocus) {
                         currentFocus.unfocus();
                       }
-                      _pageController.nextPage(duration: Duration(milliseconds: 1200), curve: Curves.fastLinearToSlowEaseIn);
+                      _pageController.nextPage(
+                          duration: Duration(milliseconds: 1200),
+                          curve: Curves.fastLinearToSlowEaseIn);
                     }
                   },
                   child: Text(CONTINUE_BUTTON,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4!
-                          .copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor)),
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                          color: Theme.of(context).primaryColor)),
                 ),
               ),
             ],
@@ -232,7 +236,7 @@ class _BuildPageState extends State<BuildPage> {
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                       ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
@@ -240,10 +244,11 @@ class _BuildPageState extends State<BuildPage> {
                   maxLines: 8,
                   decoration: InputDecoration(
                     hintText: REFLEXION_HINT,
-                    hintStyle: Theme.of(context)
-                        .textTheme
-                        .headline2!
-                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
+                    hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
+                        color: Theme.of(context)
+                            .primaryColorDark
+                            .withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
                     errorBorder: InputBorder.none,
@@ -291,15 +296,16 @@ class _BuildPageState extends State<BuildPage> {
                       if (!currentFocus.hasPrimaryFocus) {
                         currentFocus.unfocus();
                       }
-                      _pageController.nextPage(duration: Duration(milliseconds: 1200), curve: Curves.fastLinearToSlowEaseIn);
+                      _pageController.nextPage(
+                          duration: Duration(milliseconds: 1200),
+                          curve: Curves.fastLinearToSlowEaseIn);
                     }
                   },
                   child: Text(
                     CONTINUE_BUTTON,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor),
+                    style: Theme.of(context).textTheme.headline4!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * 0.04,
+                        color: Theme.of(context).primaryColor),
                   ),
                 ),
               ),
@@ -336,14 +342,14 @@ class _BuildPageState extends State<BuildPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-                'Página 3 de 3',
-                style: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.03,
-                    ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.width * 0.04,
-              ),
+              'Página 3 de 3',
+              style: Theme.of(context).textTheme.headline2!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                  ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.width * 0.04,
+            ),
             Container(
               width: double.infinity,
               height: 50,
@@ -352,25 +358,27 @@ class _BuildPageState extends State<BuildPage> {
                   backgroundColor: Theme.of(context).primaryColorDark,
                 ),
                 onPressed: () {
-                 
-                    FocusScopeNode currentFocus = FocusScope.of(context);
+                  FocusScopeNode currentFocus = FocusScope.of(context);
 
-                    if (!currentFocus.hasPrimaryFocus) {
-                      currentFocus.unfocus();
-                    }
-                    setState(() {
-                      _buildPaperplane(authProvider.user.nombre);
-                      _quoteController.clear();
-                      _saintController.clear();
-                      _reflexionController.clear();
-                    });
-                    _pageController.nextPage(
-                        duration: Duration(milliseconds: 1200),
-                        curve: Curves.fastLinearToSlowEaseIn);
-                  },
-                child: Text(CONTINUE_BUTTON,
-                    style:
-                        Theme.of(context).textTheme.headline4!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor),),
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
+                  setState(() {
+                    _buildPaperplane(authProvider.user.nombre);
+                    _quoteController.clear();
+                    _saintController.clear();
+                    _reflexionController.clear();
+                  });
+                  _pageController.nextPage(
+                      duration: Duration(milliseconds: 1200),
+                      curve: Curves.fastLinearToSlowEaseIn);
+                },
+                child: Text(
+                  CONTINUE_BUTTON,
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Theme.of(context).primaryColor),
+                ),
               ),
             ),
           ],
@@ -410,14 +418,17 @@ class _BuildPageState extends State<BuildPage> {
             ),
             onPressed: () {
               Navigator.of(context).pushNamed(dashboardPage);
-              final logroProvider = Provider.of<AchievementProvider>(context, listen: false);
-              final authProvider = Provider.of<AuthProvider>(context, listen: false);
+              final logroProvider =
+                  Provider.of<AchievementProvider>(context, listen: false);
+              final authProvider =
+                  Provider.of<AuthProvider>(context, listen: false);
               logroProvider.achievementsCheck(ACHIEVEMENT_BUILDED);
               authProvider.updatePaperplanesBuilded();
             },
             child: Text(FINISH_BUTTON,
-                style:
-                    Theme.of(context).textTheme.headline4!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor)),
+                style: Theme.of(context).textTheme.headline4!.copyWith(
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                    color: Theme.of(context).primaryColor)),
           ),
         ),
       ),
@@ -434,7 +445,9 @@ class _BuildPageState extends State<BuildPage> {
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
-                    color: tag == PRAYER_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                    color: tag == PRAYER_CHIP
+                        ? Theme.of(context).primaryColor
+                        : Theme.of(context).primaryColorDark,
                   )),
           selected: tag == PRAYER_CHIP ? true : false,
           onSelected: (selected) {
@@ -448,7 +461,9 @@ class _BuildPageState extends State<BuildPage> {
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
-                    color: tag == ACTION_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                    color: tag == ACTION_CHIP
+                        ? Theme.of(context).primaryColor
+                        : Theme.of(context).primaryColorDark,
                   )),
           selected: tag == ACTION_CHIP ? true : false,
           onSelected: (selected) {
@@ -462,7 +477,9 @@ class _BuildPageState extends State<BuildPage> {
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
-                    color: tag == MARY_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                    color: tag == MARY_CHIP
+                        ? Theme.of(context).primaryColor
+                        : Theme.of(context).primaryColorDark,
                   )),
           selected: tag == MARY_CHIP ? true : false,
           onSelected: (selected) {
@@ -476,7 +493,9 @@ class _BuildPageState extends State<BuildPage> {
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
-                    color: tag == BIBLE_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                    color: tag == BIBLE_CHIP
+                        ? Theme.of(context).primaryColor
+                        : Theme.of(context).primaryColorDark,
                   )),
           selected: tag == BIBLE_CHIP ? true : false,
           onSelected: (selected) {
@@ -490,7 +509,9 @@ class _BuildPageState extends State<BuildPage> {
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontWeight: FontWeight.bold,
-                    color: tag == FAITH_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
+                    color: tag == FAITH_CHIP
+                        ? Theme.of(context).primaryColor
+                        : Theme.of(context).primaryColorDark,
                   )),
           selected: tag == FAITH_CHIP ? true : false,
           onSelected: (selected) {
@@ -502,10 +523,11 @@ class _BuildPageState extends State<BuildPage> {
         ChoiceChip(
           label: Text(FORMATION_CHIP,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
-                    fontWeight: FontWeight.bold,
-                    color: tag == FORMATION_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
-                  )),
+                  fontSize: MediaQuery.of(context).size.width * 0.03,
+                  fontWeight: FontWeight.bold,
+                  color: tag == FORMATION_CHIP
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).primaryColorDark)),
           selected: tag == FORMATION_CHIP ? true : false,
           onSelected: (selected) {
             setState(() {
@@ -516,10 +538,11 @@ class _BuildPageState extends State<BuildPage> {
         ChoiceChip(
           label: Text(DEVOTION_CHIP,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
-                    fontWeight: FontWeight.bold,
-                    color: tag == DEVOTION_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
-                  )),
+                  fontSize: MediaQuery.of(context).size.width * 0.03,
+                  fontWeight: FontWeight.bold,
+                  color: tag == DEVOTION_CHIP
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).primaryColorDark)),
           selected: tag == DEVOTION_CHIP ? true : false,
           onSelected: (selected) {
             setState(() {
@@ -530,10 +553,11 @@ class _BuildPageState extends State<BuildPage> {
         ChoiceChip(
           label: Text(HOLINESS_CHIP,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
-                    fontWeight: FontWeight.bold,
-                    color: tag == HOLINESS_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
-                  )),
+                  fontSize: MediaQuery.of(context).size.width * 0.03,
+                  fontWeight: FontWeight.bold,
+                  color: tag == HOLINESS_CHIP
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).primaryColorDark)),
           selected: tag == HOLINESS_CHIP ? true : false,
           onSelected: (selected) {
             setState(() {
@@ -544,10 +568,11 @@ class _BuildPageState extends State<BuildPage> {
         ChoiceChip(
           label: Text(LOVE_CHIP,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
-                    fontWeight: FontWeight.bold,
-                    color: tag == LOVE_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
-                  )),
+                  fontSize: MediaQuery.of(context).size.width * 0.03,
+                  fontWeight: FontWeight.bold,
+                  color: tag == LOVE_CHIP
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).primaryColorDark)),
           selected: tag == LOVE_CHIP ? true : false,
           onSelected: (selected) {
             setState(() {
@@ -558,10 +583,11 @@ class _BuildPageState extends State<BuildPage> {
         ChoiceChip(
           label: Text(REFLEXION_CHIP,
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
-                    fontWeight: FontWeight.bold,
-                    color: tag == REFLEXION_CHIP ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark
-                  )),
+                  fontSize: MediaQuery.of(context).size.width * 0.03,
+                  fontWeight: FontWeight.bold,
+                  color: tag == REFLEXION_CHIP
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).primaryColorDark)),
           selected: tag == REFLEXION_CHIP ? true : false,
           onSelected: (selected) {
             setState(() {

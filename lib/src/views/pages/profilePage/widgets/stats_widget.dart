@@ -25,7 +25,8 @@ class StatsWidget extends StatelessWidget {
             ),
             child: Container(
                 child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 30),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 30),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
@@ -36,10 +37,16 @@ class StatsWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          authProvider.user.avCompartidos.toString().padLeft(2, '0'),
-                          style: Theme.of(context).textTheme.headline4!.copyWith(
+                          authProvider.user.avCompartidos
+                              .toString()
+                              .padLeft(2, '0'),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4!
+                              .copyWith(
                                 color: ColorPalette.primaryLight,
-                                fontSize: MediaQuery.of(context).size.width * 0.06,
+                                fontSize: MediaQuery.of(context).size.width *
+                                    SCALE_H3,
                               ),
                         ),
                         SizedBox(
@@ -47,16 +54,22 @@ class StatsWidget extends StatelessWidget {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor.withOpacity(0.2),
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(6.0),
                             child: Text(
                               PAPERPLANES_SHARED.toUpperCase(),
-                              style: Theme.of(context).textTheme.headline5!.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline5!
+                                  .copyWith(
                                     color: ColorPalette.primaryLight,
-                                    fontSize: MediaQuery.of(context).size.width * 0.02,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.02,
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
@@ -69,10 +82,16 @@ class StatsWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          authProvider.user.avConstruidos.toString().padLeft(2, '0'),
-                          style: Theme.of(context).textTheme.headline4!.copyWith(
+                          authProvider.user.avConstruidos
+                              .toString()
+                              .padLeft(2, '0'),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4!
+                              .copyWith(
                                 color: ColorPalette.primaryLight,
-                                fontSize: MediaQuery.of(context).size.width * 0.06,
+                                fontSize: MediaQuery.of(context).size.width *
+                                    SCALE_H3,
                               ),
                         ),
                         SizedBox(
@@ -80,16 +99,22 @@ class StatsWidget extends StatelessWidget {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor.withOpacity(0.2),
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(6.0),
                             child: Text(
                               PAPERPLANES_BUILDED.toUpperCase(),
-                              style: Theme.of(context).textTheme.headline5!.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline5!
+                                  .copyWith(
                                     color: ColorPalette.primaryLight,
-                                    fontSize: MediaQuery.of(context).size.width * 0.02,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.02,
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
@@ -102,10 +127,16 @@ class StatsWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          authProvider.user.actualConstancia.toString().padLeft(2, '0'),
-                          style: Theme.of(context).textTheme.headline4!.copyWith(
+                          authProvider.user.actualConstancia
+                              .toString()
+                              .padLeft(2, '0'),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4!
+                              .copyWith(
                                 color: ColorPalette.primaryLight,
-                                fontSize: MediaQuery.of(context).size.width * 0.06,
+                                fontSize: MediaQuery.of(context).size.width *
+                                    SCALE_H3,
                               ),
                         ),
                         SizedBox(
@@ -113,16 +144,22 @@ class StatsWidget extends StatelessWidget {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor.withOpacity(0.2),
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(6.0),
                             child: Text(
-                             CONSTANCY.toUpperCase(),
-                              style: Theme.of(context).textTheme.headline5!.copyWith(
+                              CONSTANCY.toUpperCase(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline5!
+                                  .copyWith(
                                     color: ColorPalette.primaryLight,
-                                    fontSize: MediaQuery.of(context).size.width * 0.02,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.02,
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
@@ -135,10 +172,16 @@ class StatsWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          authProvider.user.mejorConstancia.toString().padLeft(2, '0'),
-                          style: Theme.of(context).textTheme.headline4!.copyWith(
+                          authProvider.user.mejorConstancia
+                              .toString()
+                              .padLeft(2, '0'),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4!
+                              .copyWith(
                                 color: ColorPalette.primaryLight,
-                                fontSize: MediaQuery.of(context).size.width * 0.06,
+                                fontSize: MediaQuery.of(context).size.width *
+                                    SCALE_H3,
                               ),
                         ),
                         SizedBox(
@@ -146,16 +189,22 @@ class StatsWidget extends StatelessWidget {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor.withOpacity(0.2),
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(6.0),
                             child: Text(
                               BEST_CONSTANCY.toUpperCase(),
-                              style: Theme.of(context).textTheme.headline5!.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline5!
+                                  .copyWith(
                                     color: ColorPalette.primaryLight,
-                                    fontSize: MediaQuery.of(context).size.width * 0.02,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.02,
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),

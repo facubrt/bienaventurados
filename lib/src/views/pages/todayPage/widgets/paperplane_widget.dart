@@ -25,91 +25,150 @@ class PaperplaneWidget extends StatelessWidget {
               horizontal: 30.0,
             ),
             child: Container(
-              decoration: BoxDecoration(color: Theme.of(context).colorScheme.secondary, borderRadius: BorderRadius.circular(16)),
               height: MediaQuery.of(context).size.height * DIMENSION_PAPERPLANE,
               child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(40.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        'assets/images/paperplanes/background/${paperplaneProvider.background}.png',
+                        height: MediaQuery.of(context).size.height *
+                            DIMENSION_PAPERPLANE,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Image.asset(
+                      'assets/images/paperplanes/pattern/${paperplaneProvider.pattern}.png',
+                    ),
+                    Image.asset(
+                      'assets/images/paperplanes/base/${paperplaneProvider.base}.png',
+                    ),
+                    Image.asset(
+                      'assets/images/paperplanes/wings/${paperplaneProvider.wings}.png',
+                    ),
+                    Image.asset(
+                      'assets/images/paperplanes/stamp/${paperplaneProvider.stamp}.png',
+                    ),
+                    Image.asset(
+                      'assets/images/paperplanes/detail/${paperplaneProvider.detail}.png',
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(40.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Image.asset(
-                            ISOTYPE_LIGHT,
-                            height: MediaQuery.of(context).size.width * DIMENSION_ISOTYPE,
-                            width: MediaQuery.of(context).size.width * DIMENSION_ISOTYPE,
+                          Row(
+                            children: [
+                              // Image.asset(
+                              //   ISOTYPE_LIGHT,
+                              //   height: MediaQuery.of(context).size.width *
+                              //       DIMENSION_ISOTYPE,
+                              //   width: MediaQuery.of(context).size.width *
+                              //       DIMENSION_ISOTYPE,
+                              // ),
+                              Spacer(),
+                              Text(
+                                '${DateTime.now().day} ${Months.allMonths[DateTime.now().month - 1].id.substring(0, 3)}\n${DateTime.now().year}'
+                                    .toUpperCase(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1!
+                                    .copyWith(
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                SCALE_H4,
+                                        color: ColorPalette.primaryLight),
+                                textAlign: TextAlign.end,
+                              ),
+                            ],
                           ),
                           Spacer(),
-                          Text(
-                            '${DateTime.now().day} ${Months.allMonths[DateTime.now().month - 1].id.substring(0, 3)}\n${DateTime.now().year}'.toUpperCase(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1!
-                                .copyWith(fontSize: MediaQuery.of(context).size.width * SCALE_H4, color: ColorPalette.primaryLight),
-                            textAlign: TextAlign.end,
+                          // Container(
+                          //   alignment: Alignment.centerLeft,
+                          //   child: Chip(
+                          //     visualDensity: VisualDensity.comfortable,
+                          //     label: Text(avioncitoProvider.avioncito!.tag!.toUpperCase(),
+                          //         style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          //             fontSize: MediaQuery.of(context).size.width * 0.025,
+                          //             fontWeight: FontWeight.bold,
+                          //             color: Colores.acento)),
+                          //     backgroundColor: Colores.primarioDay.withOpacity(0.9),
+                          //   ),
+                          // ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.width *
+                                SPACE_SECTION,
                           ),
-                        ],
-                      ),
-                      Spacer(),
-                      // Container(
-                      //   alignment: Alignment.centerLeft,
-                      //   child: Chip(
-                      //     visualDensity: VisualDensity.comfortable,
-                      //     label: Text(avioncitoProvider.avioncito!.tag!.toUpperCase(),
-                      //         style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      //             fontSize: MediaQuery.of(context).size.width * 0.025,
-                      //             fontWeight: FontWeight.bold,
-                      //             color: Colores.acento)),
-                      //     backgroundColor: Colores.primarioDay.withOpacity(0.9),
-                      //   ),
-                      // ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.width * SPACE_SECTION,
-                      ),
-                      Row(
-                        children: [
-                          Flexible(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  DISCOVERY_TITLE,
-                                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                                        color: ColorPalette.primaryLight,
-                                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
-                                      ),
+                          Row(
+                            children: [
+                              Flexible(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      DISCOVERY_TITLE,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline4!
+                                          .copyWith(
+                                            color: ColorPalette.primaryLight,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                SCALE_H3,
+                                          ),
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.width *
+                                              SPACE_SECTION,
+                                    ),
+                                    Text(
+                                      DISCOVERY_TEXT,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(
+                                            color: ColorPalette.primaryLight,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                SCALE_H4,
+                                          ),
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.width * SPACE_SECTION,
-                                ),
-                                Text(
-                                  DISCOVERY_TEXT,
-                                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                        color: ColorPalette.primaryLight,
-                                        fontSize: MediaQuery.of(context).size.width * SCALE_H4,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Theme.of(context).primaryColor.withOpacity(0.2),
-                            child: IconButton(
-                              icon: Icon(
-                                Iconsax.play,
-                                color: ColorPalette.primaryLight,
                               ),
-                              onPressed: () {
-                                Navigator.of(context).pushNamed(paperplanePage, arguments: paperplaneProvider.paperplane);
-                              },
-                            ),
-                          )
+                              SizedBox(
+                                  width: MediaQuery.of(context).size.height *
+                                      0.04),
+                              CircleAvatar(
+                                radius: 24,
+                                backgroundColor: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.2),
+                                child: IconButton(
+                                  icon: Icon(
+                                    Iconsax.play,
+                                    color: ColorPalette.primaryLight,
+                                    size: 22,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pushNamed(
+                                        paperplanePage,
+                                        arguments:
+                                            paperplaneProvider.paperplane);
+                                  },
+                                ),
+                              )
+                            ],
+                          ),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

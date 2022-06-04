@@ -60,33 +60,42 @@ class _ConfigPageState extends State<ConfigPage> {
           onPressed: () {
             drawerProvider.openDrawer();
           },
-          icon: Icon(Iconsax.category, size: MediaQuery.of(context).size.width * 0.06),
+          icon: Icon(Iconsax.category,
+              size: MediaQuery.of(context).size.width * 0.06),
         ),
       ),
-      body: ListView.separated(
-          itemCount: _configList.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
-              onTap: () {
-                navegateTo(index);
-              },
-              title: Text(
-                _configList[index],
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
-                    ),
-              ),
-            );
+      body: NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (overScroll) {
+            overScroll.disallowIndicator();
+            return true;
           },
-          separatorBuilder: (context, index) {
-            return Divider(
-              height: 0,
-              indent: MediaQuery.of(context).size.width * 0.08,
-              endIndent: MediaQuery.of(context).size.width * 0.08,
-              color: Theme.of(context).primaryColorDark,
-            );
-          }),
+          child: ListView.separated(
+              itemCount: _configList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  contentPadding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.08,
+                      vertical: MediaQuery.of(context).size.width * 0.04),
+                  onTap: () {
+                    navegateTo(index);
+                  },
+                  title: Text(
+                    _configList[index],
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                          fontSize:
+                              MediaQuery.of(context).size.width * SCALE_H3,
+                        ),
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) {
+                return Divider(
+                  height: 0,
+                  indent: MediaQuery.of(context).size.width * 0.08,
+                  endIndent: MediaQuery.of(context).size.width * 0.08,
+                  color: Theme.of(context).primaryColorDark,
+                );
+              })),
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
         color: Colors.transparent,
@@ -99,7 +108,8 @@ class _ConfigPageState extends State<ConfigPage> {
   }
 
   Future<void> navegateTo(int pagina) async {
-    final paperplaneProvider = Provider.of<PaperplaneProvider>(context, listen: false);
+    final paperplaneProvider =
+        Provider.of<PaperplaneProvider>(context, listen: false);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final prefs = UserPreferences();
     switch (_configList[pagina]) {
@@ -139,18 +149,21 @@ class _ConfigPageState extends State<ConfigPage> {
                       ),
                     ),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(REST_TIME_TITLE,
-                        style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.06)),
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                            fontSize:
+                                MediaQuery.of(context).size.width * SCALE_H3)),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.width * 0.06),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
                       REST_TIME_TEXT,
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: MediaQuery.of(context).size.width * 0.04),
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontSize:
+                              MediaQuery.of(context).size.width * SCALE_H4),
                     ),
                   ),
                   SizedBox(
@@ -163,18 +176,24 @@ class _ConfigPageState extends State<ConfigPage> {
                       authProvider.signOut();
                       prefs.cleanPrefs();
                       prefs.darkMode = false;
-                      Navigator.of(context).pushNamedAndRemoveUntil(bienaventuradosPage, (route) => false);
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          bienaventuradosPage, (route) => false);
                     },
                     child: Container(
                       alignment: Alignment.center,
-                      color: Theme.of(context).primaryColorDark.withOpacity(0.2),
+                      color:
+                          Theme.of(context).primaryColorDark.withOpacity(0.2),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Text(SALIR,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline4!
-                                .copyWith(fontSize: MediaQuery.of(context).size.width * 0.03, color: Theme.of(context).primaryColorDark)),
+                                .copyWith(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.03,
+                                    color: Theme.of(context).primaryColorDark)),
                       ),
                     ),
                   ),

@@ -5,8 +5,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class UpdateNamePage extends StatefulWidget {
-
-  const UpdateNamePage({Key? key,}) : super(key: key);
+  const UpdateNamePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _UpdateNamePageState createState() => _UpdateNamePageState();
@@ -24,11 +25,12 @@ class _UpdateNamePageState extends State<UpdateNamePage> {
         elevation: 0.0,
         //title: Text('Actualizar Nombre'),
         leading: InkWell(
-          onTap: () {Navigator.of(context).pop();},
+          onTap: () {
+            Navigator.of(context).pop();
+          },
           child: Icon(
             Iconsax.arrow_left,
-            
-            ),
+          ),
         ),
       ),
       body: updateNameWidget(),
@@ -47,7 +49,8 @@ class _UpdateNamePageState extends State<UpdateNamePage> {
               children: [
                 Text(UPDATE_NAME_PAGE_TITLE,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          fontSize:
+                              MediaQuery.of(context).size.width * SCALE_H2,
                         )),
                 SizedBox(
                   height: MediaQuery.of(context).size.width * 0.04,
@@ -57,14 +60,14 @@ class _UpdateNamePageState extends State<UpdateNamePage> {
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                       ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: NEW_NAME_HINT,
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),

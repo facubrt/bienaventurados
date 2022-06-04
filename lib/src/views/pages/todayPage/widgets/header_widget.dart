@@ -14,7 +14,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-  
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30),
       child: Column(

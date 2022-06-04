@@ -5,8 +5,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class UpdateEmailPage extends StatefulWidget {
-
-  const UpdateEmailPage({Key? key,}) : super(key: key);
+  const UpdateEmailPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _UpdateEmailPageState createState() => _UpdateEmailPageState();
@@ -24,11 +25,12 @@ class _UpdateEmailPageState extends State<UpdateEmailPage> {
         elevation: 0.0,
         //title: Text('Actualizar Correo'),
         leading: InkWell(
-          onTap: () {Navigator.of(context).pop();},
+          onTap: () {
+            Navigator.of(context).pop();
+          },
           child: Icon(
             Iconsax.arrow_left,
-            
-            ),
+          ),
         ),
       ),
       body: updateEmailWidget(),
@@ -47,7 +49,8 @@ class _UpdateEmailPageState extends State<UpdateEmailPage> {
               children: [
                 Text(UPDATE_EMAIL_PAGE_TITLE,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          fontSize:
+                              MediaQuery.of(context).size.width * SCALE_H2,
                         )),
                 SizedBox(
                   height: MediaQuery.of(context).size.width * 0.04,
@@ -57,14 +60,14 @@ class _UpdateEmailPageState extends State<UpdateEmailPage> {
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                       ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: NEW_EMAIL_HINT,
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),

@@ -37,9 +37,12 @@ class _DashboardPageState extends State<DashboardPage> {
 
   void conectionCheck() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final paperplaneProvider = Provider.of<PaperplaneProvider>(context, listen: false);
-    final collectionProvider = Provider.of<CollectionProvider>(context, listen: false);
-    final achievementProvider = Provider.of<AchievementProvider>(context, listen: false);
+    final paperplaneProvider =
+        Provider.of<PaperplaneProvider>(context, listen: false);
+    final collectionProvider =
+        Provider.of<CollectionProvider>(context, listen: false);
+    final achievementProvider =
+        Provider.of<AchievementProvider>(context, listen: false);
     appVersion = await getAppVersion();
     conection = DateTime.now().day.toInt();
     lastConection = prefs.lastConnection;
@@ -62,9 +65,12 @@ class _DashboardPageState extends State<DashboardPage> {
         print('NUEVO DIA');
         //authProvider.updateUserData();
         //infoProvider.actualizarInformacionApp('restaurar');
-        final lastDay = DateTime(DateTime.now().year, DateTime.now().month, lastConection!);
-        final newDay = DateTime(DateTime.now().year, DateTime.now().month, conection!);
-        if (lastDay.month == newDay.month || lastDay.month + 1 == newDay.month) {
+        final lastDay =
+            DateTime(DateTime.now().year, DateTime.now().month, lastConection!);
+        final newDay =
+            DateTime(DateTime.now().year, DateTime.now().month, conection!);
+        if (lastDay.month == newDay.month ||
+            lastDay.month + 1 == newDay.month) {
           if (lastDay.day + 1 == newDay.day || 1 == newDay.day) {
             print('CONSTANCIA AUMENTADA');
             achievementProvider.achievementsCheck('constancia');
@@ -98,7 +104,9 @@ class _DashboardPageState extends State<DashboardPage> {
     final drawerProvider = Provider.of<DrawerProvider>(context);
     return Scaffold(
       body: Stack(children: [
-        drawerProvider.pagesLoaded ? buildDrawer() : CircularProgressIndicator(),
+        drawerProvider.pagesLoaded
+            ? buildDrawer()
+            : CircularProgressIndicator(),
         buildShadow(),
         buildPage(),
       ]),
@@ -148,7 +156,9 @@ class _DashboardPageState extends State<DashboardPage> {
         child: AnimatedContainer(
           duration: Duration(milliseconds: DURATION_MS),
           curve: Curves.easeInOut,
-          transform: Matrix4.translationValues(drawerProvider.xOffset, drawerProvider.yOffset, 0)..scale(drawerProvider.scaleFactor),
+          transform: Matrix4.translationValues(
+              drawerProvider.xOffset, drawerProvider.yOffset, 0)
+            ..scale(drawerProvider.scaleFactor),
           child: AbsorbPointer(
               absorbing: drawerProvider.isDrawerOpen,
               child: AnimatedContainer(
@@ -158,7 +168,9 @@ class _DashboardPageState extends State<DashboardPage> {
                     ? BoxDecoration(
                         borderRadius: BorderRadius.circular(BORDER_RADIUS),
                         color: Theme.of(context).primaryColor,
-                        border: Border.all(width: BORDER_WIDTH, color: Theme.of(context).primaryColorDark))
+                        border: Border.all(
+                            width: BORDER_WIDTH,
+                            color: Theme.of(context).primaryColorDark))
                     : BoxDecoration(
                         color: Theme.of(context).primaryColor,
                       ),
@@ -175,7 +187,9 @@ class _DashboardPageState extends State<DashboardPage> {
     return AnimatedContainer(
       duration: Duration(milliseconds: DURATION_MS),
       curve: Curves.easeInOut,
-      transform: Matrix4.translationValues(drawerProvider.xOffset - 10, drawerProvider.yOffset + 26, 0)..scale(drawerProvider.scaleFactor - 0.06),
+      transform: Matrix4.translationValues(
+          drawerProvider.xOffset - 10, drawerProvider.yOffset + 26, 0)
+        ..scale(drawerProvider.scaleFactor - 0.06),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(BORDER_RADIUS),
         color: Theme.of(context).primaryColorDark.withOpacity(0.05),

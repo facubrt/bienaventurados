@@ -19,8 +19,8 @@ class CollectionsWidget extends StatelessWidget {
     final prefs = UserPreferences();
     return prefs.collectionUnlocked
         ? Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30.0),
-          child: Column(
+            padding: const EdgeInsets.symmetric(vertical: 30.0),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SectionWidget(title: COLLECTION_SECTION),
@@ -39,12 +39,21 @@ class CollectionsWidget extends StatelessWidget {
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColorDark.withOpacity(0.05),
-                        border: Border.all(width: 2, color: Theme.of(context).colorScheme.secondary),
+                        color: prefs.darkMode
+                            ? Theme.of(context)
+                                .primaryColorDark
+                                .withOpacity(0.1)
+                            : Theme.of(context)
+                                .primaryColorDark
+                                .withOpacity(0.05),
+                        border: Border.all(
+                            width: 2,
+                            color: Theme.of(context).colorScheme.secondary),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 40),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 40.0, horizontal: 40),
                         child: Row(
                           children: [
                             Icon(
@@ -52,13 +61,19 @@ class CollectionsWidget extends StatelessWidget {
                               size: 32,
                             ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.height * SPACE_SECTION,
+                              width: MediaQuery.of(context).size.height *
+                                  SPACE_SECTION,
                             ),
                             Flexible(
                               child: Text(
                                 COLLECTIBLE_UNLOCKED_TEXT,
-                                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                      fontSize: MediaQuery.of(context).size.width * SCALE_H4,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              SCALE_H4,
                                     ),
                               ),
                             ),
@@ -70,7 +85,7 @@ class CollectionsWidget extends StatelessWidget {
                 ),
               ],
             ),
-        )
+          )
         : SizedBox.shrink();
   }
 }

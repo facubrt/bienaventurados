@@ -41,6 +41,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
   @override
   Widget build(BuildContext context) {
     final shareProvider = Provider.of<ShareProvider>(context);
+
     return GestureDetector(
       onVerticalDragUpdate: (details) {
         if (details.primaryDelta! < -7) {
@@ -56,83 +57,90 @@ class _PaperplanePageState extends State<PaperplanePage> {
         }
       },
       child: Scaffold(
-        body: Container(
-          color: Theme.of(context).primaryColor,
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: Stack(
-            children: [
-              Screenshot(
-                controller: screenshotController,
-                child: Container(
-                  color: Theme.of(context).primaryColorDark,
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.linearToEaseOut,
-                    transformAlignment: Alignment.center,
-                    transform: Matrix4.identity()
-                      ..scale(shareProvider.takeScreenshot ? 0.72 : 1.0,
-                          shareProvider.takeScreenshot ? 0.72 : 1.0),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      border: shareProvider.takeScreenshot
-                          ? Border.all(
-                              width: BORDER_WIDTH,
-                              color: Theme.of(context).primaryColorDark)
-                          : Border.all(
-                              width: 0.0,
-                              color: Theme.of(context).primaryColor),
-                      borderRadius: shareProvider.takeScreenshot
-                          ? BorderRadius.circular(BORDER_RADIUS)
-                          : BorderRadius.zero,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: paperplaneWidget(),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.1,
-                child: AppBar(
-                  backgroundColor: Colors.transparent,
-                  automaticallyImplyLeading: false,
-                  elevation: 0.0,
-                  actions: [
-                    IconButton(
-                      icon: Icon(
-                        Iconsax.close_square,
-                        size:
-                            MediaQuery.of(context).size.width * DIMENSION_ICON,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              shareProvider.takeScreenshot
-                  ? Container(
-                      color: ColorPalette.primaryDark.withOpacity(0.9),
-                      child: Center(
-                        child: Text(
-                          PREPARING_PAPERPLANE,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4!
-                              .copyWith(
-                                  fontSize: MediaQuery.of(context).size.width *
-                                      SCALE_H3,
-                                  color: ColorPalette.primaryLight),
+        body: SingleChildScrollView(
+            child: Column(
+          children: [
+            Container(
+              color: Theme.of(context).primaryColor,
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Stack(
+                children: [
+                  Screenshot(
+                    controller: screenshotController,
+                    child: Container(
+                      color: Theme.of(context).primaryColorDark,
+                      child: AnimatedContainer(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.linearToEaseOut,
+                        transformAlignment: Alignment.center,
+                        transform: Matrix4.identity()
+                          ..scale(shareProvider.takeScreenshot ? 0.72 : 1.0,
+                              shareProvider.takeScreenshot ? 0.72 : 1.0),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          border: shareProvider.takeScreenshot
+                              ? Border.all(
+                                  width: BORDER_WIDTH,
+                                  color: Theme.of(context).primaryColorDark)
+                              : Border.all(
+                                  width: 0.0,
+                                  color: Theme.of(context).primaryColor),
+                          borderRadius: shareProvider.takeScreenshot
+                              ? BorderRadius.circular(BORDER_RADIUS)
+                              : BorderRadius.zero,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: paperplaneWidget(),
                         ),
                       ),
-                    )
-                  : SizedBox.shrink(),
-            ],
-          ),
-        ),
+                    ),
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: AppBar(
+                      backgroundColor: Colors.transparent,
+                      automaticallyImplyLeading: false,
+                      elevation: 0.0,
+                      actions: [
+                        IconButton(
+                          icon: Icon(
+                            Iconsax.close_square,
+                            size: MediaQuery.of(context).size.width *
+                                DIMENSION_ICON,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  shareProvider.takeScreenshot
+                      ? Container(
+                          color: ColorPalette.primaryDark.withOpacity(0.9),
+                          child: Center(
+                            child: Text(
+                              PREPARING_PAPERPLANE,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline4!
+                                  .copyWith(
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              SCALE_H3,
+                                      color: ColorPalette.primaryLight),
+                            ),
+                          ),
+                        )
+                      : SizedBox.shrink(),
+                ],
+              ),
+            ),
+            detailsWidget(),
+          ],
+        )),
       ),
     );
   }
@@ -163,6 +171,40 @@ class _PaperplanePageState extends State<PaperplanePage> {
                         ),
                 )
               : SizedBox.shrink(),
+          // SafeArea(
+          //   child: Padding(
+          //     padding:
+          //         const EdgeInsets.symmetric(horizontal: 20.0, vertical: 60),
+          //     child: ClipRRect(
+          //       borderRadius: BorderRadius.circular(20.0),
+          //       child: Stack(
+          //         alignment: Alignment.center,
+          //         children: [
+          //           Image.asset(
+          //             'assets/images/paperplanes/background/${paperplaneProvider.background}.png',
+          //             height: MediaQuery.of(context).size.height * 0.5,
+          //             fit: BoxFit.cover,
+          //           ),
+          //           Image.asset(
+          //             'assets/images/paperplanes/pattern/${paperplaneProvider.pattern}.png',
+          //           ),
+          //           Image.asset(
+          //             'assets/images/paperplanes/base/${paperplaneProvider.base}.png',
+          //           ),
+          //           Image.asset(
+          //             'assets/images/paperplanes/wings/${paperplaneProvider.wings}.png',
+          //           ),
+          //           Image.asset(
+          //             'assets/images/paperplanes/stamp/${paperplaneProvider.stamp}.png',
+          //           ),
+          //           Image.asset(
+          //             'assets/images/paperplanes/detail/${paperplaneProvider.detail}.png',
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -238,7 +280,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
             child: Text(
               widget.paperplane.frase!,
               style: Theme.of(context).textTheme.headline1!.copyWith(
-                    fontSize: MediaQuery.of(context).size.width * SCALE_QUOTES,
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
                   ),
             ),
           ),
@@ -250,13 +292,13 @@ class _PaperplanePageState extends State<PaperplanePage> {
                 child: Text(
                   widget.paperplane.santo!,
                   style: Theme.of(context).textTheme.headline4!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * SCALE_H4,
+                        fontSize: MediaQuery.of(context).size.width * 0.04,
                       ),
                   textAlign: TextAlign.end,
                 ),
               )),
           SizedBox(height: MediaQuery.of(context).size.width * 0.06),
-          reflexionOpen
+          /*reflexionOpen
               ? SizedBox.shrink()
               : Padding(
                   padding: const EdgeInsets.only(bottom: 30),
@@ -268,53 +310,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
                             : Theme.of(context).primaryColorDark,
                     size: MediaQuery.of(context).size.width * 0.06,
                   ),
-                ),
-          AnimatedContainer(
-              duration: Duration(milliseconds: DURATION_MS),
-              curve: Curves.easeInOut,
-              height: reflexionOpen ? Align().heightFactor : 00.0,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 20.0, right: 20.0, bottom: 20.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Theme.of(context).primaryColorDark.withOpacity(0.05),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.paperplane.reflexion!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.04,
-                              ),
-                        ),
-                        Divider(
-                          height: 40,
-                        ),
-                        Text('Construido por ${widget.paperplane.usuario}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1!
-                                .copyWith(
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            SCALE_BODY,
-                                    color: Theme.of(context)
-                                        .primaryColorDark
-                                        .withOpacity(0.2))),
-                      ],
-                    ),
-                  ),
-                ),
-              )),
+                ),*/
         ],
       ),
     );
@@ -470,5 +466,45 @@ class _PaperplanePageState extends State<PaperplanePage> {
         ),
       );
     });
+  }
+
+  Widget detailsWidget() {
+    return AnimatedContainer(
+        duration: Duration(milliseconds: DURATION_MS),
+        curve: Curves.easeInOut,
+        height: reflexionOpen ? Align().heightFactor : 00.0,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Theme.of(context).primaryColorDark.withOpacity(0.05),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.paperplane.reflexion!,
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                        ),
+                  ),
+                  Divider(
+                    height: 40,
+                  ),
+                  Text('Construido por ${widget.paperplane.usuario}',
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                          fontSize:
+                              MediaQuery.of(context).size.width * SCALE_BODY,
+                          color: Theme.of(context)
+                              .primaryColorDark
+                              .withOpacity(0.2))),
+                ],
+              ),
+            ),
+          ),
+        ));
   }
 }

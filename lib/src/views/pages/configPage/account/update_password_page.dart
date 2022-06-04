@@ -49,7 +49,7 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
               children: [
                 Text(CONFIRM_PASSWORD_PAGE_TITLE,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          fontSize: MediaQuery.of(context).size.width * SCALE_H2,
                         )),
                 SizedBox(
                   height: MediaQuery.of(context).size.width * 0.04,
@@ -59,14 +59,14 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                       ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: PASSWORD_HINT,
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),
@@ -100,7 +100,7 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
               },
               child: Text(CONTINUE_BUTTON,
                   style: Theme.of(context).textTheme.headline4!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      fontSize: MediaQuery.of(context).size.width * SCALE_H4,
                       color: Theme.of(context).primaryColor)),
             ),
           ),
@@ -121,7 +121,7 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
               children: [
                 Text(UPDATE_PASSWORD_PAGE_TITLE,
                     style: Theme.of(context).textTheme.headline2!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          fontSize: MediaQuery.of(context).size.width * SCALE_H2,
                         )),
                 SizedBox(
                   height: MediaQuery.of(context).size.width * 0.04,
@@ -131,14 +131,14 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                       ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
                   decoration: InputDecoration(
                     hintText: NEW_PASSWORD_HINT,
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                         color: Theme.of(context)
                             .primaryColorDark
                             .withOpacity(0.2)),
@@ -180,7 +180,7 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
               },
               child: Text(SAVE_BUTTON,
                   style: Theme.of(context).textTheme.headline4!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      fontSize: MediaQuery.of(context).size.width * SCALE_H4,
                       color: Theme.of(context).primaryColor)),
             ),
           ),

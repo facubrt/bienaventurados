@@ -13,8 +13,7 @@ class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
 
   @override
-  _AccountPageState createState() =>
-      _AccountPageState();
+  _AccountPageState createState() => _AccountPageState();
 }
 
 class _AccountPageState extends State<AccountPage> {
@@ -31,46 +30,54 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        //title: Text('Cuenta'),
-        leading: InkWell(
-          onTap: () {Navigator.of(context).pop();},
-          child: Icon(
-            Iconsax.arrow_left,
-            
+        appBar: AppBar(
+          elevation: 0,
+          //title: Text('Cuenta'),
+          leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(
+              Iconsax.arrow_left,
             ),
+          ),
         ),
-      ),
-      body: ListView.separated(
-          itemCount: _configList.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              contentPadding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.08,
-                  vertical: MediaQuery.of(context).size.width * 0.04),
-              onTap: () {
-                navigateTo(index);
-              },
-              title: Text(_configList[index],
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                      )),
-            );
+        body: NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (overScroll) {
+            overScroll.disallowIndicator();
+            return true;
           },
-          separatorBuilder: (context, index) {
-            return Divider(
-                height: 0,
-                color: Theme.of(context).primaryColorDark,
-                indent: MediaQuery.of(context).size.width * 0.08,
-                endIndent: MediaQuery.of(context).size.width * 0.08);
-          }),
-    );
+          child: ListView.separated(
+              itemCount: _configList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  contentPadding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.08,
+                      vertical: MediaQuery.of(context).size.width * 0.04),
+                  onTap: () {
+                    navigateTo(index);
+                  },
+                  title: Text(_configList[index],
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize:
+                                MediaQuery.of(context).size.width * SCALE_H3,
+                          )),
+                );
+              },
+              separatorBuilder: (context, index) {
+                return Divider(
+                    height: 0,
+                    color: Theme.of(context).primaryColorDark,
+                    indent: MediaQuery.of(context).size.width * 0.08,
+                    endIndent: MediaQuery.of(context).size.width * 0.08);
+              }),
+        ));
   }
 
   Future<void> navigateTo(int pagina) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final paperplaneProvider = Provider.of<PaperplaneProvider>(context, listen: false);
+    final paperplaneProvider =
+        Provider.of<PaperplaneProvider>(context, listen: false);
     final prefs = UserPreferences();
     switch (_configList[pagina]) {
       case UPDATE_NAME:
@@ -98,12 +105,13 @@ class _AccountPageState extends State<AccountPage> {
                     Text(DELETE_ACCOUNT_TITLE,
                         style: Theme.of(context).textTheme.headline6!.copyWith(
                             fontSize:
-                                MediaQuery.of(context).size.width * 0.04)),
+                                MediaQuery.of(context).size.width * SCALE_H3)),
                     SizedBox(height: MediaQuery.of(context).size.width * 0.06),
                     Text(
                       DELETE_ACCOUNT_TEXT,
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          fontSize: MediaQuery.of(context).size.width * 0.04),
+                          fontSize:
+                              MediaQuery.of(context).size.width * SCALE_H4),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.width * 0.08,
@@ -113,7 +121,9 @@ class _AccountPageState extends State<AccountPage> {
                       children: [
                         TextButton(
                           style: OutlinedButton.styleFrom(
-                            side: BorderSide(width: 2, color: Theme.of(context).primaryColorDark),
+                            side: BorderSide(
+                                width: 2,
+                                color: Theme.of(context).primaryColorDark),
                             backgroundColor: Theme.of(context).primaryColor,
                           ),
                           onPressed: () {
@@ -126,7 +136,7 @@ class _AccountPageState extends State<AccountPage> {
                                   .copyWith(
                                       fontSize:
                                           MediaQuery.of(context).size.width *
-                                              0.04,
+                                              SCALE_H4,
                                       color:
                                           Theme.of(context).primaryColorDark)),
                         ),
@@ -144,8 +154,7 @@ class _AccountPageState extends State<AccountPage> {
                             prefs.darkMode = false;
                             authProvider.deleteUser();
                             Navigator.of(context).pushNamedAndRemoveUntil(
-                              bienaventuradosPage, (route) => false
-                            );
+                                bienaventuradosPage, (route) => false);
                           },
                           child: Text(DELETE_BUTTON,
                               style: Theme.of(context)
@@ -154,7 +163,7 @@ class _AccountPageState extends State<AccountPage> {
                                   .copyWith(
                                       fontSize:
                                           MediaQuery.of(context).size.width *
-                                              0.04,
+                                              SCALE_H4,
                                       color: Theme.of(context).primaryColor)),
                         ),
                       ],

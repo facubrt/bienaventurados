@@ -90,6 +90,7 @@ flutter:
     - assets/images/paperplanes/detail/
     - assets/images/paperplanes/stamp/
     - assets/images/paperplanes/base/
+    - assets/images/paperplanes/pattern/
 
   fonts:
     - family: Gotham

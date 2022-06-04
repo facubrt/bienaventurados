@@ -45,40 +45,48 @@ class _GeneralPageState extends State<GeneralPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        //title: Text(GENERAL_CONFIG),
-        leading: InkWell(
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: Icon(
-            Iconsax.arrow_left,
+        appBar: AppBar(
+          elevation: 0,
+          //title: Text(GENERAL_CONFIG),
+          leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(
+              Iconsax.arrow_left,
+            ),
           ),
         ),
-      ),
-      body: ListView.separated(
-          itemCount: _configList.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.width * 0.04),
-              onTap: () {
-                navigateTo(index);
-              },
-              title: Text(_configList[index],
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                      )),
-            );
+        body: NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (overScroll) {
+            overScroll.disallowIndicator();
+            return true;
           },
-          separatorBuilder: (context, index) {
-            return Divider(
-                height: 0,
-                color: Theme.of(context).primaryColorDark,
-                indent: MediaQuery.of(context).size.width * 0.08,
-                endIndent: MediaQuery.of(context).size.width * 0.08);
-          }),
-    );
+          child: ListView.separated(
+              itemCount: _configList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  contentPadding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.08,
+                      vertical: MediaQuery.of(context).size.width * 0.04),
+                  onTap: () {
+                    navigateTo(index);
+                  },
+                  title: Text(_configList[index],
+                      style: Theme.of(context).textTheme.headline1!.copyWith(
+                            fontSize:
+                                MediaQuery.of(context).size.width * SCALE_H3,
+                          )),
+                );
+              },
+              separatorBuilder: (context, index) {
+                return Divider(
+                    height: 0,
+                    color: Theme.of(context).primaryColorDark,
+                    indent: MediaQuery.of(context).size.width * 0.08,
+                    endIndent: MediaQuery.of(context).size.width * 0.08);
+              }),
+        ));
   }
 
   Future<void> navigateTo(int pagina) async {
@@ -90,12 +98,13 @@ class _GeneralPageState extends State<GeneralPage> {
         Navigator.of(context).pushNamed(themeConfigPage);
         break;
       case RATINGS_CONFIG:
-        final achievementProvider = Provider.of<AchievementProvider>(context, listen: false);
+        final achievementProvider =
+            Provider.of<AchievementProvider>(context, listen: false);
         achievementProvider.achievementsCheck(ACHIEVEMENT_RATING_APP);
         //if (await _inAppReview.isAvailable()) {
         //if (_availability == Availability.available) {
         //  print('CALIFICAR');
-          //_requestReview();
+        //_requestReview();
         //   _inAppReview.requestReview();
         // }
         if (await _inAppReview.isAvailable()) {
