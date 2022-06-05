@@ -79,7 +79,7 @@ class _InitialPageState extends State<InitialPage> {
             children: [
               Text(EMAIL_INPUT,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                       )),
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.04,
@@ -89,7 +89,7 @@ class _InitialPageState extends State<InitialPage> {
                 autofocus: false,
                 keyboardType: TextInputType.text,
                 style: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                      fontSize: MediaQuery.of(context).size.width * SCALE_H4,
                     ),
                 cursorColor: Theme.of(context).primaryColorDark,
                 cursorWidth: 4,
@@ -97,10 +97,10 @@ class _InitialPageState extends State<InitialPage> {
                 maxLines: 6,
                 decoration: InputDecoration(
                   hintText: EMAIL_HINT,
-                  hintStyle: Theme.of(context)
-                      .textTheme
-                      .headline2!
-                      .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
+                  hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * SCALE_H4,
+                      color:
+                          Theme.of(context).primaryColorDark.withOpacity(0.2)),
                   focusedBorder: InputBorder.none,
                   border: InputBorder.none,
                   errorBorder: InputBorder.none,
@@ -130,14 +130,15 @@ class _InitialPageState extends State<InitialPage> {
               ),
               onPressed: () {
                 if (emailFormKey.currentState!.validate()) {
-                  _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.fastLinearToSlowEaseIn);
+                  _pageController.nextPage(
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.fastLinearToSlowEaseIn);
                 }
               },
               child: Text(CONTINUE_BUTTON,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(fontSize: MediaQuery.of(context).size.width * 0.04, color: Theme.of(context).primaryColor)),
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Theme.of(context).primaryColor)),
             ),
           ),
         ),
@@ -156,7 +157,7 @@ class _InitialPageState extends State<InitialPage> {
             children: [
               Text(PASSWORD_INPUT,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                       )),
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.04,
@@ -166,7 +167,7 @@ class _InitialPageState extends State<InitialPage> {
                   autofocus: false,
                   keyboardType: TextInputType.text,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H4,
                       ),
                   cursorColor: Theme.of(context).primaryColorDark,
                   cursorWidth: 4,
@@ -184,18 +185,23 @@ class _InitialPageState extends State<InitialPage> {
                             ? Icon(
                                 Iconsax.eye_slash,
                                 size: MediaQuery.of(context).size.width * 0.06,
-                                color: Theme.of(context).primaryColorDark.withOpacity(0.2),
+                                color: Theme.of(context)
+                                    .primaryColorDark
+                                    .withOpacity(0.2),
                               )
                             : Icon(
                                 Iconsax.eye,
                                 size: MediaQuery.of(context).size.width * 0.06,
-                                color: Theme.of(context).primaryColorDark.withOpacity(0.2),
+                                color: Theme.of(context)
+                                    .primaryColorDark
+                                    .withOpacity(0.2),
                               )),
                     hintText: PASSWORD_HINT,
-                    hintStyle: Theme.of(context)
-                        .textTheme
-                        .headline2!
-                        .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
+                    hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H4,
+                        color: Theme.of(context)
+                            .primaryColorDark
+                            .withOpacity(0.2)),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
                     errorBorder: InputBorder.none,
@@ -266,7 +272,7 @@ class _InitialPageState extends State<InitialPage> {
             children: [
               Text(NAME_INPUT,
                   style: Theme.of(context).textTheme.headline2!.copyWith(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                       )),
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.04,
@@ -277,7 +283,7 @@ class _InitialPageState extends State<InitialPage> {
                 textCapitalization: TextCapitalization.sentences,
                 keyboardType: TextInputType.text,
                 style: Theme.of(context).textTheme.headline2!.copyWith(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                      fontSize: MediaQuery.of(context).size.width * SCALE_H4,
                     ),
                 cursorColor: Theme.of(context).primaryColorDark,
                 cursorWidth: 4,
@@ -285,10 +291,10 @@ class _InitialPageState extends State<InitialPage> {
                 maxLines: 6,
                 decoration: InputDecoration(
                   hintText: NAME_HINT,
-                  hintStyle: Theme.of(context)
-                      .textTheme
-                      .headline2!
-                      .copyWith(fontSize: MediaQuery.of(context).size.width * 0.06, color: Theme.of(context).primaryColorDark.withOpacity(0.2)),
+                  hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                      fontSize: MediaQuery.of(context).size.width * SCALE_H4,
+                      color:
+                          Theme.of(context).primaryColorDark.withOpacity(0.2)),
                   focusedBorder: InputBorder.none,
                   border: InputBorder.none,
                   errorBorder: InputBorder.none,
@@ -367,7 +373,8 @@ class _InitialPageState extends State<InitialPage> {
       backgroundColor: Theme.of(context).colorScheme.secondary,
       content: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Text('¡No te preocupes! Hemos enviado un correo a ${emailController.text} para que puedas restablecer tu contraseña.',
+        child: Text(
+            '¡No te preocupes! Hemos enviado un correo a ${emailController.text} para que puedas restablecer tu contraseña.',
             style: Theme.of(context).textTheme.bodyText2!.copyWith(
                   fontSize: MediaQuery.of(context).size.width * 0.04,
                   color: Theme.of(context).primaryColor,
@@ -394,10 +401,14 @@ class _InitialPageState extends State<InitialPage> {
       ),
     );
 
-    authProvider.signInWithEmailAndPassword(emailController.text, passwordController.text).then((result) {
+    authProvider
+        .signInWithEmailAndPassword(
+            emailController.text, passwordController.text)
+        .then((result) {
       if (result == USER_FOUND_MESSAGE) {
         prefs.isLoggedIn = true;
-        Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil(dashboardPage, (route) => false);
       } else if (result == WRONG_PASSWORD_MESSAGE) {
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
         setState(() {
@@ -412,7 +423,9 @@ class _InitialPageState extends State<InitialPage> {
         setState(() {
           _state = 0;
         });
-        _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.fastLinearToSlowEaseIn);
+        _pageController.nextPage(
+            duration: Duration(milliseconds: 300),
+            curve: Curves.fastLinearToSlowEaseIn);
       }
     });
   }
@@ -433,10 +446,14 @@ class _InitialPageState extends State<InitialPage> {
       ),
     );
 
-    authProvider.createUserWithEmailAndPassword(nameController.text, emailController.text, passwordController.text).then((result) {
+    authProvider
+        .createUserWithEmailAndPassword(
+            nameController.text, emailController.text, passwordController.text)
+        .then((result) {
       if (result != null) {
         prefs.isLoggedIn = true;
-        Navigator.of(context).pushNamedAndRemoveUntil(dashboardPage, (route) => false);
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil(dashboardPage, (route) => false);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
       }

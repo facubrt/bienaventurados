@@ -30,20 +30,19 @@ class AuthProvider with ChangeNotifier {
     if (firebaseUser == null) {
       _isLoggedIn = false;
     } else {
-      await getUsuarioFromLocal(firebaseUser.uid);
+      await getUserFromLocal(firebaseUser.uid);
       _isLoggedIn = true;
       notifyListeners();
     }
   }
 
-  Future<bool> getUsuarioFromLocal(String uid) async {
+  Future<bool> getUserFromLocal(String uid) async {
     await _localDB.openBox().then((result) async {
       if (result) {
         usersBox = _localDB.getUsuario();
         if (usersBox!.isEmpty) {
           print('USUARIO DESDE FIREBASE');
-          DocumentSnapshot userSnap =
-              await _db.collection('usuarios').doc(uid).get();
+          DocumentSnapshot userSnap = await _db.collection('usuarios').doc(uid).get();
           _user.setFromFirestore(userSnap);
           _localDB.setUsuario(_user);
         } else {
@@ -55,8 +54,7 @@ class AuthProvider with ChangeNotifier {
     return true;
   }
 
-  Future<String?> signInWithEmailAndPassword(
-      String email, String password) async {
+  Future<String?> signInWithEmailAndPassword(String email, String password) async {
     String? message = '';
     try {
       final UserCredential authResult = await _auth.signInWithEmailAndPassword(
@@ -83,8 +81,7 @@ class AuthProvider with ChangeNotifier {
     return message;
   }
 
-  Future<auth.User?> createUserWithEmailAndPassword(
-      String name, String email, String password) async {
+  Future<auth.User?> createUserWithEmailAndPassword(String name, String email, String password) async {
     auth.User? _user;
     try {
       final UserCredential authResult = await _auth

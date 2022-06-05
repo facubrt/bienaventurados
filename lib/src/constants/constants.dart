@@ -1,8 +1,8 @@
 // ASSETS
-const String ISOTYPE_LIGHT = 'assets/images/isotipo-claro.png';
-const String ISOTYPE_DARK = 'assets/images/isotipo-oscuro.png';
-const String ISOTYPE_LARGE_LIGHT = 'assets/images/isotipo-horizontal-claro.png';
-const String ISOTYPE_LARGE_DARK = 'assets/images/isotipo-horizontal-oscuro.png';
+const String ISOTYPE_LIGHT = 'assets/images/iso-claro.png';
+const String ISOTYPE_DARK = 'assets/images/iso-oscuro.png';
+const String ISOTYPE_LARGE_LIGHT = 'assets/images/iso-horizontal-claro.png';
+const String ISOTYPE_LARGE_DARK = 'assets/images/iso-horizontal-oscuro.png';
 
 const String BIENAVENTURADO_SEAS = '¡Bienaventurado seas!';
 

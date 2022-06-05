@@ -25,6 +25,7 @@ class CollectionProvider with ChangeNotifier {
       }
     });
   }
+  
   //FUNCION UNICA PARA VERSION 1.4.3 DONDE SE SUBIRAN LAS COLECCIONES A FIREBASE
   // Future<void> setMapCollections() async {
   //   await _localDB.openBox().then((result) async {
