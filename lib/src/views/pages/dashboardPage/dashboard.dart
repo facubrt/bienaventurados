@@ -43,14 +43,22 @@ class _DashboardPageState extends State<DashboardPage> {
         Provider.of<CollectionProvider>(context, listen: false);
     final achievementProvider =
         Provider.of<AchievementProvider>(context, listen: false);
-    appVersion = await getAppVersion();
+    appVersion = '1.4.4B'; //await getAppVersion();
     conection = DateTime.now().day.toInt();
     lastConection = prefs.lastConnection;
     print('ESTAS USANDO LA VERSION ${prefs.appVersion}');
     if (prefs.appVersion != appVersion) {
+      //print('INICIANDO MIGRACION DE AVIONCITOS DE PAPEL');
       //EN ESTAS LINEAS SE MODIFICAN ALGUNOS CAMPOS EN DB Y EL FUNCIONAMIENTO DE USUARIO. SE EJECUTA UNA UNICA VEZ
-      print('COMANDO DE UNA SOLA VEZ');
-      prefs.appVersion = appVersion;
+      // paperplaneProvider.migratePaperplanesDB().then((result) {
+      //   if (result) {
+      //     print('AVIONCITOS TRANFERIDOS');
+      //   } else {
+      //     print('NO SE TRANSFIRIERON LOS AVIONCITOS');
+      //   }
+      // });
+
+      //prefs.appVersion = appVersion;
     }
     if (lastConection != null) {
       if (conection == lastConection) {

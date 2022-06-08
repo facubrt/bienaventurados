@@ -274,4 +274,52 @@ class PaperplaneProvider with ChangeNotifier {
     _detail = detail;
     notifyListeners();
   }
+
+  // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
+  // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
+  // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
+  Future<bool> migratePaperplanesDB() async {
+    _paperplanes.clear();
+    bool retVal = false;
+    await _fireDB
+        .collection('datosApp')
+        .get()
+        .then((QuerySnapshot snapshot) async {
+      print('${snapshot.docs.length} AVIONCITOS ENCONTRADOS EN FIRESTORE');
+      int _lenght = snapshot.docs.length;
+      for (var i = 0; i < _lenght; i++) {
+        Avioncito av = Avioncito.fromFirestore(snapshot.docs[i]);
+        _buildPaperplane(av);
+      }
+      retVal = true;
+    });
+    return retVal;
+  }
+
+  void _buildPaperplane(Avioncito av) {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    DocumentReference pplanesRef = _db
+        .collection('appData')
+        .doc('pplanesData')
+        .collection('pplanes')
+        .doc();
+    generateUniquePaperplane();
+    pplanesRef.set({
+      'id': pplanesRef.id,
+      'quote': av.frase,
+      'source': av.santo,
+      'inspiration': av.reflexion,
+      'illustration': {
+        'background': _background,
+        'base': _base,
+        'detail': _detail,
+        'pattern': _pattern,
+        'stamp': _stamp,
+        'wings': _wings
+      },
+      'category': av.tag,
+      'user': av.usuario,
+    });
+  }
+  ////////////////////////////////////////
 }
