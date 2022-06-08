@@ -40,20 +40,23 @@ class PaperplaneWidget extends StatelessWidget {
                       ),
                     ),
                     Image.asset(
-                      'assets/images/paperplanes/pattern/${paperplaneProvider.pattern}.png',
+                      'assets/images/av-hoy.png',
                     ),
-                    Image.asset(
-                      'assets/images/paperplanes/base/${paperplaneProvider.base}.png',
-                    ),
-                    Image.asset(
-                      'assets/images/paperplanes/wings/${paperplaneProvider.wings}.png',
-                    ),
-                    Image.asset(
-                      'assets/images/paperplanes/stamp/${paperplaneProvider.stamp}.png',
-                    ),
-                    Image.asset(
-                      'assets/images/paperplanes/detail/${paperplaneProvider.detail}.png',
-                    ),
+                    // Image.asset(
+                    //   'assets/images/paperplanes/pattern/${paperplaneProvider.pattern}.png',
+                    // ),
+                    // Image.asset(
+                    //   'assets/images/paperplanes/base/${paperplaneProvider.base}.png',
+                    // ),
+                    // Image.asset(
+                    //   'assets/images/paperplanes/wings/${paperplaneProvider.wings}.png',
+                    // ),
+                    // Image.asset(
+                    //   'assets/images/paperplanes/stamp/${paperplaneProvider.stamp}.png',
+                    // ),
+                    // Image.asset(
+                    //   'assets/images/paperplanes/detail/${paperplaneProvider.detail}.png',
+                    // ),
                     Padding(
                       padding: const EdgeInsets.all(40.0),
                       child: Column(

@@ -3,7 +3,6 @@ import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:bienaventurados/src/data/local/drawer_items.dart';
 import 'package:bienaventurados/src/data/local/months_data.dart';
 import 'package:bienaventurados/src/models/avioncito_model.dart';
-import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:bienaventurados/src/theme/color_palette.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
@@ -12,7 +11,6 @@ import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:webfeed/domain/media/media.dart';
 
 class PaperplanePage extends StatefulWidget {
   final Avioncito paperplane;
@@ -144,7 +142,6 @@ class _PaperplanePageState extends State<PaperplanePage> {
     final shareProvider = Provider.of<ShareProvider>(context);
     final achievementProvider = Provider.of<AchievementProvider>(context);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final prefs = UserPreferences();
     return Column(
       children: [
         Expanded(
@@ -413,11 +410,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
   }
 
   Widget paperplaneBottomSheet() {
-    final paperplaneProvider =
-        Provider.of<PaperplaneProvider>(context, listen: false);
     final shareProvider = Provider.of<ShareProvider>(context, listen: false);
-    final achievementProvider =
-        Provider.of<AchievementProvider>(context, listen: false);
     final drawerProvider = Provider.of<DrawerProvider>(context, listen: false);
     return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
