@@ -131,7 +131,6 @@ class PaperplaneProvider with ChangeNotifier {
   }
 
   Future<bool> getPaperplaneToday() async {
-    generateUniquePaperplane();
     _paperplane = await _localDB.getHoy()!.get(0);
     return true;
   }

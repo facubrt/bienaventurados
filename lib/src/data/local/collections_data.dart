@@ -3,17 +3,17 @@ import 'package:bienaventurados/src/models/coleccion_model.dart';
 class Collections {
   static final allCollections = [
     //COLECCION DE PRUEBA
-    Coleccion(
-      id: 0,
-      dia: DateTime.now().day,
-      mes: DateTime.now().month,
-      titulo: 'Coleccion de PRUEBA',
-      img: 'assets/images/colecciones/solemnidad-01.png',
-      tipo: 'Fiesta',
-      descripcion: 'descripcion',
-      desbloqueado: false,
-    ),
-    
+    // Coleccion(
+    //   id: 0,
+    //   dia: DateTime.now().day,
+    //   mes: DateTime.now().month,
+    //   titulo: 'Coleccion de PRUEBA',
+    //   img: 'assets/images/colecciones/solemnidad-01.png',
+    //   tipo: 'Fiesta',
+    //   descripcion: 'descripcion',
+    //   desbloqueado: false,
+    // ),
+
     Coleccion(
       id: 1,
       mes: 01,
@@ -98,7 +98,8 @@ class Collections {
       titulo: 'Viernes Santo',
       img: 'assets/images/colecciones/solemnidad-08.png',
       tipo: 'Solemnidad',
-      descripcion: '"Desde el mediodía y hasta la media tarde, toda la tierra quedó sumida en la oscuridad, pues el sol se ocultó. Y la cortina del santuario del templo se rasgó en dos. Entonces Jesús exclamó con fuerza: -¡Padre, en tus manos encomiendo mi espíritu! Y al decir esto, expiró" (Lucas 23, 44-46).\n\nEl Viernes Santo es, fundamentalmente, un día de duelo durante el cual se recuerda la crucifixión de Jesucristo en el Calvario, quien se sacrifica para salvar del pecado a la humanidad y darle la vida eterna.',
+      descripcion:
+          '"Desde el mediodía y hasta la media tarde, toda la tierra quedó sumida en la oscuridad, pues el sol se ocultó. Y la cortina del santuario del templo se rasgó en dos. Entonces Jesús exclamó con fuerza: -¡Padre, en tus manos encomiendo mi espíritu! Y al decir esto, expiró" (Lucas 23, 44-46).\n\nEl Viernes Santo es, fundamentalmente, un día de duelo durante el cual se recuerda la crucifixión de Jesucristo en el Calvario, quien se sacrifica para salvar del pecado a la humanidad y darle la vida eterna.',
       desbloqueado: false,
     ),
     Coleccion(
@@ -108,7 +109,8 @@ class Collections {
       titulo: 'Domingo de Pascua',
       img: 'assets/images/colecciones/solemnidad-09.png',
       tipo: 'Solemnidad',
-      descripcion: '“Si Cristo no hubiera resucitado, vana seria nuestra fe” (I Corintios 15, 14)\n\nEl Domingo de Resurrección o de Pascua es la fiesta más importante para todos los católicos, ya que con la Resurrección de Jesús es cuando adquiere sentido toda nuestra religión.\n\nLa Resurrección es fuente de profunda alegría, es una luz para los hombres y cada cristiano debe irradiar esa misma luz a todos los hombres haciéndolos partícipes de la alegría de la Resurrección por medio de sus palabras, su testimonio y su trabajo apostólico.',
+      descripcion:
+          '“Si Cristo no hubiera resucitado, vana seria nuestra fe” (I Corintios 15, 14)\n\nEl Domingo de Resurrección o de Pascua es la fiesta más importante para todos los católicos, ya que con la Resurrección de Jesús es cuando adquiere sentido toda nuestra religión.\n\nLa Resurrección es fuente de profunda alegría, es una luz para los hombres y cada cristiano debe irradiar esa misma luz a todos los hombres haciéndolos partícipes de la alegría de la Resurrección por medio de sus palabras, su testimonio y su trabajo apostólico.',
       desbloqueado: false,
     ),
     Coleccion(

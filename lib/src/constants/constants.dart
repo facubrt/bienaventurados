@@ -91,7 +91,7 @@ const String SHARE_APP_BTN = 'Comparte esta aventura';
 // TEXT SCALE
 const double SCALE_H1 = 0.14;
 const double SCALE_H2 = 0.06;
-const double SCALE_QUOTES = 0.068;
+const double SCALE_QUOTES = 0.064;
 const double SCALE_H3 = 0.05;
 const double SCALE_H4 = 0.04;
 const double SCALE_SECTION = 0.03;

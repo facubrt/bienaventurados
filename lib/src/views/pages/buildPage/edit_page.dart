@@ -61,15 +61,21 @@ class _EditPageState extends State<EditPage> {
       appBar: AppBar(
         elevation: 0.0,
       ),
-      body: PageView(
-        physics: NeverScrollableScrollPhysics(),
-        controller: _pageController,
-        children: [
-          quoteWidget(),
-          reflexionWidget(),
-          questionWidget(),
-          finishWidget(),
-        ],
+      body: NotificationListener<OverscrollIndicatorNotification>(
+        onNotification: (overScroll) {
+          overScroll.disallowIndicator();
+          return true;
+        },
+        child: PageView(
+          physics: NeverScrollableScrollPhysics(),
+          controller: _pageController,
+          children: [
+            quoteWidget(),
+            reflexionWidget(),
+            questionWidget(),
+            finishWidget(),
+          ],
+        ),
       ),
     );
   }
