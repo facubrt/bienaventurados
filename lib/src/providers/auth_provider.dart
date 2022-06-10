@@ -1,6 +1,6 @@
 import 'package:bienaventurados/src/data/local/local_db.dart';
-import 'package:bienaventurados/src/models/usuario_model.dart';
 import 'package:bienaventurados/src/constants/constants.dart';
+import 'package:bienaventurados/src/models/models.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,19 +30,21 @@ class AuthProvider with ChangeNotifier {
     if (firebaseUser == null) {
       _isLoggedIn = false;
     } else {
-      await getUserFromLocal(firebaseUser.uid);
+      await getUserData(firebaseUser.uid);
       _isLoggedIn = true;
       notifyListeners();
     }
   }
 
-  Future<bool> getUserFromLocal(String uid) async {
+  Future<bool> getUserData(String uid) async {
     await _localDB.openBox().then((result) async {
       if (result) {
         usersBox = _localDB.getUsuario();
+        //usersBox!.clear();
         if (usersBox!.isEmpty) {
           print('USUARIO DESDE FIREBASE');
-          DocumentSnapshot userSnap = await _db.collection('usuarios').doc(uid).get();
+          DocumentSnapshot userSnap =
+              await _db.collection(COLLECTION_USERS).doc(uid).get();
           _user.setFromFirestore(userSnap);
           _localDB.setUsuario(_user);
         } else {
@@ -54,7 +56,8 @@ class AuthProvider with ChangeNotifier {
     return true;
   }
 
-  Future<String?> signInWithEmailAndPassword(String email, String password) async {
+  Future<String?> signInWithEmailAndPassword(
+      String email, String password) async {
     String? message = '';
     try {
       final UserCredential authResult = await _auth.signInWithEmailAndPassword(
@@ -81,7 +84,8 @@ class AuthProvider with ChangeNotifier {
     return message;
   }
 
-  Future<auth.User?> createUserWithEmailAndPassword(String name, String email, String password) async {
+  Future<auth.User?> createUserWithEmailAndPassword(
+      String name, String email, String password) async {
     auth.User? _user;
     try {
       final UserCredential authResult = await _auth
@@ -134,21 +138,33 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<DocumentSnapshot> createUserData(auth.User user) async {
-    DocumentReference userRef = _db.collection('usuarios').doc(user.uid);
+    DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(user.uid);
     final currentUser = _auth.currentUser;
 
-    await userRef.set({
+    userRef.set({
       'uid': user.uid,
-      'correo': user.email,
-      'clase': 'bienaventurado',
-      'ultimaConexion': DateTime.now(),
-      'primeraConexion': DateTime.now(),
-      'actual-constancia': 1,
-      'av-compartidos': 0,
-      'av-construidos': 0,
-      'mejor-constancia': 1,
-      'nombre': _displayName,
+      'username': _displayName,
+      'email': user.email,
+      'role': 'bienaventurado',
+      'type': 'bienaventurado',
+      'connection': {
+        'firstConnection': DateTime.now(),
+        'lastConnection': DateTime.now(),
+      },
+      'level': 1,
+      'stats': {
+        'total-xp': 0,
+        'action': 0,
+        'formation': 0,
+        'devotion': 0,
+        'prayer': 0,
+        'pplanes-builded': 0,
+        'pplanes-shared': 0,
+        'constancy': 1,
+        'best-constancy': 1,
+      },
     }, SetOptions(merge: true));
+
     currentUser!.updateDisplayName(_displayName);
 
     DocumentSnapshot userData = await userRef.get();
@@ -158,11 +174,15 @@ class AuthProvider with ChangeNotifier {
 
   Future<DocumentSnapshot> updateUserData() async {
     final user = _auth.currentUser;
-    DocumentReference userRef = _db.collection('usuarios').doc(user!.uid);
+    DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(user!.uid);
 
     await userRef.set({
-      'ultimaConexion': DateTime.now(),
-      'actual-constancia': 1,
+      'connection': {
+        'lastConnection': DateTime.now(),
+      },
+      'stats': {
+        'constancy': 1,
+      }
     }, SetOptions(merge: true));
 
     DocumentSnapshot userData = await userRef.get();
@@ -170,15 +190,15 @@ class AuthProvider with ChangeNotifier {
     return userData;
   }
 
-  Future<bool> updateName(String name) async {
+  Future<bool> updateUsername(String username) async {
     DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(_user.uid);
     final currentUser = _auth.currentUser;
 
     await userRef.set({
-      'nombre': name,
+      'username': username,
     }, SetOptions(merge: true));
 
-    _user.nombre = name;
+    _user.nombre = username;
     currentUser!.updateDisplayName(_displayName);
     notifyListeners();
 
@@ -197,7 +217,7 @@ class AuthProvider with ChangeNotifier {
     }
 
     await userRef.set({
-      'correo': email,
+      'email': email,
     }, SetOptions(merge: true));
     _user.correo = email;
     currentUser.updateEmail(email);
@@ -267,7 +287,9 @@ class AuthProvider with ChangeNotifier {
     _localDB.setUsuario(_user);
 
     await userRef.set({
-      'av-compartidos': _user.avCompartidos,
+      'stats': {
+        'pplanes-shared': _user.avCompartidos,
+      }
     }, SetOptions(merge: true));
 
     notifyListeners();
@@ -281,7 +303,9 @@ class AuthProvider with ChangeNotifier {
     _localDB.setUsuario(_user);
 
     await userRef.set({
-      'av-construidos': _user.avConstruidos,
+      'stats': {
+        'pplanes-builded': _user.avConstruidos,
+      }
     }, SetOptions(merge: true));
 
     notifyListeners();
@@ -291,17 +315,21 @@ class AuthProvider with ChangeNotifier {
     final user = _auth.currentUser;
     DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(user!.uid);
 
-    _user.actualConstancia = _user.actualConstancia! + 1;
+    _user.mejorConstancia = _user.mejorConstancia! + 1;
 
     if (_user.actualConstancia! > _user.mejorConstancia!) {
       _user.mejorConstancia = _user.actualConstancia;
       await userRef.set({
-        'actual-constancia': _user.actualConstancia,
-        'mejor-constancia': _user.mejorConstancia,
+        'stats': {
+          'constancy': _user.actualConstancia,
+          'best-constancy': _user.mejorConstancia,
+        }
       }, SetOptions(merge: true));
     } else {
       await userRef.set({
-        'actual-constancia': _user.actualConstancia,
+        'stats': {
+          'best-constancy': _user.actualConstancia,
+        }
       }, SetOptions(merge: true));
     }
     increaseConstancy = false;
@@ -318,10 +346,90 @@ class AuthProvider with ChangeNotifier {
     _localDB.setUsuario(_user);
 
     await userRef.set({
-      'actual-constancia': _user.actualConstancia,
+      'stats': {
+        'constancy': _user.actualConstancia,
+      }
     }, SetOptions(merge: true));
     restartConstancy = false;
     notifyListeners();
+  }
+
+  // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
+  // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
+  // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
+  Future<bool> migrateUsersDB() async {
+    bool retVal = false;
+    await _db.collection('usuarios').get().then((QuerySnapshot snapshot) async {
+      print('${snapshot.docs.length} USUARIOS ENCONTRADOS EN FIRESTORE');
+      int _lenght = snapshot.docs.length;
+      for (var i = 0; i < _lenght; i++) {
+        migrateUser(snapshot.docs[i]);
+      }
+      retVal = true;
+    });
+    return retVal;
+  }
+
+  void migrateUser(DocumentSnapshot usuarioDoc) {
+    Map usuarioData = usuarioDoc.data()! as Map;
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    DocumentReference userRef = _db.collection('users').doc(usuarioDoc.id);
+
+    userRef.set({
+      'uid': usuarioDoc.id,
+      'username': usuarioData['nombre'],
+      'email': usuarioData['correo'],
+      'role': usuarioData['clase'],
+      'type': 'bienaventurado',
+      'connection': {
+        'firstConnection': usuarioData['primeraConexion'],
+        'lastConnection': usuarioData['ultimaConexion'],
+      },
+      'level': 1,
+      'stats': {
+        'total-xp': 0,
+        'action': 0,
+        'formation': 0,
+        'devotion': 0,
+        'prayer': 0,
+        'pplanes-builded': usuarioData['av-construidos'] ?? 0,
+        'pplanes-shared': usuarioData['av-compartidos'] ?? 0,
+        'constancy': usuarioData['actual-constancia'] ?? 1,
+        'best-constancy': usuarioData['mejor-constancia'] ?? 1,
+      },
+    }, SetOptions(merge: true));
+  }
+
+  ////////////////////////////////////////
+  ////////////////////////////////////////
+  ////////////////////////////////////////
+
+  Future<bool> updateCollectionData(String collectible, bool condition) async {
+    final auth = FirebaseAuth.instance;
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    DocumentReference userRef =
+        _db.collection('users').doc(auth.currentUser!.uid);
+    print('HOLA USUARIO ${auth.currentUser!.uid}');
+    userRef.set({
+      'collections': {
+        '$collectible': condition,
+      },
+    }, SetOptions(merge: true));
+    return true;
+  }
+
+  Future<bool> updateAchievementData(String achievement, bool condition) async {
+    final auth = FirebaseAuth.instance;
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    DocumentReference userRef =
+        _db.collection('users').doc(auth.currentUser!.uid);
+    print('HOLA USUARIO ${auth.currentUser!.uid}');
+    userRef.set({
+      'achievements': {
+        '$achievement': condition,
+      },
+    }, SetOptions(merge: true));
+    return true;
   }
 
   bool? get isLoggedIn => _isLoggedIn;

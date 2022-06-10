@@ -410,6 +410,9 @@ class _PaperplanePageState extends State<PaperplanePage> {
   }
 
   Widget paperplaneBottomSheet() {
+    final paperplaneProvider =
+        Provider.of<PaperplaneProvider>(context, listen: false);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final shareProvider = Provider.of<ShareProvider>(context, listen: false);
     final drawerProvider = Provider.of<DrawerProvider>(context, listen: false);
     return StatefulBuilder(
@@ -493,6 +496,8 @@ class _PaperplanePageState extends State<PaperplanePage> {
               ),
               ListTile(
                 onTap: () {
+                  paperplaneProvider.reportPaperplane(
+                      widget.paperplane.id!, authProvider.user.nombre!);
                   Navigator.of(context).pop();
                 },
                 leading: Icon(Iconsax.message_text,

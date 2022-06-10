@@ -116,10 +116,19 @@ const double BORDER_WIDTH = 4;
 const int DURATION_MS = 300;
 
 // Firebase DB COLLECTIONS
-const String COLLECTION_USERS = 'usuarios';
-const String COLLECTION_APPDATA = 'datosApp';
-const String COLLECTION_USERDATA = 'datosUsuarios';
-const String COLLECTION_APPINFO = 'infoApp';
+// USERS
+const String COLLECTION_USUARIOS = 'usuarios';
+const String COLLECTION_USERS = 'users';
+// APPDATA
+const String COLLECTION_APPDATA = 'appData';
+const String COLLECTION_APPDATA_PPLANESDATA = 'pplanesData';
+const String COLLECTION_APPDATA_PPLANESDATA_PPLANES = 'pplanes';
+// USERSDATA
+const String COLLECTION_USERSDATA = 'usersData';
+const String COLLECTION_USERSDATA_PPLANESBUILDED = 'pplanesBuilded';
+const String COLLECTION_USERSDATA_PPLANESBUILDED_PPLANES = 'pplanesBuilded';
+const String COLLECTION_USERSDATA_PPLANESREPORTED = 'pplanesReported';
+const String COLLECTION_USERSDATA_PPLANESREPORTED_PPLANES = 'pplanesReported';
 
 // MESSAGES NOTIFICATIONS
 const String DAILY_CHANNEL_ID = 'Notificaciones diarias';
@@ -187,7 +196,7 @@ const String FINISH_BUTTON = 'Finalizar';
 const String OK_BUTTON = 'Listo';
 
 // ACHIEVEMENTS
-const String ACHIEVEMENT_FIST_TIME = 'primer-inicio';
+const String ACHIEVEMENT_FIRST_TIME = 'primer-inicio';
 const String ACHIEVEMENT_CONSTANCY = 'constancia';
 const String ACHIEVEMENT_SAVED = 'guardados';
 const String ACHIEVEMENT_RATING_APP = 'calificar-app';

@@ -1,3 +1,4 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/data/local/local_db.dart';
 import 'package:bienaventurados/src/models/avioncito_model.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
@@ -289,26 +290,40 @@ class PaperplaneProvider with ChangeNotifier {
       int _lenght = snapshot.docs.length;
       for (var i = 0; i < _lenght; i++) {
         Avioncito av = Avioncito.fromFirestore(snapshot.docs[i]);
-        _buildPaperplane(av);
+        buildPaperplane(
+            av.frase!, av.santo!, av.reflexion!, av.tag!, av.usuario!, true);
       }
       retVal = true;
     });
     return retVal;
   }
+  ////////////////////////////////////////
+  ////////////////////////////////////////
+  ////////////////////////////////////////
 
-  void _buildPaperplane(Avioncito av) {
+  void buildPaperplane(String quote, String source, String inspiration,
+      String category, String user, bool isAdmin) {
     final FirebaseFirestore _db = FirebaseFirestore.instance;
-    DocumentReference pplanesRef = _db
-        .collection('appData')
-        .doc('pplanesData')
-        .collection('pplanes')
-        .doc();
+    DocumentReference pplanesRef;
+    if (isAdmin) {
+      pplanesRef = _db
+          .collection(COLLECTION_APPDATA)
+          .doc(COLLECTION_APPDATA_PPLANESDATA)
+          .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
+          .doc();
+    } else {
+      pplanesRef = _db
+          .collection(COLLECTION_USERSDATA)
+          .doc(COLLECTION_USERSDATA_PPLANESBUILDED)
+          .collection(COLLECTION_USERSDATA_PPLANESBUILDED_PPLANES)
+          .doc();
+    }
     generateUniquePaperplane();
     pplanesRef.set({
       'id': pplanesRef.id,
-      'quote': av.frase,
-      'source': av.santo,
-      'inspiration': av.reflexion,
+      'quote': quote,
+      'source': source,
+      'inspiration': inspiration,
       'illustration': {
         'background': _background,
         'base': _base,
@@ -317,9 +332,33 @@ class PaperplaneProvider with ChangeNotifier {
         'stamp': _stamp,
         'wings': _wings
       },
-      'category': av.tag,
-      'user': av.usuario,
+      'category': category,
+      'likes': 0,
+      'user': user,
     });
   }
-  ////////////////////////////////////////
+
+  void reportPaperplane(String id, String user) {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    DocumentReference pplanesRef = _db
+        .collection(COLLECTION_USERSDATA)
+        .doc(COLLECTION_USERSDATA_PPLANESREPORTED)
+        .collection(COLLECTION_USERSDATA_PPLANESREPORTED_PPLANES)
+        .doc();
+    pplanesRef.set({
+      'id': id,
+      'user': user,
+    });
+  }
+
+  void deletePplanesUsersData(String? id) {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    DocumentReference paperplaneRef = _db
+        .collection(COLLECTION_USERSDATA)
+        .doc(COLLECTION_USERSDATA_PPLANESBUILDED)
+        .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
+        .doc(id);
+    paperplaneRef.delete();
+    print('SE ELIMINÓ AVIONCITO $id');
+  }
 }

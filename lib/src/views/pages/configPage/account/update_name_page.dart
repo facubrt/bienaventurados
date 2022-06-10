@@ -100,7 +100,7 @@ class _UpdateNamePageState extends State<UpdateNamePage> {
                     currentFocus.unfocus();
                   }
                   setState(() {
-                    authProvider.updateName(_nameController.text);
+                    authProvider.updateUsername(_nameController.text);
                     _nameController.clear();
                     Navigator.of(context).pop();
                   });

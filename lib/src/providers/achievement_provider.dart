@@ -3,6 +3,7 @@ import 'package:bienaventurados/src/theme/color_palette.dart';
 import 'package:bienaventurados/src/data/local/local_db.dart';
 import 'package:bienaventurados/src/data/local/achievements_data.dart';
 import 'package:bienaventurados/src/models/logro_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,6 +13,8 @@ class AchievementProvider with ChangeNotifier {
   final LocalData _localDB = LocalData();
 
   Future<void> initAchievements() async {
+    // TODO ACA DEBERIA RECIBIRSE EL ARRAY DE INSIGNIAS EN LA NUBE Y COMPROBAR. SI LA INSIGNIA ESTABA DESBLOQUEADA, SETEARLA COMO DESBLOQUEADA
+    // TAMBIEN SETEAR N = MAXIMO SI YA ESTA DESBLOQUEADO
     await _localDB.openBox().then((isOpenBox) async {
       if (isOpenBox) {
         for (var i = 0; i < Achievements.allAchievements.length; i++) {
@@ -32,7 +35,7 @@ class AchievementProvider with ChangeNotifier {
       if (isOpenBox) {
         Box? box = _localDB.getLogros();
         switch (title) {
-          case ACHIEVEMENT_FIST_TIME:
+          case ACHIEVEMENT_FIRST_TIME:
             firstTime(box);
             break;
           case ACHIEVEMENT_CONSTANCY:
@@ -62,7 +65,6 @@ class AchievementProvider with ChangeNotifier {
   }
 
   //
-
   void darkMode(Box? box) {
     Logro achievement = box!.getAt(15);
     if (!achievement.desbloqueado) {
@@ -309,5 +311,35 @@ class AchievementProvider with ChangeNotifier {
         }
       }
     });
+  }
+
+  // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
+  // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
+  // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
+
+  Future<bool> updateAllAchievementsData(String uid, Map achievements) async {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(uid);
+    userRef.set({
+      'achievements': achievements,
+    }, SetOptions(merge: true));
+    return true;
+  }
+
+  ////////////////////////////////////////
+  ////////////////////////////////////////
+  ////////////////////////////////////////
+
+  Future<bool> updateAchievementData(
+      String uid, String achievement, bool condition) async {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(uid);
+    print('HOLA USUARIO $uid');
+    userRef.set({
+      'achievements': {
+        '$achievement': condition,
+      },
+    }, SetOptions(merge: true));
+    return true;
   }
 }

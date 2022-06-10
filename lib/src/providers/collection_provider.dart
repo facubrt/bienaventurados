@@ -1,7 +1,9 @@
+import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/data/local/collections_data.dart';
 import 'package:bienaventurados/src/data/local/local_db.dart';
 import 'package:bienaventurados/src/models/coleccion_model.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -16,6 +18,7 @@ class CollectionProvider with ChangeNotifier {
   final prefs = UserPreferences();
 
   Future<void> getAllCollections() async {
+    // TODO ACA DEBERIA RECIBIRSE EL ARRAY DE COLECCIONES EN LA NUBE Y COMPROBAR. SI LA COLECCION ESTABA DESBLOQUEADA, SETEARLA COMO DESBLOQUEADA
     await _localDB.openBox().then((result) async {
       if (result) {
         print('longitud de Colecciones ${Collections.allCollections.length}');
@@ -25,18 +28,6 @@ class CollectionProvider with ChangeNotifier {
       }
     });
   }
-  
-  //FUNCION UNICA PARA VERSION 1.4.3 DONDE SE SUBIRAN LAS COLECCIONES A FIREBASE
-  // Future<void> setMapCollections() async {
-  //   await _localDB.openBox().then((result) async {
-  //     if (result) {
-  //       print('longitud de Colecciones ${Collections.allCollections.length}');
-  //       for (var i = 0; i < Collections.allCollections.length; i++) {
-  //         Map mapCollection =
-  //       }
-  //     }
-  //   });
-  // }
 
   Future<bool> openCollectionsBox() async {
     bool result = false;
@@ -97,6 +88,23 @@ class CollectionProvider with ChangeNotifier {
   Box getCollections() {
     return _localDB.coleccionesBox!;
   }
+
+  // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
+  // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
+  // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
+
+  Future<bool> updateAllCollectionData(String uid, Map collections) async {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(uid);
+    userRef.set({
+      'collections': collections,
+    }, SetOptions(merge: true));
+    return true;
+  }
+
+  ////////////////////////////////////////
+  ////////////////////////////////////////
+  ////////////////////////////////////////
 
   Coleccion? get collectible => _collectible ?? null;
   bool get collectibleUnlocked => _collectibleUnlocked;

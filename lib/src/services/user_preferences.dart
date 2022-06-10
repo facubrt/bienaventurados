@@ -1,8 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserPreferences{
-  static final UserPreferences _instance =
-      new UserPreferences._internal();
+class UserPreferences {
+  static final UserPreferences _instance = new UserPreferences._internal();
 
   factory UserPreferences() {
     return _instance;
@@ -78,6 +77,24 @@ class UserPreferences{
 
   set collectionUnlocked(bool unlocked) {
     _prefs.setBool('coleccionDesbloqueada', unlocked);
+  }
+
+  // GET y SET coleccionesSincrinizadas
+  bool get collectionsSync {
+    return _prefs.getBool('coleccionsSync') ?? false;
+  }
+
+  set collectionsSync(bool isSync) {
+    _prefs.setBool('coleccionsSync', isSync);
+  }
+
+  // GET y SET insigniasSincrinizadas
+  bool get achievementsSync {
+    return _prefs.getBool('achievementsSync') ?? false;
+  }
+
+  set achievementsSync(bool isSync) {
+    _prefs.setBool('achievementsSync', isSync);
   }
 
   Future<bool> cleanPrefs() async {

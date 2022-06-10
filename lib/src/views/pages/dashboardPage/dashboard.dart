@@ -43,13 +43,12 @@ class _DashboardPageState extends State<DashboardPage> {
         Provider.of<CollectionProvider>(context, listen: false);
     final achievementProvider =
         Provider.of<AchievementProvider>(context, listen: false);
-    appVersion = '1.4.4B'; //await getAppVersion();
+    appVersion = await getAppVersion();
     conection = DateTime.now().day.toInt();
     lastConection = prefs.lastConnection;
     print('ESTAS USANDO LA VERSION ${prefs.appVersion}');
     if (prefs.appVersion != appVersion) {
-      //print('INICIANDO MIGRACION DE AVIONCITOS DE PAPEL');
-      //EN ESTAS LINEAS SE MODIFICAN ALGUNOS CAMPOS EN DB Y EL FUNCIONAMIENTO DE USUARIO. SE EJECUTA UNA UNICA VEZ
+      //1.4.4 - PASO 1 - MIGRATE PAPERPLANES
       // paperplaneProvider.migratePaperplanesDB().then((result) {
       //   if (result) {
       //     print('AVIONCITOS TRANFERIDOS');
@@ -58,10 +57,30 @@ class _DashboardPageState extends State<DashboardPage> {
       //   }
       // });
 
-      //prefs.appVersion = appVersion;
+      //1.4.4 - PASO 2 - MIGRATE USERS
+      // print('INICIANDO MIGRACION DE USUARIOS');
+      // authProvider.migrateUsersDB().then((result) {
+      //   if (result) {
+      //     print('USUARIOS MIGRADOS CORRECTAMENTE');
+      //   } else {
+      //     print('ERROR');
+      //   }
+      // });
+
+      //CUANDO SE DESBLOQUEA UN LOGRO O COLECCIONALBE
+      //UPDATE COLLECTION
+      // authProvider.updateCollectionData('saint-joseph', true).then((result) {
+      //   if (result) {
+      //     print('DATOS DE COLECCION ACTUALIZADOS');
+      //   } else {
+      //     print('ERROR');
+      //   }
+      // });
+
+      prefs.appVersion = appVersion;
     }
     if (lastConection != null) {
-      if (conection == lastConection) {
+      if (conection != lastConection) {
         print('MISMO DIA');
         //_coleccionDesbloqueada = prefs.coleccionDesbloqueada;
         await paperplaneProvider.isToday();

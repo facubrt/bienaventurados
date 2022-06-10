@@ -1,7 +1,6 @@
 import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
@@ -61,22 +60,6 @@ class _BuildPageState extends State<BuildPage> {
         ],
       ),
     );
-  }
-
-  void _buildPaperplane(String? usuario) {
-    final FirebaseFirestore _db = FirebaseFirestore.instance;
-    DocumentReference avioncitoRef = _db.collection(COLLECTION_USERDATA).doc();
-
-    // TODO Cambiar esto al inglés (migracion de datos)
-    avioncitoRef.set({
-      'frase': _quoteController.text,
-      'santo': _saintController.text,
-      'reflexion': _reflexionController.text,
-      'tag': tag,
-      'pregunta': '',
-      'mision': '',
-      'usuario': usuario,
-    });
   }
 
   Widget quoteWidget() {
@@ -318,6 +301,8 @@ class _BuildPageState extends State<BuildPage> {
 
   Widget tagWidget() {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final paperplaneProvider =
+        Provider.of<PaperplaneProvider>(context, listen: false);
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -364,7 +349,13 @@ class _BuildPageState extends State<BuildPage> {
                     currentFocus.unfocus();
                   }
                   setState(() {
-                    _buildPaperplane(authProvider.user.nombre);
+                    paperplaneProvider.buildPaperplane(
+                        _quoteController.text,
+                        _saintController.text,
+                        _reflexionController.text,
+                        tag,
+                        authProvider.user.nombre!,
+                        false);
                     _quoteController.clear();
                     _saintController.clear();
                     _reflexionController.clear();

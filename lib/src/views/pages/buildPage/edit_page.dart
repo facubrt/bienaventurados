@@ -1,6 +1,7 @@
 import 'package:bienaventurados/src/constants/constants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bienaventurados/src/providers/paperplane_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EditPage extends StatefulWidget {
   final String? quote;
@@ -398,14 +399,8 @@ class _EditPageState extends State<EditPage> {
                     currentFocus.unfocus();
                   }
                   setState(() {
-                    _buildPaperplane();
-                    _deleteUserData(widget.id);
-                    _quoteController.clear();
-                    _saintController.clear();
-                    _reflexionController.clear();
-                    _tagController.clear();
-                    _questionController.clear();
-                    _missionController.clear();
+                    sendPaperplane();
+                    deleteData();
                   });
                   _pageController.nextPage(
                       duration: Duration(milliseconds: 1200),
@@ -465,25 +460,28 @@ class _EditPageState extends State<EditPage> {
     );
   }
 
-  void _buildPaperplane() {
-    final FirebaseFirestore _db = FirebaseFirestore.instance;
-    DocumentReference avioncitoRef = _db.collection(COLLECTION_APPDATA).doc();
-
-    // TODO cambiar a inglés (posiblemente requiera migracion)
-    avioncitoRef.set({
-      'frase': _quoteController.text,
-      'santo': _saintController.text,
-      'reflexion': _reflexionController.text,
-      'tag': _tagController.text,
-      'usuario': _userController.text,
-    });
+  void sendPaperplane() {
+    final paperplaneProvider =
+        Provider.of<PaperplaneProvider>(context, listen: false);
+    paperplaneProvider.buildPaperplane(
+      _quoteController.text,
+      _saintController.text,
+      _reflexionController.text,
+      _tagController.text,
+      _userController.text,
+      true,
+    );
   }
 
-  void _deleteUserData(String? id) {
-    final FirebaseFirestore _db = FirebaseFirestore.instance;
-    DocumentReference paperplaneRef =
-        _db.collection(COLLECTION_USERDATA).doc(id);
-    paperplaneRef.delete();
-    print('SE ELIMINÓ AVIONCITO $id');
+  void deleteData() {
+    final paperplaneProvider =
+        Provider.of<PaperplaneProvider>(context, listen: false);
+    paperplaneProvider.deletePplanesUsersData(widget.id);
+    _quoteController.clear();
+    _saintController.clear();
+    _reflexionController.clear();
+    _tagController.clear();
+    _questionController.clear();
+    _missionController.clear();
   }
 }

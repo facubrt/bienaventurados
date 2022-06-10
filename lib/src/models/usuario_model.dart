@@ -56,14 +56,14 @@ class Usuario with ChangeNotifier {
   void setFromFirestore(DocumentSnapshot usuarioDoc) {
     Map usuarioData = usuarioDoc.data()! as Map;
     uid = usuarioDoc.id;
-    nombre = usuarioData['nombre'];
-    correo = usuarioData['correo'];
-    ultimaConexion = usuarioData['ultimaConexion'].toString();
-    clase = usuarioData['clase'];
-    avConstruidos = usuarioData['av-construidos'] ?? 0;
-    avCompartidos = usuarioData['av-compartidos'] ?? 0;
-    actualConstancia = usuarioData['actual-constancia'] ?? 1;
-    mejorConstancia = usuarioData['mejor-constancia'] ?? 1;
+    nombre = usuarioData['username'];
+    correo = usuarioData['email'];
+    ultimaConexion = usuarioData['connection']['lastconnection'].toString();
+    clase = usuarioData['type'];
+    avConstruidos = usuarioData['stats']['pplanes-builded'] ?? 0;
+    avCompartidos = usuarioData['stats']['pplanes-shared'] ?? 0;
+    actualConstancia = usuarioData['stats']['constancy'] ?? 1;
+    mejorConstancia = usuarioData['stats']['best-constancy'] ?? 1;
     notifyListeners();
   }
 }
