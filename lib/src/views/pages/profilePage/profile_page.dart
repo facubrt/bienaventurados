@@ -97,7 +97,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 endIndent: MediaQuery.of(context).size.width * 0.08,
                 color: Theme.of(context).primaryColorDark,
               ),
-              (authProvider.user.clase == ADMINISTRADOR)
+              (authProvider.user.role == ADMINISTRADOR)
                   ? ListTile(
                       contentPadding: EdgeInsets.symmetric(
                           horizontal: MediaQuery.of(context).size.width * 0.08,
@@ -120,7 +120,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 endIndent: MediaQuery.of(context).size.width * 0.08,
                 color: Theme.of(context).primaryColorDark,
               ),
-              (authProvider.user.clase == ADMINISTRADOR)
+              (authProvider.user.role == ADMINISTRADOR)
                   ? ListTile(
                       contentPadding: EdgeInsets.symmetric(
                           horizontal: MediaQuery.of(context).size.width * 0.08,

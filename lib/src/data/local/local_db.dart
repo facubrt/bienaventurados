@@ -1,7 +1,7 @@
 import 'package:bienaventurados/src/models/avioncito_model.dart';
 import 'package:bienaventurados/src/models/coleccion_model.dart';
 import 'package:bienaventurados/src/models/logro_model.dart';
-import 'package:bienaventurados/src/models/usuario_model.dart';
+import 'package:bienaventurados/src/models/local_user_model.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -13,7 +13,7 @@ class LocalData {
   Box? logrosBox;
   Box? hoyBox;
   Box? coleccionDesbloqueadaBox;
-  Box? usuarioBox;
+  Box? userBox;
 
   Future<bool> init() async {
     var path = await getApplicationDocumentsDirectory();
@@ -28,7 +28,7 @@ class LocalData {
       Hive.registerAdapter(LogroAdapter());
     }
     if (!Hive.isAdapterRegistered(3)) {
-      Hive.registerAdapter(UsuarioAdapter());
+      Hive.registerAdapter(LocalUserAdapter());
     }
     return true;
   }
@@ -41,7 +41,7 @@ class LocalData {
         await Hive.openBox<Coleccion>('coleccionDesbloqueadaBox');
     coleccionesBox = await Hive.openBox<Coleccion>('colecciones');
     logrosBox = await Hive.openBox<Logro>('logros');
-    usuarioBox = await Hive.openBox<Usuario>('usuario');
+    userBox = await Hive.openBox<LocalUser>('user');
     //diasBox = await Hive.openBox('dias');
     return true;
   }
@@ -182,23 +182,31 @@ class LocalData {
   }
 
   // USUARIO
-  Box? getUsuario() {
-    return usuarioBox;
+  Box? getUser() {
+    return userBox;
   }
 
-  void setUsuario(Usuario usuario) {
-    Usuario _usuario = Usuario(
-      uid: usuario.uid,
-      nombre: usuario.nombre,
-      ultimaConexion: usuario.ultimaConexion,
-      correo: usuario.correo,
-      clase: usuario.clase,
-      avCompartidos: usuario.avCompartidos,
-      avConstruidos: usuario.avConstruidos,
-      actualConstancia: usuario.actualConstancia,
-      mejorConstancia: usuario.mejorConstancia,
+  void setUser(LocalUser user) {
+    LocalUser _user = LocalUser(
+      uid: user.uid,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+      type: user.type,
+      level: user.level,
+      totalXP: user.totalXP,
+      action: user.action,
+      formation: user.formation,
+      devotion: user.devotion,
+      prayer: user.prayer,
+      pplanesBuilded: user.pplanesBuilded,
+      pplanesShared: user.pplanesShared,
+      constancy: user.constancy,
+      bestConstancy: user.bestConstancy,
+      firstConnection: user.firstConnection,
+      lastConnection: user.lastConnection,
     );
-    usuarioBox!.put(0, _usuario);
+    userBox!.put(0, _user);
   }
 
   void deleteAvioncitoLocal(int index) {

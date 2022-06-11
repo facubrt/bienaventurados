@@ -12,7 +12,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 class AuthProvider with ChangeNotifier {
   final FirebaseAuth _auth;
   GoogleSignInAccount? _googleUser;
-  Usuario _user = Usuario();
+  LocalUser _user = LocalUser();
   late String _displayName;
   bool restartConstancy = false;
   bool increaseConstancy = false;
@@ -41,31 +41,31 @@ class AuthProvider with ChangeNotifier {
     await _localDB.openBox().then((result) async {
       if (result) {
         // TODO 1.4.4 - PASO 3 - SWITCH DE DATOS USUARIO LOCAL
-        // final prefs = UserPreferences();
-        // final appVersion = '1.4.4b'; //await getAppVersion();
-        // if (prefs.appVersion != appVersion) {
-        //   print('USUARIO DESDE FIREBASE');
-        //   DocumentSnapshot userSnap = await _db
-        //       .collection(COLLECTION_USERS)
-        //       .doc(_auth.currentUser!.uid)
-        //       .get();
-        //   _user.setFromFirestore(userSnap);
-        //   _localDB.setUsuario(_user);
-        // } else {
-        ///
-        usersBox = _localDB.getUsuario();
-        if (usersBox!.isEmpty) {
+        final prefs = UserPreferences();
+        final appVersion = '1.4.4b'; //await getAppVersion();
+        if (prefs.appVersion != appVersion) {
           print('USUARIO DESDE FIREBASE');
-          DocumentSnapshot userSnap =
-              await _db.collection(COLLECTION_USERS).doc(uid).get();
+          DocumentSnapshot userSnap = await _db
+              .collection(COLLECTION_USERS)
+              .doc(_auth.currentUser!.uid)
+              .get();
           _user.setFromFirestore(userSnap);
-          _localDB.setUsuario(_user);
+          _localDB.setUser(_user);
         } else {
-          print('USUARIO DESDE LOCAL');
-          _user = usersBox!.getAt(0);
+          ///
+          usersBox = _localDB.getUser();
+          if (usersBox!.isEmpty) {
+            print('USUARIO DESDE FIREBASE');
+            DocumentSnapshot userSnap =
+                await _db.collection(COLLECTION_USERS).doc(uid).get();
+            _user.setFromFirestore(userSnap);
+            _localDB.setUser(_user);
+          } else {
+            print('USUARIO DESDE LOCAL');
+            _user = usersBox!.getAt(0);
+          }
         }
       }
-      //}
     });
 
     return true;
@@ -213,7 +213,7 @@ class AuthProvider with ChangeNotifier {
       'username': username,
     }, SetOptions(merge: true));
 
-    _user.nombre = username;
+    _user.username = username;
     currentUser!.updateDisplayName(_displayName);
     notifyListeners();
 
@@ -234,7 +234,7 @@ class AuthProvider with ChangeNotifier {
     await userRef.set({
       'email': email,
     }, SetOptions(merge: true));
-    _user.correo = email;
+    _user.email = email;
     currentUser.updateEmail(email);
     notifyListeners();
 
@@ -298,12 +298,12 @@ class AuthProvider with ChangeNotifier {
     final user = _auth.currentUser;
     DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(user!.uid);
 
-    _user.avCompartidos = _user.avCompartidos! + 1;
-    _localDB.setUsuario(_user);
+    _user.pplanesShared = _user.pplanesShared! + 1;
+    _localDB.setUser(_user);
 
     await userRef.set({
       'stats': {
-        'pplanes-shared': _user.avCompartidos,
+        'pplanes-shared': _user.pplanesShared,
       }
     }, SetOptions(merge: true));
 
@@ -314,12 +314,12 @@ class AuthProvider with ChangeNotifier {
     final user = _auth.currentUser;
     DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(user!.uid);
 
-    _user.avConstruidos = _user.avConstruidos! + 1;
-    _localDB.setUsuario(_user);
+    _user.pplanesBuilded = _user.pplanesBuilded! + 1;
+    _localDB.setUser(_user);
 
     await userRef.set({
       'stats': {
-        'pplanes-builded': _user.avConstruidos,
+        'pplanes-builded': _user.pplanesBuilded,
       }
     }, SetOptions(merge: true));
 
@@ -330,25 +330,25 @@ class AuthProvider with ChangeNotifier {
     final user = _auth.currentUser;
     DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(user!.uid);
 
-    _user.mejorConstancia = _user.mejorConstancia! + 1;
+    _user.bestConstancy = _user.bestConstancy! + 1;
 
-    if (_user.actualConstancia! > _user.mejorConstancia!) {
-      _user.mejorConstancia = _user.actualConstancia;
+    if (_user.constancy! > _user.bestConstancy!) {
+      _user.bestConstancy = _user.constancy;
       await userRef.set({
         'stats': {
-          'constancy': _user.actualConstancia,
-          'best-constancy': _user.mejorConstancia,
+          'constancy': _user.constancy,
+          'best-constancy': _user.bestConstancy,
         }
       }, SetOptions(merge: true));
     } else {
       await userRef.set({
         'stats': {
-          'best-constancy': _user.actualConstancia,
+          'best-constancy': _user.constancy,
         }
       }, SetOptions(merge: true));
     }
     increaseConstancy = false;
-    _localDB.setUsuario(_user);
+    _localDB.setUser(_user);
 
     notifyListeners();
   }
@@ -357,12 +357,12 @@ class AuthProvider with ChangeNotifier {
     final user = _auth.currentUser;
     DocumentReference userRef = _db.collection(COLLECTION_USERS).doc(user!.uid);
 
-    _user.actualConstancia = 1;
-    _localDB.setUsuario(_user);
+    _user.constancy = 1;
+    _localDB.setUser(_user);
 
     await userRef.set({
       'stats': {
-        'constancy': _user.actualConstancia,
+        'constancy': _user.constancy,
       }
     }, SetOptions(merge: true));
     restartConstancy = false;
@@ -450,6 +450,6 @@ class AuthProvider with ChangeNotifier {
 
   bool? get isLoggedIn => _isLoggedIn;
 
-  Usuario get user => _user;
+  LocalUser get user => _user;
   GoogleSignInAccount? get googleUser => _googleUser;
 }

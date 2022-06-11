@@ -354,7 +354,7 @@ class _BuildPageState extends State<BuildPage> {
                         _saintController.text,
                         _reflexionController.text,
                         tag,
-                        authProvider.user.nombre!,
+                        authProvider.user.username!,
                         false);
                     _quoteController.clear();
                     _saintController.clear();

@@ -39,7 +39,7 @@ class StatsWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              authProvider.user.avCompartidos
+                              authProvider.user.pplanesShared
                                   .toString()
                                   .padLeft(2, '0'),
                               style: Theme.of(context)
@@ -86,7 +86,7 @@ class StatsWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              authProvider.user.avConstruidos
+                              authProvider.user.pplanesBuilded
                                   .toString()
                                   .padLeft(2, '0'),
                               style: Theme.of(context)
@@ -133,7 +133,7 @@ class StatsWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              authProvider.user.actualConstancia
+                              authProvider.user.constancy
                                   .toString()
                                   .padLeft(2, '0'),
                               style: Theme.of(context)
@@ -180,7 +180,7 @@ class StatsWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              authProvider.user.mejorConstancia
+                              authProvider.user.bestConstancy
                                   .toString()
                                   .padLeft(2, '0'),
                               style: Theme.of(context)

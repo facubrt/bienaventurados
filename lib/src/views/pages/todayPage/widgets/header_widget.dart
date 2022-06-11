@@ -28,7 +28,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                 ),
           ),
           Text(
-            '${authProvider.user.nombre ?? ''}',
+            '${authProvider.user.username ?? ''}',
             style: Theme.of(context).textTheme.headline1!.copyWith(
                   fontSize: MediaQuery.of(context).size.width * SCALE_H2,
                 ),

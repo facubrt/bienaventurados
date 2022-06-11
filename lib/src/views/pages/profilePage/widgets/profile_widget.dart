@@ -26,7 +26,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   Widget build(BuildContext context) {
     final prefs = UserPreferences();
     final authProvider = Provider.of<AuthProvider>(context);
-    name = authProvider.user.nombre;
+    name = authProvider.user.username;
     // final authProvider = Provider.of<AuthProvider>(context);
     _imgProfile = prefs.imgProfile;
     return Padding(

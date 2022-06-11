@@ -497,7 +497,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
               ListTile(
                 onTap: () {
                   paperplaneProvider.reportPaperplane(
-                      widget.paperplane.id!, authProvider.user.nombre!);
+                      widget.paperplane.id!, authProvider.user.username!);
                   Navigator.of(context).pop();
                 },
                 leading: Icon(Iconsax.message_text,
