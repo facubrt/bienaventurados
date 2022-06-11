@@ -65,6 +65,7 @@ class _BienaventuradosState extends State<Bienaventurados> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
       title: TITLE_APP,
       debugShowCheckedModeBanner: false,

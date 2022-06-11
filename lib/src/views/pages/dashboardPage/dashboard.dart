@@ -2,7 +2,6 @@ import 'package:bienaventurados/src/data/local/drawer_items.dart';
 import 'package:bienaventurados/src/models/models.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/constants/constants.dart';
-import 'package:bienaventurados/src/utils/utilities.dart';
 import 'package:bienaventurados/src/views/pages/configPage/config_page.dart';
 import 'package:bienaventurados/src/views/pages/buildPage/build_page.dart';
 import 'package:bienaventurados/src/views/pages/todayPage/today_page.dart';
@@ -43,12 +42,12 @@ class _DashboardPageState extends State<DashboardPage> {
         Provider.of<CollectionProvider>(context, listen: false);
     final achievementProvider =
         Provider.of<AchievementProvider>(context, listen: false);
-    appVersion = await getAppVersion();
+    appVersion = '1.4.4B'; //await getAppVersion();
     conection = DateTime.now().day.toInt();
     lastConection = prefs.lastConnection;
     print('ESTAS USANDO LA VERSION ${prefs.appVersion}');
     if (prefs.appVersion != appVersion) {
-      //1.4.4 - PASO 1 - MIGRATE PAPERPLANES
+      //TODO 1.4.4 - PASO 1 - MIGRATE PAPERPLANES
       // paperplaneProvider.migratePaperplanesDB().then((result) {
       //   if (result) {
       //     print('AVIONCITOS TRANFERIDOS');
@@ -57,7 +56,7 @@ class _DashboardPageState extends State<DashboardPage> {
       //   }
       // });
 
-      //1.4.4 - PASO 2 - MIGRATE USERS
+      //TODO 1.4.4 - PASO 2 - MIGRATE USERS
       // print('INICIANDO MIGRACION DE USUARIOS');
       // authProvider.migrateUsersDB().then((result) {
       //   if (result) {
@@ -77,10 +76,10 @@ class _DashboardPageState extends State<DashboardPage> {
       //   }
       // });
 
-      prefs.appVersion = appVersion;
+      //prefs.appVersion = appVersion;
     }
     if (lastConection != null) {
-      if (conection != lastConection) {
+      if (conection == lastConection) {
         print('MISMO DIA');
         //_coleccionDesbloqueada = prefs.coleccionDesbloqueada;
         await paperplaneProvider.isToday();

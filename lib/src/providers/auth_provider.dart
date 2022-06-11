@@ -1,6 +1,7 @@
 import 'package:bienaventurados/src/data/local/local_db.dart';
 import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/models/models.dart';
+import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,8 +40,20 @@ class AuthProvider with ChangeNotifier {
   Future<bool> getUserData(String uid) async {
     await _localDB.openBox().then((result) async {
       if (result) {
+        // TODO 1.4.4 - PASO 3 - SWITCH DE DATOS USUARIO LOCAL
+        // final prefs = UserPreferences();
+        // final appVersion = '1.4.4b'; //await getAppVersion();
+        // if (prefs.appVersion != appVersion) {
+        //   print('USUARIO DESDE FIREBASE');
+        //   DocumentSnapshot userSnap = await _db
+        //       .collection(COLLECTION_USERS)
+        //       .doc(_auth.currentUser!.uid)
+        //       .get();
+        //   _user.setFromFirestore(userSnap);
+        //   _localDB.setUsuario(_user);
+        // } else {
+        ///
         usersBox = _localDB.getUsuario();
-        //usersBox!.clear();
         if (usersBox!.isEmpty) {
           print('USUARIO DESDE FIREBASE');
           DocumentSnapshot userSnap =
@@ -52,7 +65,9 @@ class AuthProvider with ChangeNotifier {
           _user = usersBox!.getAt(0);
         }
       }
+      //}
     });
+
     return true;
   }
 
@@ -357,6 +372,7 @@ class AuthProvider with ChangeNotifier {
   // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
   // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
   // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
+
   Future<bool> migrateUsersDB() async {
     bool retVal = false;
     await _db.collection('usuarios').get().then((QuerySnapshot snapshot) async {

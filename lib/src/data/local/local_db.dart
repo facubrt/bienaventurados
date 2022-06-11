@@ -37,7 +37,8 @@ class LocalData {
     avioncitosBox = await Hive.openBox<Avioncito>('avioncitos');
     guardadosBox = await Hive.openBox<Avioncito>('guardados');
     hoyBox = await Hive.openBox<Avioncito>('hoy');
-    coleccionDesbloqueadaBox = await Hive.openBox<Coleccion>('coleccionDesbloqueadaBox');
+    coleccionDesbloqueadaBox =
+        await Hive.openBox<Coleccion>('coleccionDesbloqueadaBox');
     coleccionesBox = await Hive.openBox<Coleccion>('colecciones');
     logrosBox = await Hive.openBox<Logro>('logros');
     usuarioBox = await Hive.openBox<Usuario>('usuario');
@@ -227,6 +228,12 @@ class LocalData {
 
   void avioncitoVisto(int index, Avioncito avioncito) {
     // marcar avioncito visto para que no vuelva a utilizarse
+  }
+
+  Future<void> deleteAndMigrate() async {
+    Hive.deleteBoxFromDisk('avioncitosBox');
+    Hive.deleteBoxFromDisk('usuarioBox');
+    print('DATOS AVIONCITOS Y USUARIO ELIMINADOS');
   }
 
   Future<void> deleteData() async {
