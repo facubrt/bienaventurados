@@ -78,6 +78,21 @@ class Paperplane extends HiveObject with ChangeNotifier {
     );
   }
 
+  // MIGRACION 1.4.4 MODELO VIEJO A MODELO NUEVO - AVIONCITOS
+  factory Paperplane.fromFirestoreOldModel(DocumentSnapshot paperplaneDoc) {
+    Map paperplaneData = paperplaneDoc.data()! as Map;
+    return Paperplane(
+      id: paperplaneDoc.id,
+      date: DateTime.now(),
+      quote: paperplaneData['frase'],
+      source: paperplaneData['santo'],
+      inspiration: paperplaneData['reflexion'],
+      category: paperplaneData['tag'],
+      user: paperplaneData['usuario'],
+      saved: false,
+    );
+  }
+
   void setFromFirestore(DocumentSnapshot paperplaneDoc) {
     Map paperplaneData = paperplaneDoc.data()! as Map;
     id = paperplaneDoc.id;

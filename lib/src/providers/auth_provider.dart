@@ -40,18 +40,20 @@ class AuthProvider with ChangeNotifier {
   Future<bool> getUserData(String uid) async {
     await _localDB.openBox().then((result) async {
       if (result) {
-        // TODO 1.4.4 - PASO 3 - SWITCH DE DATOS USUARIO LOCAL
-        // TODO CERRAR COMANDO APLICANDO PREFS.APPVERSION = APPVERSION
+        /*
+        TODO 1.4.4 - PASO 3 - MIGRACION DE USUARIO LOCAL
+        */
         final prefs = UserPreferences();
-        final appVersion = '1.4.4b'; //await getAppVersion();
-        if (prefs.appVersion != appVersion) {
-          print('USUARIO DESDE FIREBASE');
+        if (!prefs.migratedUser) {
+          print('MIGRACION DE USUARIO LOCAL');
           DocumentSnapshot userSnap = await _db
               .collection(COLLECTION_USERS)
               .doc(_auth.currentUser!.uid)
               .get();
           _user.setFromFirestore(userSnap);
           _localDB.setUser(_user);
+
+          prefs.migratedUser = true;
         } else {
           ///
           usersBox = _localDB.getUser();
@@ -374,53 +376,56 @@ class AuthProvider with ChangeNotifier {
   // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
   // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
 
-  Future<bool> migrateUsersDB() async {
-    bool retVal = false;
-    await _db.collection('usuarios').get().then((QuerySnapshot snapshot) async {
-      print('${snapshot.docs.length} USUARIOS ENCONTRADOS EN FIRESTORE');
-      int _lenght = snapshot.docs.length;
-      for (var i = 0; i < _lenght; i++) {
-        migrateUser(snapshot.docs[i]);
-      }
-      retVal = true;
-    });
-    return retVal;
-  }
+  // Future<bool> migrateUsersDB() async {
+  //   bool retVal = false;
+  //   await _db.collection('usuarios').get().then((QuerySnapshot snapshot) async {
+  //     print('${snapshot.docs.length} USUARIOS ENCONTRADOS EN FIRESTORE');
+  //     int _lenght = snapshot.docs.length;
+  //     for (var i = 0; i < _lenght; i++) {
+  //       migrateUser(snapshot.docs[i]);
+  //     }
+  //     retVal = true;
+  //   });
+  //   return retVal;
+  // }
 
-  void migrateUser(DocumentSnapshot usuarioDoc) {
-    Map usuarioData = usuarioDoc.data()! as Map;
-    final FirebaseFirestore _db = FirebaseFirestore.instance;
-    DocumentReference userRef = _db.collection('users').doc(usuarioDoc.id);
+  // void migrateUser(DocumentSnapshot usuarioDoc) {
+  //   Map usuarioData = usuarioDoc.data()! as Map;
+  //   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  //   DocumentReference userRef = _db.collection('users').doc(usuarioDoc.id);
 
-    userRef.set({
-      'uid': usuarioDoc.id,
-      'username': usuarioData['nombre'],
-      'email': usuarioData['correo'],
-      'role': usuarioData['clase'],
-      'type': 'bienaventurado',
-      'connection': {
-        'firstConnection': usuarioData['primeraConexion'],
-        'lastConnection': usuarioData['ultimaConexion'],
-      },
-      'level': 1,
-      'stats': {
-        'total-xp': 0,
-        'action': 0,
-        'formation': 0,
-        'devotion': 0,
-        'prayer': 0,
-        'pplanes-builded': usuarioData['av-construidos'] ?? 0,
-        'pplanes-shared': usuarioData['av-compartidos'] ?? 0,
-        'constancy': usuarioData['actual-constancia'] ?? 1,
-        'best-constancy': usuarioData['mejor-constancia'] ?? 1,
-      },
-    }, SetOptions(merge: true));
-  }
+  //   userRef.set({
+  //     'uid': usuarioDoc.id,
+  //     'username': usuarioData['nombre'],
+  //     'email': usuarioData['correo'],
+  //     'role': usuarioData['clase'],
+  //     'type': 'bienaventurado',
+  //     'connection': {
+  //       'firstConnection': usuarioData['primeraConexion'],
+  //       'lastConnection': usuarioData['ultimaConexion'],
+  //     },
+  //     'level': 1,
+  //     'stats': {
+  //       'total-xp': 0,
+  //       'action': 0,
+  //       'formation': 0,
+  //       'devotion': 0,
+  //       'prayer': 0,
+  //       'pplanes-builded': usuarioData['av-construidos'] ?? 0,
+  //       'pplanes-shared': usuarioData['av-compartidos'] ?? 0,
+  //       'constancy': usuarioData['actual-constancia'] ?? 1,
+  //       'best-constancy': usuarioData['mejor-constancia'] ?? 1,
+  //     },
+  //   }, SetOptions(merge: true));
+  // }
 
   ////////////////////////////////////////
   ////////////////////////////////////////
   ////////////////////////////////////////
 
+  /*
+    TODO 1.4.5 - PASO 1 - CARGA DE COLECCIONES FIRESTORE
+  */
   Future<bool> updateCollectionData(String collectible, bool condition) async {
     final auth = FirebaseAuth.instance;
     final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -435,6 +440,9 @@ class AuthProvider with ChangeNotifier {
     return true;
   }
 
+  /*
+    TODO 1.4.5 - PASO 1 - CARGA DE INSIGNIAS FIRESTORE
+  */
   Future<bool> updateAchievementData(String achievement, bool condition) async {
     final auth = FirebaseAuth.instance;
     final FirebaseFirestore _db = FirebaseFirestore.instance;

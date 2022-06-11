@@ -151,30 +151,30 @@ class _PaperplanePageState extends State<PaperplanePage> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(BORDER_RADIUS - 5),
                 child: Image.asset(
-                  'assets/images/paperplanes/background/${paperplaneProvider.paperplane!.background}.png',
+                  'assets/images/paperplanes/background/${widget.paperplane.background}.png',
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
                 ),
               ),
               Image.asset(
-                'assets/images/paperplanes/pattern/${paperplaneProvider.paperplane!.pattern}.png',
+                'assets/images/paperplanes/pattern/${widget.paperplane.pattern}.png',
                 height: MediaQuery.of(context).size.height * 0.4,
               ),
               Image.asset(
-                'assets/images/paperplanes/base/${paperplaneProvider.paperplane!.base}.png',
+                'assets/images/paperplanes/base/${widget.paperplane.base}.png',
                 height: MediaQuery.of(context).size.height * 0.4,
               ),
               Image.asset(
-                'assets/images/paperplanes/wings/${paperplaneProvider.paperplane!.wings}.png',
+                'assets/images/paperplanes/wings/${widget.paperplane.wings}.png',
                 height: MediaQuery.of(context).size.height * 0.4,
               ),
               Image.asset(
-                'assets/images/paperplanes/stamp/${paperplaneProvider.paperplane!.stamp}.png',
+                'assets/images/paperplanes/stamp/${widget.paperplane.stamp}.png',
                 height: MediaQuery.of(context).size.height * 0.4,
               ),
               Image.asset(
-                'assets/images/paperplanes/detail/${paperplaneProvider.paperplane!.detail}.png',
+                'assets/images/paperplanes/detail/${widget.paperplane.detail}.png',
                 height: MediaQuery.of(context).size.height * 0.4,
               ),
               Positioned(
@@ -198,7 +198,17 @@ class _PaperplanePageState extends State<PaperplanePage> {
                       ),
                       color: Theme.of(context).primaryColor),
                 ),
-              )
+              ),
+              authProvider.user.role == 'administrador'
+                  ? Positioned(
+                      bottom: MediaQuery.of(context).size.width * 0.12,
+                      child: Text(
+                        widget.paperplane.id!,
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                              color: ColorPalette.primaryLight,
+                            ),
+                      ))
+                  : SizedBox.shrink(),
             ],
           ),
         ),
@@ -259,7 +269,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
                               }
                               //Navigator.of(context).pop();
                             },
-                            icon: paperplaneProvider.paperplane!.saved!
+                            icon: widget.paperplane.saved!
                                 ? Icon(Iconsax.heart5,
                                     size: MediaQuery.of(context).size.width *
                                         0.064,

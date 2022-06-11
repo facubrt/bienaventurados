@@ -18,7 +18,9 @@ class CollectionProvider with ChangeNotifier {
   final prefs = UserPreferences();
 
   Future<void> getAllCollections() async {
-    // TODO ACA DEBERIA RECIBIRSE EL ARRAY DE COLECCIONES EN LA NUBE Y COMPROBAR. SI LA COLECCION ESTABA DESBLOQUEADA, SETEARLA COMO DESBLOQUEADA
+    /*
+    TODO 1.4.5 - PASO 6 - CARGA DE COLECCIONES DESDE FIRESTORE
+    */
     await _localDB.openBox().then((result) async {
       if (result) {
         print('longitud de Colecciones ${Collections.allCollections.length}');
@@ -39,6 +41,9 @@ class CollectionProvider with ChangeNotifier {
     return result;
   }
 
+  /*
+    TODO 1.4.5 - PASO 4 - ACTUALIZACION DE COLECCIONES FIRESTORE
+  */
   Future<void> collectionsCheck() async {
     _day = DateTime.now().day;
     _month = DateTime.now().month;

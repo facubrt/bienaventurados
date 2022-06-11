@@ -3,16 +3,16 @@ import 'package:bienaventurados/src/models/coleccion_model.dart';
 class Collections {
   static final allCollections = [
     //COLECCION DE PRUEBA
-    Coleccion(
-      id: 0,
-      dia: DateTime.now().day,
-      mes: DateTime.now().month,
-      titulo: 'Coleccion de PRUEBA',
-      img: 'assets/images/colecciones/solemnidad-01.png',
-      tipo: 'Fiesta',
-      descripcion: 'descripcion',
-      desbloqueado: false,
-    ),
+    // Coleccion(
+    //   id: 0,
+    //   dia: DateTime.now().day,
+    //   mes: DateTime.now().month,
+    //   titulo: 'Coleccion de PRUEBA',
+    //   img: 'assets/images/colecciones/solemnidad-01.png',
+    //   tipo: 'Fiesta',
+    //   descripcion: 'descripcion',
+    //   desbloqueado: false,
+    // ),
 
     Coleccion(
       id: 1,

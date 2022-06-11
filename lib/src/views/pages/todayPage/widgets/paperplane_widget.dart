@@ -33,7 +33,7 @@ class PaperplaneWidget extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(16),
                       child: Image.asset(
-                        'assets/images/paperplanes/background/${paperplaneProvider.paperplane!.background}.png',
+                        'assets/images/paperplanes/background/${paperplaneProvider.background}.png',
                         height: MediaQuery.of(context).size.height *
                             DIMENSION_PAPERPLANE,
                         fit: BoxFit.cover,

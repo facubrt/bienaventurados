@@ -165,8 +165,8 @@ class _SavedPageState extends State<SavedPage> {
                 onPressed: () {
                   paperplaneProvider.dontSavePaperplane(savedPaperplane);
                 },
-                icon: Icon(Iconsax.archive_slash,
-                    size: MediaQuery.of(context).size.width * 0.06,
+                icon: Icon(Iconsax.heart5,
+                    size: MediaQuery.of(context).size.width * 0.064,
                     color: Theme.of(context).primaryColorDark),
               ),
             ],

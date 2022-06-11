@@ -2,6 +2,7 @@ import 'package:bienaventurados/src/data/local/drawer_items.dart';
 import 'package:bienaventurados/src/models/models.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/constants/constants.dart';
+import 'package:bienaventurados/src/utils/utilities.dart';
 import 'package:bienaventurados/src/views/pages/configPage/config_page.dart';
 import 'package:bienaventurados/src/views/pages/buildPage/build_page.dart';
 import 'package:bienaventurados/src/views/pages/todayPage/today_page.dart';
@@ -23,8 +24,8 @@ class _DashboardPageState extends State<DashboardPage> {
   bool isDragging = false;
   final prefs = UserPreferences();
   DrawerItemModel page = DrawerItems.todayPage;
-  int? conection;
-  int? lastConection;
+  int? connection;
+  int? lastConnection;
   String? appVersion;
   //bool _coleccionDesbloqueada = false;
 
@@ -42,47 +43,55 @@ class _DashboardPageState extends State<DashboardPage> {
         Provider.of<CollectionProvider>(context, listen: false);
     final achievementProvider =
         Provider.of<AchievementProvider>(context, listen: false);
-    appVersion = '1.4.4B'; //await getAppVersion();
-    conection = DateTime.now().day.toInt();
-    lastConection = prefs.lastConnection;
-    print('ESTAS USANDO LA VERSION ${prefs.appVersion}');
-    if (prefs.appVersion != appVersion) {
-      //TODO 1.4.4 - PASO 1 - MIGRATE PAPERPLANES
-      // paperplaneProvider.migratePaperplanesDB().then((result) {
-      //   if (result) {
-      //     print('AVIONCITOS TRANFERIDOS');
-      //   } else {
-      //     print('NO SE TRANSFIRIERON LOS AVIONCITOS');
-      //   }
-      // });
+    appVersion = await getAppVersion();
+    connection = DateTime.now().day.toInt();
+    lastConnection = prefs.lastConnection;
 
-      //TODO 1.4.4 - PASO 2 - MIGRATE USERS
-      // print('INICIANDO MIGRACION DE USUARIOS');
-      // authProvider.migrateUsersDB().then((result) {
-      //   if (result) {
-      //     print('USUARIOS MIGRADOS CORRECTAMENTE');
-      //   } else {
-      //     print('ERROR');
-      //   }
-      // });
+    if (lastConnection != null) {
+      print('ESTAS USANDO LA VERSION ${prefs.appVersion}');
+      if (!prefs.migratedPaperplane) {
+        /*
+        TODO 1.4.4 FINALIZADO - PASO 1 - MIGRACION DE AVIONCITOS FIRESTORE
+        */
+        // paperplaneProvider.migratePaperplanesDB().then((result) {
+        //   if (result) {
+        //     print('AVIONCITOS TRANFERIDOS');
+        //   } else {
+        //     print('NO SE TRANSFIRIERON LOS AVIONCITOS');
+        //   }
+        // });
 
-      //TODO 1.4.4 - PASO 4 - MIGRAR AVIONCITOS LOCALES A NUEVA BASE DE DATOS
-      await paperplaneProvider.firstTime();
+        /*
+        TODO 1.4.4 FINALIZADO - PASO 2 - MIGRACION DE USUARIOS FIRESTORE
+        */
+        // print('INICIANDO MIGRACION DE USUARIOS');
+        // authProvider.migrateUsersDB().then((result) {
+        //   if (result) {
+        //     print('USUARIOS MIGRADOS CORRECTAMENTE');
+        //   } else {
+        //     print('ERROR');
+        //   }
+        // });
 
-      //CUANDO SE DESBLOQUEA UN LOGRO O COLECCIONALBE
-      //UPDATE COLLECTION
-      // authProvider.updateCollectionData('saint-joseph', true).then((result) {
-      //   if (result) {
-      //     print('DATOS DE COLECCION ACTUALIZADOS');
-      //   } else {
-      //     print('ERROR');
-      //   }
-      // });
+        /* 
+        TODO 1.4.4 - PASO 4 - MIGRACION DE AVIONCITOS LOCAL
+        */
+        print('MIGRACION DE AVIONCITOS LOCAL');
+        await paperplaneProvider.firstTime();
 
-      //prefs.appVersion = appVersion;
-    }
-    if (lastConection != null) {
-      if (conection == lastConection) {
+        //CUANDO SE DESBLOQUEA UN LOGRO O COLECCIONALBE
+        //UPDATE COLLECTION
+        // authProvider.updateCollectionData('saint-joseph', true).then((result) {
+        //   if (result) {
+        //     print('DATOS DE COLECCION ACTUALIZADOS');
+        //   } else {
+        //     print('ERROR');
+        //   }
+        // });
+
+        prefs.migratedPaperplane = true;
+      }
+      if (connection == lastConnection) {
         print('MISMO DIA');
         //_coleccionDesbloqueada = prefs.coleccionDesbloqueada;
         await paperplaneProvider.isToday();
@@ -96,10 +105,10 @@ class _DashboardPageState extends State<DashboardPage> {
         print('NUEVO DIA');
         //authProvider.updateUserData();
         //infoProvider.actualizarInformacionApp('restaurar');
-        final lastDay =
-            DateTime(DateTime.now().year, DateTime.now().month, lastConection!);
+        final lastDay = DateTime(
+            DateTime.now().year, DateTime.now().month, lastConnection!);
         final newDay =
-            DateTime(DateTime.now().year, DateTime.now().month, conection!);
+            DateTime(DateTime.now().year, DateTime.now().month, connection!);
         if (lastDay.month == newDay.month ||
             lastDay.month + 1 == newDay.month) {
           if (lastDay.day + 1 == newDay.day || 1 == newDay.day) {
@@ -113,7 +122,7 @@ class _DashboardPageState extends State<DashboardPage> {
             authProvider.restartConstancy = true;
           }
         }
-        prefs.lastConnection = conection;
+        prefs.lastConnection = connection;
         await paperplaneProvider.isNewDay();
         collectionProvider.openCollectionsBox();
         achievementProvider.openAchievements();
@@ -121,7 +130,7 @@ class _DashboardPageState extends State<DashboardPage> {
       }
     } else {
       print('PRIMERA VEZ');
-      prefs.lastConnection = conection;
+      prefs.lastConnection = connection;
       await paperplaneProvider.firstTime();
       collectionProvider.getAllCollections();
       achievementProvider.initAchievements();

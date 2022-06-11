@@ -61,6 +61,24 @@ class UserPreferences {
     _prefs.setString('versionApp', appVersion!);
   }
 
+  // GET y SET migratedPaperplane
+  bool get migratedPaperplane {
+    return _prefs.getBool('migratedPaperplane') ?? false;
+  }
+
+  set migratedPaperplane(bool migratedPaperplane) {
+    _prefs.setBool('migratedPaperplane', migratedPaperplane);
+  }
+
+  // GET y SET migratedUser
+  bool get migratedUser {
+    return _prefs.getBool('migratedUser') ?? false;
+  }
+
+  set migratedUser(bool migratedPaperplane) {
+    _prefs.setBool('migratedUser', migratedPaperplane);
+  }
+
   // GET y SET imagenPerfil
   int get imgProfile {
     return _prefs.getInt('imagenPerfil') ?? 0;

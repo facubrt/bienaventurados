@@ -13,12 +13,15 @@ class AchievementProvider with ChangeNotifier {
   final LocalData _localDB = LocalData();
 
   Future<void> initAchievements() async {
-    // TODO ACA DEBERIA RECIBIRSE EL ARRAY DE INSIGNIAS EN LA NUBE Y COMPROBAR. SI LA INSIGNIA ESTABA DESBLOQUEADA, SETEARLA COMO DESBLOQUEADA
-    // TAMBIEN SETEAR N = MAXIMO SI YA ESTA DESBLOQUEADO
+    /*
+    TODO 1.4.5 - PASO 5 - CARGA DE INSIGNIAS DESDE FIRESTORE
+    */
+
     await _localDB.openBox().then((isOpenBox) async {
       if (isOpenBox) {
         for (var i = 0; i < Achievements.allAchievements.length; i++) {
           _localDB.setLogro(Achievements.allAchievements[i], false);
+          // TAMBIEN SETEAR N = MAXIMO SI YA ESTA DESBLOQUEADO
         }
       }
     });
@@ -30,6 +33,9 @@ class AchievementProvider with ChangeNotifier {
     return true;
   }
 
+  /*
+    TODO 1.4.5 - PASO 3 - ACTUALIZACION DE INSIGNIAS FIRESTORE
+  */
   Future<void> achievementsCheck(String title) async {
     await _localDB.openBox().then((isOpenBox) async {
       if (isOpenBox) {
