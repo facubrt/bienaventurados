@@ -1,4 +1,4 @@
-import 'package:bienaventurados/src/models/avioncito_model.dart';
+import 'package:bienaventurados/src/models/paperplane_model.dart';
 import 'package:bienaventurados/src/models/coleccion_model.dart';
 import 'package:bienaventurados/src/models/logro_model.dart';
 import 'package:bienaventurados/src/models/local_user_model.dart';
@@ -7,11 +7,11 @@ import 'package:path_provider/path_provider.dart';
 
 class LocalData {
   var initialized = false;
-  Box? avioncitosBox;
-  Box? guardadosBox;
+  Box? paperplanesBox;
+  Box? savedBox;
   Box? coleccionesBox;
   Box? logrosBox;
-  Box? hoyBox;
+  Box? todayBox;
   Box? coleccionDesbloqueadaBox;
   Box? userBox;
 
@@ -19,7 +19,7 @@ class LocalData {
     var path = await getApplicationDocumentsDirectory();
     Hive.init(path.path);
     if (!Hive.isAdapterRegistered(0)) {
-      Hive.registerAdapter(AvioncitoAdapter());
+      Hive.registerAdapter(PaperplaneAdapter());
     }
     if (!Hive.isAdapterRegistered(1)) {
       Hive.registerAdapter(ColeccionAdapter());
@@ -34,9 +34,9 @@ class LocalData {
   }
 
   Future<bool> openBox() async {
-    avioncitosBox = await Hive.openBox<Avioncito>('avioncitos');
-    guardadosBox = await Hive.openBox<Avioncito>('guardados');
-    hoyBox = await Hive.openBox<Avioncito>('hoy');
+    paperplanesBox = await Hive.openBox<Paperplane>('paperplanes');
+    savedBox = await Hive.openBox<Paperplane>('saved');
+    todayBox = await Hive.openBox<Paperplane>('today');
     coleccionDesbloqueadaBox =
         await Hive.openBox<Coleccion>('coleccionDesbloqueadaBox');
     coleccionesBox = await Hive.openBox<Coleccion>('colecciones');
@@ -46,37 +46,41 @@ class LocalData {
     return true;
   }
 
-  Box? getAvioncitos() {
-    return avioncitosBox;
+  Box? getPaperplanes() {
+    return paperplanesBox;
   }
 
-  Avioncito getAvioncitoHoy() {
-    return avioncitosBox!.getAt(avioncitosBox!.length - 1);
+  Paperplane getTodayPaperplane() {
+    return paperplanesBox!.getAt(paperplanesBox!.length - 1);
   }
 
-  void deleteAvioncitoHoy() {
-    avioncitosBox!.deleteAt(avioncitosBox!.length - 1);
+  void deleteTodayPaperplane() {
+    paperplanesBox!.deleteAt(paperplanesBox!.length - 1);
   }
 
   Box? getHoy() {
-    return hoyBox;
+    return todayBox;
   }
 
-  void setAvioncitoHoy(Avioncito avioncito) {
-    Avioncito _avioncito = Avioncito(
-      id: avioncito.id,
-      fecha: avioncito.fecha,
-      frase: avioncito.frase,
-      santo: avioncito.santo,
-      reflexion: avioncito.reflexion,
-      tag: avioncito.tag,
-      pregunta: avioncito.pregunta,
-      mision: avioncito.mision,
-      usuario: avioncito.usuario,
-      guardado: avioncito.guardado,
-      visto: avioncito.visto,
+  void setTodayPaperplane(Paperplane paperplane) {
+    Paperplane _paperplane = Paperplane(
+      id: paperplane.id,
+      date: paperplane.date,
+      quote: paperplane.quote,
+      source: paperplane.source,
+      inspiration: paperplane.inspiration,
+      category: paperplane.category,
+      user: paperplane.user,
+      likes: paperplane.likes,
+      saved: paperplane.saved,
+      background: paperplane.background,
+      base: paperplane.base,
+      detail: paperplane.detail,
+      pattern: paperplane.pattern,
+      stamp: paperplane.stamp,
+      wings: paperplane.wings,
     );
-    hoyBox!.put(0, _avioncito);
+    todayBox!.put(0, _paperplane);
   }
 
   void setColeccionDesbloqueada(Coleccion coleccion) {
@@ -97,48 +101,52 @@ class LocalData {
     return coleccionDesbloqueadaBox;
   }
 
-  void actualizarAvioncito(int index, Avioncito avioncito) {
-    avioncitosBox!.putAt(index, avioncito);
+  void updatePaperplane(int index, Paperplane paperplane) {
+    paperplanesBox!.putAt(index, paperplane);
   }
 
-  void guardarAvioncito(bool guardado) {
-    Avioncito av = hoyBox!.get(0);
-    av.guardado = guardado;
-    hoyBox!.putAt(0, av);
+  void savePaperplane(bool isSaved) {
+    Paperplane paperplane = todayBox!.get(0);
+    paperplane.saved = isSaved;
+    todayBox!.putAt(0, paperplane);
   }
 
-  void setAvioncito(Avioncito avioncito) {
-    avioncitosBox!.put(0, avioncito);
+  void setPaperplane(Paperplane paperplane) {
+    paperplanesBox!.put(0, paperplane);
   }
 
-  void deleteAvioncito(int index) {
-    avioncitosBox!.deleteAt(index);
+  void deletePaperplane(int index) {
+    paperplanesBox!.deleteAt(index);
   }
 
-  Box? getGuardados() {
-    return guardadosBox;
+  Box? getSavedPaperplanes() {
+    return savedBox;
   }
 
-  void setGuardados(String? id, Avioncito avioncito) {
+  void setSavedPaperplanes(String? id, Paperplane paperplane) {
     //guardadosBox!.putAt(index, avioncitoGuardado);
-    Avioncito _avioncito = Avioncito(
-      id: avioncito.id,
-      fecha: avioncito.fecha,
-      frase: avioncito.frase,
-      santo: avioncito.santo,
-      reflexion: avioncito.reflexion,
-      tag: avioncito.tag,
-      pregunta: avioncito.pregunta,
-      mision: avioncito.mision,
-      usuario: avioncito.usuario,
-      guardado: avioncito.guardado,
-      visto: avioncito.visto,
+    Paperplane _paperplane = Paperplane(
+      id: paperplane.id,
+      date: paperplane.date,
+      quote: paperplane.quote,
+      source: paperplane.source,
+      inspiration: paperplane.inspiration,
+      category: paperplane.category,
+      user: paperplane.user,
+      likes: paperplane.likes,
+      saved: paperplane.saved,
+      background: paperplane.background,
+      base: paperplane.base,
+      detail: paperplane.detail,
+      pattern: paperplane.pattern,
+      stamp: paperplane.stamp,
+      wings: paperplane.wings,
     );
-    guardadosBox!.put(id, _avioncito);
+    savedBox!.put(id, _paperplane);
   }
 
   void deleteGuardado(String? id) {
-    guardadosBox!.delete(id);
+    savedBox!.delete(id);
     //guardadosBox!.deleteAt(index);
   }
 
@@ -210,7 +218,7 @@ class LocalData {
   }
 
   void deleteAvioncitoLocal(int index) {
-    avioncitosBox!.delete(index);
+    paperplanesBox!.delete(index);
   }
 
   // void actualizarDia(String key, Dia? dia) {
@@ -221,9 +229,9 @@ class LocalData {
   //   return diasBox;
   // }
 
-  void setAvioncitos(List<Avioncito> avioncitos) {
-    Iterable<Avioncito> _avioncitos = avioncitos;
-    avioncitosBox!.addAll(_avioncitos);
+  void setAvioncitos(List<Paperplane> avioncitos) {
+    Iterable<Paperplane> _paperplanes = avioncitos;
+    paperplanesBox!.addAll(_paperplanes);
   }
 
   // void setDia(String key, Dia? dia) {
@@ -234,19 +242,19 @@ class LocalData {
   //   diasBox!.addAll(mes);
   // }
 
-  void avioncitoVisto(int index, Avioncito avioncito) {
-    // marcar avioncito visto para que no vuelva a utilizarse
-  }
+  // void avioncitoVisto(int index, Avioncito avioncito) {
+  //   // marcar avioncito base para que no vuelva a utilizarse
+  // }
 
   Future<void> deleteAndMigrate() async {
-    Hive.deleteBoxFromDisk('avioncitosBox');
+    Hive.deleteBoxFromDisk('paperplanesBox');
     Hive.deleteBoxFromDisk('usuarioBox');
     print('DATOS AVIONCITOS Y USUARIO ELIMINADOS');
   }
 
   Future<void> deleteData() async {
     print('DATOS ELIMINADOS');
-    Hive.deleteBoxFromDisk('avioncitosBox');
+    Hive.deleteBoxFromDisk('paperplanesBox');
     Hive.deleteBoxFromDisk('guardadosBox');
     Hive.deleteBoxFromDisk('hoyBox');
     Hive.deleteBoxFromDisk('coleccionesBox');

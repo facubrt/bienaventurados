@@ -1,6 +1,6 @@
 import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/data/local/months_data.dart';
-import 'package:bienaventurados/src/models/avioncito_model.dart';
+import 'package:bienaventurados/src/models/paperplane_model.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:flutter/material.dart';
@@ -109,7 +109,7 @@ class _SavedPageState extends State<SavedPage> {
                     },
                     itemCount: box.values.length,
                     itemBuilder: (context, index) {
-                      Avioncito savedPaperplane = box.getAt(index);
+                      Paperplane savedPaperplane = box.getAt(index);
 
                       return InkWell(
                         onTap: () {
@@ -126,7 +126,7 @@ class _SavedPageState extends State<SavedPage> {
             )));
   }
 
-  Widget cardPaperplane(BuildContext context, Avioncito savedPaperplane) {
+  Widget cardPaperplane(BuildContext context, Paperplane savedPaperplane) {
     final paperplaneProvider = Provider.of<PaperplaneProvider>(context);
     return Padding(
       padding:
@@ -134,7 +134,7 @@ class _SavedPageState extends State<SavedPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(savedPaperplane.frase!,
+          Text(savedPaperplane.quote!,
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontSize: MediaQuery.of(context).size.width * SCALE_H3,
                   )),
@@ -142,7 +142,7 @@ class _SavedPageState extends State<SavedPage> {
             height: 10,
           ),
           Text(
-            savedPaperplane.santo!,
+            savedPaperplane.source!,
             style: Theme.of(context).textTheme.subtitle1!.copyWith(
                   fontSize: MediaQuery.of(context).size.width * SCALE_H4,
                 ),
@@ -154,7 +154,7 @@ class _SavedPageState extends State<SavedPage> {
           Row(
             children: [
               Text(
-                '${savedPaperplane.fecha!.day} de ${Months.allMonths[savedPaperplane.fecha!.month - 1].id}, ${savedPaperplane.fecha!.year}'
+                '${savedPaperplane.date!.day} de ${Months.allMonths[savedPaperplane.date!.month - 1].id}, ${savedPaperplane.date!.year}'
                     .toUpperCase(),
                 style: Theme.of(context).textTheme.bodyText2!.copyWith(
                       fontSize: MediaQuery.of(context).size.width * 0.03,

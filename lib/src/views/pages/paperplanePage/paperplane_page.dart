@@ -2,7 +2,7 @@ import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:bienaventurados/src/data/local/drawer_items.dart';
 import 'package:bienaventurados/src/data/local/months_data.dart';
-import 'package:bienaventurados/src/models/avioncito_model.dart';
+import 'package:bienaventurados/src/models/paperplane_model.dart';
 import 'package:bienaventurados/src/theme/color_palette.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
 class PaperplanePage extends StatefulWidget {
-  final Avioncito paperplane;
+  final Paperplane paperplane;
 
   const PaperplanePage({Key? key, required this.paperplane}) : super(key: key);
 
@@ -151,30 +151,30 @@ class _PaperplanePageState extends State<PaperplanePage> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(BORDER_RADIUS - 5),
                 child: Image.asset(
-                  'assets/images/paperplanes/background/${paperplaneProvider.background}.png',
+                  'assets/images/paperplanes/background/${paperplaneProvider.paperplane!.background}.png',
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
                 ),
               ),
               Image.asset(
-                'assets/images/paperplanes/pattern/${paperplaneProvider.pattern}.png',
+                'assets/images/paperplanes/pattern/${paperplaneProvider.paperplane!.pattern}.png',
                 height: MediaQuery.of(context).size.height * 0.4,
               ),
               Image.asset(
-                'assets/images/paperplanes/base/${paperplaneProvider.base}.png',
+                'assets/images/paperplanes/base/${paperplaneProvider.paperplane!.base}.png',
                 height: MediaQuery.of(context).size.height * 0.4,
               ),
               Image.asset(
-                'assets/images/paperplanes/wings/${paperplaneProvider.wings}.png',
+                'assets/images/paperplanes/wings/${paperplaneProvider.paperplane!.wings}.png',
                 height: MediaQuery.of(context).size.height * 0.4,
               ),
               Image.asset(
-                'assets/images/paperplanes/stamp/${paperplaneProvider.stamp}.png',
+                'assets/images/paperplanes/stamp/${paperplaneProvider.paperplane!.stamp}.png',
                 height: MediaQuery.of(context).size.height * 0.4,
               ),
               Image.asset(
-                'assets/images/paperplanes/detail/${paperplaneProvider.detail}.png',
+                'assets/images/paperplanes/detail/${paperplaneProvider.paperplane!.detail}.png',
                 height: MediaQuery.of(context).size.height * 0.4,
               ),
               Positioned(
@@ -213,7 +213,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
                 child: Row(
                   children: [
                     Text(
-                        '${widget.paperplane.fecha!.day} de ${Months.allMonths[widget.paperplane.fecha!.month - 1].id}, ${widget.paperplane.fecha!.year}'
+                        '${widget.paperplane.date!.day} de ${Months.allMonths[widget.paperplane.date!.month - 1].id}, ${widget.paperplane.date!.year}'
                             .toUpperCase(),
                         style: Theme.of(context).textTheme.subtitle1!.copyWith(
                               color: Theme.of(context).primaryColorDark,
@@ -233,8 +233,8 @@ class _PaperplanePageState extends State<PaperplanePage> {
                               shareProvider.takeScreenshot = true;
                               shareProvider.takeScreenshotandShare(
                                   screenshotController,
-                                  widget.paperplane.frase!,
-                                  widget.paperplane.santo!);
+                                  widget.paperplane.quote!,
+                                  widget.paperplane.source!);
                               authProvider.updatePaperplanesShared();
                             },
                             icon: Icon(Iconsax.export_1,
@@ -247,7 +247,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
                         : IconButton(
                             onPressed: () {
                               // aumentar contador de me gustas en base de datos
-                              if (!widget.paperplane.guardado!) {
+                              if (!widget.paperplane.saved!) {
                                 achievementProvider
                                     .achievementsCheck('guardados');
                                 paperplaneProvider
@@ -259,7 +259,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
                               }
                               //Navigator.of(context).pop();
                             },
-                            icon: paperplaneProvider.paperplane!.guardado!
+                            icon: paperplaneProvider.paperplane!.saved!
                                 ? Icon(Iconsax.heart5,
                                     size: MediaQuery.of(context).size.width *
                                         0.064,
@@ -301,7 +301,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
                     label: Padding(
                       padding: const EdgeInsets.only(top: 2.0),
                       child: Text(
-                        widget.paperplane.tag!.toUpperCase(),
+                        widget.paperplane.category!.toUpperCase(),
                         style: Theme.of(context).textTheme.bodyText2!.copyWith(
                               fontSize:
                                   MediaQuery.of(context).size.width * 0.03,
@@ -318,7 +318,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Text(
-                  widget.paperplane.frase!,
+                  widget.paperplane.quote!,
                   style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontSize:
                             MediaQuery.of(context).size.width * SCALE_QUOTES,
@@ -331,7 +331,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: Text(
-                      widget.paperplane.santo!,
+                      widget.paperplane.source!,
                       style: Theme.of(context).textTheme.headline4!.copyWith(
                             fontSize:
                                 MediaQuery.of(context).size.width * SCALE_H4,
@@ -373,7 +373,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              widget.paperplane.reflexion!,
+                              widget.paperplane.inspiration!,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!
@@ -386,7 +386,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
                             Divider(
                               height: 40,
                             ),
-                            Text('Construido por ${widget.paperplane.usuario}',
+                            Text('Construido por ${widget.paperplane.user}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1!
@@ -440,7 +440,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
               ),
               // ListTile(
               //   onTap: () {
-              //     if (!widget.paperplane.guardado!) {
+              //     if (!widget.paperplane.saved!) {
               //       achievementProvider.achievementsCheck('guardados');
               //       paperplaneProvider.savePaperplane(widget.paperplane);
               //     } else {
@@ -449,7 +449,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
               //     }
               //     Navigator.of(context).pop();
               //   },
-              //   leading: paperplaneProvider.paperplane!.guardado!
+              //   leading: paperplaneProvider.paperplane!.saved!
               //       ? Icon(Iconsax.archive_slash,
               //           size: MediaQuery.of(context).size.width * 0.06,
               //           color: paperplaneProvider.compartirAvioncito

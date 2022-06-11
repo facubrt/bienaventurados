@@ -1,10 +1,10 @@
-import 'package:bienaventurados/src/models/avioncito_model.dart';
+import 'package:bienaventurados/src/models/paperplane_model.dart';
 import 'package:bienaventurados/src/views/pages/paperplanePage/paperplane_page.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class RediscoverPage extends StatefulWidget {
-  final Avioncito paperplaneSaved;
+  final Paperplane paperplaneSaved;
 
   const RediscoverPage({
     Key? key,
@@ -16,7 +16,6 @@ class RediscoverPage extends StatefulWidget {
 }
 
 class _RediscoverPageState extends State<RediscoverPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

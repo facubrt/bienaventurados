@@ -41,6 +41,7 @@ class AuthProvider with ChangeNotifier {
     await _localDB.openBox().then((result) async {
       if (result) {
         // TODO 1.4.4 - PASO 3 - SWITCH DE DATOS USUARIO LOCAL
+        // TODO CERRAR COMANDO APLICANDO PREFS.APPVERSION = APPVERSION
         final prefs = UserPreferences();
         final appVersion = '1.4.4b'; //await getAppVersion();
         if (prefs.appVersion != appVersion) {

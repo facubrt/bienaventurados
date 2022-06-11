@@ -66,6 +66,9 @@ class _DashboardPageState extends State<DashboardPage> {
       //   }
       // });
 
+      //TODO 1.4.4 - PASO 4 - MIGRAR AVIONCITOS LOCALES A NUEVA BASE DE DATOS
+      await paperplaneProvider.firstTime();
+
       //CUANDO SE DESBLOQUEA UN LOGRO O COLECCIONALBE
       //UPDATE COLLECTION
       // authProvider.updateCollectionData('saint-joseph', true).then((result) {

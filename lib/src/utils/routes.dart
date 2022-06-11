@@ -1,4 +1,4 @@
-import 'package:bienaventurados/src/models/avioncito_model.dart';
+import 'package:bienaventurados/src/models/paperplane_model.dart';
 import 'package:bienaventurados/src/views/pages/labPage/lab_page.dart';
 import 'package:bienaventurados/src/views/pages/initialPage/bienaventurados_page.dart';
 import 'package:bienaventurados/src/views/pages/initialPage/initial_page.dart';
@@ -72,20 +72,20 @@ class Routes {
         return SlideLeftTransitionRoute(widget: GaragePage());
       case (paperplanePage):
         final args = settings.arguments;
-        Avioncito paperplane = args as Avioncito;
+        Paperplane paperplane = args as Paperplane;
         return SlideUpTransitionRoute(
             widget: PaperplanePage(paperplane: paperplane));
       case (editPage):
         final args = settings.arguments;
-        Avioncito paperplane = args as Avioncito;
+        Paperplane paperplane = args as Paperplane;
         return FadeTransitionRoute(
             widget: EditPage(
           id: paperplane.id,
-          quote: paperplane.frase,
-          saint: paperplane.santo,
-          reflexion: paperplane.reflexion,
-          tag: paperplane.tag,
-          user: paperplane.usuario,
+          quote: paperplane.quote,
+          saint: paperplane.source,
+          reflexion: paperplane.inspiration,
+          tag: paperplane.category,
+          user: paperplane.user,
         ));
       case (informationPage):
         return SlideLeftTransitionRoute(widget: InformationPage());

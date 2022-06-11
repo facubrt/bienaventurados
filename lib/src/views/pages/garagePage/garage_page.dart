@@ -1,5 +1,5 @@
 import 'package:bienaventurados/src/constants/constants.dart';
-import 'package:bienaventurados/src/models/avioncito_model.dart';
+import 'package:bienaventurados/src/models/paperplane_model.dart';
 import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -95,13 +95,13 @@ class _GaragePageState extends State<GaragePage> {
 
   Widget cardPaperplane(String id, String quote, String saint, String reflexion,
       String user, String tag) {
-    Avioncito paperplane = Avioncito(
+    Paperplane paperplane = Paperplane(
         id: id,
-        frase: quote,
-        santo: saint,
-        reflexion: reflexion,
-        tag: tag,
-        usuario: user);
+        quote: quote,
+        source: saint,
+        inspiration: reflexion,
+        category: tag,
+        user: user);
     return Container(
       child: Container(
         child: Column(

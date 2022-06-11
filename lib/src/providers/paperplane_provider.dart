@@ -1,6 +1,6 @@
 import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/data/local/local_db.dart';
-import 'package:bienaventurados/src/models/avioncito_model.dart';
+import 'package:bienaventurados/src/models/paperplane_model.dart';
 import 'package:bienaventurados/src/services/user_preferences.dart';
 import 'package:bienaventurados/src/utils/utilities.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,9 +10,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 // import 'package:webfeed/webfeed.dart';
 
 class PaperplaneProvider with ChangeNotifier {
-  late Avioncito _paperplane;
-  List<Avioncito> _paperplanesSaved = [];
-  List<Avioncito> _paperplanes = [];
+  late Paperplane _paperplane;
+  List<Paperplane> _paperplanesSaved = [];
+  List<Paperplane> _paperplanes = [];
   bool _isPaperplane = false;
   bool _newDay = false;
   late int nPaperplane;
@@ -38,6 +38,24 @@ class PaperplaneProvider with ChangeNotifier {
     await _localDB.openBox().then((isOpenBox) async {
       if (isOpenBox) {
         await getPaperplanesFromLocal().then((isPaperplanes) async {
+          if (isPaperplanes) {
+            await getPaperplaneToday().then((result) {
+              if (result) {
+                _isPaperplane = true;
+                notifyListeners();
+              }
+            });
+          }
+        });
+      }
+    });
+  }
+
+  // MIGRACION DE AVIONCITOS LOCAL 1.4.4
+  Future<void> migrateLocalPaperplanes() async {
+    await _localDB.openBox().then((isOpenBox) async {
+      if (isOpenBox) {
+        await getPaperplanesFromFirestore().then((isPaperplanes) async {
           if (isPaperplanes) {
             await getPaperplaneToday().then((result) {
               if (result) {
@@ -82,25 +100,25 @@ class PaperplaneProvider with ChangeNotifier {
   }
 
   Future<bool> getPaperplanesFromLocal() async {
-    generateUniquePaperplane();
-    paperplanesBox = _localDB.getAvioncitos();
+    //generateUniquePaperplane();
+    paperplanesBox = _localDB.getPaperplanes();
     if (paperplanesBox!.isEmpty) {
       await getPaperplanesFromFirestore().then((listo) {
         if (listo) {
           // nAvioncito = Random().nextInt(_avioncitos.length);
-          _paperplane = _localDB.getAvioncitoHoy();
-          _paperplane.fecha = DateTime.now();
-          _localDB.setAvioncitoHoy(_paperplane);
-          _localDB.deleteAvioncitoHoy();
+          _paperplane = _localDB.getTodayPaperplane();
+          _paperplane.date = DateTime.now();
+          _localDB.setTodayPaperplane(_paperplane);
+          _localDB.deleteTodayPaperplane();
           return true;
         }
       });
     } else {
-      _paperplane = _localDB.getAvioncitoHoy();
-      _paperplane.fecha = DateTime.now();
-      _paperplane.visto = true;
-      _localDB.setAvioncitoHoy(_paperplane);
-      _localDB.deleteAvioncitoHoy();
+      _paperplane = _localDB.getTodayPaperplane();
+      _paperplane.date = DateTime.now();
+      //_paperplane.visto = true;
+      _localDB.setTodayPaperplane(_paperplane);
+      _localDB.deleteTodayPaperplane();
     }
     return true;
   }
@@ -109,7 +127,9 @@ class PaperplaneProvider with ChangeNotifier {
     _paperplanes.clear();
     bool retVal = false;
     await _fireDB
-        .collection('datosApp')
+        .collection(COLLECTION_APPDATA)
+        .doc(COLLECTION_APPDATA_PPLANESDATA)
+        .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
         .get()
         .then((QuerySnapshot snapshot) async {
       print('${snapshot.docs.length} AVIONCITOS ENCONTRADOS EN FIRESTORE');
@@ -121,7 +141,7 @@ class PaperplaneProvider with ChangeNotifier {
         _lenght = _diasRestantes;
       }
       for (var i = 0; i < _lenght; i++) {
-        Avioncito av = Avioncito.fromFirestore(snapshot.docs[i]);
+        Paperplane av = Paperplane.fromFirestore(snapshot.docs[i]);
         _paperplanes.add(av);
       }
       _paperplanes.shuffle();
@@ -137,25 +157,25 @@ class PaperplaneProvider with ChangeNotifier {
   }
 
   Box getSavedFromLocal() {
-    return _localDB.guardadosBox!;
+    return _localDB.savedBox!;
   }
 
-  Future<bool> savePaperplane(Avioncito paperplane) async {
+  Future<bool> savePaperplane(Paperplane paperplane) async {
     if (paperplane.id == _paperplane.id) {
-      _localDB.guardarAvioncito(true);
+      _localDB.savePaperplane(true);
     }
-    paperplane.guardado = true;
-    _localDB.setGuardados(paperplane.id, paperplane);
+    paperplane.saved = true;
+    _localDB.setSavedPaperplanes(paperplane.id, paperplane);
     notifyListeners();
     return true;
   }
 
-  Future<bool> dontSavePaperplane(Avioncito paperplane) async {
+  Future<bool> dontSavePaperplane(Paperplane paperplane) async {
     if (paperplane.id == _paperplane.id) {
-      _paperplane.guardado = false;
-      _localDB.guardarAvioncito(false);
+      _paperplane.saved = false;
+      _localDB.savePaperplane(false);
     }
-    paperplane.guardado = false;
+    paperplane.saved = false;
     _localDB.deleteGuardado(paperplane.id);
     notifyListeners();
     return true;
@@ -227,11 +247,11 @@ class PaperplaneProvider with ChangeNotifier {
   }
 
   bool get compartirAvioncito => _sharePaperplane;
-  Avioncito? get paperplane => _paperplane;
+  Paperplane? get paperplane => _paperplane;
   String get liturgicalTime => _liturgicalTime;
   String get gospel => _gospel;
   String get gospelTitle => _gospelTitle;
-  List<Avioncito> get paperplanesSaved => _paperplanesSaved;
+  List<Paperplane> get paperplanesSaved => _paperplanesSaved;
   bool get isPaperplane => _isPaperplane;
   bool get newDay => _newDay;
   set setNewDay(bool state) {
@@ -289,9 +309,14 @@ class PaperplaneProvider with ChangeNotifier {
       print('${snapshot.docs.length} AVIONCITOS ENCONTRADOS EN FIRESTORE');
       int _lenght = snapshot.docs.length;
       for (var i = 0; i < _lenght; i++) {
-        Avioncito av = Avioncito.fromFirestore(snapshot.docs[i]);
+        Paperplane paperplane = Paperplane.fromFirestore(snapshot.docs[i]);
         buildPaperplane(
-            av.frase!, av.santo!, av.reflexion!, av.tag!, av.usuario!, true);
+            paperplane.quote!,
+            paperplane.source!,
+            paperplane.inspiration!,
+            paperplane.category!,
+            paperplane.user!,
+            true);
       }
       retVal = true;
     });
