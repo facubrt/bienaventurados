@@ -386,6 +386,14 @@ class PaperplaneProvider with ChangeNotifier {
           .doc(COLLECTION_APPDATA_PPLANESDATA)
           .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
           .doc();
+
+      _db
+          .collection(COLLECTION_APPDATA)
+          .doc(COLLECTION_APPDATA_PPLANESDATA)
+          .update({
+        'pplanes-builded': FieldValue.increment(1),
+        'pplanes-list': FieldValue.arrayUnion([pplanesRef.id]),
+      });
     } else {
       pplanesRef = _db
           .collection(COLLECTION_USERSDATA)
