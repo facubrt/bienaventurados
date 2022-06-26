@@ -42,13 +42,13 @@ class ThemeProvider extends ChangeNotifier {
           color: ColorPalette.primaryDark),
 
       bodyText1: TextStyle(
-          fontSize: 18.0,
+          fontSize: 14.0,
           fontWeight: FontWeight.normal,
           fontFamily: 'Gotham',
           fontStyle: FontStyle.normal,
           color: ColorPalette.primaryDark.withOpacity(0.8)),
       bodyText2: TextStyle(
-          fontSize: 16.0,
+          fontSize: 14.0,
           fontWeight: FontWeight.normal,
           fontFamily: 'Gotham',
           fontStyle: FontStyle.normal,

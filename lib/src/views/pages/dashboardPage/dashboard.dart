@@ -49,6 +49,8 @@ class _DashboardPageState extends State<DashboardPage> {
 
     if (lastConnection != null) {
       print('ESTAS USANDO LA VERSION ${prefs.appVersion}');
+      // TODO 1.4.4 - PASO PRE-4 - LISTA DE AVIONCITOS EN FIRESTORE
+      // paperplaneProvider.createListPaperplanesDB();
       if (!prefs.migratedPaperplane) {
         /*
         TODO 1.4.4 FINALIZADO - PASO 1 - MIGRACION DE AVIONCITOS FIRESTORE
@@ -74,7 +76,7 @@ class _DashboardPageState extends State<DashboardPage> {
         // });
 
         /* 
-        TODO 1.4.4 - PASO 4 - MIGRACION DE AVIONCITOS LOCAL
+        TODO 1.4.4 - PASO 4 usuario - MIGRACION DE AVIONCITOS LOCAL
         */
         print('MIGRACION DE AVIONCITOS LOCAL');
         await paperplaneProvider.firstTime();

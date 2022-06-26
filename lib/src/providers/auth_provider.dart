@@ -41,7 +41,7 @@ class AuthProvider with ChangeNotifier {
     await _localDB.openBox().then((result) async {
       if (result) {
         /*
-        TODO 1.4.4 - PASO 3 - MIGRACION DE USUARIO LOCAL
+        TODO 1.4.4 - PASO 3 usuario - MIGRACION DE USUARIO LOCAL
         */
         final prefs = UserPreferences();
         if (!prefs.migratedUser) {

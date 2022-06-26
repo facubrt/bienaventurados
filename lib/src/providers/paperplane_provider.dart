@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/data/local/local_db.dart';
 import 'package:bienaventurados/src/models/paperplane_model.dart';
@@ -85,19 +87,58 @@ class PaperplaneProvider with ChangeNotifier {
   Future<void> isNewDay() async {
     await _localDB.openBox().then((isOpenBox) async {
       if (isOpenBox) {
-        await getPaperplanesFromLocal().then((isPaperplanes) async {
-          if (isPaperplanes) {
-            await getPaperplaneToday().then((result) {
-              if (result) {
-                _isPaperplane = true;
-                notifyListeners();
-              }
-            });
-          }
+        await getPplaneFromFirestore().then((isPaperplane) async {
+          print('AVIONCITO OBTENIDO DE FIRESTORE');
+          // await getPaperplaneToday().then((result) {
+          //   if (result) {
+          //     _isPaperplane = true;
+          //     notifyListeners();
+          //   }
+          // });
         });
+        // await getPaperplanesFromLocal().then((isPaperplanes) async {
+        //   if (isPaperplanes) {
+        //     await getPaperplaneToday().then((result) {
+        //       if (result) {
+        //         _isPaperplane = true;
+        //         notifyListeners();
+        //       }
+        //     });
+        //   }
+        // });
       }
     });
   }
+
+  Future<bool> getPplaneFromFirestore() async {
+    bool retVal = false;
+    String idPplane;
+
+    DocumentReference pplanesDataRef = _fireDB
+        .collection(COLLECTION_APPDATA)
+        .doc(COLLECTION_APPDATA_PPLANESDATA);
+    pplanesDataRef.get().then((pplanesDoc) {
+      Map pplanesData = pplanesDoc.data()! as Map;
+      int nPplane = Random().nextInt(pplanesData['pplanes-builded']);
+      idPplane = pplanesData['pplanes-list'][nPplane];
+      print('TOCA EL AVIONCITO $nPplane que tiene el id $idPplane');
+      pplanesDataRef
+          .collection('pplanes')
+          .doc(idPplane)
+          .get()
+          .then((pplaneResult) {
+        if (pplaneResult.exists) {
+          _paperplane = Paperplane.fromFirestore(pplaneResult);
+          print(_paperplane.quote);
+          _localDB.setTodayPaperplane(_paperplane);
+        }
+      });
+    });
+
+    return retVal;
+  }
+
+  // Future<bool> setPplaneLocal(int nPplane) async {}
 
   Future<bool> getPaperplanesFromLocal() async {
     //generateUniquePaperplane();
@@ -161,8 +202,16 @@ class PaperplaneProvider with ChangeNotifier {
   }
 
   Future<bool> savePaperplane(Paperplane paperplane) async {
+    _fireDB
+        .collection(COLLECTION_APPDATA)
+        .doc(COLLECTION_APPDATA_PPLANESDATA)
+        .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
+        .doc(paperplane.id)
+        .update({'likes': FieldValue.increment(1)});
+
+    _paperplane.likes = _paperplane.likes! + 1;
     if (paperplane.id == _paperplane.id) {
-      _localDB.savePaperplane(true);
+      _localDB.savePaperplane(true, 1);
     }
     paperplane.saved = true;
     _localDB.setSavedPaperplanes(paperplane.id, paperplane);
@@ -171,9 +220,17 @@ class PaperplaneProvider with ChangeNotifier {
   }
 
   Future<bool> dontSavePaperplane(Paperplane paperplane) async {
+    _fireDB
+        .collection(COLLECTION_APPDATA)
+        .doc(COLLECTION_APPDATA_PPLANESDATA)
+        .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
+        .doc(paperplane.id)
+        .update({'likes': FieldValue.increment(-1)});
+
+    _paperplane.likes = _paperplane.likes! - 1;
     if (paperplane.id == _paperplane.id) {
       _paperplane.saved = false;
-      _localDB.savePaperplane(false);
+      _localDB.savePaperplane(false, -1);
     }
     paperplane.saved = false;
     _localDB.deleteGuardado(paperplane.id);
@@ -200,46 +257,6 @@ class PaperplaneProvider with ChangeNotifier {
     await _localDB.deleteData();
     return true;
   }
-
-  // LECTURA DEL DIA
-  /*
-  Future<bool> getLectura() async {
-    String _day = DateTime.now().day.toString().padLeft(2, '0');
-    String _month = DateTime.now().month.toString().padLeft(2, '0');
-    String _year = DateTime.now().year.toString();
-    String feedURL =
-        'http://feed.evangelizo.org/v2/reader.php?date=20220101&lang=SP&type=all';
-    try {
-      final client = http.Client();
-      final response = await client.get(Uri.parse(feedURL));
-      _lectura = RssFeed.parse(response.body).toString();
-      notifyListeners();
-    } catch (e) {
-      //
-    }
-    return true;
-  }
-*/
-
-  /*
-  Future<bool> getTiempoLiturgico() async {
-    String _day = DateTime.now().day.toString().padLeft(2, '0');
-    String _month = DateTime.now().month.toString().padLeft(2, '0');
-    String _year = DateTime.now().year.toString();
-    String url =
-        'http://feed.evangelizo.org/v2/reader.php?date=$_year$_month$_day&lang=SP&type=liturgic_t&content=FR';
-    http.Response response = await http.get(Uri.parse(url));
-
-    if (response.statusCode == 200) {
-      _tiempoLiturgico = response.body;
-      notifyListeners();
-    } else {
-      throw Exception();
-    }
-
-    return true;
-  }
-  */
 
   set compartirAvioncito(bool compartirAvioncito) {
     _sharePaperplane = compartirAvioncito;
@@ -299,6 +316,39 @@ class PaperplaneProvider with ChangeNotifier {
   // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
   // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
   // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
+  Future<bool> createListPaperplanesDB() async {
+    List<String> _listaAvioncitos = [];
+    bool retVal = false;
+    await _fireDB
+        .collection('appData')
+        .doc('pplanesData')
+        .collection('pplanes')
+        .get()
+        .then((QuerySnapshot snapshot) async {
+      print('${snapshot.docs.length} AVIONCITOS ENCONTRADOS EN FIRESTORE');
+      int _lenght = snapshot.docs.length;
+      for (var i = 0; i < _lenght; i++) {
+        _listaAvioncitos.add(snapshot.docs[i].id);
+      }
+      uploadListPaperplane(_listaAvioncitos);
+      print('${snapshot.docs.length} AVIONCITOS AGREGADOS A LA LISTA');
+      retVal = true;
+    });
+    return retVal;
+  }
+
+  void uploadListPaperplane(List<String> lista) {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    DocumentReference pplanesListRef;
+    pplanesListRef =
+        _db.collection(COLLECTION_APPDATA).doc(COLLECTION_APPDATA_PPLANESDATA);
+
+    pplanesListRef.set({
+      'pplanes-list': lista,
+      'pplanes-builded': lista.length,
+    }, SetOptions(merge: true));
+  }
+
   Future<bool> migratePaperplanesDB() async {
     _paperplanes.clear();
     bool retVal = false;

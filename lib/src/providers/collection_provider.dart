@@ -47,29 +47,28 @@ class CollectionProvider with ChangeNotifier {
   Future<void> collectionsCheck() async {
     _day = DateTime.now().day;
     _month = DateTime.now().month;
+    _collectibleUnlocked = false;
+    prefs.collectionUnlocked = false;
     await _localDB.openBox().then((result) async {
       if (result) {
         for (var i = 0; i < Collections.allCollections.length - 1; i++) {
           if ((_day == Collections.allCollections[i].dia) &&
               (_month == Collections.allCollections[i].mes)) {
-            print(
-                'DESBLOQUEASTE LA COLECCION ${Collections.allCollections[i].titulo}');
             //setColeccion(i, Colecciones.colecciones[i], true);
             prefs.collectionUnlocked = true;
             _collectibleUnlocked = true;
             _collectible = Collections.allCollections[i];
             _localDB.setColeccionDesbloqueada(_collectible!);
-            notifyListeners();
-            break;
-          } else {
-            print('NO HAY NADA PARA DESBLOQUEAR');
-            prefs.collectionUnlocked = false;
-            _collectibleUnlocked = false;
-            notifyListeners();
           }
         }
       }
     });
+    if (_collectibleUnlocked) {
+      print('DESBLOQUEASTE UNA COLECCION ${_collectible!.titulo}');
+    } else {
+      print('NO HAY NADA PARA DESBLOQUEAR');
+    }
+    notifyListeners();
   }
 
   Future<bool> getCollectibleUnlocked() async {

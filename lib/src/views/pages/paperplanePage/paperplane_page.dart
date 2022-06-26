@@ -291,35 +291,57 @@ class _PaperplanePageState extends State<PaperplanePage> {
                           ),
                     shareProvider.takeScreenshot
                         ? SizedBox.shrink()
-                        : IconButton(
-                            onPressed: () {
-                              // aumentar contador de me gustas en base de datos
-                              if (!widget.paperplane.saved!) {
-                                achievementProvider
-                                    .achievementsCheck('guardados');
-                                paperplaneProvider
-                                    .savePaperplane(widget.paperplane);
-                              } else {
-                                achievementProvider.decreaseSaved();
-                                paperplaneProvider
-                                    .dontSavePaperplane(widget.paperplane);
-                              }
-                              //Navigator.of(context).pop();
-                            },
-                            icon: widget.paperplane.saved!
-                                ? Icon(Iconsax.heart5,
-                                    size: MediaQuery.of(context).size.width *
-                                        0.064,
-                                    color: paperplaneProvider.compartirAvioncito
-                                        ? Colors.transparent
-                                        : Theme.of(context).primaryColorDark)
-                                : Icon(Iconsax.heart,
-                                    size: MediaQuery.of(context).size.width *
-                                        0.06,
-                                    color: paperplaneProvider.compartirAvioncito
-                                        ? Colors.transparent
-                                        : Theme.of(context).primaryColorDark),
-                            padding: EdgeInsets.all(0),
+                        : Row(
+                            children: [
+                              Text(
+                                widget.paperplane.likes.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1!
+                                    .copyWith(
+                                      color: Theme.of(context).primaryColorDark,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.036,
+                                    ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  // aumentar contador de me gustas en base de datos
+                                  if (!widget.paperplane.saved!) {
+                                    achievementProvider
+                                        .achievementsCheck('guardados');
+                                    paperplaneProvider
+                                        .savePaperplane(widget.paperplane);
+                                  } else {
+                                    achievementProvider.decreaseSaved();
+                                    paperplaneProvider
+                                        .dontSavePaperplane(widget.paperplane);
+                                  }
+                                  //Navigator.of(context).pop();
+                                },
+                                icon: widget.paperplane.saved!
+                                    ? Icon(Iconsax.heart5,
+                                        size:
+                                            MediaQuery.of(context).size.width *
+                                                0.064,
+                                        color: paperplaneProvider
+                                                .compartirAvioncito
+                                            ? Colors.transparent
+                                            : Theme.of(context)
+                                                .primaryColorDark)
+                                    : Icon(Iconsax.heart,
+                                        size:
+                                            MediaQuery.of(context).size.width *
+                                                0.06,
+                                        color: paperplaneProvider
+                                                .compartirAvioncito
+                                            ? Colors.transparent
+                                            : Theme.of(context)
+                                                .primaryColorDark),
+                                padding: EdgeInsets.all(0),
+                              ),
+                            ],
                           ),
                     shareProvider.takeScreenshot
                         ? SizedBox.shrink()
@@ -421,14 +443,7 @@ class _PaperplanePageState extends State<PaperplanePage> {
                           children: [
                             Text(
                               widget.paperplane.inspiration!,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            0.04,
-                                  ),
+                              style: Theme.of(context).textTheme.bodyText1,
                             ),
                             Divider(
                               height: 40,

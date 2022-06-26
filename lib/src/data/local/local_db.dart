@@ -105,9 +105,10 @@ class LocalData {
     paperplanesBox!.putAt(index, paperplane);
   }
 
-  void savePaperplane(bool isSaved) {
+  void savePaperplane(bool isSaved, int increment) {
     Paperplane paperplane = todayBox!.get(0);
     paperplane.saved = isSaved;
+    paperplane.likes = paperplane.likes! + increment;
     todayBox!.putAt(0, paperplane);
   }
 
@@ -260,7 +261,7 @@ class LocalData {
     Hive.deleteBoxFromDisk('todayBox');
     Hive.deleteBoxFromDisk('collectionsBox');
     Hive.deleteBoxFromDisk('achievementsBox');
-    // TODO ELIMINAR EN NUEVAS VERSIONES
+    // TODO 1.4.6 ELIMINAR EN NUEVAS VERSIONES
     Hive.deleteBoxFromDisk('avioncitosBox');
     Hive.deleteBoxFromDisk('guardadosBox');
     Hive.deleteBoxFromDisk('hoyBox');
