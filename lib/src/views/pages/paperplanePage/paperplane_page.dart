@@ -270,27 +270,6 @@ class _PaperplanePageState extends State<PaperplanePage> {
                     Spacer(),
                     shareProvider.takeScreenshot
                         ? SizedBox.shrink()
-                        : IconButton(
-                            onPressed: () {
-                              //aumentar contador en base de datos infoApp
-                              //infoProvider.actualizarInformacionApp('aumentar');
-                              //
-                              achievementProvider
-                                  .achievementsCheck('compartidos');
-                              shareProvider.takeScreenshot = true;
-                              shareProvider.takeScreenshotandShare(
-                                  screenshotController,
-                                  widget.paperplane.quote!,
-                                  widget.paperplane.source!);
-                              authProvider.updatePaperplanesShared();
-                            },
-                            icon: Icon(Iconsax.export_1,
-                                size: MediaQuery.of(context).size.width * 0.06,
-                                color: Theme.of(context).primaryColorDark),
-                            padding: EdgeInsets.all(0),
-                          ),
-                    shareProvider.takeScreenshot
-                        ? SizedBox.shrink()
                         : Row(
                             children: [
                               Text(
@@ -342,6 +321,27 @@ class _PaperplanePageState extends State<PaperplanePage> {
                                 padding: EdgeInsets.all(0),
                               ),
                             ],
+                          ),
+                    shareProvider.takeScreenshot
+                        ? SizedBox.shrink()
+                        : IconButton(
+                            onPressed: () {
+                              //aumentar contador en base de datos infoApp
+                              //infoProvider.actualizarInformacionApp('aumentar');
+                              //
+                              achievementProvider
+                                  .achievementsCheck('compartidos');
+                              shareProvider.takeScreenshot = true;
+                              shareProvider.takeScreenshotandShare(
+                                  screenshotController,
+                                  widget.paperplane.quote!,
+                                  widget.paperplane.source!);
+                              authProvider.updatePaperplanesShared();
+                            },
+                            icon: Icon(Iconsax.export_1,
+                                size: MediaQuery.of(context).size.width * 0.06,
+                                color: Theme.of(context).primaryColorDark),
+                            padding: EdgeInsets.all(0),
                           ),
                     shareProvider.takeScreenshot
                         ? SizedBox.shrink()

@@ -80,12 +80,7 @@ class Routes {
         Paperplane paperplane = args as Paperplane;
         return FadeTransitionRoute(
             widget: EditPage(
-          id: paperplane.id,
-          quote: paperplane.quote,
-          saint: paperplane.source,
-          reflexion: paperplane.inspiration,
-          tag: paperplane.category,
-          user: paperplane.user,
+          paperplane: paperplane,
         ));
       case (informationPage):
         return SlideLeftTransitionRoute(widget: InformationPage());

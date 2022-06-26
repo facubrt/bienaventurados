@@ -4,6 +4,9 @@ import 'package:bienaventurados/src/utils/routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/providers.dart';
 
 class GaragePage extends StatefulWidget {
   const GaragePage({Key? key}) : super(key: key);
@@ -24,7 +27,6 @@ class _GaragePageState extends State<GaragePage> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          //title: Text('Taller'),
         ),
         body: StreamBuilder<QuerySnapshot>(
           stream: paperplanes,
@@ -80,41 +82,31 @@ class _GaragePageState extends State<GaragePage> {
                   },
                   itemCount: data.size,
                   itemBuilder: (context, index) {
-                    return cardPaperplane(
-                        data.docs[index].id,
-                        data.docs[index]['quote'],
-                        data.docs[index]['source'],
-                        data.docs[index]['inspiration'],
-                        data.docs[index]['user'],
-                        data.docs[index]['category']);
+                    final pplane = Paperplane.fromFirestore(data.docs[index]);
+                    return cardPaperplane(pplane);
                   }),
             );
           },
         ));
   }
 
-  Widget cardPaperplane(String id, String quote, String saint, String reflexion,
-      String user, String tag) {
-    Paperplane paperplane = Paperplane(
-        id: id,
-        quote: quote,
-        source: saint,
-        inspiration: reflexion,
-        category: tag,
-        user: user);
+  Widget cardPaperplane(Paperplane paperplane) {
+    final paperplaneProvider =
+        Provider.of<PaperplaneProvider>(context, listen: false);
     return Container(
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(quote, style: Theme.of(context).textTheme.headline4),
+            Text(paperplane.quote!,
+                style: Theme.of(context).textTheme.headline4),
             SizedBox(
               height: 10,
             ),
             Container(
               alignment: Alignment.centerRight,
               child: Text(
-                saint,
+                paperplane.source!,
                 style: Theme.of(context)
                     .textTheme
                     .subtitle1!
@@ -126,7 +118,7 @@ class _GaragePageState extends State<GaragePage> {
               height: 20,
             ),
             Text(
-              reflexion,
+              paperplane.inspiration!,
               style: Theme.of(context).textTheme.bodyText2,
             ),
             SizedBox(
@@ -134,7 +126,8 @@ class _GaragePageState extends State<GaragePage> {
             ),
             Row(
               children: [
-                Text(user, style: Theme.of(context).textTheme.subtitle1),
+                Text(paperplane.user!,
+                    style: Theme.of(context).textTheme.subtitle1),
                 Spacer(),
                 IconButton(
                   onPressed: () {
@@ -147,7 +140,7 @@ class _GaragePageState extends State<GaragePage> {
                 ),
                 IconButton(
                   onPressed: () {
-                    _deletePaperplaneUser(paperplane.id);
+                    paperplaneProvider.deletePplanesUsersData(paperplane.id);
                   },
                   icon: Icon(Iconsax.close_square,
                       size: MediaQuery.of(context).size.width * DIMENSION_ICON,
@@ -159,15 +152,5 @@ class _GaragePageState extends State<GaragePage> {
         ),
       ),
     );
-  }
-
-  void _deletePaperplaneUser(String? id) {
-    final FirebaseFirestore _db = FirebaseFirestore.instance;
-    DocumentReference paperplaneRef = _db
-        .collection(COLLECTION_USERSDATA)
-        .doc(COLLECTION_USERSDATA_PPLANESBUILDED)
-        .collection(COLLECTION_USERSDATA_PPLANESBUILDED_PPLANES)
-        .doc(id);
-    paperplaneRef.delete();
   }
 }

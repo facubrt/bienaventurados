@@ -11,7 +11,6 @@ class StatsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-    print('ESTE USUARIO COMPARTIO ${authProvider.user.pplanesShared}');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -39,16 +39,19 @@ class PaperplaneProvider with ChangeNotifier {
   Future<void> firstTime() async {
     await _localDB.openBox().then((isOpenBox) async {
       if (isOpenBox) {
-        await getPaperplanesFromLocal().then((isPaperplanes) async {
-          if (isPaperplanes) {
-            await getPaperplaneToday().then((result) {
-              if (result) {
-                _isPaperplane = true;
-                notifyListeners();
-              }
-            });
-          }
+        await getPplaneFromFirestore().then((isPaperplane) async {
+          print('AVIONCITO DE HOY OBTENIDO DE FIRESTORE');
         });
+        // await getPaperplanesFromLocal().then((isPaperplanes) async {
+        //   if (isPaperplanes) {
+        //     await getPaperplaneToday().then((result) {
+        //       if (result) {
+        //         _isPaperplane = true;
+        //         notifyListeners();
+        //       }
+        //     });
+        //   }
+        // });
       }
     });
   }
@@ -88,7 +91,7 @@ class PaperplaneProvider with ChangeNotifier {
     await _localDB.openBox().then((isOpenBox) async {
       if (isOpenBox) {
         await getPplaneFromFirestore().then((isPaperplane) async {
-          print('AVIONCITO OBTENIDO DE FIRESTORE');
+          print('AVIONCITO DE HOY OBTENIDO DE FIRESTORE');
           // await getPaperplaneToday().then((result) {
           //   if (result) {
           //     _isPaperplane = true;
@@ -209,12 +212,12 @@ class PaperplaneProvider with ChangeNotifier {
         .doc(paperplane.id)
         .update({'likes': FieldValue.increment(1)});
 
-    _paperplane.likes = _paperplane.likes! + 1;
     if (paperplane.id == _paperplane.id) {
       _localDB.savePaperplane(true, 1);
     }
     paperplane.saved = true;
     _localDB.setSavedPaperplanes(paperplane.id, paperplane);
+    _paperplane.likes = _paperplane.likes! + 1;
     notifyListeners();
     return true;
   }
@@ -227,13 +230,13 @@ class PaperplaneProvider with ChangeNotifier {
         .doc(paperplane.id)
         .update({'likes': FieldValue.increment(-1)});
 
-    _paperplane.likes = _paperplane.likes! - 1;
     if (paperplane.id == _paperplane.id) {
       _paperplane.saved = false;
       _localDB.savePaperplane(false, -1);
     }
     paperplane.saved = false;
     _localDB.deleteGuardado(paperplane.id);
+    _paperplane.likes = _paperplane.likes! - 1;
     notifyListeners();
     return true;
   }
@@ -360,13 +363,7 @@ class PaperplaneProvider with ChangeNotifier {
       int _lenght = snapshot.docs.length;
       for (var i = 0; i < _lenght; i++) {
         Paperplane paperplane = Paperplane.fromFirestore(snapshot.docs[i]);
-        buildPaperplane(
-            paperplane.quote!,
-            paperplane.source!,
-            paperplane.inspiration!,
-            paperplane.category!,
-            paperplane.user!,
-            true);
+        buildPaperplaneAppData(paperplane);
       }
       retVal = true;
     });
@@ -376,23 +373,15 @@ class PaperplaneProvider with ChangeNotifier {
   ////////////////////////////////////////
   ////////////////////////////////////////
 
-  void buildPaperplane(String quote, String source, String inspiration,
-      String category, String user, bool isAdmin) {
+  void buildPaperplaneUsersData(String quote, String source, String inspiration,
+      String category, String user) {
     final FirebaseFirestore _db = FirebaseFirestore.instance;
-    DocumentReference pplanesRef;
-    if (isAdmin) {
-      pplanesRef = _db
-          .collection(COLLECTION_APPDATA)
-          .doc(COLLECTION_APPDATA_PPLANESDATA)
-          .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
-          .doc();
-    } else {
-      pplanesRef = _db
-          .collection(COLLECTION_USERSDATA)
-          .doc(COLLECTION_USERSDATA_PPLANESBUILDED)
-          .collection(COLLECTION_USERSDATA_PPLANESBUILDED_PPLANES)
-          .doc();
-    }
+    DocumentReference pplanesRef = _db
+        .collection(COLLECTION_USERSDATA)
+        .doc(COLLECTION_USERSDATA_PPLANESBUILDED)
+        .collection(COLLECTION_USERSDATA_PPLANESBUILDED_PPLANES)
+        .doc();
+
     generateUniquePaperplane();
     pplanesRef.set({
       'id': pplanesRef.id,
@@ -411,7 +400,37 @@ class PaperplaneProvider with ChangeNotifier {
       'likes': 0,
       'user': user,
     });
+  }
 
+  void buildPaperplaneAppData(Paperplane paperplane) {
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    DocumentReference pplanesRef;
+
+    pplanesRef = _db
+        .collection(COLLECTION_APPDATA)
+        .doc(COLLECTION_APPDATA_PPLANESDATA)
+        .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
+        .doc();
+
+    pplanesRef.set({
+      'id': pplanesRef.id,
+      'quote': paperplane.quote,
+      'source': paperplane.source,
+      'inspiration': paperplane.inspiration,
+      'illustration': {
+        'background': paperplane.background,
+        'base': paperplane.base,
+        'detail': paperplane.detail,
+        'pattern': paperplane.pattern,
+        'stamp': paperplane.stamp,
+        'wings': paperplane.wings
+      },
+      'category': paperplane.category,
+      'likes': paperplane.likes,
+      'user': paperplane.user,
+    });
+
+    deletePplanesUsersData(paperplane.id);
     _db
         .collection(COLLECTION_APPDATA)
         .doc(COLLECTION_APPDATA_PPLANESDATA)

@@ -349,13 +349,13 @@ class _BuildPageState extends State<BuildPage> {
                     currentFocus.unfocus();
                   }
                   setState(() {
-                    paperplaneProvider.buildPaperplane(
+                    // SE CREA AVIONCITO EN BASE DE DATOS USERSDATA
+                    paperplaneProvider.buildPaperplaneUsersData(
                         _quoteController.text,
                         _saintController.text,
                         _reflexionController.text,
                         tag,
-                        authProvider.user.username!,
-                        false);
+                        authProvider.user.username!);
                     _quoteController.clear();
                     _saintController.clear();
                     _reflexionController.clear();

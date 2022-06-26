@@ -3,23 +3,15 @@ import 'package:bienaventurados/src/providers/paperplane_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EditPage extends StatefulWidget {
-  final String? quote;
-  final String? saint;
-  final String? reflexion;
-  final String? tag;
-  final String? user;
-  final String? id;
+import '../../../models/models.dart';
 
-  const EditPage(
-      {Key? key,
-      required this.quote,
-      required this.saint,
-      required this.reflexion,
-      required this.tag,
-      required this.user,
-      required this.id})
-      : super(key: key);
+class EditPage extends StatefulWidget {
+  final Paperplane paperplane;
+
+  const EditPage({
+    Key? key,
+    required this.paperplane,
+  }) : super(key: key);
 
   @override
   _EditPageState createState() => _EditPageState();
@@ -47,17 +39,17 @@ class _EditPageState extends State<EditPage> {
 
   @override
   void initState() {
-    _quoteController.text = widget.quote as String;
-    _saintController.text = widget.saint as String;
-    _reflexionController.text = widget.reflexion as String;
-    _tagController.text = widget.tag as String;
-    _userController.text = widget.user as String;
+    _quoteController.text = widget.paperplane.quote!;
+    _saintController.text = widget.paperplane.source!;
+    _reflexionController.text = widget.paperplane.inspiration!;
+    _tagController.text = widget.paperplane.category!;
+    _userController.text = widget.paperplane.user!;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print('ID DEL AVIONCITO ES ${widget.id}');
+    print('ID DEL AVIONCITO ES ${widget.paperplane.id}');
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -399,8 +391,8 @@ class _EditPageState extends State<EditPage> {
                     currentFocus.unfocus();
                   }
                   setState(() {
-                    sendPaperplane();
-                    deleteData();
+                    sendPaperplane(widget.paperplane);
+                    deleteData(widget.paperplane);
                   });
                   _pageController.nextPage(
                       duration: Duration(milliseconds: 1200),
@@ -460,23 +452,19 @@ class _EditPageState extends State<EditPage> {
     );
   }
 
-  void sendPaperplane() {
+  void sendPaperplane(Paperplane paperplane) {
     final paperplaneProvider =
         Provider.of<PaperplaneProvider>(context, listen: false);
-    paperplaneProvider.buildPaperplane(
-      _quoteController.text,
-      _saintController.text,
-      _reflexionController.text,
-      _tagController.text,
-      _userController.text,
-      true,
+    // SE APRUEBA EL AVIONCITO Y SE CONSTRUYE EN BASE DE DATOS APPDATA
+    paperplaneProvider.buildPaperplaneAppData(
+      paperplane,
     );
   }
 
-  void deleteData() {
+  void deleteData(Paperplane paperplane) {
     final paperplaneProvider =
         Provider.of<PaperplaneProvider>(context, listen: false);
-    paperplaneProvider.deletePplanesUsersData(widget.id);
+    paperplaneProvider.deletePplanesUsersData(paperplane.id);
     _quoteController.clear();
     _saintController.clear();
     _reflexionController.clear();
