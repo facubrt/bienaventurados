@@ -386,14 +386,6 @@ class PaperplaneProvider with ChangeNotifier {
           .doc(COLLECTION_APPDATA_PPLANESDATA)
           .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
           .doc();
-
-      _db
-          .collection(COLLECTION_APPDATA)
-          .doc(COLLECTION_APPDATA_PPLANESDATA)
-          .update({
-        'pplanes-builded': FieldValue.increment(1),
-        'pplanes-list': FieldValue.arrayUnion([pplanesRef.id]),
-      });
     } else {
       pplanesRef = _db
           .collection(COLLECTION_USERSDATA)
@@ -419,6 +411,14 @@ class PaperplaneProvider with ChangeNotifier {
       'likes': 0,
       'user': user,
     });
+
+    _db
+        .collection(COLLECTION_APPDATA)
+        .doc(COLLECTION_APPDATA_PPLANESDATA)
+        .update({
+      'pplanes-builded': FieldValue.increment(1),
+      'pplanes-list': FieldValue.arrayUnion([pplanesRef.id]),
+    });
   }
 
   void reportPaperplane(String id, String user) {
@@ -439,7 +439,7 @@ class PaperplaneProvider with ChangeNotifier {
     DocumentReference paperplaneRef = _db
         .collection(COLLECTION_USERSDATA)
         .doc(COLLECTION_USERSDATA_PPLANESBUILDED)
-        .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
+        .collection(COLLECTION_USERSDATA_PPLANESBUILDED_PPLANES)
         .doc(id);
     paperplaneRef.delete();
     print('SE ELIMINÓ AVIONCITO $id');
