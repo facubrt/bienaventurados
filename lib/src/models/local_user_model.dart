@@ -89,23 +89,26 @@ class LocalUser with ChangeNotifier {
 
   void setFromFirestore(DocumentSnapshot userDoc) {
     Map userData = userDoc.data()! as Map;
+    print(
+        'LAS ESTADISTICAS SON ${userData['stats']} Y LOS AV COMPARTIDOS ${userData['stats']['pplanes-shared']}');
     uid = userDoc.id;
     username = userData['username'];
     email = userData['email'];
     role = userData['role'] ?? 'bienaventurado';
     type = userData['type'] ?? 'bienaventurado';
     level = userData['level'] ?? 1;
-    totalXP = userData['total-xp'] ?? 0;
-    action = userData['action'] ?? 0;
-    formation = userData['formation'] ?? 0;
-    devotion = userData['devotion'] ?? 0;
-    prayer = userData['prayer'] ?? 0;
-    pplanesBuilded = userData['pplanes-builded'] ?? 0;
-    pplanesShared = userData['pplanes-shared'] ?? 0;
-    constancy = userData['constancy'] ?? 1;
-    bestConstancy = userData['best-constancy'] ?? 1;
+    totalXP = userData['stats']['total-xp'] ?? 0;
+    action = userData['stats']['action'] ?? 0;
+    formation = userData['stats']['formation'] ?? 0;
+    devotion = userData['stats']['devotion'] ?? 0;
+    prayer = userData['stats']['prayer'] ?? 0;
+    pplanesBuilded = userData['stats']['pplanes-builded'] ?? 0;
+    pplanesShared = userData['stats']['pplanes-shared'] ?? 0;
+    constancy = userData['stats']['constancy'] ?? 1;
+    bestConstancy = userData['stats']['best-constancy'] ?? 1;
     firstConnection = userData['connection']['firstConnection'].toString();
     lastConnection = userData['connection']['lastConnection'].toString();
+    print('SE CARGO $pplanesShared AV COMPARTIDOS');
     notifyListeners();
   }
 }

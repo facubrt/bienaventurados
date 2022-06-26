@@ -170,7 +170,7 @@ class Collections {
     ),
     Coleccion(
       id: 15,
-      dia: 24,
+      dia: 23,
       mes: 06,
       titulo: 'Natividad de San Juan Bautista',
       img: 'assets/images/colecciones/solemnidad-15.png',

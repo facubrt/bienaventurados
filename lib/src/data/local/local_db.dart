@@ -255,6 +255,13 @@ class LocalData {
   Future<void> deleteData() async {
     print('DATOS ELIMINADOS');
     Hive.deleteBoxFromDisk('paperplanesBox');
+    Hive.deleteBoxFromDisk('usersBox');
+    Hive.deleteBoxFromDisk('savedBox');
+    Hive.deleteBoxFromDisk('todayBox');
+    Hive.deleteBoxFromDisk('collectionsBox');
+    Hive.deleteBoxFromDisk('achievementsBox');
+    // TODO ELIMINAR EN NUEVAS VERSIONES
+    Hive.deleteBoxFromDisk('avioncitosBox');
     Hive.deleteBoxFromDisk('guardadosBox');
     Hive.deleteBoxFromDisk('hoyBox');
     Hive.deleteBoxFromDisk('coleccionesBox');

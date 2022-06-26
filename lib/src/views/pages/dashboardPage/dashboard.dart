@@ -130,6 +130,7 @@ class _DashboardPageState extends State<DashboardPage> {
       }
     } else {
       print('PRIMERA VEZ');
+      lastConnection = connection;
       prefs.lastConnection = connection;
       await paperplaneProvider.firstTime();
       collectionProvider.getAllCollections();

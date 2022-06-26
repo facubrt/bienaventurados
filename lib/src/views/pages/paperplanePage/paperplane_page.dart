@@ -200,14 +200,51 @@ class _PaperplanePageState extends State<PaperplanePage> {
                 ),
               ),
               authProvider.user.role == 'administrador'
-                  ? Positioned(
-                      bottom: MediaQuery.of(context).size.width * 0.12,
-                      child: Text(
-                        widget.paperplane.id!,
-                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                              color: ColorPalette.primaryLight,
+                  ? shareProvider.takeScreenshot
+                      ? SizedBox.shrink()
+                      : Positioned(
+                          bottom: MediaQuery.of(context).size.width * 0.12,
+                          child: TextButton(
+                            onPressed: () {
+                              Clipboard.setData(
+                                  ClipboardData(text: widget.paperplane.id!));
+                              //NOTIFICAR ID COPIADO AL PORTAPAPELES
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  behavior: SnackBarBehavior.floating,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(100)),
+                                  margin: EdgeInsets.all(20.0),
+                                  content: Text(
+                                    "ID de avioncito copiado en portapapeles",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2!
+                                        .copyWith(
+                                          color: ColorPalette.primaryLight,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                        ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              );
+                            },
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        ColorPalette.primaryLight
+                                            .withOpacity(0.2))),
+                            child: Text(
+                              widget.paperplane.id!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .copyWith(
+                                    color: ColorPalette.primaryLight,
+                                  ),
                             ),
-                      ))
+                          ))
                   : SizedBox.shrink(),
             ],
           ),

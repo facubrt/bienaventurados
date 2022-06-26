@@ -21,7 +21,7 @@ class AuthProvider with ChangeNotifier {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final LocalData _localDB = LocalData();
   bool? _isLoggedIn;
-  Box? usersBox;
+  Box? userBox;
 
   AuthProvider.instance({bool? isLoggedIn}) : _auth = FirebaseAuth.instance {
     _auth.authStateChanges().listen(_onAuthStateChanged);
@@ -56,8 +56,8 @@ class AuthProvider with ChangeNotifier {
           prefs.migratedUser = true;
         } else {
           ///
-          usersBox = _localDB.getUser();
-          if (usersBox!.isEmpty) {
+          userBox = _localDB.getUser();
+          if (userBox!.isEmpty) {
             print('USUARIO DESDE FIREBASE');
             DocumentSnapshot userSnap =
                 await _db.collection(COLLECTION_USERS).doc(uid).get();
@@ -65,7 +65,7 @@ class AuthProvider with ChangeNotifier {
             _localDB.setUser(_user);
           } else {
             print('USUARIO DESDE LOCAL');
-            _user = usersBox!.getAt(0);
+            _user = userBox!.getAt(0);
           }
         }
       }
