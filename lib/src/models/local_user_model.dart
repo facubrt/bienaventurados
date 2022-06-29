@@ -16,32 +16,34 @@ class LocalUser with ChangeNotifier {
   // CLASE Y TIPO
   String? role;
   @HiveField(4)
-  String? type;
+  String? img;
   @HiveField(5)
+  String? type;
+  @HiveField(6)
   int? level;
   // ESTADISTICAS
-  @HiveField(6)
-  int? totalXP;
   @HiveField(7)
-  int? action;
+  int? totalXP;
   @HiveField(8)
-  int? formation;
+  int? action;
   @HiveField(9)
-  int? devotion;
+  int? formation;
   @HiveField(10)
-  int? prayer;
+  int? devotion;
   @HiveField(11)
-  int? pplanesBuilded;
+  int? prayer;
   @HiveField(12)
-  int? pplanesShared;
+  int? pplanesBuilded;
   @HiveField(13)
-  int? constancy;
+  int? pplanesShared;
   @HiveField(14)
+  int? constancy;
+  @HiveField(15)
   int? bestConstancy;
   // CONNECTION
-  @HiveField(15)
-  String? firstConnection;
   @HiveField(16)
+  String? firstConnection;
+  @HiveField(17)
   String? lastConnection;
 
   LocalUser({
@@ -49,6 +51,7 @@ class LocalUser with ChangeNotifier {
     this.username,
     this.email,
     this.role,
+    this.img,
     this.type,
     this.level,
     this.totalXP,
@@ -71,6 +74,7 @@ class LocalUser with ChangeNotifier {
       username: userData['username'],
       email: userData['email'],
       role: userData['role'] ?? 'bienaventurado',
+      img: userData['img'] ?? 'perfil-01',
       type: userData['type'] ?? 'bienaventurado',
       level: userData['level'] ?? 1,
       totalXP: userData['stats']['total-xp'] ?? 0,
@@ -89,12 +93,12 @@ class LocalUser with ChangeNotifier {
 
   void setFromFirestore(DocumentSnapshot userDoc) {
     Map userData = userDoc.data()! as Map;
-    print(
-        'LAS ESTADISTICAS SON ${userData['stats']} Y LOS AV COMPARTIDOS ${userData['stats']['pplanes-shared']}');
+
     uid = userDoc.id;
     username = userData['username'];
     email = userData['email'];
     role = userData['role'] ?? 'bienaventurado';
+    img = userData['img'] ?? 'perfil-01';
     type = userData['type'] ?? 'bienaventurado';
     level = userData['level'] ?? 1;
     totalXP = userData['stats']['total-xp'] ?? 0;
@@ -108,7 +112,6 @@ class LocalUser with ChangeNotifier {
     bestConstancy = userData['stats']['best-constancy'] ?? 1;
     firstConnection = userData['connection']['firstConnection'].toString();
     lastConnection = userData['connection']['lastConnection'].toString();
-    print('SE CARGO $pplanesShared AV COMPARTIDOS');
     notifyListeners();
   }
 }

@@ -42,7 +42,6 @@ class LocalData {
     coleccionesBox = await Hive.openBox<Coleccion>('colecciones');
     logrosBox = await Hive.openBox<Logro>('logros');
     userBox = await Hive.openBox<LocalUser>('user');
-    //diasBox = await Hive.openBox('dias');
     return true;
   }
 
@@ -73,6 +72,7 @@ class LocalData {
       user: paperplane.user,
       likes: paperplane.likes,
       saved: paperplane.saved,
+      views: paperplane.views,
       background: paperplane.background,
       base: paperplane.base,
       detail: paperplane.detail,
@@ -108,7 +108,7 @@ class LocalData {
   void savePaperplane(bool isSaved, int increment) {
     Paperplane paperplane = todayBox!.get(0);
     paperplane.saved = isSaved;
-    paperplane.likes = paperplane.likes! + increment;
+    //paperplane.likes = paperplane.likes! + increment;
     todayBox!.putAt(0, paperplane);
   }
 
@@ -125,7 +125,6 @@ class LocalData {
   }
 
   void setSavedPaperplanes(String? id, Paperplane paperplane) {
-    //guardadosBox!.putAt(index, avioncitoGuardado);
     Paperplane _paperplane = Paperplane(
       id: paperplane.id,
       date: paperplane.date,
@@ -135,6 +134,7 @@ class LocalData {
       category: paperplane.category,
       user: paperplane.user,
       likes: paperplane.likes,
+      views: paperplane.views,
       saved: paperplane.saved,
       background: paperplane.background,
       base: paperplane.base,
@@ -148,7 +148,6 @@ class LocalData {
 
   void deleteGuardado(String? id) {
     savedBox!.delete(id);
-    //guardadosBox!.deleteAt(index);
   }
 
   // COLECCIONES
@@ -201,6 +200,7 @@ class LocalData {
       username: user.username,
       email: user.email,
       role: user.role,
+      img: user.img,
       type: user.type,
       level: user.level,
       totalXP: user.totalXP,
@@ -222,35 +222,9 @@ class LocalData {
     paperplanesBox!.delete(index);
   }
 
-  // void actualizarDia(String key, Dia? dia) {
-  //   diasBox!.put(key, dia);
-  // }
-
-  // Box? getDias(){
-  //   return diasBox;
-  // }
-
   void setAvioncitos(List<Paperplane> avioncitos) {
     Iterable<Paperplane> _paperplanes = avioncitos;
     paperplanesBox!.addAll(_paperplanes);
-  }
-
-  // void setDia(String key, Dia? dia) {
-  //   diasBox!.put(key, dia);
-  // }
-
-  // void setMes(List<Dia> mes) {
-  //   diasBox!.addAll(mes);
-  // }
-
-  // void avioncitoVisto(int index, Avioncito avioncito) {
-  //   // marcar avioncito base para que no vuelva a utilizarse
-  // }
-
-  Future<void> deleteAndMigrate() async {
-    Hive.deleteBoxFromDisk('paperplanesBox');
-    Hive.deleteBoxFromDisk('usuarioBox');
-    print('DATOS AVIONCITOS Y USUARIO ELIMINADOS');
   }
 
   Future<void> deleteData() async {

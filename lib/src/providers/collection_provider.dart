@@ -23,7 +23,6 @@ class CollectionProvider with ChangeNotifier {
     */
     await _localDB.openBox().then((result) async {
       if (result) {
-        print('longitud de Colecciones ${Collections.allCollections.length}');
         for (var i = 0; i < Collections.allCollections.length; i++) {
           _localDB.setColecciones(Collections.allCollections[i], false);
         }

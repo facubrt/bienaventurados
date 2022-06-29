@@ -32,13 +32,14 @@ class PaperplaneAdapter extends TypeAdapter<Paperplane> {
       wings: fields[14] as String?,
       likes: fields[15] as int?,
       saved: fields[16] as bool?,
+      views: fields[17] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Paperplane obj) {
     writer
-      ..writeByte(15)
+      ..writeByte(16)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -68,7 +69,9 @@ class PaperplaneAdapter extends TypeAdapter<Paperplane> {
       ..writeByte(15)
       ..write(obj.likes)
       ..writeByte(16)
-      ..write(obj.saved);
+      ..write(obj.saved)
+      ..writeByte(17)
+      ..write(obj.views);
   }
 
   @override

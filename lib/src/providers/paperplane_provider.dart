@@ -124,7 +124,7 @@ class PaperplaneProvider with ChangeNotifier {
       Map pplanesData = pplanesDoc.data()! as Map;
       int nPplane = Random().nextInt(pplanesData['pplanes-builded']);
       idPplane = pplanesData['pplanes-list'][nPplane];
-      print('TOCA EL AVIONCITO $nPplane que tiene el id $idPplane');
+      //print('TOCA EL AVIONCITO $nPplane que tiene el id $idPplane');
       pplanesDataRef
           .collection('pplanes')
           .doc(idPplane)
@@ -132,7 +132,6 @@ class PaperplaneProvider with ChangeNotifier {
           .then((pplaneResult) {
         if (pplaneResult.exists) {
           _paperplane = Paperplane.fromFirestore(pplaneResult);
-          print(_paperplane.quote);
           _localDB.setTodayPaperplane(_paperplane);
         }
       });
@@ -140,8 +139,6 @@ class PaperplaneProvider with ChangeNotifier {
 
     return retVal;
   }
-
-  // Future<bool> setPplaneLocal(int nPplane) async {}
 
   Future<bool> getPaperplanesFromLocal() async {
     //generateUniquePaperplane();
@@ -205,30 +202,30 @@ class PaperplaneProvider with ChangeNotifier {
   }
 
   Future<bool> savePaperplane(Paperplane paperplane) async {
-    _fireDB
-        .collection(COLLECTION_APPDATA)
-        .doc(COLLECTION_APPDATA_PPLANESDATA)
-        .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
-        .doc(paperplane.id)
-        .update({'likes': FieldValue.increment(1)});
+    // _fireDB
+    //     .collection(COLLECTION_APPDATA)
+    //     .doc(COLLECTION_APPDATA_PPLANESDATA)
+    //     .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
+    //     .doc(paperplane.id)
+    //     .update({'likes': FieldValue.increment(1)});
 
     if (paperplane.id == _paperplane.id) {
       _localDB.savePaperplane(true, 1);
     }
     paperplane.saved = true;
     _localDB.setSavedPaperplanes(paperplane.id, paperplane);
-    _paperplane.likes = _paperplane.likes! + 1;
+    //_paperplane.likes = _paperplane.likes! + 1;
     notifyListeners();
     return true;
   }
 
   Future<bool> dontSavePaperplane(Paperplane paperplane) async {
-    _fireDB
-        .collection(COLLECTION_APPDATA)
-        .doc(COLLECTION_APPDATA_PPLANESDATA)
-        .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
-        .doc(paperplane.id)
-        .update({'likes': FieldValue.increment(-1)});
+    // _fireDB
+    //     .collection(COLLECTION_APPDATA)
+    //     .doc(COLLECTION_APPDATA_PPLANESDATA)
+    //     .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
+    //     .doc(paperplane.id)
+    //     .update({'likes': FieldValue.increment(-1)});
 
     if (paperplane.id == _paperplane.id) {
       _paperplane.saved = false;
@@ -236,7 +233,7 @@ class PaperplaneProvider with ChangeNotifier {
     }
     paperplane.saved = false;
     _localDB.deleteGuardado(paperplane.id);
-    _paperplane.likes = _paperplane.likes! - 1;
+    //_paperplane.likes = _paperplane.likes! - 1;
     notifyListeners();
     return true;
   }
@@ -352,23 +349,23 @@ class PaperplaneProvider with ChangeNotifier {
     }, SetOptions(merge: true));
   }
 
-  Future<bool> migratePaperplanesDB() async {
-    _paperplanes.clear();
-    bool retVal = false;
-    await _fireDB
-        .collection('datosApp')
-        .get()
-        .then((QuerySnapshot snapshot) async {
-      print('${snapshot.docs.length} AVIONCITOS ENCONTRADOS EN FIRESTORE');
-      int _lenght = snapshot.docs.length;
-      for (var i = 0; i < _lenght; i++) {
-        Paperplane paperplane = Paperplane.fromFirestore(snapshot.docs[i]);
-        buildPaperplaneAppData(paperplane);
-      }
-      retVal = true;
-    });
-    return retVal;
-  }
+  // Future<bool> migratePaperplanesDB() async {
+  //   _paperplanes.clear();
+  //   bool retVal = false;
+  //   await _fireDB
+  //       .collection('datosApp')
+  //       .get()
+  //       .then((QuerySnapshot snapshot) async {
+  //     print('${snapshot.docs.length} AVIONCITOS ENCONTRADOS EN FIRESTORE');
+  //     int _lenght = snapshot.docs.length;
+  //     for (var i = 0; i < _lenght; i++) {
+  //       Paperplane paperplane = Paperplane.fromFirestore(snapshot.docs[i]);
+  //       buildPaperplaneAppData(paperplane);
+  //     }
+  //     retVal = true;
+  //   });
+  //   return retVal;
+  // }
   ////////////////////////////////////////
   ////////////////////////////////////////
   ////////////////////////////////////////
@@ -398,9 +395,27 @@ class PaperplaneProvider with ChangeNotifier {
       },
       'category': category,
       'likes': 0,
+      'views': 0,
       'user': user,
     });
   }
+
+  // Future<bool> updatePaperplanesAppData() async {
+  //   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  //   await _db
+  //       .collection(COLLECTION_APPDATA)
+  //       .doc(COLLECTION_APPDATA_PPLANESDATA)
+  //       .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
+  //       .get()
+  //       .then((QuerySnapshot snapshot) {
+  //     snapshot.docs.forEach((doc) {
+  //       doc.reference.set({
+  //         'views': 0,
+  //       }, SetOptions(merge: true));
+  //     });
+  //   });
+  //   return true;
+  // }
 
   void buildPaperplaneAppData(Paperplane paperplane) {
     final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -427,6 +442,7 @@ class PaperplaneProvider with ChangeNotifier {
       },
       'category': paperplane.category,
       'likes': paperplane.likes,
+      'views': 0,
       'user': paperplane.user,
     });
 

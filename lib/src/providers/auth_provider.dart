@@ -164,6 +164,7 @@ class AuthProvider with ChangeNotifier {
       'username': _displayName,
       'email': user.email,
       'role': 'bienaventurado',
+      'img': 'perfil-01',
       'type': 'bienaventurado',
       'connection': {
         'firstConnection': DateTime.now(),
@@ -376,48 +377,46 @@ class AuthProvider with ChangeNotifier {
   // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
   // MIGRACION BASE DE DATOS 1.4.3 A 1.4.4
 
-  // Future<bool> migrateUsersDB() async {
-  //   bool retVal = false;
-  //   await _db.collection('usuarios').get().then((QuerySnapshot snapshot) async {
-  //     print('${snapshot.docs.length} USUARIOS ENCONTRADOS EN FIRESTORE');
-  //     int _lenght = snapshot.docs.length;
-  //     for (var i = 0; i < _lenght; i++) {
-  //       migrateUser(snapshot.docs[i]);
-  //     }
-  //     retVal = true;
-  //   });
-  //   return retVal;
-  // }
+  Future<bool> migrateUserDB() async {
+    final user = _auth.currentUser;
+    await _db.collection('usuarios').doc(user!.uid).get().then((userResult) {
+      migrateUser(userResult);
+      //_db.collection('usuarios').doc(user.uid).delete();
+      print("ELIMINACION DE DOCUMENTO ${user.uid} EN DB USUARIOS");
+    });
+    return true;
+  }
 
-  // void migrateUser(DocumentSnapshot usuarioDoc) {
-  //   Map usuarioData = usuarioDoc.data()! as Map;
-  //   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  //   DocumentReference userRef = _db.collection('users').doc(usuarioDoc.id);
+  void migrateUser(DocumentSnapshot usuarioDoc) async {
+    Map usuarioData = usuarioDoc.data()! as Map;
+    final FirebaseFirestore _db = FirebaseFirestore.instance;
+    DocumentReference userRef = _db.collection('users').doc(usuarioDoc.id);
 
-  //   userRef.set({
-  //     'uid': usuarioDoc.id,
-  //     'username': usuarioData['nombre'],
-  //     'email': usuarioData['correo'],
-  //     'role': usuarioData['clase'],
-  //     'type': 'bienaventurado',
-  //     'connection': {
-  //       'firstConnection': usuarioData['primeraConexion'],
-  //       'lastConnection': usuarioData['ultimaConexion'],
-  //     },
-  //     'level': 1,
-  //     'stats': {
-  //       'total-xp': 0,
-  //       'action': 0,
-  //       'formation': 0,
-  //       'devotion': 0,
-  //       'prayer': 0,
-  //       'pplanes-builded': usuarioData['av-construidos'] ?? 0,
-  //       'pplanes-shared': usuarioData['av-compartidos'] ?? 0,
-  //       'constancy': usuarioData['actual-constancia'] ?? 1,
-  //       'best-constancy': usuarioData['mejor-constancia'] ?? 1,
-  //     },
-  //   }, SetOptions(merge: true));
-  // }
+    userRef.set({
+      'uid': usuarioDoc.id,
+      'username': usuarioData['nombre'],
+      'email': usuarioData['correo'],
+      'role': usuarioData['clase'],
+      'img': 'perfil-01',
+      'type': 'bienaventurado',
+      'connection': {
+        'firstConnection': usuarioData['primeraConexion'],
+        'lastConnection': usuarioData['ultimaConexion'],
+      },
+      'level': 1,
+      'stats': {
+        'total-xp': 0,
+        'action': 0,
+        'formation': 0,
+        'devotion': 0,
+        'prayer': 0,
+        'pplanes-builded': usuarioData['av-construidos'] ?? 0,
+        'pplanes-shared': usuarioData['av-compartidos'] ?? 0,
+        'constancy': usuarioData['actual-constancia'] ?? 1,
+        'best-constancy': usuarioData['mejor-constancia'] ?? 1,
+      },
+    }, SetOptions(merge: true));
+  }
 
   ////////////////////////////////////////
   ////////////////////////////////////////

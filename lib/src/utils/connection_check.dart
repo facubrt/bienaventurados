@@ -23,19 +23,32 @@ void connectionCheck(BuildContext context) async {
   lastConnection = prefs.lastConnection;
 
   if (lastConnection != null) {
-    // TODO 1.4.4 - PASO PRE-4 - LISTA DE AVIONCITOS EN FIRESTORE
+    // TODO 1.4.4 - FINALIZADO - PASO PRE-4 - LISTA DE AVIONCITOS EN FIRESTORE
     // paperplaneProvider.createListPaperplanesDB();
     // if (!prefs.migratedPaperplane) {
     /*
         TODO 1.4.4 FINALIZADO - PASO 1 - MIGRACION DE AVIONCITOS FIRESTORE
         */
-    // paperplaneProvider.migratePaperplanesDB().then((result) {
+    // paperplaneProvider.updatePaperplanesAppData().then((result) {
     //   if (result) {
     //     print('AVIONCITOS TRANFERIDOS');
     //   } else {
     //     print('NO SE TRANSFIRIERON LOS AVIONCITOS');
     //   }
     // });
+
+    if (prefs.appVersion != appVersion) {
+      print('INICIANDO MIGRACION DE USUARIO');
+      await authProvider.migrateUserDB().then((result) {
+        if (result) {
+          print('USUARIOS MIGRADOS CORRECTAMENTE');
+        } else {
+          print('ERROR');
+        }
+      });
+      // para evitar que se vuelva a ejecutar este bloque
+      prefs.appVersion = appVersion;
+    }
 
     /*
         TODO 1.4.4 FINALIZADO - PASO 2 - MIGRACION DE USUARIOS FIRESTORE
@@ -107,6 +120,8 @@ void connectionCheck(BuildContext context) async {
     print('PRIMERA VEZ');
     lastConnection = connection;
     prefs.lastConnection = connection;
+    // para evitar que el codigo unico de cambio de version se ejecute en nuevos usuarios
+    prefs.appVersion = await getAppVersion();
     await paperplaneProvider.firstTime();
     collectionProvider.getAllCollections();
     achievementProvider.initAchievements();

@@ -38,6 +38,8 @@ class Paperplane extends HiveObject with ChangeNotifier {
   int? likes;
   @HiveField(16)
   bool? saved;
+  @HiveField(17)
+  int? views;
 
   Paperplane({
     this.id,
@@ -55,6 +57,7 @@ class Paperplane extends HiveObject with ChangeNotifier {
     this.wings,
     this.likes,
     this.saved,
+    this.views,
   });
 
   factory Paperplane.fromFirestore(DocumentSnapshot paperplaneDoc) {
@@ -73,25 +76,26 @@ class Paperplane extends HiveObject with ChangeNotifier {
       pattern: paperplaneData['illustration']['pattern'],
       stamp: paperplaneData['illustration']['stamp'],
       wings: paperplaneData['illustration']['wings'],
-      likes: paperplaneData['likes'],
+      likes: paperplaneData['likes'] ?? 0,
       saved: false,
+      views: paperplaneData['views'] ?? 0,
     );
   }
 
   // MIGRACION 1.4.4 MODELO VIEJO A MODELO NUEVO - AVIONCITOS
-  factory Paperplane.fromFirestoreOldModel(DocumentSnapshot paperplaneDoc) {
-    Map paperplaneData = paperplaneDoc.data()! as Map;
-    return Paperplane(
-      id: paperplaneDoc.id,
-      date: DateTime.now(),
-      quote: paperplaneData['frase'],
-      source: paperplaneData['santo'],
-      inspiration: paperplaneData['reflexion'],
-      category: paperplaneData['tag'],
-      user: paperplaneData['usuario'],
-      saved: false,
-    );
-  }
+  // factory Paperplane.fromFirestoreOldModel(DocumentSnapshot paperplaneDoc) {
+  //   Map paperplaneData = paperplaneDoc.data()! as Map;
+  //   return Paperplane(
+  //     id: paperplaneDoc.id,
+  //     date: DateTime.now(),
+  //     quote: paperplaneData['frase'],
+  //     source: paperplaneData['santo'],
+  //     inspiration: paperplaneData['reflexion'],
+  //     category: paperplaneData['tag'],
+  //     user: paperplaneData['usuario'],
+  //     saved: false,
+  //   );
+  // }
 
   void setFromFirestore(DocumentSnapshot paperplaneDoc) {
     Map paperplaneData = paperplaneDoc.data()! as Map;
@@ -110,6 +114,7 @@ class Paperplane extends HiveObject with ChangeNotifier {
     wings = paperplaneData['illustration']['wings'];
     likes = paperplaneData['likes'];
     saved = false;
+    views = paperplaneData['views'];
     notifyListeners();
   }
 }
