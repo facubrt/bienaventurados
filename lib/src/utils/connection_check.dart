@@ -23,20 +23,6 @@ void connectionCheck(BuildContext context) async {
   lastConnection = prefs.lastConnection;
 
   if (lastConnection != null) {
-    // TODO 1.4.4 - FINALIZADO - PASO PRE-4 - LISTA DE AVIONCITOS EN FIRESTORE
-    // paperplaneProvider.createListPaperplanesDB();
-    // if (!prefs.migratedPaperplane) {
-    /*
-        TODO 1.4.4 FINALIZADO - PASO 1 - MIGRACION DE AVIONCITOS FIRESTORE
-        */
-    // paperplaneProvider.updatePaperplanesAppData().then((result) {
-    //   if (result) {
-    //     print('AVIONCITOS TRANFERIDOS');
-    //   } else {
-    //     print('NO SE TRANSFIRIERON LOS AVIONCITOS');
-    //   }
-    // });
-
     if (prefs.appVersion != appVersion) {
       print('INICIANDO MIGRACION DE USUARIO');
       await authProvider.migrateUserDB().then((result) {
@@ -50,50 +36,14 @@ void connectionCheck(BuildContext context) async {
       prefs.appVersion = appVersion;
     }
 
-    /*
-        TODO 1.4.4 FINALIZADO - PASO 2 - MIGRACION DE USUARIOS FIRESTORE
-        */
-    // print('INICIANDO MIGRACION DE USUARIOS');
-    // authProvider.migrateUsersDB().then((result) {
-    //   if (result) {
-    //     print('USUARIOS MIGRADOS CORRECTAMENTE');
-    //   } else {
-    //     print('ERROR');
-    //   }
-    // });
-
-    /* 
-        TODO 1.4.4 - PASO 4 usuario - MIGRACION DE AVIONCITOS LOCAL
-        */
-    // print('MIGRACION DE AVIONCITOS LOCAL');
-    // await paperplaneProvider.firstTime();
-
-    //CUANDO SE DESBLOQUEA UN LOGRO O COLECCIONALBE
-    //UPDATE COLLECTION
-    // authProvider.updateCollectionData('saint-joseph', true).then((result) {
-    //   if (result) {
-    //     print('DATOS DE COLECCION ACTUALIZADOS');
-    //   } else {
-    //     print('ERROR');
-    //   }
-    // });
-
-    // prefs.migratedPaperplane = true;
-    //}
     if (connection == lastConnection) {
       print('MISMO DIA');
-      //_coleccionDesbloqueada = prefs.coleccionDesbloqueada;
       await paperplaneProvider.isToday();
       await collectionProvider.getCollectibleUnlocked();
       achievementProvider.openAchievements();
       await collectionProvider.openCollectionsBox();
-      // print('CONSTANCIA AUMENTADA'); // PARA PROBAR CONSTANCIA
-      // achievementProvider.achievementsCheck('constancia'); // PARA PROBAR CONSTANCIA
-      // authProvider.increaseConstancy = true; // PARA PROBAR CONSTANCIA
     } else {
       print('NUEVO DIA');
-      //authProvider.updateUserData();
-      //infoProvider.actualizarInformacionApp('restaurar');
       final lastDay =
           DateTime(DateTime.now().year, DateTime.now().month, lastConnection);
       final newDay =
@@ -103,7 +53,6 @@ void connectionCheck(BuildContext context) async {
           print('CONSTANCIA AUMENTADA');
           achievementProvider.achievementsCheck('constancia');
           authProvider.increaseConstancy = true;
-          //authProvider.actualizarConstancia();
         } else {
           print('CONSTANCIA RESTABLECIDA');
           achievementProvider.restoreConstancy();

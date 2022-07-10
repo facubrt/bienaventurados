@@ -272,21 +272,20 @@ class _PaperplanePageState extends State<PaperplanePage> {
                         ? SizedBox.shrink()
                         : Row(
                             children: [
-                              Text(
-                                widget.paperplane.likes.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1!
-                                    .copyWith(
-                                      color: Theme.of(context).primaryColorDark,
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.036,
-                                    ),
-                              ),
+                              // Text(
+                              //   widget.paperplane.likes.toString(),
+                              //   style: Theme.of(context)
+                              //       .textTheme
+                              //       .subtitle1!
+                              //       .copyWith(
+                              //         color: Theme.of(context).primaryColorDark,
+                              //         fontSize:
+                              //             MediaQuery.of(context).size.width *
+                              //                 0.036,
+                              //       ),
+                              // ),
                               IconButton(
                                 onPressed: () {
-                                  // aumentar contador de me gustas en base de datos
                                   if (!widget.paperplane.saved!) {
                                     achievementProvider
                                         .achievementsCheck('guardados');

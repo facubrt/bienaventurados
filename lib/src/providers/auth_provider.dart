@@ -381,7 +381,7 @@ class AuthProvider with ChangeNotifier {
     final user = _auth.currentUser;
     await _db.collection('usuarios').doc(user!.uid).get().then((userResult) {
       migrateUser(userResult);
-      //_db.collection('usuarios').doc(user.uid).delete();
+      _db.collection('usuarios').doc(user.uid).delete();
       print("ELIMINACION DE DOCUMENTO ${user.uid} EN DB USUARIOS");
     });
     return true;

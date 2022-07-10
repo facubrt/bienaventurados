@@ -20,6 +20,9 @@
 # is commented out by default.
 #.vscode/
 
+# migrated functions
+migrated_function.dart
+
 # Flutter/Dart/Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
