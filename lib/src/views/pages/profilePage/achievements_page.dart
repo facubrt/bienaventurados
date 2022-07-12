@@ -1,8 +1,7 @@
 import 'package:bienaventurados/src/constants/constants.dart';
 import 'package:bienaventurados/src/models/logro_model.dart';
 import 'package:bienaventurados/src/providers/providers.dart';
-import 'package:bienaventurados/src/services/user_preferences.dart';
-import 'package:bienaventurados/src/theme/color_palette.dart';
+import 'package:bienaventurados/src/utils/utilities.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -21,32 +20,11 @@ class _AchievementsPageState extends State<AchievementsPage>
   @override
   Widget build(BuildContext context) {
     //TabController tabController = TabController(initialIndex: 0, vsync: this, length: tabs.length);
-    const ColorFilter greyscaleFilter = ColorFilter.matrix(<double>[
-      0.2126,
-      0.7152,
-      0.0722,
-      0,
-      0,
-      0.2126,
-      0.7152,
-      0.0722,
-      0,
-      0,
-      0.2126,
-      0.7152,
-      0.0722,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0,
-    ]);
+    ColorFilter greyscaleFilter = getGreyScaleFilter();
 
     final achievementProvider =
         Provider.of<AchievementProvider>(context, listen: false);
-    final prefs = UserPreferences();
+    // final prefs = UserPreferences();
     Box box = achievementProvider.getAchievements();
     return Scaffold(
       appBar: AppBar(
@@ -84,102 +62,102 @@ class _AchievementsPageState extends State<AchievementsPage>
               ),
             ),
             // SOLO PARA VERSION 1.4.4 - SINCRONIZACION CON LA NUBE
-            (!prefs.collectionsSync && prefs.appVersion == '1.4.4')
-                ? SliverPadding(
-                    padding: const EdgeInsets.only(
-                        left: 20.0, right: 20, bottom: 20),
-                    sliver: SliverToBoxAdapter(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(BORDER_RADIUS),
-                          color: Theme.of(context).colorScheme.tertiary,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            children: [
-                              Text(
-                                '¡Sincroniza tus insignias!',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1!
-                                    .copyWith(color: ColorPalette.primaryLight),
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.width * 0.04,
-                              ),
-                              Text(
-                                'Ya no más insignias perdidos cuando cambies de sesión. ¡Que emoción!',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
-                                        fontSize: 16,
-                                        color: ColorPalette.primaryLight),
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.width * 0.04,
-                              ),
-                              TextButton(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          ColorPalette.primaryDark
-                                              .withOpacity(0.2)),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10.0, vertical: 20.0),
-                                  child: Text(
-                                    'Sincronizar',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1!
-                                        .copyWith(
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.03,
-                                          color: ColorPalette.primaryLight,
-                                        ),
-                                  ),
-                                ),
-                                onPressed: () async {
-                                  //UPDATE ALL COLLECTION AND ACHIEVEMENT
-                                  final authProvider =
-                                      Provider.of<AuthProvider>(context,
-                                          listen: false);
-                                  final achievementProvider =
-                                      Provider.of<AchievementProvider>(context,
-                                          listen: false);
-                                  achievementProvider.openAchievements();
-                                  final achievements = Map<String, bool>();
+            // (!prefs.collectionsSync && prefs.appVersion == '1.4.4')
+            //     ? SliverPadding(
+            //         padding: const EdgeInsets.only(
+            //             left: 20.0, right: 20, bottom: 20),
+            //         sliver: SliverToBoxAdapter(
+            //           child: Container(
+            //             decoration: BoxDecoration(
+            //               borderRadius: BorderRadius.circular(BORDER_RADIUS),
+            //               color: Theme.of(context).colorScheme.tertiary,
+            //             ),
+            //             child: Padding(
+            //               padding: const EdgeInsets.all(20.0),
+            //               child: Column(
+            //                 children: [
+            //                   Text(
+            //                     '¡Sincroniza tus insignias!',
+            //                     style: Theme.of(context)
+            //                         .textTheme
+            //                         .subtitle1!
+            //                         .copyWith(color: ColorPalette.primaryLight),
+            //                   ),
+            //                   SizedBox(
+            //                     height:
+            //                         MediaQuery.of(context).size.width * 0.04,
+            //                   ),
+            //                   Text(
+            //                     'Ya no más insignias perdidos cuando cambies de sesión. ¡Que emoción!',
+            //                     style: Theme.of(context)
+            //                         .textTheme
+            //                         .bodyText1!
+            //                         .copyWith(
+            //                             fontSize: 16,
+            //                             color: ColorPalette.primaryLight),
+            //                   ),
+            //                   SizedBox(
+            //                     height:
+            //                         MediaQuery.of(context).size.width * 0.04,
+            //                   ),
+            //                   TextButton(
+            //                     style: ButtonStyle(
+            //                       backgroundColor:
+            //                           MaterialStateProperty.all<Color>(
+            //                               ColorPalette.primaryDark
+            //                                   .withOpacity(0.2)),
+            //                     ),
+            //                     child: Padding(
+            //                       padding: const EdgeInsets.symmetric(
+            //                           horizontal: 10.0, vertical: 20.0),
+            //                       child: Text(
+            //                         'Sincronizar',
+            //                         style: Theme.of(context)
+            //                             .textTheme
+            //                             .subtitle1!
+            //                             .copyWith(
+            //                               fontSize: MediaQuery.of(context)
+            //                                       .size
+            //                                       .width *
+            //                                   0.03,
+            //                               color: ColorPalette.primaryLight,
+            //                             ),
+            //                       ),
+            //                     ),
+            //                     onPressed: () async {
+            //                       //UPDATE ALL COLLECTION AND ACHIEVEMENT
+            //                       final authProvider =
+            //                           Provider.of<AuthProvider>(context,
+            //                               listen: false);
+            //                       final achievementProvider =
+            //                           Provider.of<AchievementProvider>(context,
+            //                               listen: false);
+            //                       achievementProvider.openAchievements();
+            //                       final achievements = Map<String, bool>();
 
-                                  Box box =
-                                      achievementProvider.getAchievements();
-                                  box.values.forEach((achievement) {
-                                    if (achievement.desbloqueado) {
-                                      achievements.addAll({
-                                        '${achievement.titulo}':
-                                            achievement.desbloqueado
-                                      });
-                                    }
-                                    prefs.achievementsSync = true;
-                                  });
-                                  //ACA SE LLAMA A LA FUNCION QUE SUBE A LA NUBE EL ARRAY
-                                  achievementProvider.updateAllAchievementsData(
-                                      authProvider.user.uid!, achievements);
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                : SliverToBoxAdapter(child: SizedBox.shrink()),
+            //                       Box box =
+            //                           achievementProvider.getAchievements();
+            //                       box.values.forEach((achievement) {
+            //                         if (achievement.desbloqueado) {
+            //                           achievements.addAll({
+            //                             '${achievement.titulo}':
+            //                                 achievement.desbloqueado
+            //                           });
+            //                         }
+            //                         prefs.achievementsSync = true;
+            //                       });
+            //                       //ACA SE LLAMA A LA FUNCION QUE SUBE A LA NUBE EL ARRAY
+            //                       achievementProvider.updateAllAchievementsData(
+            //                           authProvider.user.uid!, achievements);
+            //                     },
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       )
+            //     : SliverToBoxAdapter(child: SizedBox.shrink()),
             /////////////////////////////////////////
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),

@@ -23,26 +23,21 @@ void connectionCheck(BuildContext context) async {
   lastConnection = prefs.lastConnection;
 
   if (lastConnection != null) {
+    // Codigo único de cambio de versión
     if (prefs.appVersion != appVersion) {
-      print('INICIANDO MIGRACION DE USUARIO');
-      await authProvider.migrateUserDB().then((result) {
-        if (result) {
-          print('USUARIOS MIGRADOS CORRECTAMENTE');
-        } else {
-          print('ERROR');
-        }
-      });
+      print('ESTE USUARIO ESTÁ USANDO LA VERSIÓN ANTERIOR $appVersion');
       // para evitar que se vuelva a ejecutar este bloque
       prefs.appVersion = appVersion;
     }
-
     if (connection == lastConnection) {
+      // MISMO DÍA
       print('MISMO DIA');
       await paperplaneProvider.isToday();
       await collectionProvider.getCollectibleUnlocked();
       achievementProvider.openAchievements();
       await collectionProvider.openCollectionsBox();
     } else {
+      // NUEVO DÍA
       print('NUEVO DIA');
       final lastDay =
           DateTime(DateTime.now().year, DateTime.now().month, lastConnection);
@@ -66,6 +61,7 @@ void connectionCheck(BuildContext context) async {
       collectionProvider.collectionsCheck();
     }
   } else {
+    // PRIMERA VEZ
     print('PRIMERA VEZ');
     lastConnection = connection;
     prefs.lastConnection = connection;

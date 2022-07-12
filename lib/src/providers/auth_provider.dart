@@ -40,11 +40,20 @@ class AuthProvider with ChangeNotifier {
   Future<bool> getUserData(String uid) async {
     await _localDB.openBox().then((result) async {
       if (result) {
-        /*
-        TODO 1.4.4 - PASO 3 usuario - MIGRACION DE USUARIO LOCAL
-        */
         final prefs = UserPreferences();
+
+        //TODO 1.4.4 - PASO 3 usuario - MIGRACION DE USUARIO FIRESTORE Y LOCAL
         if (!prefs.migratedUser) {
+          // MIGRACION DE USUARIO FIRESTORE
+          print('INICIANDO MIGRACION DE USUARIO FIRESTORE');
+          await migrateUserDB().then((result) {
+            if (result) {
+              print('USUARIOS MIGRADOS CORRECTAMENTE');
+            } else {
+              print('ERROR');
+            }
+          });
+          // MIGRACION DE USUARIO LOCAL
           print('MIGRACION DE USUARIO LOCAL');
           DocumentSnapshot userSnap = await _db
               .collection(COLLECTION_USERS)
@@ -380,9 +389,13 @@ class AuthProvider with ChangeNotifier {
   Future<bool> migrateUserDB() async {
     final user = _auth.currentUser;
     await _db.collection('usuarios').doc(user!.uid).get().then((userResult) {
-      migrateUser(userResult);
-      _db.collection('usuarios').doc(user.uid).delete();
-      print("ELIMINACION DE DOCUMENTO ${user.uid} EN DB USUARIOS");
+      if (userResult.exists) {
+        migrateUser(userResult);
+        _db.collection('usuarios').doc(user.uid).delete();
+        print("ELIMINACION DE DOCUMENTO ${user.uid} EN DB USUARIOS");
+      } else {
+        print('ESTE USUARIO YA FUE MIGRADO');
+      }
     });
     return true;
   }

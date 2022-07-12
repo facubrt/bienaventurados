@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 
 int createUniqueId() {
@@ -39,4 +40,30 @@ Future<String?> getBuildNumber() async {
 
 int getRandomInt(int max) {
   return Random().nextInt(max) + 1;
+}
+
+ColorFilter getGreyScaleFilter() {
+  ColorFilter greyscaleFilter = ColorFilter.matrix(<double>[
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0.5,
+    0,
+  ]);
+  return greyscaleFilter;
 }

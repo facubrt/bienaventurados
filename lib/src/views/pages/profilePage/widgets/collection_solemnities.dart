@@ -1,4 +1,5 @@
 import 'package:bienaventurados/src/providers/providers.dart';
+import 'package:bienaventurados/src/utils/utilities.dart';
 import 'package:bienaventurados/src/views/widgets/collectible_widget.dart';
 import 'package:bienaventurados/src/views/widgets/floating_modal.dart';
 import 'package:flutter/material.dart';
@@ -13,28 +14,8 @@ class CollectionSolemnities extends StatelessWidget {
   Widget build(BuildContext context) {
     final collectionProvider = Provider.of<CollectionProvider>(context);
     Box box = collectionProvider.getCollections();
-    const ColorFilter greyscaleFilter = ColorFilter.matrix(<double>[
-      0.2126,
-      0.7152,
-      0.0722,
-      0,
-      0,
-      0.2126,
-      0.7152,
-      0.0722,
-      0,
-      0,
-      0.2126,
-      0.7152,
-      0.0722,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0.5,
-      0,
-    ]);
+    ColorFilter greyscaleFilter = getGreyScaleFilter();
+
     List collection = [];
     box.values.where((collectible) => collectible.tipo == 'Solemnidad').forEach(
       (collectible) {
