@@ -26,3 +26,7 @@ Por eso, queremos invitarte a esta nueva aventura para caminar juntos. Y como no
   <img src="https://firebasestorage.googleapis.com/v0/b/ser-eucaristia.appspot.com/o/appData%2Fimg-04-play-store.png?alt=media&token=6521f2a4-366c-4600-a187-8d00dc490977" height: auto width= 200 style="border-radius:50%">
     <img src="https://firebasestorage.googleapis.com/v0/b/ser-eucaristia.appspot.com/o/appData%2Fimg-05-play-store.png?alt=media&token=5b4df052-88d3-43ea-9f3c-126752611e51" height: auto width= 200 style="border-radius:50%">
 </p>
+
+## Acerca de
+<p>Ser Eucaristía es jugar para compartir la Fe, es jugar para acercarnos a Dios desde la mirada del amor, para llevar a todas partes el mensaje de Cristo Vivo.</p>
+<a href="https://ser-eucaristia.web.app/index.html" target="_blank">Página web de Ser Eucaristía</a>
