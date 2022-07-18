@@ -46,13 +46,7 @@ class AuthProvider with ChangeNotifier {
         if (!prefs.migratedUser) {
           // MIGRACION DE USUARIO FIRESTORE
           print('INICIANDO MIGRACION DE USUARIO FIRESTORE');
-          await migrateUserDB().then((result) {
-            if (result) {
-              print('USUARIOS MIGRADOS CORRECTAMENTE');
-            } else {
-              print('ERROR');
-            }
-          });
+          await migrateUserDB();
           // MIGRACION DE USUARIO LOCAL
           print('MIGRACION DE USUARIO LOCAL');
           DocumentSnapshot userSnap = await _db

@@ -42,34 +42,6 @@ class PaperplaneProvider with ChangeNotifier {
         await getPplaneFromFirestore().then((isPaperplane) async {
           print('AVIONCITO DE HOY OBTENIDO DE FIRESTORE');
         });
-        // await getPaperplanesFromLocal().then((isPaperplanes) async {
-        //   if (isPaperplanes) {
-        //     await getPaperplaneToday().then((result) {
-        //       if (result) {
-        //         _isPaperplane = true;
-        //         notifyListeners();
-        //       }
-        //     });
-        //   }
-        // });
-      }
-    });
-  }
-
-  // MIGRACION DE AVIONCITOS LOCAL 1.4.4
-  Future<void> migrateLocalPaperplanes() async {
-    await _localDB.openBox().then((isOpenBox) async {
-      if (isOpenBox) {
-        await getPaperplanesFromFirestore().then((isPaperplanes) async {
-          if (isPaperplanes) {
-            await getPaperplaneToday().then((result) {
-              if (result) {
-                _isPaperplane = true;
-                notifyListeners();
-              }
-            });
-          }
-        });
       }
     });
   }
@@ -77,12 +49,18 @@ class PaperplaneProvider with ChangeNotifier {
   Future<void> isToday() async {
     await _localDB.openBox().then((isOpenBox) async {
       if (isOpenBox) {
-        await getPaperplaneToday().then((result) {
-          if (result) {
-            _isPaperplane = true;
-            notifyListeners();
-          }
-        });
+        // TODO 1.4.4 - PASO 4 usuario - MIGRACION DE AVIONCITOS LOCAL
+        if (!prefs.migratedPaperplane) {
+          await getPplaneFromFirestore();
+          print('AVIONCITO DE HOY OBTENIDO DE FIRESTORE');
+          prefs.migratedPaperplane = true;
+        } else {
+          //
+          await getPplaneToday();
+          print('AVIONCITO DE HOY OBTENIDO DE LOCAL');
+        }
+        _isPaperplane = true;
+        notifyListeners();
       }
     });
   }
@@ -92,23 +70,7 @@ class PaperplaneProvider with ChangeNotifier {
       if (isOpenBox) {
         await getPplaneFromFirestore().then((isPaperplane) async {
           print('AVIONCITO DE HOY OBTENIDO DE FIRESTORE');
-          // await getPaperplaneToday().then((result) {
-          //   if (result) {
-          //     _isPaperplane = true;
-          //     notifyListeners();
-          //   }
-          // });
         });
-        // await getPaperplanesFromLocal().then((isPaperplanes) async {
-        //   if (isPaperplanes) {
-        //     await getPaperplaneToday().then((result) {
-        //       if (result) {
-        //         _isPaperplane = true;
-        //         notifyListeners();
-        //       }
-        //     });
-        //   }
-        // });
       }
     });
   }
@@ -140,59 +102,7 @@ class PaperplaneProvider with ChangeNotifier {
     return retVal;
   }
 
-  Future<bool> getPaperplanesFromLocal() async {
-    //generateUniquePaperplane();
-    paperplanesBox = _localDB.getPaperplanes();
-    if (paperplanesBox!.isEmpty) {
-      await getPaperplanesFromFirestore().then((listo) {
-        if (listo) {
-          // nAvioncito = Random().nextInt(_avioncitos.length);
-          _paperplane = _localDB.getTodayPaperplane();
-          _paperplane.date = DateTime.now();
-          _localDB.setTodayPaperplane(_paperplane);
-          _localDB.deleteTodayPaperplane();
-          return true;
-        }
-      });
-    } else {
-      _paperplane = _localDB.getTodayPaperplane();
-      _paperplane.date = DateTime.now();
-      //_paperplane.visto = true;
-      _localDB.setTodayPaperplane(_paperplane);
-      _localDB.deleteTodayPaperplane();
-    }
-    return true;
-  }
-
-  Future<bool> getPaperplanesFromFirestore() async {
-    _paperplanes.clear();
-    bool retVal = false;
-    await _fireDB
-        .collection(COLLECTION_APPDATA)
-        .doc(COLLECTION_APPDATA_PPLANESDATA)
-        .collection(COLLECTION_APPDATA_PPLANESDATA_PPLANES)
-        .get()
-        .then((QuerySnapshot snapshot) async {
-      print('${snapshot.docs.length} AVIONCITOS ENCONTRADOS EN FIRESTORE');
-      int _diasRestantes = DateTime(DateTime.now().year + 1, 1, 1, 0, 0)
-          .difference(DateTime.now())
-          .inDays;
-      int _lenght = snapshot.docs.length;
-      if (_diasRestantes < snapshot.docs.length) {
-        _lenght = _diasRestantes;
-      }
-      for (var i = 0; i < _lenght; i++) {
-        Paperplane av = Paperplane.fromFirestore(snapshot.docs[i]);
-        _paperplanes.add(av);
-      }
-      _paperplanes.shuffle();
-      _localDB.setAvioncitos(_paperplanes);
-      retVal = true;
-    });
-    return retVal;
-  }
-
-  Future<bool> getPaperplaneToday() async {
+  Future<bool> getPplaneToday() async {
     _paperplane = await _localDB.getHoy()!.get(0);
     return true;
   }
