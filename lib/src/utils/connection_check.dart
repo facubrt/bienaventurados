@@ -65,6 +65,9 @@ void connectionCheck(BuildContext context) async {
     print('PRIMERA VEZ');
     lastConnection = connection;
     prefs.lastConnection = connection;
+    // EVITA QUE EL CODIGO DE MIGRACION SE EJECUTE
+    prefs.migratedPaperplane = true;
+    prefs.migratedUser = true;
     // para evitar que el codigo unico de cambio de version se ejecute en nuevos usuarios
     prefs.appVersion = await getAppVersion();
     await paperplaneProvider.firstTime();
